@@ -1,7 +1,7 @@
 import React from 'react';
 
-const mbit = () => {
+const mbti = () => {
     return <></>;
 };
 
-export default mbit;
+export default mbti;
