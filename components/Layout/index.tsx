@@ -10,7 +10,7 @@ export default Layout;
 
 const StyledLayout = css`
     min-width: 300px;
-    max-width: 600px;
+    max-width: 767px;
     height: 100vh;
     margin: 0 auto;
     border: 1px solid #000000;
