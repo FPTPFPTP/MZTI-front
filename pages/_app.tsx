@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <QueryClientProvider client={queryClient}>
             <RecoilRoot>
-                <Component {...pageProps} />;
+                <Component {...pageProps} />
             </RecoilRoot>
         </QueryClientProvider>
     );
