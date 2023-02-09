@@ -1,7 +1,7 @@
 import React from 'react';
 
-const photo = () => {
+const Layout = () => {
     return <></>;
 };
 
-export default photo;
+export default Layout;
