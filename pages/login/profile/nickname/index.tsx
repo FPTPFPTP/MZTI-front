@@ -2,7 +2,8 @@ import React from 'react';
 import { Layout, HeaderWrapper, BodyWrapper, FooterWrapper } from './styled';
 import { useForm } from 'react-hook-form';
 import { Button, Input } from '@components/Commons';
-import { StepProgressBar } from '@components/Layout/SignUpLayout';
+import { MbtiTouch, StepProgressBar } from '@components/Layout/SignUpLayout';
+
 const nickname = () => {
     const {
         register,
@@ -23,6 +24,7 @@ const nickname = () => {
 
                     <input type="submit" />
                 </form>
+                <MbtiTouch />
             </div>
             <div css={FooterWrapper}>
                 <Button buttonStyle={'text'}>이전단계로</Button>
