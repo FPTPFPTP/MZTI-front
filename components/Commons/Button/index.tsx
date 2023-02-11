@@ -24,17 +24,17 @@ const Button = (buttonProps: TButtonProps & { buttonStyle?: TButtonStyleUnion })
 export default Button;
 
 export const BaseButton = (buttonProps: TButtonProps) => {
-    const { children, className, ...rest } = buttonProps;
+    const { children, ...rest } = buttonProps;
 
     return (
-        <button {...rest} css={BaseButtonStyle}>
+        <button css={BaseButtonStyle} {...rest}>
             {children}
         </button>
     );
 };
 
 export const TextButton = (buttonProps: TButtonProps) => {
-    const { children, className, ...rest } = buttonProps;
+    const { children, ...rest } = buttonProps;
 
     return (
         <button {...rest} css={TextButtonStyle}>

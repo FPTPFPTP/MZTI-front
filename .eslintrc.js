@@ -24,6 +24,8 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
         'react/no-unknown-property': ['error', { ignore: ['css'] }],
+        'react/no-unescaped-entities': 'off',
+        '@next/next/no-page-custom-font': 'off',
     },
     settings: {
         react: {
