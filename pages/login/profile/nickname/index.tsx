@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, HeaderWrapper, BodyWrapper, FooterWrapper } from './styled';
 import { useForm } from 'react-hook-form';
 import { Button, Input } from '@components/Commons';
+import { Upload } from '@components/SignUp';
 import { MbtiTouch, StepProgressBar } from '@components/Layout/SignUpLayout';
 
 const nickname = () => {
@@ -18,6 +19,7 @@ const nickname = () => {
                 <StepProgressBar items={['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력']} active={2} />
             </div>
             <div css={BodyWrapper}>
+                <Upload />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Input inputStyle={'borderLess'} {...register('nickname', { required: true })} />
                     {errors.exampleRequired && <span>This field is required</span>}
