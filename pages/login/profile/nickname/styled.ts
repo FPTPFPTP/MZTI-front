@@ -6,7 +6,9 @@ export const Layout = css`
 `;
 
 export const HeaderWrapper = css`
-    padding: 20px;
+    width: 100%;
+    height: 100px;
+    padding: 10px 20px;
     border-bottom: 1px solid #000000;
 `;
 

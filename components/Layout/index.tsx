@@ -13,5 +13,7 @@ const StyledLayout = css`
     max-width: 767px;
     height: 100vh;
     margin: 0 auto;
-    border: 1px solid #000000;
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+    box-shadow: 5px 0 5px #eee;
 `;
