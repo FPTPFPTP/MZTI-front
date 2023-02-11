@@ -17,7 +17,8 @@ const nickname = () => {
             <div css={HeaderWrapper}>header</div>
             <div css={BodyWrapper}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input {...register('nickname', { required: true })} />
+                    <Input inputStyle={'borderLess'} {...register('nickname', { required: true })} />
+                    <Input {...register('test', { required: true })} />
 
                     {errors.exampleRequired && <span>This field is required</span>}
 

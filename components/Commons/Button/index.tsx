@@ -6,9 +6,9 @@ const ButtonStyleUnionList = ['base', 'text'] as const;
 
 type TButtonStyleUnion = (typeof ButtonStyleUnionList)[number];
 
-type IButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+type TButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-const Button = (buttonProps: IButtonProps & { buttonStyle?: TButtonStyleUnion }) => {
+const Button = (buttonProps: TButtonProps & { buttonStyle?: TButtonStyleUnion }) => {
     const { buttonStyle = 'base', ...rest } = buttonProps;
 
     switch (buttonStyle) {
@@ -23,7 +23,7 @@ const Button = (buttonProps: IButtonProps & { buttonStyle?: TButtonStyleUnion })
 
 export default Button;
 
-export const BaseButton = (buttonProps: IButtonProps) => {
+export const BaseButton = (buttonProps: TButtonProps) => {
     const { children, className, ...rest } = buttonProps;
 
     return (
@@ -33,7 +33,7 @@ export const BaseButton = (buttonProps: IButtonProps) => {
     );
 };
 
-export const TextButton = (buttonProps: IButtonProps) => {
+export const TextButton = (buttonProps: TButtonProps) => {
     const { children, className, ...rest } = buttonProps;
 
     return (
