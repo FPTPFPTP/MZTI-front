@@ -1,21 +1,23 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
-import { BaseButtonStyle } from './styled';
+import { BaseButtonStyle, TextButtonStyle } from './styled';
 
-const ButtonStyleUnionList = ['base'] as const;
+const ButtonStyleUnionList = ['base', 'text'] as const;
 
 type TButtonStyleUnion = (typeof ButtonStyleUnionList)[number];
 
-type IButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+type IButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
 const Button = (buttonProps: IButtonProps & { buttonStyle?: TButtonStyleUnion }) => {
     const { buttonStyle = 'base', ...rest } = buttonProps;
 
-    if (buttonStyle === 'base') {
-        return <BaseButton {...rest} />;
-    } else {
-        console.error(`Unknown button style: ${buttonStyle}`);
-        return null;
+    switch (buttonStyle) {
+        case 'base':
+            return <BaseButton {...rest} />;
+        case 'text':
+            return <TextButton {...rest} />;
+        default:
+            return <BaseButton {...rest} />;
     }
 };
 
@@ -26,6 +28,16 @@ export const BaseButton = (buttonProps: IButtonProps) => {
 
     return (
         <button {...rest} css={BaseButtonStyle}>
+            {children}
+        </button>
+    );
+};
+
+export const TextButton = (buttonProps: IButtonProps) => {
+    const { children, className, ...rest } = buttonProps;
+
+    return (
+        <button {...rest} css={TextButtonStyle}>
             {children}
         </button>
     );

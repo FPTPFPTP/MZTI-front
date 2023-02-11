@@ -25,6 +25,7 @@ const nickname = () => {
                 </form>
             </div>
             <div css={FooterWrapper}>
+                <Button buttonStyle={'text'}>이전단계로</Button>
                 <Button buttonStyle={'base'}>다음단계로</Button>
             </div>
         </div>

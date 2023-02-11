@@ -17,6 +17,9 @@ export const BodyWrapper = css`
 `;
 
 export const FooterWrapper = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     padding: 20px;
 `;
