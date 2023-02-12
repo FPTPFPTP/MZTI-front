@@ -5,3 +5,7 @@ export const Container = css`
     flex-direction: column;
     align-items: center;
 `;
+
+export const ContentWrap = css`
+    width: 100%;
+`;

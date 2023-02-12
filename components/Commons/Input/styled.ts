@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 export const InputWrap = css`
     display: flex;
     align-items: center;
+    width: 100%;
     border: 1px solid #000000;
     padding: 4px 8px;
     gap: 0.5rem;
