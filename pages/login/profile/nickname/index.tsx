@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, HeaderWrapper, BodyWrapper, FooterWrapper } from './styled';
-import { Button, Input } from '@components/Commons';
-import { MbtiTouch, StepProgressBar } from '@components/Layout/SignUpLayout';
-import { IntroduceContent, MbtiContent, Nickname as NicknameContent, ProfileContent } from '@components/SignUp';
+import { Button } from '@components/Commons';
+import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent, StepProgressBar } from '@components/SignUp';
 
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
