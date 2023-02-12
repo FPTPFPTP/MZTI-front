@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Layout, HeaderWrapper, BodyWrapper, FooterWrapper } from './styled';
 import { Button, Input } from '@components/Commons';
 import { MbtiTouch, StepProgressBar } from '@components/Layout/SignUpLayout';
-import { MbtiContent, Nickname as NicknameContent } from '@components/SignUp';
+import { IntroduceContent, MbtiContent, Nickname as NicknameContent } from '@components/SignUp';
 
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
@@ -37,7 +37,7 @@ const Nickname = () => {
             <div css={BodyWrapper}>
                 {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
                 {stepActive === 2 && <MbtiContent />}
-                {stepActive === 3 && <div>한줄자기소개</div>}
+                {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
                 {stepActive === 4 && <div>프로필ㄴ</div>}
             </div>
             <div css={FooterWrapper}>
