@@ -22,6 +22,8 @@ export const TextButtonStyle = css`
     ${DefaultStyle};
     background: none;
     color: #000000;
+    text-decoration: underline;
+    text-underline-position: under;
     &:hover {
         transform: scale(1.1);
     }
