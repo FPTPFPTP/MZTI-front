@@ -1,35 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout, HeaderWrapper, BodyWrapper, FooterWrapper } from './styled';
-import { useForm } from 'react-hook-form';
 import { Button, Input } from '@components/Commons';
 import { MbtiTouch, StepProgressBar } from '@components/Layout/SignUpLayout';
+import { Nickname as NicknameContent } from '@components/SignUp';
+const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
 const Nickname = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    const [stepActive, setStepActive] = useState(1);
 
-    const onSubmit = (data: any) => console.log(data);
+    const onSubmit = (data: any) => {
+        console.log('nickname', data);
+        if (data.nickname) {
+            setStepActive((prev) => prev + 1);
+        }
+    };
+
+    const onPrev = () => {
+        if (stepActive <= 1) {
+            return;
+        }
+        setStepActive((prev) => prev - 1);
+    };
+    const onNext = () => {
+        if (stepActive >= STEP_ITEMS.length) {
+            return;
+        }
+        setStepActive((prev) => prev + 1);
+    };
 
     return (
         <div css={Layout}>
             <div css={HeaderWrapper}>
-                <StepProgressBar items={['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력']} active={2} />
+                <StepProgressBar items={STEP_ITEMS} active={stepActive} />
             </div>
             <div css={BodyWrapper}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input inputStyle={'borderLess'} {...register('nickname', { required: true })} />
-                    {errors.exampleRequired && <span>This field is required</span>}
-
-                    <input type="submit" />
-                </form>
-                <MbtiTouch />
+                {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
+                {stepActive === 2 && <MbtiTouch />}
+                {stepActive === 3 && <div>한줄자기소개</div>}
+                {stepActive === 4 && <div>프로필ㄴ</div>}
             </div>
             <div css={FooterWrapper}>
-                <Button buttonStyle={'text'}>이전단계로</Button>
-                <Button buttonStyle={'base'}>다음단계로</Button>
+                <Button buttonStyle={'text'} onClick={onPrev}>
+                    이전단계로
+                </Button>
+                <Button buttonStyle={'base'} onClick={onNext}>
+                    다음단계로
+                </Button>
             </div>
         </div>
     );
