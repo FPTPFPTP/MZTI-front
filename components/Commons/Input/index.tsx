@@ -10,7 +10,6 @@ type TInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTML
 
 const Input = (inputProps: TInputProps & { inputStyle?: TInputStyleUnion }, ref: any) => {
     const { inputStyle = 'base', ...rest } = inputProps;
-
     BaseInput.displayName = 'BaseInput';
     BorderLessInput.displayName = 'BorderLessInput';
 
@@ -27,23 +26,27 @@ const Input = (inputProps: TInputProps & { inputStyle?: TInputStyleUnion }, ref:
 export default React.forwardRef(Input);
 
 const BaseInput = React.forwardRef((inputProps: TInputProps & { inputStyle?: TInputStyleUnion }, ref: any) => {
-    const { ...props } = inputProps;
+    const { ...rest } = inputProps;
 
     return (
         <div css={InputWrap}>
-            <input css={InputStyle} ref={ref} {...props} />
-            <CloseCircleOutlined />
+            <input css={InputStyle} ref={ref} {...rest} />
+            <button type={'reset'}>
+                <CloseCircleOutlined />
+            </button>
         </div>
     );
 });
 
 const BorderLessInput = React.forwardRef((inputProps: TInputProps & { inputStyle?: TInputStyleUnion }, ref: any) => {
-    const { ...props } = inputProps;
+    const { ...rest } = inputProps;
 
     return (
         <div css={BorderlessWrap}>
-            <input css={InputStyle} ref={ref} {...props} />
-            <CloseCircleOutlined />
+            <input css={InputStyle} ref={ref} {...rest} />
+            <button type={'reset'}>
+                <CloseCircleOutlined />
+            </button>
         </div>
     );
 });
