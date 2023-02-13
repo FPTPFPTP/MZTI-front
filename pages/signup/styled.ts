@@ -14,14 +14,18 @@ export const HeaderWrapper = css`
 
 export const BodyWrapper = css`
     padding: 20px;
-    height: calc(100% - 13%);
+    height: calc(100% - 250px);
     border-bottom: 1px solid #000000;
 `;
 
 export const FooterWrapper = css`
+    position: absolute;
+    bottom: 0px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     padding: 20px;
+    gap: 0.5rem;
 `;
