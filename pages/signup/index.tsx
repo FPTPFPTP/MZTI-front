@@ -5,7 +5,7 @@ import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent, StepPro
 
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
-const Nickname = () => {
+const SignUp = () => {
     const [stepActive, setStepActive] = useState(1);
 
     const onSubmit = (data: any) => {
@@ -51,4 +51,4 @@ const Nickname = () => {
     );
 };
 
-export default Nickname;
+export default SignUp;
