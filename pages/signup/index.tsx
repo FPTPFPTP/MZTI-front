@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, HeaderWrapper, BodyWrapper, FooterWrapper } from './styled';
 import { Button } from '@components/Commons';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent, StepProgressBar } from '@components/SignUp';
@@ -8,9 +8,13 @@ const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로�
 const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
     const [isError, setIsError] = useState<boolean>(false);
-    const onSubmit = (data: any) => {
+
+    const onSubmit = (data: { nickname?: string; introduce: string }) => {
         if (data.nickname) {
-            setStepActive((prev) => prev + 1);
+            onNext();
+        }
+        if (data.introduce) {
+            onNext();
         }
     };
 
@@ -20,6 +24,7 @@ const SignUp = () => {
         }
         setStepActive((prev) => prev - 1);
     };
+
     const onNext = () => {
         if (stepActive >= STEP_ITEMS.length) {
             return;
@@ -42,7 +47,7 @@ const SignUp = () => {
                 <Button buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
                     이전단계로
                 </Button>
-                <Button buttonStyle={'base'} disabled={stepActive === STEP_ITEMS.length || isError ? true : false} onClick={onNext}>
+                <Button buttonStyle={'base'} disabled={isError ? true : false} onClick={onNext}>
                     다음단계로
                 </Button>
             </div>

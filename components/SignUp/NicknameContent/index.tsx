@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography } from 'antd';
 import { useForm } from 'react-hook-form';
 import { Input } from '@components/Commons';
@@ -13,6 +13,14 @@ const Nickname = ({ onSubmit, isError, handleIsError }: { onSubmit: (data: any) 
         formState: { errors },
     } = useForm();
     const { nickname } = watch();
+
+    useEffect(() => {
+        if (!nickname && !isError) {
+            handleIsError(true);
+        } else if (nickname && isError) {
+            handleIsError(false);
+        }
+    }, [nickname, isError]);
 
     return (
         <div css={Container}>
