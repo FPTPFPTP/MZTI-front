@@ -17,7 +17,7 @@ export const BaseButtonStyle = css`
     color: ${colors.WHITE};
     box-shadow: ${colors.BOX_SHADOW};
     &:hover {
-        transform: scale(1.1);
+        transform: scale(1.02);
         box-shadow: ${colors.BOX_SHADOW};
     }
     &:disabled {
@@ -36,7 +36,7 @@ export const TextButtonStyle = css`
     text-decoration: underline;
     text-underline-position: under;
     &:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
     &:disabled {
         color: ${colors.GRAY_BRIGHT_1};

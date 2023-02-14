@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import colors from '@styles/color';
 
 export const Container = css`
     display: flex;
@@ -8,4 +9,8 @@ export const Container = css`
 
 export const ContentWrap = css`
     width: 100%;
+    .form-item-error {
+        margin-top: 0.5rem;
+        color: ${colors.RED_ORIGIN};
+    }
 `;

@@ -6,10 +6,9 @@ import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent, StepPro
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
 const SignUp = () => {
-    const [stepActive, setStepActive] = useState(1);
-
+    const [stepActive, setStepActive] = useState<number>(1);
+    const [isError, setIsError] = useState<boolean>(false);
     const onSubmit = (data: any) => {
-        console.log('nickname', data);
         if (data.nickname) {
             setStepActive((prev) => prev + 1);
         }
@@ -34,16 +33,16 @@ const SignUp = () => {
                 <StepProgressBar items={STEP_ITEMS} active={stepActive} />
             </div>
             <div css={BodyWrapper}>
-                {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
+                {stepActive === 1 && <NicknameContent onSubmit={onSubmit} isError={isError} handleIsError={(isError) => setIsError(isError)} />}
                 {stepActive === 2 && <MbtiContent />}
                 {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
                 {stepActive === 4 && <ProfileContent />}
             </div>
             <div css={FooterWrapper}>
-                <Button buttonStyle={'text'} onClick={onPrev}>
+                <Button buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
                     이전단계로
                 </Button>
-                <Button buttonStyle={'base'} onClick={onNext}>
+                <Button buttonStyle={'base'} disabled={stepActive === STEP_ITEMS.length || isError ? true : false} onClick={onNext}>
                     다음단계로
                 </Button>
             </div>
