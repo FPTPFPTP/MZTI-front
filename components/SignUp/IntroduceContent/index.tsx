@@ -7,9 +7,12 @@ import { Container, ContentWrap } from './styled';
 const IntroduceContent = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
     const {
         register,
+        watch,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm();
+    const { introduce } = watch();
 
     return (
         <div css={Container}>
@@ -17,8 +20,8 @@ const IntroduceContent = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
                 한 줄 소개를 입력해주세요.
             </Typography.Title>
             <form css={ContentWrap} onSubmit={handleSubmit(onSubmit)}>
-                <Input inputStyle={'borderLess'} {...register('nickname', { required: true })} />
-                {errors.exampleRequired && <span>This field is required</span>}
+                <Input inputStyle={'borderLess'} isResetBtn={!!introduce} handleReset={() => reset()} {...register('introduce', { required: true })} />
+                {errors.introduce && <span>This field is required</span>}
                 <button type="submit" />
             </form>
         </div>
