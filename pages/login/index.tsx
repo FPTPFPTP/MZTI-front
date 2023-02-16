@@ -4,16 +4,17 @@ import { Login } from './styled';
 import axios from 'utils/axios';
 import { useRouter } from 'next/router';
 import { accessTokenState } from 'recoil/atom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import FacebookLogin from '@greatsumini/react-facebook-login';
+import { Cookies } from 'react-cookie';
 
 const login = () => {
     const REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_API;
     const REDIRECT_URI = process.env.NEXT_PUBLIC_REDIRECT_URL;
     const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     const router = useRouter();
+    const cookies = new Cookies();
     const setAccessToken = useSetRecoilState(accessTokenState);
-    const getAccessToken = useRecoilValue(accessTokenState);
 
     // 코드값 추출
     const codeValue = useMemo(() => {
@@ -31,13 +32,12 @@ const login = () => {
                     redirectUrl: REDIRECT_URI,
                     code: codeValue,
                 })
-                .then((res) => setAccessToken(res.data.data.accessToken));
+                .then((res) => {
+                    setAccessToken(res.data.data.accessToken);
+                    cookies.set('refreshToken', res.data.data.refreshToken);
+                });
         }
     }, [codeValue]);
-
-    useEffect(() => {
-        console.log('getAccessToken--->', getAccessToken);
-    }, [setAccessToken]);
 
     return (
         <>
