@@ -4,7 +4,7 @@ import { Login } from './styled';
 import axios from 'utils/axios';
 import { useRouter } from 'next/router';
 import { accessTokenState } from 'recoil/atom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { Cookies } from 'react-cookie';
 
@@ -15,7 +15,7 @@ const login = () => {
     const router = useRouter();
     const cookies = new Cookies();
     const setAccessToken = useSetRecoilState(accessTokenState);
-
+    const getAccessToken = useRecoilValue(accessTokenState);
     // 코드값 추출
     const codeValue = useMemo(() => {
         return router.asPath.split('=')[1];
@@ -27,6 +27,7 @@ const login = () => {
 
     useEffect(() => {
         if (codeValue) {
+            // 카카오
             axios
                 .post('/login/oauth/kakao', {
                     redirectUrl: REDIRECT_URI,
@@ -50,7 +51,11 @@ const login = () => {
                 <FacebookLogin
                     appId={process.env.NEXT_PUBLIC_FACEBOOK_URL!}
                     onSuccess={(response) => {
-                        console.log('Login Success!', setAccessToken(response.accessToken));
+                        axios.post('/login/oauth/facebook', {
+                            accessToken: response.accessToken,
+                        });
+                        setAccessToken(response.accessToken);
+                        console.log('Login Success!', response);
                     }}
                     onFail={(error) => {
                         console.log('Login Failed!', error);
@@ -58,9 +63,12 @@ const login = () => {
                     onProfileSuccess={(response) => {
                         console.log('Get Profile Success!', response);
                     }}
-                >
-                    <Image src="/images/facebook.png" alt="페이스북으로 시작하기" width={500} height={500} />
-                </FacebookLogin>
+                    render={(renderProps) => (
+                        <button onClick={renderProps.onClick}>
+                            <Image src="/images/facebook.png" alt="페이스북으로 시작하기" width={500} height={500} />
+                        </button>
+                    )}
+                />
             </div>
         </>
     );
