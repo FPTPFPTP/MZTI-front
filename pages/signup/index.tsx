@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { signupState } from '@/recoil/atom/signup';
-import { Layout, HeaderWrapper, BodyWrapper, FooterWrapper } from './styled';
+import { Layout, BodyWrapper, FooterWrapper } from './styled';
 import { Button, ProgressLineBar } from '@components/Commons';
-import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent, StepProgressBar } from '@components/SignUp';
+import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
@@ -50,7 +50,7 @@ const SignUp = () => {
                     이전단계로
                 </Button>
                 <Button buttonStyle={'base'} disabled={isError ? true : false} onClick={onNext}>
-                    다음단계로
+                    {stepActive === 4 ? 'MZTI 시작해보기 !' : '다음단계로'}
                 </Button>
             </div>
         </div>
