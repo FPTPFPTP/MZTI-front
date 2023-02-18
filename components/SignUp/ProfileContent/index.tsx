@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { Typography, message } from 'antd';
+import { Typography } from 'antd';
 import { CameraOutlined } from '@ant-design/icons';
 import { Avatar } from '@components/Commons';
 import { Container, AvatarWrap, UploadWrap } from './styled';

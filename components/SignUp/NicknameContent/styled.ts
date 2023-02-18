@@ -14,3 +14,13 @@ export const ContentWrap = css`
         color: ${colors.RED_ORIGIN};
     }
 `;
+
+export const FlexStart = css`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: auto;
+    margin-bottom: 0.5rem;
+    gap: 4px;
+    color: ${colors.GRAY_ORIGIN_1};
+`;
