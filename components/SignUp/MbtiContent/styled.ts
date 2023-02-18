@@ -5,23 +5,29 @@ export const Container = css`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 `;
 
 export const RadioWrap = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 550px;
 `;
 
 export const RadioTileGroup = css`
+    flex: 1;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     justify-content: center;
+
     .input-container {
         position: relative;
-        height: 7rem;
-        width: 7rem;
+        min-height: 5rem;
+        min-width: 5rem;
+        max-height: 7rem;
+        max-width: 7rem;
         margin: 0.5rem;
 
         .radio-button {

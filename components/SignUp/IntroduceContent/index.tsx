@@ -30,11 +30,17 @@ const IntroduceContent = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
 
     return (
         <div css={Container}>
-            <Typography.Title level={1} style={{ margin: '2rem' }}>
+            <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
                 한 줄 소개를 입력해주세요.
             </Typography.Title>
             <form css={ContentWrap} onSubmit={handleSubmit(onSubmit)}>
-                <Input inputStyle={'borderLess'} isResetBtn={!!introduce} handleReset={() => reset()} {...register('introduce', { required: true })} />
+                <Input
+                    inputStyle={'borderLess'}
+                    placeholder={'예) 인프제콜렉터, 뇌절전문가'}
+                    isResetBtn={!!introduce}
+                    handleReset={() => reset()}
+                    {...register('introduce', { required: true })}
+                />
                 {errors.introduce && <span>This field is required</span>}
                 <button type="submit" />
             </form>

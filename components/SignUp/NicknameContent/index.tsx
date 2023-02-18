@@ -36,7 +36,7 @@ const Nickname = ({ onSubmit, isError, handleIsError }: { onSubmit: (data: any) 
 
     return (
         <div css={Container}>
-            <Typography.Title level={1} style={{ margin: '2rem' }}>
+            <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
                 닉네임을 입력해주세요.
             </Typography.Title>
             <form css={ContentWrap} onSubmit={handleSubmit(onSubmit)}>
@@ -50,6 +50,7 @@ const Nickname = ({ onSubmit, isError, handleIsError }: { onSubmit: (data: any) 
                 {errors.nickname && <span className={'form-item-error'}>닉네임 입력은 필수에요.</span>}
                 <button type="submit" />
             </form>
+            <div></div>
         </div>
     );
 };

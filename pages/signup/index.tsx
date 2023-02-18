@@ -35,10 +35,6 @@ const SignUp = () => {
         setStepActive((prev) => prev + 1);
     };
 
-    useEffect(() => {
-        console.log({ signupStateObj });
-    }, [signupStateObj]);
-
     return (
         <div css={Layout}>
             {/*<StepProgressBar items={STEP_ITEMS} active={stepActive} />*/}
