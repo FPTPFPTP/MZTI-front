@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { signupState } from '@/recoil/atom/signup';
 import { Layout, HeaderWrapper, BodyWrapper, FooterWrapper } from './styled';
-import { Button } from '@components/Commons';
+import { Button, ProgressLineBar } from '@components/Commons';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent, StepProgressBar } from '@components/SignUp';
 
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
@@ -8,6 +10,7 @@ const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로�
 const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
     const [isError, setIsError] = useState<boolean>(false);
+    const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
 
     const onSubmit = (data: { nickname?: string; introduce: string }) => {
         if (data.nickname) {
@@ -32,14 +35,17 @@ const SignUp = () => {
         setStepActive((prev) => prev + 1);
     };
 
+    useEffect(() => {
+        console.log({ signupStateObj });
+    }, [signupStateObj]);
+
     return (
         <div css={Layout}>
-            <div css={HeaderWrapper}>
-                <StepProgressBar items={STEP_ITEMS} active={stepActive} />
-            </div>
+            {/*<StepProgressBar items={STEP_ITEMS} active={stepActive} />*/}
             <div css={BodyWrapper}>
+                <ProgressLineBar percent={(stepActive / 4) * 100} />
                 {stepActive === 1 && <NicknameContent onSubmit={onSubmit} isError={isError} handleIsError={(isError) => setIsError(isError)} />}
-                {stepActive === 2 && <MbtiContent />}
+                {stepActive === 2 && <MbtiContent isError={isError} handleIsError={(isError) => setIsError(isError)} />}
                 {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
                 {stepActive === 4 && <ProfileContent />}
             </div>
