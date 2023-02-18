@@ -1,29 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { Typography } from 'antd';
+import { useRecoilState } from 'recoil';
+import { signupState } from '@/recoil/atom/signup';
+import MbtiRadioGroup from './MbtiRadioGroup';
+import { Container, RadioWrap } from './styled';
 
-import { Container, RadioTileGroup, RadioWrap } from './styled';
-
-const MbtiContent = () => {
-    const [EOrISelect, setEOrISelect] = useState<any>();
-    const [SOrNSelect, setSOrNSelect] = useState<any>();
-    const [TOrFSelect, setTOrFSelect] = useState<any>();
-    const [POrJSelect, setPOrJSelect] = useState<any>();
-
-    useEffect(() => {
-        console.log({ EOrISelect });
-    }, [EOrISelect]);
+const MbtiContent = ({ isError, handleIsError }: { isError: boolean; handleIsError: (isError: boolean) => void }) => {
+    const [mapObj, setMapObj] = useState(new Map());
+    const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
 
     useEffect(() => {
-        console.log({ SOrNSelect });
-    }, [SOrNSelect]);
+        if (mapObj.size === 4) {
+            setSignupStateObj((prev) => ({
+                ...prev,
+                mbti: Array.from(mapObj, ([_, value]) => {
+                    return value;
+                }).join(''),
+            }));
+            handleIsError(false);
+        } else {
+            handleIsError(true);
+        }
+    }, [mapObj, isError]);
+
+    const upsert = (key: string, value: string) => {
+        setMapObj((prev: any) => new Map(prev).set(key, value));
+    };
 
     useEffect(() => {
-        console.log({ TOrFSelect });
-    }, [TOrFSelect]);
-
-    useEffect(() => {
-        console.log({ POrJSelect });
-    }, [POrJSelect]);
+        if (signupStateObj.mbti.length) {
+            for (const chat of signupStateObj.mbti) {
+                if (chat === 'E' || chat === 'I') {
+                    upsert('EorI', chat);
+                } else if (chat === 'S' || chat === 'N') {
+                    upsert('SorN', chat);
+                } else if (chat === 'T' || chat === 'F') {
+                    upsert('TorF', chat);
+                } else if (chat === 'J' || chat === 'P') {
+                    upsert('JorP', chat);
+                }
+            }
+        }
+    }, []);
 
     return (
         <div css={Container}>
@@ -32,95 +50,10 @@ const MbtiContent = () => {
             </Typography.Title>
 
             <div css={RadioWrap}>
-                <div css={RadioTileGroup}>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            console.log('e', e);
-                        }}
-                    >
-                        <fieldset className="input-container">
-                            <input className="radio-button" type="radio" name="radio" value={'E'} onChange={(e) => setEOrISelect(e.target.value)} />
-                            <div className="radio-tile">
-                                <label htmlFor="walk" className="radio-tile-label">
-                                    E
-                                </label>
-                            </div>
-                        </fieldset>
-
-                        <fieldset className="input-container">
-                            <input className="radio-button" type="radio" name="radio" value={'I'} onChange={(e) => setEOrISelect(e.target.value)} />
-                            <div className="radio-tile">
-                                <label htmlFor="bike" className="radio-tile-label">
-                                    I
-                                </label>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-                <div css={RadioTileGroup}>
-                    <form>
-                        <div className="input-container">
-                            <input id="walk" className="radio-button" type="radio" name="radio" value={'S'} onChange={(e) => setSOrNSelect(e.target.value)} />
-                            <div className="radio-tile">
-                                <label htmlFor="walk" className="radio-tile-label">
-                                    S
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className="input-container">
-                            <input id="bike" className="radio-button" type="radio" name="radio" value={'N'} onChange={(e) => setSOrNSelect(e.target.value)} />
-                            <div className="radio-tile">
-                                <label htmlFor="bike" className="radio-tile-label">
-                                    N
-                                </label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div css={RadioTileGroup}>
-                    <form>
-                        <div className="input-container">
-                            <input id="walk" className="radio-button" type="radio" name="radio" value={'T'} onChange={(e) => setTOrFSelect(e.target.value)} />
-                            <div className="radio-tile">
-                                <label htmlFor="walk" className="radio-tile-label">
-                                    T
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className="input-container">
-                            <input id="bike" className="radio-button" type="radio" name="radio" value={'F'} onChange={(e) => setTOrFSelect(e.target.value)} />
-                            <div className="radio-tile">
-                                <label htmlFor="bike" className="radio-tile-label">
-                                    F
-                                </label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div css={RadioTileGroup}>
-                    <form>
-                        <div className="input-container">
-                            <input id="walk" className="radio-button" type="radio" name="radio" value={'J'} onChange={(e) => setPOrJSelect(e.target.value)} />
-                            <div className="radio-tile">
-                                <label htmlFor="walk" className="radio-tile-label">
-                                    J
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className="input-container">
-                            <input id="bike" className="radio-button" type="radio" name="radio" value={'P'} onChange={(e) => setPOrJSelect(e.target.value)} />
-                            <div className="radio-tile">
-                                <label htmlFor="bike" className="radio-tile-label">
-                                    P
-                                </label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <MbtiRadioGroup defaultValue={mapObj.get('EorI')} firstValue={'E'} secondValue={'I'} onClick={(value) => upsert('EorI', value)} />
+                <MbtiRadioGroup defaultValue={mapObj.get('SorN')} firstValue={'S'} secondValue={'N'} onClick={(value) => upsert('SorN', value)} />
+                <MbtiRadioGroup defaultValue={mapObj.get('TorF')} firstValue={'T'} secondValue={'F'} onClick={(value) => upsert('TorF', value)} />
+                <MbtiRadioGroup defaultValue={mapObj.get('JorP')} firstValue={'J'} secondValue={'P'} onClick={(value) => upsert('JorP', value)} />
             </div>
         </div>
     );
