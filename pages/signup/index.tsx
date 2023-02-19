@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 import { signupState } from '@/recoil/atom/signup';
-import { Layout, BodyWrapper, FooterWrapper } from './styled';
 import { Button, ProgressLineBar } from '@components/Commons';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 import RegExp, { NICKNAME_REG } from '@/utils/regExp';
+import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
+
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
 const SignUp = () => {
