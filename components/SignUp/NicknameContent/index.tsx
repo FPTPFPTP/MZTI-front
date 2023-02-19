@@ -36,7 +36,7 @@ const Nickname = ({ onSubmit, isError, handleIsError }: { onSubmit: (data: any) 
     }, [nickname, isError]);
 
     useEffect(() => {
-        if (signupStateObj.nickname.length) {
+        if (signupStateObj.nickname && signupStateObj.nickname.length) {
             setValue('nickname', signupStateObj.nickname);
         }
     }, []);

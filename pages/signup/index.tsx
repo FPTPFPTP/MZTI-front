@@ -26,6 +26,7 @@ const SignUp = () => {
             return;
         }
         setStepActive((prev) => prev - 1);
+        setSignupStateObj((prev) => ({ ...prev, step: prev.step - 1 }));
     };
 
     const onNext = () => {
@@ -33,7 +34,14 @@ const SignUp = () => {
             return;
         }
         setStepActive((prev) => prev + 1);
+        setSignupStateObj((prev) => ({ ...prev, step: prev.step + 1 }));
     };
+
+    useEffect(() => {
+        if (signupStateObj.step) {
+            setStepActive(signupStateObj.step);
+        }
+    }, []);
 
     return (
         <div css={Layout}>
