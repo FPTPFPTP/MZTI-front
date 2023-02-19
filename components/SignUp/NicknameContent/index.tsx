@@ -12,14 +12,7 @@ import colors from '@styles/color';
 const Nickname = ({ onSubmit, isError, handleIsError }: { onSubmit: (data: any) => void; isError: boolean; handleIsError: (isError: boolean) => void }) => {
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
     const [isNicknameRule, setIsNicknameRule] = useState<boolean>(false);
-    const {
-        register,
-        watch,
-        handleSubmit,
-        reset,
-        setValue,
-        formState: { errors },
-    } = useForm<ISignupState>();
+    const { register, watch, handleSubmit, reset, setValue } = useForm<ISignupState>();
     const { nickname } = watch();
 
     const onNicknameRule = () => {
@@ -52,9 +45,11 @@ const Nickname = ({ onSubmit, isError, handleIsError }: { onSubmit: (data: any) 
                     placeholder={'닉네임을 입력해주세요'}
                     isResetBtn={!!nickname}
                     handleReset={() => reset()}
-                    {...register('nickname', { required: true })}
+                    maxLength={8}
+                    {...register('nickname', {
+                        required: true,
+                    })}
                 />
-                {errors.nickname && <span className={'form-item-error'}>닉네임 입력은 필수에요.</span>}
                 <button type="submit" />
             </form>
             <div css={FlexStart}>

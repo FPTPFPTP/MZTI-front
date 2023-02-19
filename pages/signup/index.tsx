@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { message } from 'antd';
 import { signupState } from '@/recoil/atom/signup';
 import { Layout, BodyWrapper, FooterWrapper } from './styled';
 import { Button, ProgressLineBar } from '@components/Commons';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
-
+import RegExp, { NICKNAME_REG } from '@/utils/regExp';
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
 const SignUp = () => {
@@ -25,12 +26,17 @@ const SignUp = () => {
         if (stepActive <= 1) {
             return;
         }
+
         setStepActive((prev) => prev - 1);
         setSignupStateObj((prev) => ({ ...prev, step: prev.step - 1 }));
     };
 
     const onNext = () => {
         if (stepActive >= STEP_ITEMS.length) {
+            return;
+        }
+        if (!RegExp(NICKNAME_REG, signupStateObj.nickname)) {
+            message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
             return;
         }
         setStepActive((prev) => prev + 1);

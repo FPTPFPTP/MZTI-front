@@ -39,9 +39,9 @@ const IntroduceContent = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
                     placeholder={'예) 인프제콜렉터, 뇌절전문가'}
                     isResetBtn={!!introduce}
                     handleReset={() => reset()}
-                    {...register('introduce', { required: true })}
+                    maxLength={30}
+                    {...register('introduce')}
                 />
-                {errors.introduce && <span>This field is required</span>}
                 <button type="submit" />
             </form>
         </div>
