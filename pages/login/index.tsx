@@ -15,7 +15,7 @@ const login = () => {
     const router = useRouter();
     const cookies = new Cookies();
     const setAccessToken = useSetRecoilState(accessTokenState);
-    const getAccessToken = useRecoilValue(accessTokenState);
+
     // 코드값 추출
     const codeValue = useMemo(() => {
         return router.asPath.split('=')[1];
@@ -36,15 +36,21 @@ const login = () => {
                 .then((res) => {
                     setAccessToken(res.data.data.accessToken);
                     cookies.set('refreshToken', res.data.data.refreshToken);
+                    axios.get('/user').then((res) => {
+                        if (res.data.nickname === undefined) {
+                            router.push('/signup');
+                        } else {
+                            router.push('/main');
+                        }
+                    });
                 });
         }
     }, [codeValue]);
 
     return (
         <>
-            <h1>MBTI에 과몰입 할 MZ들 모여라!</h1>
-
             <div css={Login}>
+                <h1>MBTI에 과몰입 할 MZ들 모여라!</h1>
                 <button onClick={handleKaKao}>
                     <Image src="/images/kakao.png" alt="카카오톡으로 시작하기" width={500} height={500} />
                 </button>
@@ -69,6 +75,12 @@ const login = () => {
                         </button>
                     )}
                 />
+                <p>
+                    회원가입을 건너뛸까요?{' '}
+                    <button>
+                        <strong>둘러보기</strong>
+                    </button>
+                </p>
             </div>
         </>
     );
