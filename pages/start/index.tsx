@@ -1,7 +1,5 @@
-import React from 'react';
-
 const start = () => {
-    return <>첫 시작 페이지입니다</>;
+    return <h1>MZ 세대를 위한 MBTI 소셜 네트워킹</h1>;
 };
 
 export default start;
