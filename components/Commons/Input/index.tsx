@@ -8,9 +8,8 @@ type TInputStyleUnion = (typeof InputStyleUnionList)[number];
 
 type TInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-const Input = (inputProps: TInputProps & { inputStyle?: TInputStyleUnion }, ref: any) => {
+const Input = (inputProps: TInputProps & { inputStyle?: TInputStyleUnion; isResetBtn?: boolean; handleReset?: () => void }, ref: any) => {
     const { inputStyle = 'base', ...rest } = inputProps;
-
     BaseInput.displayName = 'BaseInput';
     BorderLessInput.displayName = 'BorderLessInput';
 
@@ -27,23 +26,25 @@ const Input = (inputProps: TInputProps & { inputStyle?: TInputStyleUnion }, ref:
 export default React.forwardRef(Input);
 
 const BaseInput = React.forwardRef((inputProps: TInputProps & { inputStyle?: TInputStyleUnion }, ref: any) => {
-    const { ...props } = inputProps;
+    const { ...rest } = inputProps;
 
     return (
         <div css={InputWrap}>
-            <input css={InputStyle} ref={ref} {...props} />
-            <CloseCircleOutlined />
+            <input css={InputStyle} ref={ref} {...rest} />
         </div>
     );
 });
 
-const BorderLessInput = React.forwardRef((inputProps: TInputProps & { inputStyle?: TInputStyleUnion }, ref: any) => {
-    const { ...props } = inputProps;
+const BorderLessInput = React.forwardRef(
+    (inputProps: TInputProps & { inputStyle?: TInputStyleUnion; isResetBtn?: boolean; handleReset?: () => void }, ref: any) => {
+        const { isResetBtn, handleReset, ...rest } = inputProps;
 
-    return (
-        <div css={BorderlessWrap}>
-            <input css={InputStyle} ref={ref} {...props} />
-            <CloseCircleOutlined />
-        </div>
-    );
-});
+        return (
+            <div css={BorderlessWrap}>
+                <input css={InputStyle} ref={ref} {...rest} />
+
+                {isResetBtn && <CloseCircleOutlined onClick={handleReset} />}
+            </div>
+        );
+    },
+);
