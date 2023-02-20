@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Login } from './styled';
 import axios from 'utils/axios';
 import { useRouter } from 'next/router';
-import { accessTokenState } from 'recoil/atom';
+import { accessTokenState } from '@/recoil/atom/auth';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { Cookies } from 'react-cookie';
@@ -21,8 +21,9 @@ const login = () => {
         return router.asPath.split('=')[1];
     }, [router.asPath]);
 
+    // 카카오 로그인 버튼 클릭
     const handleKaKao = () => {
-        window.location.href = link;
+        router.push(link);
     };
 
     useEffect(() => {
@@ -43,6 +44,9 @@ const login = () => {
                             router.push('/main');
                         }
                     });
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
         }
     }, [codeValue]);
@@ -57,10 +61,22 @@ const login = () => {
                 <FacebookLogin
                     appId={process.env.NEXT_PUBLIC_FACEBOOK_URL!}
                     onSuccess={(response) => {
-                        axios.post('/login/oauth/facebook', {
-                            accessToken: response.accessToken,
-                        });
-                        setAccessToken(response.accessToken);
+                        axios
+                            .post('/login/oauth/facebook', {
+                                accessToken: response.accessToken,
+                            })
+                            .then((res) => {
+                                setAccessToken(res.data.data.accessToken);
+                                cookies.set('refreshToken', res.data.data.refreshToken);
+                                axios.get('/user').then((res) => {
+                                    if (res.data.nickname === undefined) {
+                                        router.push('/signup');
+                                    } else {
+                                        router.push('/main');
+                                    }
+                                });
+                            });
+
                         console.log('Login Success!', response);
                     }}
                     onFail={(error) => {
