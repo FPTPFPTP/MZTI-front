@@ -1,12 +1,27 @@
+import { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
-import { Spin } from 'antd';
 import { css } from '@emotion/react';
+import Login from './login';
+
+import Splash from '@/components/Splash';
 
 const Home: NextPage = () => {
+    const [isLoding, setIsLoding] = useState<boolean>(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoding(false);
+        }, 3000);
+    }, []);
     return (
         <div>
-            <Spin size="large" />
-            <button css={BaseButtonStyle}>test</button>
+            {isLoding ? (
+                <Splash />
+            ) : (
+                <>
+                    <Login />
+                </>
+            )}
         </div>
     );
 };

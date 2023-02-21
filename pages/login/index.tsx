@@ -4,7 +4,7 @@ import { Login } from '@styles/pages/loginStyled';
 import axios from 'utils/axios';
 import { useRouter } from 'next/router';
 import { accessTokenState } from '@/recoil/atom/auth';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { Cookies } from 'react-cookie';
 
