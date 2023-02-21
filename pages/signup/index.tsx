@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { message } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -13,9 +13,39 @@ const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로�
 
 const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
-    const [isError, setIsError] = useState<boolean>(false);
+
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
     const signupProfileFile = useRecoilValue(signupProfileFileState);
+
+    const isError = useMemo(() => {
+        switch (signupStateObj.step) {
+            case 1: {
+                if (signupStateObj.nickname) {
+                    if (signupStateObj.nickname.length === 0 || !RegExp(NICKNAME_REG, signupStateObj.nickname)) {
+                        return true;
+                    }
+                    return false;
+                }
+                return true;
+            }
+            case 2: {
+                if (signupStateObj.mbti && signupStateObj.mbti.length === 4) {
+                    return false;
+                }
+
+                return true;
+            }
+            case 3:
+            case 4: {
+                return false;
+            }
+
+            default: {
+                return true;
+            }
+        }
+    }, [signupStateObj]);
+
     const router = useRouter();
 
     const onSubmit = (data: { nickname?: string; introduce: string }) => {
@@ -58,9 +88,6 @@ const SignUp = () => {
                     await Axios.patch('/user/mbti', {
                         mbti: signupStateObj.mbti,
                     });
-                    setIsError(false);
-                } else {
-                    setIsError(true);
                 }
                 break;
             }
@@ -107,8 +134,8 @@ const SignUp = () => {
             {/*<StepProgressBar items={STEP_ITEMS} active={stepActive} />*/}
             <div css={BodyWrapper}>
                 <ProgressLineBar percent={(stepActive / 4) * 100} />
-                {stepActive === 1 && <NicknameContent onSubmit={onSubmit} isError={isError} handleIsError={(isError) => setIsError(isError)} />}
-                {stepActive === 2 && <MbtiContent isError={isError} handleIsError={(isError) => setIsError(isError)} />}
+                {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
+                {stepActive === 2 && <MbtiContent />}
                 {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
                 {stepActive === 4 && <ProfileContent />}
             </div>
