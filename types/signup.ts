@@ -3,5 +3,4 @@ export interface ISignupState {
     nickname: string;
     mbti: string;
     introduce: string;
-    profileImage: string;
 }

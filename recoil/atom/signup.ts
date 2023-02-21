@@ -17,7 +17,11 @@ export const signupState = atom<ISignupState>({
         nickname: '',
         mbti: '',
         introduce: '',
-        profileImage: '',
     },
     effects_UNSTABLE: [persistAtom],
+});
+
+export const signupProfileFileState = atom<File | null>({
+    key: 'signupProfileFileState',
+    default: null,
 });
