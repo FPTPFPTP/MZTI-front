@@ -9,7 +9,7 @@ import { ISignupState } from '@/types/signup';
 import { Container, ContentWrap, FlexStart } from './styled';
 import colors from '@styles/color';
 
-const Nickname = ({ onSubmit, isError, handleIsError }: { onSubmit: (data: any) => void; isError: boolean; handleIsError: (isError: boolean) => void }) => {
+const Nickname = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
     const [isNicknameRule, setIsNicknameRule] = useState<boolean>(false);
     const { register, watch, handleSubmit, reset, setValue } = useForm<ISignupState>();
@@ -21,12 +21,7 @@ const Nickname = ({ onSubmit, isError, handleIsError }: { onSubmit: (data: any) 
 
     useEffect(() => {
         setSignupStateObj((prev) => ({ ...prev, nickname: nickname }));
-        if (!nickname && !isError) {
-            handleIsError(true);
-        } else if (nickname && isError) {
-            handleIsError(false);
-        }
-    }, [nickname, isError]);
+    }, [nickname]);
 
     useEffect(() => {
         if (signupStateObj.nickname && signupStateObj.nickname.length) {
