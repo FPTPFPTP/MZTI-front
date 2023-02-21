@@ -8,7 +8,9 @@ const customAxios = Axios.create({
     timeout: 10000,
 });
 
-const token = cookies.get('refreshToken');
+// const token = cookies.get('refreshToken');
+const token =
+    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlVTRVJfUk9MRSIsImV4cCI6MTY3ODA4OTMyN30.rCSTspaEu_FS7hknl2MP1fDnc-uWSuXB_bzY5uSQFsVxpvLZccdQ4xIAd5saa_sBFiFUshdzapKMr4i8GfD7ig';
 
 customAxios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
 
