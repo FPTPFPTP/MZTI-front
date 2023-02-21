@@ -81,10 +81,11 @@ const SignUp = () => {
                             'content-type': 'multipart/form-data',
                         },
                     });
-                    if (data.status === 200) {
-                        router.push('/');
+                    if (data.status !== 200) {
+                        return;
                     }
                 }
+                router.push('/');
                 return;
             }
             default: {
