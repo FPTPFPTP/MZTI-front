@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import { Login } from './styled';
+import { Login } from '@styles/pages/loginStyled';
 import axios from 'utils/axios';
 import { useRouter } from 'next/router';
 import { accessTokenState } from '@/recoil/atom/auth';
