@@ -37,7 +37,7 @@ const Nickname = ({ onSubmit, isError, handleIsError }: { onSubmit: (data: any) 
     return (
         <div css={Container}>
             <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
-                닉네임을 입력해주세요.
+                닉네임을 입력해주세요
             </Typography.Title>
             <form css={ContentWrap} onSubmit={handleSubmit(onSubmit)}>
                 <Input

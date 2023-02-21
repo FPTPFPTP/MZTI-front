@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
 import { message } from 'antd';
-import { signupState } from '@/recoil/atom/signup';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
 import { Button, ProgressLineBar } from '@components/Commons';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
-import RegExp, { NICKNAME_REG } from '@/utils/regExp';
+import Axios from '@utils/axios';
+import RegExp, { NICKNAME_REG } from '@utils/regExp';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
 
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
@@ -13,6 +15,8 @@ const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
     const [isError, setIsError] = useState<boolean>(false);
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
+    const signupProfileFile = useRecoilValue(signupProfileFileState);
+    const router = useRouter();
 
     const onSubmit = (data: { nickname?: string; introduce: string }) => {
         if (data.nickname) {
@@ -32,13 +36,60 @@ const SignUp = () => {
         setSignupStateObj((prev) => ({ ...prev, step: prev.step - 1 }));
     };
 
-    const onNext = () => {
-        if (stepActive >= STEP_ITEMS.length) {
+    const onNext = async () => {
+        if (stepActive > STEP_ITEMS.length) {
             return;
         }
-        if (!RegExp(NICKNAME_REG, signupStateObj.nickname)) {
-            message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
-            return;
+
+        switch (signupStateObj.step) {
+            case 1: {
+                if (!RegExp(NICKNAME_REG, signupStateObj.nickname)) {
+                    message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
+                    return;
+                } else {
+                    await Axios.patch('/user/nickname', {
+                        nickname: signupStateObj.nickname,
+                    });
+                }
+                break;
+            }
+            case 2: {
+                if (signupStateObj.mbti.length === 4) {
+                    await Axios.patch('/user/mbti', {
+                        mbti: signupStateObj.mbti,
+                    });
+                    setIsError(false);
+                } else {
+                    setIsError(true);
+                }
+                break;
+            }
+            case 3: {
+                if (signupStateObj.introduce.length > 0) {
+                    await Axios.patch('/user/intro', {
+                        intro: signupStateObj.introduce,
+                    });
+                }
+                break;
+            }
+            case 4: {
+                if (signupProfileFile !== null) {
+                    const fmData = new FormData();
+                    fmData.append('file', signupProfileFile);
+                    const data = await Axios.patch(`/user/profile`, fmData, {
+                        headers: {
+                            'content-type': 'multipart/form-data',
+                        },
+                    });
+                    if (data.status === 200) {
+                        router.push('/');
+                    }
+                }
+                return;
+            }
+            default: {
+                break;
+            }
         }
         setStepActive((prev) => prev + 1);
         setSignupStateObj((prev) => ({ ...prev, step: prev.step + 1 }));

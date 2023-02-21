@@ -46,7 +46,7 @@ const MbtiContent = ({ isError, handleIsError }: { isError: boolean; handleIsErr
     return (
         <div css={Container}>
             <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
-                MBTI를 입력해주세요.
+                MBTI를 입력해주세요
             </Typography.Title>
 
             <div css={RadioWrap}>
