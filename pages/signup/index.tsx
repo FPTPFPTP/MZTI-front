@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { message } from 'antd';
+import Filter from 'badwords-ko';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
 import { Button, Header, ProgressLineBar } from '@components/Commons';
@@ -81,7 +82,11 @@ const SignUp = () => {
 
         switch (signupStateObj.step) {
             case 1: {
+                const filter = new Filter();
                 if (!RegExp(NICKNAME_REG, signupStateObj.nickname)) {
+                    message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
+                    return;
+                } else if (filter.clean(signupStateObj.nickname).includes('*')) {
                     message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
                     return;
                 } else {
