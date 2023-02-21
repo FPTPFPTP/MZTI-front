@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { message } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
-import { Button, ProgressLineBar } from '@components/Commons';
+import { Button, Header, ProgressLineBar } from '@components/Commons';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 import Axios from '@utils/axios';
 import RegExp, { NICKNAME_REG } from '@utils/regExp';
@@ -47,6 +47,14 @@ const SignUp = () => {
     }, [signupStateObj]);
 
     const router = useRouter();
+
+    const onBackPage = () => {
+        if (signupStateObj.step === 1) {
+            router.back();
+        } else {
+            onPrev();
+        }
+    };
 
     const onSubmit = (data: { nickname?: string; introduce: string }) => {
         if (data.nickname) {
@@ -131,7 +139,7 @@ const SignUp = () => {
 
     return (
         <div css={Layout}>
-            {/*<StepProgressBar items={STEP_ITEMS} active={stepActive} />*/}
+            <Header title={'프로필 입력'} onClickBackButton={onBackPage} />
             <div css={BodyWrapper}>
                 <ProgressLineBar percent={(stepActive / 4) * 100} />
                 {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
