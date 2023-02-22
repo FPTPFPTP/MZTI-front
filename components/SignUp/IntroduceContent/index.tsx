@@ -8,14 +8,7 @@ import { Container, ContentWrap } from './styled';
 
 const IntroduceContent = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
-    const {
-        register,
-        watch,
-        handleSubmit,
-        reset,
-        setValue,
-        formState: { errors },
-    } = useForm();
+    const { register, watch, handleSubmit, reset, setValue } = useForm();
     const { introduce } = watch();
 
     useEffect(() => {
@@ -31,7 +24,7 @@ const IntroduceContent = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
     return (
         <div css={Container}>
             <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
-                한 줄 소개를 입력해주세요.
+                한 줄 소개를 입력해주세요
             </Typography.Title>
             <form css={ContentWrap} onSubmit={handleSubmit(onSubmit)}>
                 <Input

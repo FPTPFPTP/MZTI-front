@@ -10,12 +10,11 @@ export default function Document() {
                 <meta name="description" content="Description" />
                 <meta name="keywords" content="Keywords" />
                 <title>MZTI</title>
-
                 <link rel="manifest" href="/manifest.json" />
                 <link href="/icons/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
                 <link href="/icons/favicons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
-                <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png"></link>
-                <meta name="theme-color" content="#FF98BA"></meta>
+                <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png" />
+                <meta name="theme-color" content="#FF98BA" />
             </Head>
             <body>
                 <Main />
