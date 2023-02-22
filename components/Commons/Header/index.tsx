@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-
 import { HeaderContainer } from './styled';
 
 type Props = {
