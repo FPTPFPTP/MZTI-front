@@ -1,9 +1,12 @@
 import { useRouter } from 'next/router';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
-import { HeaderContainer, HeaderItem } from './styled';
+import { HeaderContainer } from './styled';
 
-const Header = () => {
+type Props = {
+    title?: string;
+};
+const Header = ({ title }: Props) => {
     const router = useRouter();
 
     const onBackPage = () => {
@@ -12,9 +15,10 @@ const Header = () => {
 
     return (
         <header css={HeaderContainer}>
-            <div css={HeaderItem(1)} onClick={onBackPage}>
+            <button onClick={onBackPage}>
                 <ArrowLeftOutlined style={{ fontSize: 30 }} />
-            </div>
+            </button>
+            <h1>{title}</h1>
         </header>
     );
 };

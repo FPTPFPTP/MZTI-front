@@ -6,6 +6,7 @@ import { Button, ProgressLineBar } from '@components/Commons';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 import RegExp, { NICKNAME_REG } from '@/utils/regExp';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
+import { Header } from '@components/Commons';
 
 const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
@@ -52,6 +53,7 @@ const SignUp = () => {
 
     return (
         <div css={Layout}>
+            <Header />
             {/*<StepProgressBar items={STEP_ITEMS} active={stepActive} />*/}
             <div css={BodyWrapper}>
                 <ProgressLineBar percent={(stepActive / 4) * 100} />
