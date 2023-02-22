@@ -24,10 +24,13 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
         'react/no-unknown-property': ['error', { ignore: ['css'] }],
+        'react/no-unescaped-entities': 'off',
+        '@next/next/no-page-custom-font': 'off',
     },
     settings: {
         react: {
             version: 'detect', // 현재 사용하고 있는 react 버전을 eslint-plugin-react가 자동으로 감지합니다.
         },
     },
+    ignorePatterns: ['!.storybook', 'next.config.js', 'public/*.js'],
 };
