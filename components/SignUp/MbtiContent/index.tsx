@@ -5,8 +5,8 @@ import { signupState } from '@/recoil/atom/signup';
 import MbtiRadioGroup from './MbtiRadioGroup';
 import { Container, RadioWrap } from './styled';
 
-const MbtiContent = ({ isError, handleIsError }: { isError: boolean; handleIsError: (isError: boolean) => void }) => {
-    const [mapObj, setMapObj] = useState(new Map());
+const MbtiContent = () => {
+    const [mapObj, setMapObj] = useState(new Map<string, string>());
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
 
     useEffect(() => {
@@ -17,14 +17,11 @@ const MbtiContent = ({ isError, handleIsError }: { isError: boolean; handleIsErr
                     return value;
                 }).join(''),
             }));
-            handleIsError(false);
-        } else {
-            handleIsError(true);
         }
-    }, [mapObj, isError]);
+    }, [mapObj]);
 
     const upsert = (key: string, value: string) => {
-        setMapObj((prev: any) => new Map(prev).set(key, value));
+        setMapObj((prev) => new Map(prev).set(key, value));
     };
 
     useEffect(() => {
@@ -46,7 +43,7 @@ const MbtiContent = ({ isError, handleIsError }: { isError: boolean; handleIsErr
     return (
         <div css={Container}>
             <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
-                MBTI를 입력해주세요.
+                MBTI를 입력해주세요
             </Typography.Title>
 
             <div css={RadioWrap}>

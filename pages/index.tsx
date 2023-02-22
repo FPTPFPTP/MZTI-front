@@ -27,13 +27,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-export const BaseButtonStyle = css`
-    height: 60px;
-    background: #2656ff;
-    color: #fafafa;
-    font-size: 1.3rem;
-    padding: 1em;
-    box-sizing: border-box;
-    white-space: nowrap;
-`;
