@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
+import colors from '@/styles/color';
 
-export const InputWrap = css`
+export const InputWrapCss = css`
     display: flex;
     align-items: center;
     width: 100%;
@@ -9,7 +10,7 @@ export const InputWrap = css`
     gap: 0.5rem;
 `;
 
-export const InputStyle = css`
+export const InputCss = css`
     width: 100%;
     padding: 8px;
     &:focus {
@@ -17,10 +18,20 @@ export const InputStyle = css`
     }
 `;
 
-export const BorderlessWrap = css`
+export const BorderlessWrapCss = css`
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid ${colors.BLACK};
     gap: 0.5rem;
     padding: 4px 8px;
+`;
+
+export const SeachWrapCss = css`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    border: 1px solid ${colors.GRAY_ORIGIN_1};
+    border-radius: 46px;
+    padding: 12px 25px;
 `;
