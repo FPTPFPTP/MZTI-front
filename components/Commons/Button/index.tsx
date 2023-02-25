@@ -1,14 +1,14 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import Link from 'next/link';
+import { BaseButtonStyle, TextButtonStyle, LinkButtonStyle } from './styled';
 
-import { BaseButtonStyle, TextButtonStyle } from './styled';
-
-const ButtonStyleUnionList = ['base', 'text'] as const;
+const ButtonStyleUnionList = ['base', 'text', 'link'] as const;
 
 type TButtonStyleUnion = (typeof ButtonStyleUnionList)[number];
 
 type TButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-const Button = (buttonProps: TButtonProps & { buttonStyle?: TButtonStyleUnion }) => {
+const Button = (buttonProps: TButtonProps & { buttonStyle?: TButtonStyleUnion; href?: string }) => {
     const { buttonStyle = 'base', ...rest } = buttonProps;
 
     switch (buttonStyle) {
@@ -16,6 +16,8 @@ const Button = (buttonProps: TButtonProps & { buttonStyle?: TButtonStyleUnion })
             return <BaseButton {...rest} />;
         case 'text':
             return <TextButton {...rest} />;
+        case 'link':
+            return <LinkButton {...rest} />;
         default:
             return <BaseButton {...rest} />;
     }
@@ -40,5 +42,25 @@ export const TextButton = (buttonProps: TButtonProps) => {
         <button {...rest} css={TextButtonStyle}>
             {children}
         </button>
+    );
+};
+
+export const LinkButton = (buttonprops: TButtonProps & { href?: string }) => {
+    const { children, href, ...rest } = buttonprops;
+
+    if (href === undefined) {
+        return (
+            <button {...rest} css={BaseButtonStyle}>
+                {children}
+            </button>
+        );
+    }
+
+    return (
+        <Link href={href} passHref>
+            <button {...rest} css={LinkButtonStyle}>
+                {children}
+            </button>
+        </Link>
     );
 };

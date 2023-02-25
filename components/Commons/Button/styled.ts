@@ -29,6 +29,24 @@ export const BaseButtonStyle = css`
     }
 `;
 
+export const LinkButtonStyle = css`
+    ${DefaultStyle};
+    background: ${colors.BLACK};
+    color: ${colors.WHITE};
+    box-shadow: ${colors.BOX_SHADOW};
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: ${colors.BOX_SHADOW};
+    }
+    &:disabled {
+        background: ${colors.GRAY_BRIGHT_1};
+        cursor: not-allowed;
+        &:hover {
+            transform: scale(1);
+        }
+    }
+`;
+
 export const TextButtonStyle = css`
     ${DefaultStyle};
     background: none;
