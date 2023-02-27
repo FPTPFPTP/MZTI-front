@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
 import { Global } from '@emotion/react';
@@ -11,13 +13,24 @@ export default function App({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <RecoilRoot>
-                <Global styles={globalReset} />
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </RecoilRoot>
-        </QueryClientProvider>
+        <>
+            <QueryClientProvider client={queryClient}>
+                <RecoilRoot>
+                    <Head>
+                        <title>MZTI</title>
+                        <meta charSet="utf-8" />
+                        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+                        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+                        <meta name="description" content="Description" />
+                        <meta name="keywords" content="Keywords" />
+                        <meta name="theme-color" content="#FF98BA" />
+                    </Head>
+                    <Global styles={globalReset} />
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </RecoilRoot>
+            </QueryClientProvider>
+        </>
     );
 }
