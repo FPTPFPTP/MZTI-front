@@ -13,12 +13,16 @@ export const ListItemWrapCss = css`
         background: ${colors.GRAY_LIGHT_1};
     }
     .id {
-        width: 24px;
+        width: 50px;
     }
     .title {
-        flex-grow: 1;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .date {
         width: 90px;
+        white-space: nowrap;
     }
 `;

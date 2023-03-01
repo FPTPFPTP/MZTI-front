@@ -4,18 +4,18 @@ import colors from '@styles/color';
 import { ListItemWrapCss } from './styled';
 
 interface IListItemProps {
-    id: number;
+    number: number;
     title: string;
     date: string;
 }
 
 const ListItem = (props: IListItemProps) => {
-    const { id, title, date } = props;
+    const { number, title, date } = props;
 
     return (
         <div css={ListItemWrapCss}>
             <Typography.Text className="id" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                {id}
+                {number}
             </Typography.Text>
             <Typography.Text className="title" style={{ color: colors.GRAY_ORIGIN_1 }}>
                 {title}
