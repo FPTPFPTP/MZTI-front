@@ -54,6 +54,8 @@ const customReset = css`
         overflow-wrap: break-word;
     }
 
+    form,
+    fieldset,
     textarea,
     input {
         border: none;
