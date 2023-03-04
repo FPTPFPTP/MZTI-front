@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useQueryClient } from '@tanstack/react-query';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/Mypage';
 import { useGetComments } from '@apis/mypage';
@@ -9,16 +8,14 @@ import { Layout } from '@styles/pages/mypageStyled';
 
 const WriteCommentList = () => {
     const observerRef = useRef(null);
-
+    const [searchValue, setSearchValue] = useState('');
     const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
     const { search } = watch();
 
-    const { contents: commentList, hasNextPage, fetchNextPage } = useGetComments(search);
-
-    const queryClient = useQueryClient();
+    const { contents: commentList, hasNextPage, fetchNextPage } = useGetComments(searchValue);
 
     const onSubmit = (data: { search: string }) => {
-        queryClient.invalidateQueries(['writeList']);
+        setSearchValue(data.search);
     };
 
     const handleObserver = useCallback(
