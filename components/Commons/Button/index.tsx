@@ -52,7 +52,8 @@ export const BottomButton = (buttonProps: TButtonProps) => {
         <button {...rest} css={BottomButtonStyle}>
             {children}
         </button>
-
+    );
+};
 export const LinkButton = (buttonprops: TButtonProps & { href?: string }) => {
     const { children, href, ...rest } = buttonprops;
 
