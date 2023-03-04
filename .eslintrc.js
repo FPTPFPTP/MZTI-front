@@ -26,6 +26,7 @@ module.exports = {
         'react/no-unknown-property': ['error', { ignore: ['css'] }],
         'react/no-unescaped-entities': 'off',
         '@next/next/no-page-custom-font': 'off',
+        '@typescript-eslint/no-empty-interface': 'off',
     },
     settings: {
         react: {

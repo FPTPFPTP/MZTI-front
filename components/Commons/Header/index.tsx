@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+
+import ArrowLeftOutlined from '@assets/icons/left_arrow.svg';
 import { HeaderContainer, HeadingCss } from './styled';
 
 interface IHeaderBaseProps {

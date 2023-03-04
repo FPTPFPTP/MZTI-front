@@ -22,7 +22,7 @@ module.exports = {
     GRAY_BRIGHT_1: '#c4c4c4', // Text/Disabled/Placeholder
 
     // Gray Origin
-    GRAY_ORIGIN_1: '#999999',
+    GRAY_ORIGIN_1: '#A7A7A7',
 
     // Gray Strong
     GRAY_STRONG_1: '#666666',
