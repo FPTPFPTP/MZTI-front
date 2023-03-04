@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { WriteStyle } from './styled';
 
 type Props = {
@@ -10,15 +11,15 @@ const Write = ({ write, comment, recommend }: Props) => {
         <ul css={WriteStyle}>
             <li>
                 <p>작성한 글</p>
-                <button>{write}</button>
+                <Link href="/mypage/writeList">{write}</Link>
             </li>
             <li>
                 <p>작성한 댓글</p>
-                <button>{comment}</button>
+                <Link href="/mypage/writeCommentList">{comment}</Link>
             </li>
             <li>
                 <p>받은 추천</p>
-                <button>{recommend}</button>
+                <Link href="/mypage/writeList">{recommend}</Link>
             </li>
         </ul>
     );
