@@ -1,8 +1,8 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getWriteCommentList } from '@apis/mypage';
+import { getWriteList } from '@apis/mypage';
 
-export const useGetComments = (search: string) => {
-    const res = useInfiniteQuery(['commentList', search], ({ pageParam = 0 }) => getWriteCommentList({ pageParam, search }), {
+export const useGetWrites = (search: string) => {
+    const res = useInfiniteQuery(['writeList', search], ({ pageParam = 0 }) => getWriteList({ pageParam, search }), {
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length;
 
