@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 import Link from 'next/link';
-import { BaseButtonStyle, TextButtonStyle, LinkButtonStyle } from './styled';
+import { BaseButtonStyle, TextButtonStyle, LinkButtonStyle, BottomButtonStyle } from './styled';
 
 const ButtonStyleUnionList = ['base', 'text', 'link'] as const;
 
@@ -44,6 +44,14 @@ export const TextButton = (buttonProps: TButtonProps) => {
         </button>
     );
 };
+
+export const BottomButton = (buttonProps: TButtonProps) => {
+    const { children, ...rest } = buttonProps;
+
+    return (
+        <button {...rest} css={BottomButtonStyle}>
+            {children}
+        </button>
 
 export const LinkButton = (buttonprops: TButtonProps & { href?: string }) => {
     const { children, href, ...rest } = buttonprops;

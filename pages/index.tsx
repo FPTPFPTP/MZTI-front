@@ -1,25 +1,27 @@
-import React, { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
-import { useRecoilState } from 'recoil';
-import { userInfoState } from '@/recoil/atom/user';
-import Axios from '@utils/axios';
+import { css } from '@emotion/react';
+import Login from './login';
+
+import Splash from '@/components/Splash';
 
 const Home: NextPage = () => {
-    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [isLoding, setIsLoding] = useState<boolean>(true);
 
     useEffect(() => {
-        console.log({ userInfo });
-    }, [userInfo]);
-
-    useEffect(() => {
-        Axios.get('/user').then((res) => {
-            setUserInfo(res.data.data);
-        });
+        setTimeout(() => {
+            setIsLoding(false);
+        }, 3000);
     }, []);
-
     return (
         <div>
-            <h1>메인페이지</h1>
+            {isLoding ? (
+                <Splash />
+            ) : (
+                <>
+                    <Login />
+                </>
+            )}
         </div>
     );
 };
