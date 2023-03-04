@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
-import { BaseButtonStyle, TextButtonStyle } from './styled';
+import { BaseButtonStyle, TextButtonStyle, BottomButtonStyle } from './styled';
 
 const ButtonStyleUnionList = ['base', 'text'] as const;
 
@@ -38,6 +38,16 @@ export const TextButton = (buttonProps: TButtonProps) => {
 
     return (
         <button {...rest} css={TextButtonStyle}>
+            {children}
+        </button>
+    );
+};
+
+export const BottomButton = (buttonProps: TButtonProps) => {
+    const { children, ...rest } = buttonProps;
+
+    return (
+        <button {...rest} css={BottomButtonStyle}>
             {children}
         </button>
     );
