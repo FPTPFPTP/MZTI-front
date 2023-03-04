@@ -78,13 +78,32 @@ const customReset = css`
 
 const globalReset = () => css`
     ${customReset}
-
+    ol,
+  ul,
+  li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    a:hover {
+        color: inherit;
+        text-decoration: none;
+    }
     html {
         /** 
   * 화면 너비에 비례하는 크기에 대응하기 위함
   * 100vw/390px * 10px = 2.6667vw
   * -> 너비가 390px인 디자인 시안에서 10px을 1rem으로 간주  */
         font-size: 2.6667vw;
+        -webkit-text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+        -o-text-size-adjust: none;
+        -ms-overflow-style: none;
     }
 
     @media (min-width: 768px) {
