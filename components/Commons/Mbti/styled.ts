@@ -1,21 +1,14 @@
 import { css } from '@emotion/react';
 import colors from '@styles/color';
 
-export const Container = css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-`;
-
-export const RadioWrap = css`
+export const RadioWrapStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
     max-width: 550px;
 `;
 
-export const RadioTileGroup = css`
+export const RadioTileGroupStyle = css`
     flex: 1;
     display: flex;
     flex-wrap: nowrap;

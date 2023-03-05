@@ -1,6 +1,6 @@
 import React from 'react';
 import MbtiRadioItem from '../MbtiRadioItem';
-import { RadioTileGroup } from '../styled';
+import { RadioTileGroupStyle } from '../styled';
 
 interface IMbtiRadioGroup {
     defaultValue?: string;
@@ -21,7 +21,7 @@ const MbtiRadioGroup = (props: IMbtiRadioGroup) => {
     const { defaultValue, firstValue, secondValue, onClick } = props;
 
     return (
-        <div css={RadioTileGroup}>
+        <div css={RadioTileGroupStyle}>
             <form>
                 <MbtiRadioItem defaultValue={defaultValue} value={firstValue} onClick={onClick} />
                 <MbtiRadioItem defaultValue={defaultValue} value={secondValue} onClick={onClick} />
