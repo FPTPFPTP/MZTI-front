@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { ISignupState } from '@/types/signup';
-
+import { v1 } from 'uuid';
 const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
 const { persistAtom } = recoilPersist({
@@ -11,7 +11,7 @@ const { persistAtom } = recoilPersist({
 
 // Recoil-persist를 적용시키려면 아래의 effects_UNSTABLE을 적어주어야 한다.
 export const signupState = atom<ISignupState>({
-    key: 'signupStates',
+    key: `signupStates/${v1}`,
     default: {
         step: 1,
         nickname: '',
@@ -22,6 +22,6 @@ export const signupState = atom<ISignupState>({
 });
 
 export const signupProfileFileState = atom<File | null>({
-    key: 'signupProfileFileStates',
+    key: `signupProfileFileStates/${v1}`,
     default: null,
 });
