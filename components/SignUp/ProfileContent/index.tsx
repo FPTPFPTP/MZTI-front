@@ -1,15 +1,15 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Typography } from 'antd';
-import { CameraOutlined } from '@ant-design/icons';
-import { useRecoilState } from 'recoil';
-import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
-import { Avatar } from '@components/Commons';
-import { Container, AvatarWrap, UploadWrap } from './styled';
+import { useSetRecoilState } from 'recoil';
+import { signupProfileFileState } from '@/recoil/atom/signup';
+import { ProfileUpload } from '@components/Commons';
+import { Container } from './styled';
 
 const ProfileContent = () => {
-    const profileImgInputRef = useRef<any>(null);
+    // 이미지 링크
     const [previewFileSrc, setPreviewFileSrc] = useState<string>('');
-    const [signupProfileFile, setSignupProfileFile] = useRecoilState(signupProfileFileState);
+
+    const setSignupProfileFile = useSetRecoilState(signupProfileFileState);
 
     const updateProfileImg = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
         if (files) {
@@ -17,6 +17,7 @@ const ProfileContent = () => {
 
             setSignupProfileFile(file);
 
+            // 이미지 로컬 링크 생성
             setPreviewFileSrc(URL.createObjectURL(new Blob([file])));
         }
     };
@@ -24,6 +25,7 @@ const ProfileContent = () => {
     useEffect(() => {
         return () => {
             if (previewFileSrc) {
+                // 이미지 로컬 링크 해제
                 URL.revokeObjectURL(previewFileSrc);
             }
         };
@@ -34,15 +36,7 @@ const ProfileContent = () => {
             <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
                 프로필 사진을 골라주세요
             </Typography.Title>
-            <div css={AvatarWrap}>
-                <form>
-                    <Avatar src={previewFileSrc} alt={'프로필'} size={200} />
-                    <div css={UploadWrap} onClick={() => profileImgInputRef.current.click()}>
-                        <CameraOutlined style={{ fontSize: '1.5rem' }} />
-                    </div>
-                    <input ref={profileImgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} onChange={updateProfileImg} />
-                </form>
-            </div>
+            <ProfileUpload previewFileSrc={previewFileSrc} handleUpdateProfileImg={updateProfileImg} />
         </div>
     );
 };
