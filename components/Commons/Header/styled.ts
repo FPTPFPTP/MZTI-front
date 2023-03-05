@@ -12,7 +12,7 @@ export const HeaderContainer = css`
     z-index: 100;
 `;
 
-export const HeadingCss = () => css`
+export const TitleStyle = () => css`
     position: absolute;
     top: 50%;
     left: 50%;

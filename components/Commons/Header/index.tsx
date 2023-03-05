@@ -2,11 +2,13 @@ import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
 
 import ArrowLeftOutlined from '@assets/icons/left_arrow.svg';
-import { HeaderContainer, HeadingCss } from './styled';
+import { HeaderContainer, TitleStyle } from './styled';
 
 interface IHeaderBaseProps {
     title?: string;
     rightElement?: ReactNode;
+    rightLink?: ReactNode;
+    linkHref?: string;
 }
 
 interface IHeaderCallBackProps extends IHeaderBaseProps {
@@ -21,6 +23,7 @@ const Header = (props: THeaderProps) => {
 
     const router = useRouter();
 
+    // 뒤로가기
     const onBackPage = () => {
         if (onClickBackButton) {
             onClickBackButton();
@@ -31,8 +34,11 @@ const Header = (props: THeaderProps) => {
 
     return (
         <header css={HeaderContainer}>
-            <ArrowLeftOutlined style={{ fontSize: 30 }} onClick={onBackPage} />
-            {title && <h1 css={HeadingCss}>{title}</h1>}
+            <button onClick={onBackPage}>
+                <ArrowLeftOutlined style={{ fontSize: 30 }} />
+            </button>
+
+            {title && <h1 css={TitleStyle}>{title}</h1>}
             {rightElement && <>{rightElement}</>}
         </header>
     );

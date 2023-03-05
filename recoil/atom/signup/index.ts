@@ -11,7 +11,7 @@ const { persistAtom } = recoilPersist({
 
 // Recoil-persist를 적용시키려면 아래의 effects_UNSTABLE을 적어주어야 한다.
 export const signupState = atom<ISignupState>({
-    key: 'signupState',
+    key: 'signupStates',
     default: {
         step: 1,
         nickname: '',
@@ -22,6 +22,6 @@ export const signupState = atom<ISignupState>({
 });
 
 export const signupProfileFileState = atom<File | null>({
-    key: 'signupProfileFileState',
+    key: 'signupProfileFileStates',
     default: null,
 });
