@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import colors from '@styles/color';
 
-export const Container = ({ size }: { size: number }) => css`
+export const ContainerStyle = ({ size }: { size: number }) => css`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,6 +11,7 @@ export const Container = ({ size }: { size: number }) => css`
     border-radius: 50%;
     padding: 4px 8px;
     img {
-        object-fit: contain;
+        object-fit: cover;
+        position: absolute;
     }
 `;

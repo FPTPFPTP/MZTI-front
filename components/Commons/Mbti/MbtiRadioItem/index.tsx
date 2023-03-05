@@ -6,6 +6,13 @@ interface IMbtiRadioItem {
     onClick: (value: string) => void;
 }
 
+/**
+ *  MBTI 항목 유형
+ *  @params defaultValue {string | undefined}
+ *  @params value {string} 유형값
+ *  @params onClick {function}
+ * */
+
 const MbtiRadioItem = (props: IMbtiRadioItem) => {
     const { defaultValue, value, onClick } = props;
 

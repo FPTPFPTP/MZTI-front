@@ -6,7 +6,17 @@ import { signupState } from '@/recoil/atom/signup';
 import { Input } from '@components/Commons';
 import { Container, ContentWrap } from './styled';
 
-const IntroduceContent = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
+interface IIntroduceContent {
+    onSubmit: (data: { introduce?: string }) => void;
+}
+
+/**
+ *  자기소개 Tab
+ *  @params onSubmit {function} 프로필 사진 이미지 주소
+ * */
+
+const IntroduceContent = (props: IIntroduceContent) => {
+    const { onSubmit } = props;
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
     const { register, watch, handleSubmit, reset, setValue } = useForm();
     const { introduce } = watch();
@@ -15,6 +25,7 @@ const IntroduceContent = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
         setSignupStateObj((prev) => ({ ...prev, introduce: introduce }));
     }, [introduce]);
 
+    // 페이지 접근시 이전에 작성한 값이 있으면 적용
     useEffect(() => {
         if (signupStateObj.introduce.length) {
             setValue('introduce', signupStateObj.introduce);
