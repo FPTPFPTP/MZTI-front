@@ -5,6 +5,10 @@ import { signupProfileFileState } from '@/recoil/atom/signup';
 import { ProfileUpload } from '@components/Commons';
 import { Container } from './styled';
 
+/**
+ *  Profile Tab
+ * */
+
 const ProfileContent = () => {
     // 이미지 링크
     const [previewFileSrc, setPreviewFileSrc] = useState<string>('');
@@ -14,7 +18,7 @@ const ProfileContent = () => {
     const updateProfileImg = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
         if (files) {
             const file = files[0];
-
+            // 이미지 파일 저장
             setSignupProfileFile(file);
 
             // 이미지 로컬 링크 생성

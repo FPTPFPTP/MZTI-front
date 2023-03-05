@@ -17,6 +17,7 @@ const SignUp = () => {
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
     const signupProfileFile = useRecoilValue(signupProfileFileState);
 
+    // 다음단계 버튼 활성화
     const isError = useMemo(() => {
         switch (signupStateObj.step) {
             case 1: {
@@ -56,7 +57,7 @@ const SignUp = () => {
         }
     };
 
-    const onSubmit = (data: { nickname?: string; introduce: string }) => {
+    const onSubmit = (data: { nickname?: string; introduce?: string }) => {
         if (data.nickname) {
             onNext();
         }
@@ -81,6 +82,7 @@ const SignUp = () => {
 
         switch (signupStateObj.step) {
             case 1: {
+                // 닉네임 Tab
                 const filter = new Filter();
                 if (!RegExp(NICKNAME_REG, signupStateObj.nickname)) {
                     message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
@@ -96,6 +98,7 @@ const SignUp = () => {
                 break;
             }
             case 2: {
+                // MBTI Tab
                 if (signupStateObj.mbti.length === 4) {
                     await Axios.patch('/user/mbti', {
                         mbti: signupStateObj.mbti,
@@ -104,6 +107,7 @@ const SignUp = () => {
                 break;
             }
             case 3: {
+                // 자기소개 Tab
                 if (signupStateObj.introduce.length > 0) {
                     await Axios.patch('/user/intro', {
                         intro: signupStateObj.introduce,
@@ -112,6 +116,7 @@ const SignUp = () => {
                 break;
             }
             case 4: {
+                // Profile Tab
                 if (signupProfileFile !== null) {
                     const fmData = new FormData();
                     fmData.append('file', signupProfileFile);
@@ -140,10 +145,6 @@ const SignUp = () => {
             setStepActive(signupStateObj.step);
         }
     }, []);
-
-    useEffect(() => {
-        console.log(isError ? true : false);
-    }, [isError]);
 
     return (
         <NonSSRWrapper>

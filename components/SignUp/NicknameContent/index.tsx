@@ -9,7 +9,17 @@ import { ISignupState } from '@/types/signup';
 import { Container, ContentWrap, FlexStart, RuleWrap } from './styled';
 import colors from '@styles/color';
 
-const Nickname = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
+interface INickname {
+    onSubmit: (data: { nickname?: string }) => void;
+}
+
+/**
+ *  닉네임 Tab
+ *  @params onSubmit {function}
+ * */
+
+const Nickname = (props: INickname) => {
+    const { onSubmit } = props;
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
     const { register, watch, handleSubmit, reset, setValue } = useForm<ISignupState>();
     const { nickname } = watch();
@@ -18,6 +28,7 @@ const Nickname = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
         setSignupStateObj((prev) => ({ ...prev, nickname: nickname }));
     }, [nickname]);
 
+    // 페이지 접근시 이전에 작성한 값이 있으면 적용
     useEffect(() => {
         if (signupStateObj.nickname && signupStateObj.nickname.length) {
             setValue('nickname', signupStateObj.nickname);

@@ -24,6 +24,7 @@ const MbtiContent = () => {
         setMapObj((prev) => new Map(prev).set(key, value));
     };
 
+    // 페이지 접근시 이전에 작성한 값이 있으면 적용
     useEffect(() => {
         if (signupStateObj.mbti.length) {
             for (const chat of signupStateObj.mbti) {

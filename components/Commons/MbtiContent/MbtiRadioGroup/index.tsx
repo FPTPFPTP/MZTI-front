@@ -9,6 +9,14 @@ interface IMbtiRadioGroup {
     onClick: (value: string) => void;
 }
 
+/**
+ *  MBTI 항목 그룹
+ *  @params defaultValue {string | undefined}
+ *  @params firstValue {string} 유형 1
+ *  @params secondValue {string} 유형 2
+ *  @params onClick {function}
+ * */
+
 const MbtiRadioGroup = (props: IMbtiRadioGroup) => {
     const { defaultValue, firstValue, secondValue, onClick } = props;
 
