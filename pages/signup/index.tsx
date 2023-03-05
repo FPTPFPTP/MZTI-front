@@ -5,12 +5,11 @@ import Filter from 'badwords-ko';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
 import { Button, Header, ProgressLineBar } from '@components/Commons';
+import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 import Axios from '@utils/axios';
 import RegExp, { NICKNAME_REG } from '@utils/regExp';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
-
-const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
 const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
@@ -76,7 +75,7 @@ const SignUp = () => {
     };
 
     const onNext = async () => {
-        if (stepActive > STEP_ITEMS.length) {
+        if (stepActive > 4) {
             return;
         }
 
@@ -142,25 +141,31 @@ const SignUp = () => {
         }
     }, []);
 
+    useEffect(() => {
+        console.log(isError ? true : false);
+    }, [isError]);
+
     return (
-        <div css={Layout}>
-            <Header onClickBackButton={onBackPage} />
-            <div css={BodyWrapper}>
-                <ProgressLineBar percent={(stepActive / 4) * 100} />
-                {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
-                {stepActive === 2 && <MbtiContent />}
-                {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
-                {stepActive === 4 && <ProfileContent />}
-            </div>
-            <div css={FooterWrapper}>
-                {/* <Button buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
+        <NonSSRWrapper>
+            <div css={Layout}>
+                <Header onClickBackButton={onBackPage} />
+                <div css={BodyWrapper}>
+                    <ProgressLineBar percent={(stepActive / 4) * 100} />
+                    {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
+                    {stepActive === 2 && <MbtiContent />}
+                    {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
+                    {stepActive === 4 && <ProfileContent />}
+                </div>
+                <div css={FooterWrapper}>
+                    {/* <Button buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
                     이전단계로
                 </Button> */}
-                <Button buttonStyle={'base'} disabled={isError ? true : false} onClick={onNext}>
-                    {stepActive === 4 ? 'MZTI 시작해보기 !' : '다음단계로'}
-                </Button>
+                    <Button buttonStyle={'base'} disabled={isError ? true : false} onClick={onNext}>
+                        {stepActive === 4 ? 'MZTI 시작해보기 !' : '다음단계로'}
+                    </Button>
+                </div>
             </div>
-        </div>
+        </NonSSRWrapper>
     );
 };
 
