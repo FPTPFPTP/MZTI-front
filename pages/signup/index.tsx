@@ -5,12 +5,11 @@ import Filter from 'badwords-ko';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
 import { Button, Header, ProgressLineBar } from '@components/Commons';
+import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 import Axios from '@utils/axios';
 import RegExp, { NICKNAME_REG } from '@utils/regExp';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
-
-const STEP_ITEMS = ['닉네임', 'MBTI 입력', '한줄소개 입력', '프로필 입력'];
 
 const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
@@ -18,6 +17,7 @@ const SignUp = () => {
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
     const signupProfileFile = useRecoilValue(signupProfileFileState);
 
+    // 다음단계 버튼 활성화
     const isError = useMemo(() => {
         switch (signupStateObj.step) {
             case 1: {
@@ -57,7 +57,7 @@ const SignUp = () => {
         }
     };
 
-    const onSubmit = (data: { nickname?: string; introduce: string }) => {
+    const onSubmit = (data: { nickname?: string; introduce?: string }) => {
         if (data.nickname) {
             onNext();
         }
@@ -76,12 +76,13 @@ const SignUp = () => {
     };
 
     const onNext = async () => {
-        if (stepActive > STEP_ITEMS.length) {
+        if (stepActive > 4) {
             return;
         }
 
         switch (signupStateObj.step) {
             case 1: {
+                // 닉네임 Tab
                 const filter = new Filter();
                 if (!RegExp(NICKNAME_REG, signupStateObj.nickname)) {
                     message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
@@ -97,6 +98,7 @@ const SignUp = () => {
                 break;
             }
             case 2: {
+                // MBTI Tab
                 if (signupStateObj.mbti.length === 4) {
                     await Axios.patch('/user/mbti', {
                         mbti: signupStateObj.mbti,
@@ -105,6 +107,7 @@ const SignUp = () => {
                 break;
             }
             case 3: {
+                // 자기소개 Tab
                 if (signupStateObj.introduce.length > 0) {
                     await Axios.patch('/user/intro', {
                         intro: signupStateObj.introduce,
@@ -113,6 +116,7 @@ const SignUp = () => {
                 break;
             }
             case 4: {
+                // Profile Tab
                 if (signupProfileFile !== null) {
                     const fmData = new FormData();
                     fmData.append('file', signupProfileFile);
@@ -143,24 +147,26 @@ const SignUp = () => {
     }, []);
 
     return (
-        <div css={Layout}>
-            <Header onClickBackButton={onBackPage} />
-            <div css={BodyWrapper}>
-                <ProgressLineBar percent={(stepActive / 4) * 100} />
-                {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
-                {stepActive === 2 && <MbtiContent />}
-                {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
-                {stepActive === 4 && <ProfileContent />}
-            </div>
-            <div css={FooterWrapper}>
-                {/* <Button buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
+        <NonSSRWrapper>
+            <div css={Layout}>
+                <Header onClickBackButton={onBackPage} />
+                <div css={BodyWrapper}>
+                    <ProgressLineBar percent={(stepActive / 4) * 100} />
+                    {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
+                    {stepActive === 2 && <MbtiContent />}
+                    {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
+                    {stepActive === 4 && <ProfileContent />}
+                </div>
+                <div css={FooterWrapper}>
+                    {/* <Button buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
                     이전단계로
                 </Button> */}
-                <Button buttonStyle={'base'} disabled={isError ? true : false} onClick={onNext}>
-                    {stepActive === 4 ? 'MZTI 시작해보기 !' : '다음단계로'}
-                </Button>
+                    <Button buttonStyle={'base'} disabled={isError ? true : false} onClick={onNext}>
+                        {stepActive === 4 ? 'MZTI 시작해보기 !' : '다음단계로'}
+                    </Button>
+                </div>
             </div>
-        </div>
+        </NonSSRWrapper>
     );
 };
 

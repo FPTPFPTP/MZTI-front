@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
-import { css } from '@emotion/react';
 import Login from './login';
 
 import Splash from '@/components/Splash';
@@ -13,6 +12,7 @@ const Home: NextPage = () => {
             setIsLoding(false);
         }, 3000);
     }, []);
+
     return (
         <div>
             {isLoding ? (
