@@ -3,14 +3,27 @@ import Menu from '@/components/MyPage/Menu';
 import Profile from '@/components/MyPage/Profile';
 import Write from '@/components/MyPage/Write';
 import { Header } from '@components/Commons';
-import { useState } from 'react';
 import { MypageWrap } from './styled';
 import EditSvg from '@assets/icons/edit.svg';
 import Link from 'next/link';
+import { getMyPage } from '@/utils/apis/user';
+import { useEffect, useState } from 'react';
+import { IUserModel } from '@/types/user';
 
 const mypage = () => {
-    // login 여부
-    const [isLogin, isSetLogin] = useState<boolean>(false);
+    const [myInfo, setMyInfo] = useState<IUserModel>({
+        nickname: '',
+        mbti: '',
+        intro: '',
+    });
+
+    useEffect(() => {
+        const MyInfoData = getMyPage().then((res) => {
+            setMyInfo(res);
+        });
+        MyInfoData;
+    }, []);
+
     return (
         <>
             <Header
@@ -22,7 +35,7 @@ const mypage = () => {
                 }
             />
             <div css={MypageWrap}>
-                <Profile />
+                <Profile mbti={myInfo.mbti} nickname={myInfo.nickname} intro={myInfo.intro} />
                 <Write write={12} comment={73} recommend={514} />
                 <Banner />
                 <Menu />

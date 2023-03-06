@@ -37,11 +37,10 @@ const edit = () => {
     }, []);
 
     return (
-        <div css={editLayout}>
+        <div>
             <Header title="회원정보 수정" />
-
-            <form>
-                <div>
+            <form css={editLayout}>
+                <section>
                     <h4 css={editTitle}>닉네임</h4>
 
                     <Input
@@ -54,9 +53,9 @@ const edit = () => {
                             required: true,
                         })}
                     />
-                </div>
+                </section>
 
-                <div>
+                <section>
                     <h4 css={editTitle}>한 줄 소개</h4>
                     <Input
                         inputStyle={'borderLess'}
@@ -68,30 +67,27 @@ const edit = () => {
                             required: true,
                         })}
                     />
-                </div>
+                </section>
 
-                <div>
+                <section>
                     <div css={editTitle}>
                         <h4>프로필 사진</h4>
                         <span>카메라 버튼을 눌러 프로필 사진 변경</span>
                     </div>
 
                     <div css={AvatarWrap}>
-                        <form>
-                            <Avatar src={previewFileSrc} alt={'프로필'} size={200} />
-                            <div css={UploadWrap} onClick={() => profileImgInputRef.current.click()}>
-                                <CameraOutlined style={{ fontSize: '1.5rem' }} />
-                            </div>
-                            <input ref={profileImgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} onChange={updateProfileImg} />
-                        </form>
+                        <Avatar src={previewFileSrc} alt={'프로필'} size={200} />
+                        <div css={UploadWrap} onClick={() => profileImgInputRef.current.click()}>
+                            <CameraOutlined style={{ fontSize: '1.5rem' }} />
+                        </div>
+                        <input ref={profileImgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} onChange={updateProfileImg} />
                     </div>
-                </div>
+                </section>
 
                 <div>
                     <h4 css={editTitle}>MBTI</h4>
                 </div>
             </form>
-
             <BottomButton>수정 완료하기</BottomButton>
         </div>
     );

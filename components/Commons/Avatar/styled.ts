@@ -9,8 +9,7 @@ export const Container = ({ size }: { size: number }) => css`
     height: ${size}px;
     border: 1px solid ${colors.GRAY_ORIGIN_1};
     border-radius: 50%;
-    padding: 4px 8px;
     img {
-        object-fit: contain;
+        object-fit: cover;
     }
 `;

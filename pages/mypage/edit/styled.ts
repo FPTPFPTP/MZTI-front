@@ -3,7 +3,6 @@ import colors from '@styles/color';
 
 export const editLayout = css`
     padding: 0 30px;
-    margin: 50px 0 0 0;
 `;
 
 export const editTitle = css`

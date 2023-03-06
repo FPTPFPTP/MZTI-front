@@ -1,6 +1,11 @@
-import axios from '../axios';
+import Axios from '@utils/axios';
+// import { IUserModel } from '@/types/user';
 
-// 마이페이지
+/**
+ * TODO : response 타입 지정하기
+ * @returns
+ */
 export const getMyPage = async () => {
-    return await axios.get('/user');
+    const res = await Axios.get('/user');
+    return res.data.data;
 };
