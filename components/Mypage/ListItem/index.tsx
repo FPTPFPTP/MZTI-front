@@ -10,11 +10,12 @@ interface IListItemProps {
     id: string;
     title: string;
     date: string;
-    thumbnail: string;
+    number?: number;
+    thumbnail?: string;
 }
 
 const ListItem = (props: IListItemProps) => {
-    const { id, title, date, thumbnail } = props;
+    const { id, number, title, date, thumbnail } = props;
 
     const target = useRef(null); // 대상 ref
     const [visible, setVisible] = useState(false); // DOM을 렌더할 조건
@@ -32,7 +33,13 @@ const ListItem = (props: IListItemProps) => {
         <Link href={`/post/${id}`} css={ListItemWrapCss} ref={target}>
             {visible && (
                 <>
-                    <Avatar className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} size={40} />
+                    {thumbnail && <Avatar className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} size={40} />}
+                    {number && (
+                        <Typography.Text className="id" style={{ color: colors.GRAY_ORIGIN_1 }}>
+                            {number}
+                        </Typography.Text>
+                    )}
+
                     <Typography.Text className="title" style={{ color: colors.GRAY_ORIGIN_1 }}>
                         {title}
                     </Typography.Text>

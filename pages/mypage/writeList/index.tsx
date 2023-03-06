@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/Mypage';
@@ -9,6 +9,7 @@ import { Layout } from '@styles/pages/mypageStyled';
 
 const WriteList = () => {
     const observerRef = useRef(null);
+
     const [searchValue, setSearchValue] = useState('');
 
     const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
