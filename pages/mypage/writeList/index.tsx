@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/Mypage';
+import { useObserver } from '@/hooks/useObserver';
 import { useGetWrites } from '@apis/mypage';
 import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
@@ -15,30 +16,19 @@ const WriteList = () => {
 
     const { contents: writeList, hasNextPage, fetchNextPage } = useGetWrites(searchValue);
 
+    // useObserver로 넘겨줄 callback, entry로 넘어오는 HTMLElement가
+    // isIntersecting이라면 무한 스크롤을 위한 fetchNextPage가 실행될 것이다.
+    const onIntersect = ([entry]: any) => entry.isIntersecting && fetchNextPage();
+
+    // useObserver로 observerRef와 onIntersect를 넘겨 주자.
+    useObserver({
+        target: observerRef,
+        onIntersect,
+    });
+
     const onSubmit = (data: { search: string }) => {
         setSearchValue(data.search);
     };
-
-    const handleObserver = useCallback(
-        (entries: IntersectionObserverEntry[]) => {
-            const [target] = entries;
-            if (target.isIntersecting) {
-                fetchNextPage();
-            }
-        },
-        [fetchNextPage, hasNextPage],
-    );
-
-    useEffect(() => {
-        const element = observerRef.current;
-        const option = { threshold: 0 };
-
-        const observer = new IntersectionObserver(handleObserver, option);
-        if (element) {
-            observer.observe(element);
-            return () => observer.unobserve(element);
-        }
-    }, [fetchNextPage, hasNextPage, handleObserver]);
 
     return (
         <div css={Layout}>
