@@ -15,6 +15,9 @@ export const ListItemWrapCss = css`
     .id {
         width: 50px;
     }
+    .thumbnail {
+        margin-right: 10px;
+    }
     .title {
         width: 100%;
         overflow: hidden;

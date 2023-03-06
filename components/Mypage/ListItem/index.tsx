@@ -1,29 +1,30 @@
 import React from 'react';
+import Link from 'next/link';
 import { Typography } from 'antd';
+import { Avatar } from '@components/Commons';
 import colors from '@styles/color';
 import { ListItemWrapCss } from './styled';
 
 interface IListItemProps {
-    number: number;
+    id: string;
     title: string;
     date: string;
+    thumbnail: string;
 }
 
 const ListItem = (props: IListItemProps) => {
-    const { number, title, date } = props;
+    const { id, title, date, thumbnail } = props;
 
     return (
-        <div css={ListItemWrapCss}>
-            <Typography.Text className="id" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                {number}
-            </Typography.Text>
+        <Link href={`/post/${id}`} css={ListItemWrapCss}>
+            <Avatar className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} size={40} />
             <Typography.Text className="title" style={{ color: colors.GRAY_ORIGIN_1 }}>
                 {title}
             </Typography.Text>
             <Typography.Text className="date" style={{ color: colors.GRAY_ORIGIN_1 }}>
                 {date}
             </Typography.Text>
-        </div>
+        </Link>
     );
 };
 
