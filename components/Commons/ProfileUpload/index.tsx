@@ -21,13 +21,13 @@ const ProfileUpload = (props: IProfileUpload) => {
     const profileImgInputRef = useRef<HTMLInputElement | null>(null);
 
     return (
-        <form css={AvatarWrapStyle}>
+        <div css={AvatarWrapStyle}>
             <Avatar src={previewFileSrc} alt={'프로필'} size={size} />
             <div css={UploadWrapStyle} onClick={() => profileImgInputRef.current && profileImgInputRef.current.click()}>
                 <CameraSvg style={{ fontSize: '1.5rem' }} />
             </div>
             <input ref={profileImgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} onChange={handleUpdateProfileImg} />
-        </form>
+        </div>
     );
 };
 
