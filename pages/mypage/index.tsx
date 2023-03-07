@@ -1,21 +1,18 @@
-import Banner from '@/components/MyPage/Banner';
-import Menu from '@/components/MyPage/Menu';
-import Profile from '@/components/MyPage/Profile';
-import Write from '@/components/MyPage/Write';
+import Banner from '@/components/MyPageCom/Banner';
+import Menu from '@/components/MyPageCom/Menu';
+import Profile from '@/components/MyPageCom/Profile';
+import Write from '@/components/MyPageCom/Write';
 import { Header } from '@components/Commons';
 import { MypageWrap } from './styled';
 import EditSvg from '@assets/icons/edit.svg';
 import Link from 'next/link';
 import { getMyPage } from '@/utils/apis/user';
-import { useEffect, useState } from 'react';
-import { IUserModel } from '@/types/user';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
 
 const mypage = () => {
-    const [myInfo, setMyInfo] = useState<IUserModel>({
-        nickname: '',
-        mbti: '',
-        intro: '',
-    });
+    const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
 
     useEffect(() => {
         const MyInfoData = getMyPage().then((res) => {

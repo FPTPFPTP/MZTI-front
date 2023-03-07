@@ -24,25 +24,19 @@ export const editTitle = css`
     }
 `;
 
-export const AvatarWrap = css`
-    position: relative;
-    border-radius: 50%;
-    overflow: hidden;
-    input {
-        display: none;
-    }
+export const Container = css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
 `;
 
-export const UploadWrap = css`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 15%;
-    background: ${colors.GRAY_BRIGHT_1};
-    cursor: pointer;
-    &:hover {
-    }
+export const MbtiStyles = css`
+    border: 1px solid #000000;
+    border-radius: 12px;
+    display: inline-block;
+    padding: 4px 6px;
+    background: #fff;
+    margin-right: 1rem;
+    margin-top: 1rem;
 `;
