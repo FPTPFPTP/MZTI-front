@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
-import { Empty, ListBox, ListItem } from '@components/Mypage';
+import { Empty, ListBox, ListItem } from '@/components/MyPageCom';
 import { useGetComments } from '@apis/mypage';
 import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
