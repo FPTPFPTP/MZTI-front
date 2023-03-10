@@ -37,6 +37,15 @@ export const MbtiStyles = css`
     display: inline-block;
     padding: 4px 6px;
     background: #fff;
-    margin-right: 1rem;
+    margin-right: 0.3rem;
+`;
+
+export const editButton = css`
+    background-color: transparent;
+    box-shadow: none;
+`;
+
+export const MbtiFlex = css`
+    display: flex;
     margin-top: 1rem;
 `;

@@ -25,6 +25,10 @@ export const ProfileStyle = css`
     .photo {
         margin-right: 30px;
         text-align: center;
+        & > div {
+            border-radius: 50%;
+            overflow: hidden;
+        }
         p {
             width: 90px;
             height: 90px;
