@@ -10,6 +10,7 @@ export const HeaderContainer = css`
     height: 80px;
     padding: 4px 16px;
     z-index: 100;
+    background-color: #fff;
 `;
 
 export const HeadingCss = () => css`
