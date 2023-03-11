@@ -10,8 +10,7 @@ import { getMyPage } from '@/utils/apis/user';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
-import NotUser from '@assets/icons/notUser.svg';
-import NotUserMbti from '@assets/icons/notUser_mbti.svg';
+import NotUser from '@/components/MyPageCom/NotUser';
 
 const mypage = () => {
     const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
@@ -41,24 +40,7 @@ const mypage = () => {
                         <Write write={12} comment={73} recommend={514} />
                     </>
                 ) : (
-                    <div className="notUser">
-                        <div className="notUser__flex">
-                            <div className="notUser__left">
-                                <div className="profile">
-                                    <NotUser />
-                                </div>
-                                <p>Lv.0</p>
-                            </div>
-                            <div className="notUser__right">
-                                <NotUserMbti />
-                                <h3>로그인해주세요</h3>
-                                <p>로그인을 통해 MZTI의 더 많은 기능을 경험해보세요</p>
-                            </div>
-                        </div>
-                        <Link href="/login" className="loginButton">
-                            회원가입 / 로그인
-                        </Link>
-                    </div>
+                    <NotUser />
                 )}
 
                 <Banner />
