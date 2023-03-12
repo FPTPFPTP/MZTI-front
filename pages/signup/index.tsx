@@ -129,7 +129,8 @@ const SignUp = () => {
                         return;
                     }
                 }
-                router.push('/');
+                alert('MZTI 회원이 되신걸 환영해요 💓');
+                router.push('/home');
                 return;
             }
             default: {
