@@ -7,8 +7,6 @@ import { HeaderContainer, TitleStyle } from './styled';
 interface IHeaderBaseProps {
     title?: string;
     rightElement?: ReactNode;
-    rightLink?: ReactNode;
-    linkHref?: string;
 }
 
 interface IHeaderCallBackProps extends IHeaderBaseProps {
