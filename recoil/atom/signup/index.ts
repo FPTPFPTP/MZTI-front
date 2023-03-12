@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { ISignupState } from '@/types/signup';
-
+import { v1 } from 'uuid';
 const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
 const { persistAtom } = recoilPersist({
@@ -11,7 +11,7 @@ const { persistAtom } = recoilPersist({
 
 // 회원 가입 사용자 정보
 export const signupState = atom<ISignupState>({
-    key: 'signupState',
+    key: `signupStates/${v1()}`,
     default: {
         step: 1,
         nickname: '',
@@ -23,6 +23,6 @@ export const signupState = atom<ISignupState>({
 
 // 회원 가입 사용자 프로필
 export const signupProfileFileState = atom<File | null>({
-    key: 'signupProfileFileState',
+    key: `signupProfileFileStates/${v1()}`,
     default: null,
 });

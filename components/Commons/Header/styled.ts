@@ -13,7 +13,7 @@ export const HeaderContainer = css`
     background-color: #fff;
 `;
 
-export const HeadingCss = () => css`
+export const TitleStyle = () => css`
     position: absolute;
     top: 50%;
     left: 50%;

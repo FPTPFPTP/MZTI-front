@@ -12,5 +12,10 @@ export const MenuStyle = css`
             display: flex;
             justify-content: space-between;
         }
+        strong {
+            color: #ccc;
+            margin-left: 1rem;
+            font-weight: 300;
+        }
     }
 `;

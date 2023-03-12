@@ -2,9 +2,8 @@ import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import { FaBell, FaUserCircle } from 'react-icons/fa';
 import ArrowLeftOutlined from '@assets/icons/left_arrow.svg';
-import { HeaderContainer, HeadingCss, HomeMenu } from './styled';
+import { HeaderContainer, HomeMenu, TitleStyle } from './styled';
 import Link from 'next/link';
-
 interface IHeaderBaseProps {
     title?: string;
     rightElement?: ReactNode;
@@ -23,6 +22,7 @@ const Header = (props: THeaderProps) => {
 
     const router = useRouter();
 
+    // 뒤로가기
     const onBackPage = () => {
         if (onClickBackButton) {
             onClickBackButton();
@@ -49,7 +49,7 @@ const Header = (props: THeaderProps) => {
             ) : (
                 <>
                     <ArrowLeftOutlined style={{ fontSize: 30 }} onClick={onBackPage} />
-                    {title && <h1 css={HeadingCss}>{title}</h1>}
+                    {title && <h1 css={TitleStyle}>{title}</h1>}
                     {rightElement && <>{rightElement}</>}
                 </>
             )}
