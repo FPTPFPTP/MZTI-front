@@ -32,3 +32,10 @@ export const myPageInfo = atom<IUserModel>({
         profileImage: '',
     },
 });
+
+export const isLogin = atom<{ login: boolean }>({
+    key: `isLogin/${v1()}`,
+    default: {
+        login: false,
+    },
+});

@@ -13,7 +13,6 @@ import axios from '@/utils/axios';
 import { useRouter } from 'next/router';
 
 const edit = () => {
-    const [editProfile, setEditProfile] = useState<IUserModel>({ nickname: '', intro: '', profileImage: '', mbti: '' });
     const { register, watch, reset, setValue } = useForm<IUserModel>();
     const { nickname, intro } = watch();
     // back단 프로필
@@ -40,7 +39,7 @@ const edit = () => {
         }
     };
 
-    const handleEdit = useCallback(async () => {
+    const handleEdit = () => {
         try {
             const fmData = new FormData();
 
@@ -65,15 +64,18 @@ const edit = () => {
             if (profileData !== null) {
                 fmData.append('file', profileData);
             }
-            Promise.all([profileEdit(), textEdit()]).then((res: any) => {
-                alert('수정 완료되었습니다.');
-                setEditProfile(res);
-                router.push('/mypage');
-            });
+            Promise.all([profileEdit(), textEdit()])
+                .then((res: any) => {
+                    alert('수정 완료되었습니다.');
+                    router.push('/mypage');
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         } catch (error) {
             console.log(error);
         }
-    }, [profileData, nickname, mbtiValue, intro]);
+    };
 
     /**
      * mbti 수정

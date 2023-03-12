@@ -7,9 +7,9 @@ import { MypageWrap } from './styled';
 import EditSvg from '@assets/icons/edit.svg';
 import Link from 'next/link';
 import { getMyPage } from '@/utils/apis/user';
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { myPageInfo } from '@/recoil/atom/user';
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { myPageInfo, isLogin } from '@/recoil/atom/user';
 import NotUser from '@/components/MyPageCom/NotUser';
 
 const menuList = [
@@ -37,13 +37,16 @@ const menuList = [
 
 const mypage = () => {
     const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
-    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const iamUser = useRecoilValue(isLogin);
 
     useEffect(() => {
-        const MyInfoData = getMyPage().then((res) => {
+        console.log('iamUser', iamUser);
+    }, []);
+
+    useEffect(() => {
+        getMyPage().then((res) => {
             setMyInfo(res);
         });
-        MyInfoData;
     }, []);
 
     return (
@@ -57,9 +60,9 @@ const mypage = () => {
                 }
             />
             <div css={MypageWrap}>
-                {isLogin ? (
+                {iamUser ? (
                     <>
-                        <Profile mbti={myInfo.mbti} nickname={myInfo.nickname} intro={myInfo.intro} />
+                        <Profile mbti={myInfo.mbti} nickname={myInfo.nickname} intro={myInfo.intro} profileImage={myInfo.profileImage} />
                         <Write write={12} comment={73} recommend={514} />
                     </>
                 ) : (
