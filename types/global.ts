@@ -11,3 +11,9 @@ export interface IPaginationResponse<T> {
     isLastPage: boolean;
     isFirstPage: boolean;
 }
+
+export interface IResponseBase<T> {
+    code: 'SUCCESS' | 'FAIL';
+    message: string;
+    data: T;
+}

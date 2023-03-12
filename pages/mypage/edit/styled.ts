@@ -1,17 +1,51 @@
 import { css } from '@emotion/react';
+import colors from '@styles/color';
 
-export const EditButton = css`
-    position: fixed;
-    bottom: 0;
-    text-align: center;
+export const editLayout = css`
+    padding: 0 30px;
+`;
+
+export const editTitle = css`
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 24px;
+    margin-top: 40px;
+    h4 {
+        font-weight: 400;
+        display: inline-block;
+        margin-right: 15px;
+    }
+    span {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 14px;
+        display: inline-block;
+        color: #a7a7a7;
+    }
+`;
+
+export const Container = css`
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    width: 100%;
-    background: #000;
-    color: #fff;
-    height: 70px;
-    min-width: 390px;
-    max-width: 600px;
-    width: 100%;
+    margin-top: 2rem;
+`;
+
+export const MbtiStyles = css`
+    border: 1px solid #000000;
+    border-radius: 12px;
+    display: inline-block;
+    padding: 4px 6px;
+    background: #fff;
+    margin-right: 0.3rem;
+`;
+
+export const editButton = css`
+    background-color: transparent;
+    box-shadow: none;
+`;
+
+export const MbtiFlex = css`
+    display: flex;
+    margin-top: 1rem;
 `;

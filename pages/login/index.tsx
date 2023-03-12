@@ -56,7 +56,7 @@ const login = () => {
             <div css={Login}>
                 <h1>MBTI에 과몰입 할 MZ들 모여라!</h1>
                 <button onClick={handleKaKao}>
-                    <Image src="/images/kakao.png" alt="카카오톡으로 시작하기" width={500} height={500} />
+                    <Image src="/images/kakao.png" alt="카카오톡으로 시작하기" width={400} height={100} />
                 </button>
                 <FacebookLogin
                     appId={process.env.NEXT_PUBLIC_FACEBOOK_URL!}
@@ -87,7 +87,7 @@ const login = () => {
                     }}
                     render={(renderProps) => (
                         <button onClick={renderProps.onClick}>
-                            <Image src="/images/facebook.png" alt="페이스북으로 시작하기" width={500} height={500} />
+                            <Image src="/images/facebook.png" alt="페이스북으로 시작하기" width={400} height={100} />
                         </button>
                     )}
                 />
