@@ -18,7 +18,7 @@ const ListItem = (props: IListItemProps) => {
     const { id, number, title, date, thumbnail } = props;
 
     const target = useRef(null); // 대상 ref
-    const [visible, setVisible] = useState(false); // DOM을 렌더할 조건
+    const [visible, setVisible] = useState<boolean>(false); // DOM을 렌더할 조건
 
     // isIntersecting의 경우에 DOM을 마운트 한다.
     const onIntersect = ([entry]: any) => (entry.isIntersecting ? setVisible(true) : setVisible(false));

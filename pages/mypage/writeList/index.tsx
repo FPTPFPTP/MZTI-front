@@ -10,7 +10,7 @@ import { Layout } from '@styles/pages/mypageStyled';
 const WriteList = () => {
     const observerRef = useRef(null);
 
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState<string>('');
 
     const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
     const { search } = watch();
