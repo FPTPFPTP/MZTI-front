@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
-
 import ArrowLeftOutlined from '@assets/icons/left_arrow.svg';
-import { HeaderContainer, TitleStyle } from './styled';
+import { HeaderContainer, HomeMenu, TitleStyle } from './styled';
 
 interface IHeaderBaseProps {
     title?: string;
     rightElement?: ReactNode;
+    isPrevBtn?: boolean;
 }
 
 interface IHeaderCallBackProps extends IHeaderBaseProps {
@@ -16,7 +16,7 @@ interface IHeaderCallBackProps extends IHeaderBaseProps {
 type THeaderProps = IHeaderBaseProps | IHeaderCallBackProps;
 
 const Header = (props: THeaderProps) => {
-    const { title, rightElement } = props;
+    const { title, rightElement, isPrevBtn = true } = props;
     const { onClickBackButton } = props as IHeaderCallBackProps;
 
     const router = useRouter();
@@ -32,10 +32,11 @@ const Header = (props: THeaderProps) => {
 
     return (
         <header css={HeaderContainer}>
-            <button onClick={onBackPage}>
-                <ArrowLeftOutlined style={{ fontSize: 30 }} />
-            </button>
-
+            {isPrevBtn && (
+                <button onClick={onBackPage}>
+                    <ArrowLeftOutlined style={{ fontSize: 30 }} />
+                </button>
+            )}
             {title && <h1 css={TitleStyle}>{title}</h1>}
             {rightElement && <>{rightElement}</>}
         </header>

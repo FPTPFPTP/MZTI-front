@@ -10,6 +10,7 @@ export const HeaderContainer = css`
     height: 80px;
     padding: 4px 16px;
     z-index: 100;
+    background-color: #fff;
 `;
 
 export const TitleStyle = () => css`
@@ -19,4 +20,23 @@ export const TitleStyle = () => css`
     transform: translate(-50%, -50%);
     font-size: 18px;
     font-weight: 600;
+`;
+
+export const HomeMenu = () => css`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    h1 {
+        font-size: 1.6rem;
+    }
+    .right {
+        display: flex;
+        .alarm {
+            margin-right: 0.5rem;
+        }
+        a {
+            font-size: 1.6rem;
+            color: #000;
+        }
+    }
 `;
