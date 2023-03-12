@@ -17,15 +17,36 @@ const WriteCommentList = () => {
 
     const { contents: commentList, hasNextPage, fetchNextPage } = useGetComments(searchValue);
 
-    // useObserver로 넘겨줄 callback, entry로 넘어오는 HTMLElement가
-    // isIntersecting이라면 무한 스크롤을 위한 fetchNextPage가 실행될 것이다.
-    const onIntersect = ([entry]: any) => entry.isIntersecting && fetchNextPage();
+    // // useObserver로 넘겨줄 callback, entry로 넘어오는 HTMLElement가
+    // // isIntersecting이라면 무한 스크롤을 위한 fetchNextPage가 실행될 것이다.
+    // const onIntersect = ([entry]: any) => entry.isIntersecting && fetchNextPage();
 
-    // useObserver로 observerRef와 onIntersect를 넘겨 주자.
-    useObserver({
-        target: observerRef,
-        onIntersect,
-    });
+    // // useObserver로 observerRef와 onIntersect를 넘겨 주자.
+    // useObserver({
+    //     target: observerRef,
+    //     onIntersect,
+    // });
+
+    const handleObserver = useCallback(
+        (entries: IntersectionObserverEntry[]) => {
+            const [target] = entries;
+            if (target.isIntersecting) {
+                fetchNextPage();
+            }
+        },
+        [fetchNextPage, hasNextPage],
+    );
+
+    useEffect(() => {
+        const element = observerRef.current;
+        const option = { threshold: 0 };
+
+        const observer = new IntersectionObserver(handleObserver, option);
+        if (element) {
+            observer.observe(element);
+            return () => observer.unobserve(element);
+        }
+    }, [fetchNextPage, hasNextPage, handleObserver]);
 
     const onSubmit = (data: { search: string }) => {
         setSearchValue(data.search);
@@ -46,7 +67,7 @@ const WriteCommentList = () => {
             </form>
             <ListBox>
                 {commentList.length ? (
-                    commentList.map((item, index) => <ListItem key={item.id} number={index + 1} title={item.title} date={item.date} />)
+                    commentList.map((item, index) => <ListItem key={item.id} id={item.id} number={index + 1} title={item.title} date={item.date} />)
                 ) : (
                     <Empty title="작성한 댓글이 없습니다" subTitle="첫 댓글을 남겨보러 갈까요?" buttonTitle="댓글 작성하러 가기" href="/" />
                 )}
