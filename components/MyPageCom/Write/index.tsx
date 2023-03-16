@@ -19,7 +19,7 @@ const Write = ({ write, comment, recommend }: Props) => {
             </li>
             <li>
                 <p>받은 추천</p>
-                <Link href="/mypage/writeList">{recommend}</Link>
+                <p>{recommend}</p>
             </li>
         </ul>
     );
