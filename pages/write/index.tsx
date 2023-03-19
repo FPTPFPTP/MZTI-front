@@ -1,10 +1,4 @@
-import React, { useRef } from 'react';
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import { Editor } from '@toast-ui/react-editor';
-import { Header, Input } from '@components/Commons';
-import { Layout } from '@styles/pages/signupStyled';
-import EditSvg from '@assets/icons/edit.svg';
+import React from 'react';
 
 import dynamic from 'next/dynamic';
 

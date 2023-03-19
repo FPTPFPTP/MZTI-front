@@ -15,7 +15,7 @@ export interface IPostModel {
 
 export interface IPollModel {
     id: number;
-    title: string;
+    title?: string;
     startDate: string;
     endDate: string;
     checkCount: number;
@@ -23,7 +23,7 @@ export interface IPollModel {
 }
 
 export interface IPollQuestionModel {
-    id: number;
+    id: number | string;
     item: string;
     image: string;
 }
