@@ -12,6 +12,7 @@ import { BottomWrapper } from './styled';
 import { DefaultModeEditor as SurveyEditor, DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite } from '@apis/write';
 import { IPollModel } from '@/types/post';
+import Axios from '@utils/axios';
 interface IEditorBox {
     contents: string;
 }
@@ -87,7 +88,16 @@ const EditorBox = (props: IEditorBox) => {
             editorRef.current.getInstance().addHook('addImageBlobHook', (blob, callback) => {
                 (async () => {
                     const formData = new FormData();
-                    formData.append('multipartFiles', blob);
+                    formData.append('file', blob);
+                    const data = await Axios.post(`/post/image`, formData, {
+                        headers: {
+                            'content-type': 'multipart/form-data',
+                        },
+                    });
+                    if (data) {
+                        console.log(data.data.data);
+                        callback(data.data.data, 'alt text');
+                    }
                 })();
 
                 return false;
