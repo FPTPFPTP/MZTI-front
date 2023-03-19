@@ -13,7 +13,7 @@ export interface IPaginationResponse<T> {
 }
 
 export interface IResponseBase<T> {
-    code: 'SUCCESS' | 'FAIL';
+    code: 'SUCCESS' | 'FAILURE';
     message: string;
     data: T;
 }
