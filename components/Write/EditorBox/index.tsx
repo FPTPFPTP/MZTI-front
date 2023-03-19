@@ -1,18 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { message } from 'antd';
+import { message, Select } from 'antd';
 import { useForm } from 'react-hook-form';
 import { Editor } from '@toast-ui/react-editor';
 import { Header, Input } from '@components/Commons';
-import { Layout } from '@styles/pages/signupStyled';
 import EditSvg from '@assets/icons/edit.svg';
 import VoteSvg from '@assets/icons/vote.svg';
 import ToastEditor from '@/components/Commons/ToastEditor';
-import { BottomWrapper } from './styled';
-import { DefaultModeEditor as SurveyEditor, DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
+import { Layout } from './styled';
+import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite } from '@apis/write';
-import { IPollModel } from '@/types/post';
+import { useGetBoards } from '@/apis/boards';
 import Axios from '@utils/axios';
+import SurveyModal from '../SurveyModal';
+
 interface IEditorBox {
     contents: string;
 }
@@ -20,15 +21,22 @@ interface IEditorBox {
 const EditorBox = (props: IEditorBox) => {
     const { contents } = props;
     const router = useRouter();
-    const [isVote, setIsVote] = useState<boolean>(false);
+    const [isSurveyModal, setIsSurveyModal] = useState<boolean>(false);
+    const [selectCategory, setSelectCategory] = useState<number>(1);
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
 
     const editorRef = useRef<Editor>(null);
-    const { register, watch, handleSubmit, reset, setValue } = useForm();
+    const { register, watch, reset, setValue } = useForm();
     const { title } = watch();
+
+    const categorys = useGetBoards();
 
     const onBackPage = () => {
         router.back();
+    };
+
+    const handleCategoryChange = (value: string) => {
+        setSelectCategory(Number(value));
     };
 
     // 등록 버튼 핸들러
@@ -55,7 +63,7 @@ const EditorBox = (props: IEditorBox) => {
                 }
                 const data = await postWrite({
                     title,
-                    categoryId: 1,
+                    categoryId: selectCategory,
                     content: editorRef.current?.getInstance().getHTML(),
                     tagList,
                     pollList,
@@ -68,14 +76,28 @@ const EditorBox = (props: IEditorBox) => {
         }
     };
 
+    // surveyModal open
+    const onSurveyModalOpen = () => {
+        setIsSurveyModal(true);
+    };
+    // surveyModal event
+    const onSurveyAdd = (survey: SurveyType.IDefaultModeSurveyResult) => {
+        setSurveyData([...surveyData, survey]);
+        setIsSurveyModal(false);
+    };
+
+    // surveyModal 닫기
     const onSurveyClose = () => {
-        setIsVote(false);
-        setSurveyData([]);
+        setIsSurveyModal(false);
     };
 
     useEffect(() => {
         console.log({ surveyData });
     }, [surveyData]);
+
+    useEffect(() => {
+        console.log({ categorys });
+    }, [categorys]);
 
     useEffect(() => {
         if (editorRef.current) {
@@ -116,6 +138,16 @@ const EditorBox = (props: IEditorBox) => {
                     </button>
                 }
             />
+            {categorys && categorys.length && (
+                <Select defaultValue={categorys[0].title} style={{ width: 120, margin: '0 auto' }} onChange={handleCategoryChange} bordered={false}>
+                    {categorys.map((category) => (
+                        <Select.Option key={category.id} value={category.id} label={category.title}>
+                            {category.title}
+                        </Select.Option>
+                    ))}
+                </Select>
+            )}
+
             <form>
                 <Input
                     inputStyle={'borderLess'}
@@ -127,7 +159,7 @@ const EditorBox = (props: IEditorBox) => {
                 />
                 <button type="submit" />
             </form>
-            <ToastEditor ref={editorRef} />
+            <ToastEditor ref={editorRef} onSurvey={onSurveyModalOpen} />
             {surveyData.map((survey) => (
                 <DefaultModeViewer
                     key={survey.id}
@@ -136,17 +168,7 @@ const EditorBox = (props: IEditorBox) => {
                     onSubmit={(result) => console.log({ result })}
                 />
             ))}
-
-            {isVote && (
-                <div>
-                    <SurveyEditor onSubmit={(result) => setSurveyData([...surveyData, result])} onClose={onSurveyClose} submitButtonText={'첨부하기'} />
-                </div>
-            )}
-            <div css={BottomWrapper}>
-                <button onClick={() => setIsVote(true)}>
-                    <VoteSvg />
-                </button>
-            </div>
+            <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />
         </div>
     );
 };
