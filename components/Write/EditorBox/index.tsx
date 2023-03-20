@@ -11,6 +11,7 @@ import { Layout } from './styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite } from '@apis/write';
 import { useGetBoards } from '@/apis/boards';
+import { useGetTags } from '@apis/posts';
 import Axios from '@utils/axios';
 import SurveyModal from '../SurveyModal';
 
@@ -24,12 +25,16 @@ const EditorBox = (props: IEditorBox) => {
     const [isSurveyModal, setIsSurveyModal] = useState<boolean>(false);
     const [selectCategory, setSelectCategory] = useState<number>(1);
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
+    const [tagSearchValue, setTagSearchValue] = useState<string>('');
 
     const editorRef = useRef<Editor>(null);
     const { register, watch, reset, setValue } = useForm();
     const { title } = watch();
 
+    // 게시판 메뉴
     const categorys = useGetBoards();
+    // tag
+    const tags = useGetTags(tagSearchValue);
 
     const onBackPage = () => {
         router.back();
@@ -37,6 +42,14 @@ const EditorBox = (props: IEditorBox) => {
 
     const handleCategoryChange = (value: string) => {
         setSelectCategory(Number(value));
+    };
+
+    const handleTagChange = (value: string[]) => {
+        console.log(value);
+    };
+
+    const handleTagSearch = (value: string) => {
+        setTagSearchValue(value);
     };
 
     // 등록 버튼 핸들러
@@ -69,7 +82,11 @@ const EditorBox = (props: IEditorBox) => {
                     pollList,
                 });
 
-                console.log({ data });
+                if (data.code === 'SUCCESS') {
+                    message.success('작성한 글 업로드에 성공했어요');
+
+                    console.log({ data });
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -80,12 +97,15 @@ const EditorBox = (props: IEditorBox) => {
     const onSurveyModalOpen = () => {
         setIsSurveyModal(true);
     };
-    // surveyModal event
+    // survey Arr 추가
     const onSurveyAdd = (survey: SurveyType.IDefaultModeSurveyResult) => {
         setSurveyData([...surveyData, survey]);
         setIsSurveyModal(false);
     };
 
+    const onSurveyRemove = (key: string) => {
+        setSurveyData(surveyData.filter((survey) => survey.id !== key));
+    };
     // surveyModal 닫기
     const onSurveyClose = () => {
         setIsSurveyModal(false);
@@ -96,8 +116,8 @@ const EditorBox = (props: IEditorBox) => {
     }, [surveyData]);
 
     useEffect(() => {
-        console.log({ categorys });
-    }, [categorys]);
+        console.log({ tags });
+    }, [tags]);
 
     useEffect(() => {
         if (editorRef.current) {
@@ -166,8 +186,21 @@ const EditorBox = (props: IEditorBox) => {
                     survey={survey}
                     onResult={() => console.log('결과 페이지 이동')}
                     onSubmit={(result) => console.log({ result })}
+                    onRemove={onSurveyRemove}
                 />
             ))}
+            <Select
+                mode="multiple"
+                style={{ width: '100%' }}
+                placeholder="키워드를 선택해주세요"
+                onChange={handleTagChange}
+                onSearch={handleTagSearch}
+                options={(tags || []).map((tag) => ({
+                    value: tag.id,
+                    label: tag.tag,
+                }))}
+            />
+
             <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />
         </div>
     );
