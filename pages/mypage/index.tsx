@@ -19,7 +19,7 @@ const menuList = [
         url: '/mypage/bookmark',
     },
     {
-        title: '피드백 페이지',
+        title: '서포트 센터',
         subDesc: '1:1 문의, 건의 사항',
         url: '/mypage/feedback',
     },

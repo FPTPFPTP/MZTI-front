@@ -17,7 +17,7 @@ const feedback = () => {
     };
     return (
         <>
-            <Header title="피드백 페이지" />
+            <Header title="서포트 센터" />
             <form css={feedbackStyled}>
                 <div className="type">
                     <h3>문의 유형</h3>
