@@ -10,16 +10,20 @@ const Write = ({ write, comment, recommend }: Props) => {
     return (
         <ul css={WriteStyle}>
             <li>
-                <p>작성한 글</p>
-                <Link href="/mypage/writeList">{write}</Link>
+                <p className="writeTitle">작성한 글</p>
+                <Link href="/mypage/writeList">
+                    <p className="writeNum">{write}</p>
+                </Link>
             </li>
             <li>
-                <p>작성한 댓글</p>
-                <Link href="/mypage/writeCommentList">{comment}</Link>
+                <p className="writeTitle">작성한 댓글</p>
+                <Link href="/mypage/writeCommentList">
+                    <p className="writeNum">{comment}</p>
+                </Link>
             </li>
             <li>
-                <p>받은 추천</p>
-                <p>{recommend}</p>
+                <p className="writeTitle">받은 추천</p>
+                <p className="writeNum">{recommend}</p>
             </li>
         </ul>
     );

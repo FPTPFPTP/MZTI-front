@@ -10,4 +10,13 @@ export const WriteStyle = css`
     button {
         font-size: 20px;
     }
+    .writeTitle {
+        font-size: 1.3rem;
+        font-weight: 400;
+    }
+    .writeNum {
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin-top: 14px;
+    }
 `;
