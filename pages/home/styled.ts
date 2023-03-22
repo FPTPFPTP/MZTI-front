@@ -10,11 +10,28 @@ export const HomeMenu = () => css`
     .right {
         display: flex;
         .alarm {
-            margin-right: 0.5rem;
+            margin-right: 20px;
         }
         a {
             font-size: 1.6rem;
             color: #000;
         }
     }
+`;
+
+export const PostStyle = () => css`
+    border-bottom: 0.5px solid #a7a7a7;
+    .postHeaderWrap {
+        padding: 35px 32px 0;
+    }
+    .postTitle {
+        font-size: 1.4rem;
+    }
+`;
+
+export const PostContent = () => css`
+    font-weight: 300;
+    font-size: 1.4rem;
+    color: #000000;
+    padding: 57px 33px;
 `;

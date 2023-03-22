@@ -2,13 +2,15 @@ import BottomMenu from '@/components/Commons/BottomMenu';
 import FeedItem from '@/components/Home/FeedItem';
 import HotKeyword from '@/components/Home/HotKeyword';
 import { Header } from '@components/Commons';
-import { FaBell, FaUserCircle } from 'react-icons/fa';
+import AlarmIcon from '@assets/icons/header/alarm.svg';
+import MyPageIcon from '@assets/icons/header/mypage.svg';
 import Link from 'next/link';
 import { HomeMenu } from './styled';
 
 const home = () => {
     return (
-        <div>
+        <main>
+            {/* 헤더 */}
             <Header
                 isPrevBtn={false}
                 rightElement={
@@ -17,20 +19,25 @@ const home = () => {
 
                         <div className="right">
                             <Link href="/alarm" className="alarm">
-                                <FaBell />
+                                <AlarmIcon />
                             </Link>
                             <Link href="/mypage">
-                                <FaUserCircle />
+                                <MyPageIcon />
                             </Link>
                         </div>
                     </div>
                 }
             />
+
+            {/* 핫토픽 키워드 */}
             <HotKeyword />
+
+            {/* 피드 게시물 */}
             <FeedItem />
 
+            {/* 메뉴 */}
             <BottomMenu />
-        </div>
+        </main>
     );
 };
 

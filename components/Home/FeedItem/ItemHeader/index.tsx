@@ -1,38 +1,27 @@
 import { Avatar } from '@/components/Commons';
-import { useState } from 'react';
-import { RiMoreFill } from 'react-icons/Ri';
+import { timeForToday } from '@/utils/time';
+import { WriterProps } from '@/utils/types';
 import { ItemHeaderStyle } from '../styled';
 
-const ItemHeader = () => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-
-    const handelMore = () => {
-        setIsOpen((isOpen) => !isOpen);
-    };
+const ItemHeader = ({ nickname, mbti, level, profileImage, moreBtn = true, createAt }: WriterProps) => {
     return (
         <>
             <section css={ItemHeaderStyle}>
                 <div className="userInfo">
-                    <p className="userInfo__profile">profile</p>
-                    <div className="userInfo__Text">
-                        <p>
-                            <span className="mbti">ENTP</span>
-                            <span>Lv.2</span>
-                        </p>
-                        <p>인프제콜렉터</p>
+                    <div className="userInfo__profile">
+                        <Avatar src={profileImage} alt={nickname} size={90} />
                     </div>
-                </div>
-
-                <div className="moreButton">
-                    <button onClick={handelMore}>
-                        <RiMoreFill />
-                    </button>
-
-                    {isOpen && (
-                        <div className="moreButton__box">
-                            <button>신고 / 차단</button>
+                    <div className="userInfo__Text">
+                        <div>
+                            <span className="mbti">{mbti}</span>
+                            <span className="level">Lv.{level}</span>
                         </div>
-                    )}
+
+                        <div className="nickname_time">
+                            <p className="nickname">{nickname}</p>
+                            <p className="time">{timeForToday(createAt)}</p>
+                        </div>
+                    </div>
                 </div>
             </section>
         </>
