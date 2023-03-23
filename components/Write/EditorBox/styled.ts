@@ -1,10 +1,28 @@
 import { css } from '@emotion/react';
 import colors from '@styles/color';
 
-export const Layout = css`
+export const ContentWrapStyle = css`
+    overflow-y: auto;
     position: relative;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     padding: 0px 20px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;
+        width: 0 !important;
+    }
+`;
+
+export const FlexCenterStyle = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .ant-select-selector {
+        font-size: 24px;
+    }
 `;
 
 export const KeywordWrapStyle = css`
@@ -31,6 +49,32 @@ export const KeywordWrapStyle = css`
             svg {
                 fill: ${colors.BLACK};
             }
+        }
+    }
+`;
+export const BottomWrapStyle = css`
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+`;
+
+export const BottomBtnWrapStyle = css`
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 4px 8px;
+    gap: 8px;
+    button {
+        border: 1px solid ${colors.BLACK};
+        border-radius: 4px;
+        padding: 4px;
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+        &:hover {
+            transform: scale(1.01);
+            background: ${colors.GRAY_ORIGIN_1};
         }
     }
 `;
