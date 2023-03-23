@@ -12,6 +12,7 @@ const Tag = (props: ITag) => {
 
     const handleDelete = (e: React.MouseEvent) => {
         e.preventDefault();
+        e.stopPropagation();
         onDelete && onDelete();
     };
 

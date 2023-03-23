@@ -3,17 +3,20 @@ import { useRouter } from 'next/router';
 import { message, Select } from 'antd';
 import { useForm } from 'react-hook-form';
 import { Editor } from '@toast-ui/react-editor';
-import { Header, Input } from '@components/Commons';
+import { Button, Header, Input, Tag } from '@components/Commons';
 import EditSvg from '@assets/icons/edit.svg';
+import PlusSvg from '@assets/icons/plus.svg';
 import VoteSvg from '@assets/icons/vote.svg';
 import ToastEditor from '@/components/Commons/ToastEditor';
-import { Layout } from './styled';
+import { Layout, KeywordWrapStyle } from './styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite } from '@apis/write';
 import { useGetBoards } from '@/apis/boards';
 import { useGetTags } from '@apis/posts';
 import Axios from '@utils/axios';
 import SurveyModal from '../SurveyModal';
+import KeywordDrawer from '../KeywordDrawer';
+import { ITagModel } from '@/types/post';
 
 interface IEditorBox {
     contents: string;
@@ -23,18 +26,16 @@ const EditorBox = (props: IEditorBox) => {
     const { contents } = props;
     const router = useRouter();
     const [isSurveyModal, setIsSurveyModal] = useState<boolean>(false);
+    const [isKeywordDrawer, setIsKeywordDrawer] = useState<boolean>(false);
     const [selectCategory, setSelectCategory] = useState<number>(1);
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
-    const [tagSearchValue, setTagSearchValue] = useState<string>('');
-
+    const [selectKeyword, setSelectKeyword] = useState<ITagModel[]>([]);
     const editorRef = useRef<Editor>(null);
     const { register, watch, reset, setValue } = useForm();
     const { title } = watch();
 
     // 게시판 메뉴
     const categorys = useGetBoards();
-    // tag
-    const tags = useGetTags(tagSearchValue);
 
     const onBackPage = () => {
         router.back();
@@ -44,23 +45,15 @@ const EditorBox = (props: IEditorBox) => {
         setSelectCategory(Number(value));
     };
 
-    const handleTagChange = (value: string[]) => {
-        console.log(value);
-    };
-
-    const handleTagSearch = (value: string) => {
-        setTagSearchValue(value);
-    };
-
     // 등록 버튼 핸들러
     const handleRegisterButton = async () => {
         if (editorRef.current) {
             // 입력창에 입력한 내용을 HTML 태그 형태로 취득
-            console.log(editorRef.current?.getInstance().getHTML());
+            // console.log(editorRef.current?.getInstance().getHTML());
             // 입력창에 입력한 내용을 MarkDown 형태로 취득
-            console.log(editorRef.current?.getInstance().getMarkdown());
+            // console.log(editorRef.current?.getInstance().getMarkdown());
+            console.log({ selectKeyword });
             try {
-                const tagList: any = [];
                 const pollList = [];
 
                 if (surveyData.length) {
@@ -78,7 +71,7 @@ const EditorBox = (props: IEditorBox) => {
                     title,
                     categoryId: selectCategory,
                     content: editorRef.current?.getInstance().getHTML(),
-                    tagList,
+                    tagList: selectKeyword.map((keyword) => keyword.id),
                     pollList,
                 });
 
@@ -114,10 +107,6 @@ const EditorBox = (props: IEditorBox) => {
     useEffect(() => {
         console.log({ surveyData });
     }, [surveyData]);
-
-    useEffect(() => {
-        console.log({ tags });
-    }, [tags]);
 
     useEffect(() => {
         if (editorRef.current) {
@@ -189,19 +178,32 @@ const EditorBox = (props: IEditorBox) => {
                     onRemove={onSurveyRemove}
                 />
             ))}
-            <Select
-                mode="multiple"
-                style={{ width: '100%' }}
-                placeholder="키워드를 선택해주세요"
-                onChange={handleTagChange}
-                onSearch={handleTagSearch}
-                options={(tags || []).map((tag) => ({
-                    value: tag.id,
-                    label: tag.tag,
-                }))}
-            />
-
+            <ul css={KeywordWrapStyle}>
+                <button onClick={() => setIsKeywordDrawer(true)}>
+                    <PlusSvg />
+                    {!selectKeyword.length && '키워드 입력(최대 10개)'}
+                </button>
+                {selectKeyword.length > 0 &&
+                    selectKeyword.map((keyword) => (
+                        <Tag
+                            key={keyword.id}
+                            title={keyword.tag}
+                            onClick={() => {
+                                console.log(`${keyword.tag} 클릭`);
+                            }}
+                            onDelete={() => setSelectKeyword(selectKeyword.filter((tag) => tag.id !== keyword.id))}
+                        />
+                    ))}
+            </ul>
             <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />
+            <KeywordDrawer
+                isDrawer={isKeywordDrawer}
+                selectKeyword={selectKeyword}
+                handleSetSelectKeyword={setSelectKeyword}
+                onClose={() => {
+                    setIsKeywordDrawer(false);
+                }}
+            />
         </div>
     );
 };

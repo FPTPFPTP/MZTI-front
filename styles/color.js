@@ -17,6 +17,7 @@ module.exports = {
 
     // Gray Light
     GRAY_LIGHT_1: '#fafafa', // BG/Text/InputBG
+    GRAY_LIGHT_2: '#F6F6F6',
 
     // Gray Bright
     GRAY_BRIGHT_1: '#c4c4c4', // Text/Disabled/Placeholder
