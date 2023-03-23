@@ -9,25 +9,26 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import { Editor } from '@toast-ui/react-editor';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { ToastEditorCss } from './styled';
+
 interface IToastEditorProps {
     placaholder?: string;
-    onSurvey: () => void;
+    // onSurvey: () => void;
 }
 
-const ToastEditor = forwardRef<Editor, IToastEditorProps>(({ placaholder, onSurvey }, ref) => {
-    const customPlugin = useCallback(() => {
-        const button = document.createElement('button');
+const ToastEditor = forwardRef<Editor, IToastEditorProps>(({ placaholder }, ref) => {
+    // const customPlugin = useCallback(() => {
+    //     const button = document.createElement('button');
 
-        button.className = 'toastui-editor-toolbar-icons last';
-        button.style.backgroundImage = 'none';
-        button.style.margin = '0';
-        button.innerHTML = `<i>T</i>`;
-        button.addEventListener('click', () => {
-            onSurvey();
-        });
+    //     button.className = 'toastui-editor-toolbar-icons last';
+    //     button.style.backgroundImage = 'none';
+    //     button.style.margin = '0';
+    //     button.innerHTML = `<i>T</i>`;
+    //     button.addEventListener('click', () => {
+    //         onSurvey();
+    //     });
 
-        return button;
-    }, [onSurvey]);
+    //     return button;
+    // }, [onSurvey]);
 
     return (
         <div css={ToastEditorCss}>
@@ -35,7 +36,7 @@ const ToastEditor = forwardRef<Editor, IToastEditorProps>(({ placaholder, onSurv
                 ref={ref} // DOM 선택용 useRef
                 placeholder={placaholder}
                 previewStyle="tab"
-                minHeight="400px"
+                height="500px"
                 initialEditType="wysiwyg"
                 toolbarItems={[
                     // 툴바 옵션 설정
@@ -44,15 +45,16 @@ const ToastEditor = forwardRef<Editor, IToastEditorProps>(({ placaholder, onSurv
                     ['ul', 'ol', 'task'],
                     ['table', 'image', 'link'],
                     ['code', 'codeblock'],
-                    [
-                        {
-                            el: customPlugin(),
-                            command: 'survey',
-                            name: 'survey',
-                            tooltip: '투표생성',
-                        },
-                    ],
+                    // [
+                    //     {
+                    //         el: customPlugin(),
+                    //         command: 'survey',
+                    //         name: 'survey',
+                    //         tooltip: '투표생성',
+                    //     },
+                    // ],
                 ]}
+                hideModeSwitch={true}
                 useCommandShortcut={false} // 키보드 입력 컨트롤 방지
                 plugins={[colorSyntax]}
                 language="ko-KR"
