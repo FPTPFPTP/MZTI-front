@@ -33,6 +33,7 @@
         "antd": "^5.2.0",
         "axios": "^1.3.2",
         "badwords-ko": "^1.0.3",
+        "classnames": "^2.3.2",
         "dayjs": "^1.11.7",
         "env-cmd": "^10.1.0",
         "eslint": "^8.33.0",

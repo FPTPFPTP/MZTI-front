@@ -35,3 +35,7 @@ export const PostContent = () => css`
     color: #000000;
     padding: 57px 33px;
 `;
+
+export const searchWrap = () => css`
+    padding: 0 33px;
+`;

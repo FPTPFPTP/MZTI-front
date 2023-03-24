@@ -1,26 +1,15 @@
-import InfiniteScroll from 'react-infinite-scroller';
-import { getFeedPost } from '@/utils/apis/user';
-import { FeedItemProps } from '@/utils/types';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { FeedItemProps, PageInfo } from '@/utils/types';
 import ItemContent from './ItemContent';
 import ItemFooter from './ItemFooter';
 import ItemHeader from './ItemHeader';
 import { FeedItemStyle } from './styled';
-import { useEffect } from 'react';
 import Link from 'next/link';
 
-const FeedItem = () => {
-    const { data, fetchNextPage, hasNextPage, isLoading, isError } = useInfiniteQuery(['posts'], ({ pageParam = 1 }) => getFeedPost(pageParam));
-
-    console.log('--->', data?.pages);
-
-    if (isLoading) return <h3>로딩중</h3>;
-    if (isError) return <h3>잘못된 데이터 입니다.</h3>;
-
+const FeedItem = ({ data }: any) => {
     return (
-        <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage}>
-            <div css={FeedItemStyle}>
-                {data?.pages[0].map((item: FeedItemProps) => {
+        <div css={FeedItemStyle}>
+            {data.pages.map((page: PageInfo) => {
+                return page.list.map((item: FeedItemProps) => {
                     return (
                         <div className="feedLayout" key={item.id}>
                             <div className="feedLayout__bg">
@@ -31,9 +20,8 @@ const FeedItem = () => {
                                     profileImage={item.writer?.profileImage}
                                     createAt={item.createAt}
                                 />
-                                <Link href={`/home/detail`}>
+                                <Link href={`/home/${item.id}`}>
                                     <ItemContent
-                                        key={item.id}
                                         id={item.id}
                                         title={item.title}
                                         content={item.content}
@@ -42,13 +30,13 @@ const FeedItem = () => {
                                     />
                                 </Link>
 
-                                <ItemFooter like={item.like} command={item.command} />
+                                <ItemFooter like={item.like?.count} command={item.command?.count} bookmark={item.bookmark?.count} />
                             </div>
                         </div>
                     );
-                })}
-            </div>
-        </InfiniteScroll>
+                });
+            })}
+        </div>
     );
 };
 

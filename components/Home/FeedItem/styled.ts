@@ -125,6 +125,9 @@ export const ItemContentStyle = css`
         font-weight: 300;
         font-size: 1.2rem;
         margin-bottom: 20px;
+        img {
+            width: 100%;
+        }
     }
     h4 {
         font-size: 1.5rem;

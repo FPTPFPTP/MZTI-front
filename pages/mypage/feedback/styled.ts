@@ -5,8 +5,7 @@ export const feedbackStyled = css`
     h3 {
         margin-bottom: 7px;
         font-weight: 400;
-        font-size: 18px;
-        line-height: 21px;
+        font-size: 1.3rem;
     }
     select {
         width: 100%;
@@ -14,7 +13,6 @@ export const feedbackStyled = css`
         option {
             font-weight: 400;
             font-size: 13px;
-            line-height: 16px;
             color: #292d32;
         }
     }
@@ -34,8 +32,8 @@ export const feedbackStyled = css`
     }
     span {
         font-weight: 400;
-        font-size: 13px;
-        line-height: 16px;
+        font-size: 1.1rem;
+        line-height: 1.3;
         color: #292d32;
         margin-top: 14px;
     }
@@ -47,10 +45,10 @@ export const feedbackStyled = css`
             background: #000000;
             color: #ffffff;
             font-weight: 400;
-            font-size: 14px;
+            font-size: 1.2rem;
             line-height: 22px;
             text-align: center;
-            padding: 4px 23px;
+            padding: 0.4rem 2.3rem;
             margin-top: 50px;
         }
     }

@@ -12,8 +12,9 @@ type ItemProps = {
     command?: number;
     className?: string;
     isFeed?: boolean;
+    bookmark?: number;
 };
-const ItemFooter = ({ like, command, className, isFeed = true }: ItemProps) => {
+const ItemFooter = ({ like, command, className, isFeed = true, bookmark }: ItemProps) => {
     const [isLike, setIsLike] = useState<boolean>(false);
     const [isBookMark, setIsBookMark] = useState<boolean>(false);
 
@@ -26,12 +27,12 @@ const ItemFooter = ({ like, command, className, isFeed = true }: ItemProps) => {
                 {isLike ? (
                     <>
                         <FillHeartIcon />
-                        <span>{like && like + 1}</span>
+                        <span>{like === 0 ? '좋아요' : like}</span>
                     </>
                 ) : (
                     <>
                         <HeartIcon />
-                        <span>{like && like + 1}</span>
+                        <span>{like === 0 ? '좋아요' : like}</span>
                     </>
                 )}
             </button>
@@ -47,12 +48,12 @@ const ItemFooter = ({ like, command, className, isFeed = true }: ItemProps) => {
                         {isBookMark ? (
                             <>
                                 <BookMarkIcon />
-                                <span>35</span>
+                                <span>{bookmark}</span>
                             </>
                         ) : (
                             <>
                                 <BookMarkIcon />
-                                <span>35</span>
+                                <span>{bookmark}</span>
                             </>
                         )}
                     </button>

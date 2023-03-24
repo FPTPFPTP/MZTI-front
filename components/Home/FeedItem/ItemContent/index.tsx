@@ -1,6 +1,7 @@
 import { ItemContentStyle } from '../styled';
 import { PollListProps, TagProps } from '@/utils/types';
 import VoteIcon from '@assets/icons/vote.svg';
+import xss from 'xss';
 
 type ItemContentProps = {
     id: number;
@@ -13,7 +14,14 @@ const ItemContent = ({ id, title, content, pollList, tags }: ItemContentProps) =
     return (
         <section css={ItemContentStyle} key={id}>
             <h4 className="itemContent__title">{title}</h4>
-            <div className="itemContent__content">{content}</div>
+
+            <div
+                className="itemContent__content"
+                dangerouslySetInnerHTML={{
+                    __html: xss(content),
+                }}
+            />
+
             {/* 투표기능이 있을경우 */}
             {pollList?.length === 1 &&
                 pollList.map((item: PollListProps) => {

@@ -36,6 +36,11 @@ export type WriterProps = {
     createAt?: any;
 };
 
+export type CheckProps = {
+    check: boolean;
+    count: number;
+};
+
 // 게시글
 export type FeedItemProps = {
     id: number;
@@ -45,9 +50,17 @@ export type FeedItemProps = {
     content: string; // 게시글 내용
     createAt?: string; // 작성시간
     updateAt?: string;
-    like?: number; // 좋아요
-    command?: number; // 댓글수
+    like?: CheckProps; // 좋아요
+    bookmark?: CheckProps; // 북마크 수
+    command?: CheckProps; // 댓글수
     pollList?: PollListProps[]; // 투표
     tags?: TagProps[]; // 태그
     writer: WriterProps; // 작성자
+};
+
+export type PageInfo = {
+    list: [];
+    page: number;
+    totalPage: number;
+    view: number;
 };
