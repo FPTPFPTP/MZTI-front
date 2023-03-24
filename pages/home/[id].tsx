@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useEffect, useState } from 'react';
 import { Header } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
@@ -6,14 +7,40 @@ import { PostStyle, PostContent } from './styled';
 import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
+import { useRouter } from 'next/router';
+import Axios from '@utils/axios';
 
-const post = () => {
+// export const getStaticPaths: GetStaticPaths = async () => {
+//     const res = await Axios.get(`/post/${id}`);
+//     const posts = res.data.data.list;
+//     const paths = posts.map((post: any) => ({
+//         params: { id: post.id },
+//     }));
+//     return { paths, fallback: false };
+// };
+
+// export const getStaticProps: GetStaticProps = async (context) => {
+//     const postId = context.params?.id || '';
+//     // Get post detail via API, file, etc.
+//     const post = { id: postId, content: `I'm the post with id ${postId}!` }; // Example
+//     return { props: { post } };
+// };
+
+const post = ({ props }: any) => {
+    const router = useRouter();
+    const { id } = router.query;
+
     const [isBookMark, setIsBookMark] = useState<boolean>(false);
 
     const handleBookMark = () => [setIsBookMark((isBookMark) => !isBookMark)];
 
+    useEffect(() => {
+        console.log('props===>', props);
+    }, []);
     return (
         <main>
+            {id}
+
             {/* 헤더 */}
             <Header
                 isPrevBtn={true}
