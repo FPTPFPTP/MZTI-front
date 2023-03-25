@@ -66,8 +66,6 @@ const login = () => {
                                 accessToken: response.accessToken,
                             })
                             .then((res) => {
-                                console.log('res', res);
-
                                 setAccessToken(res.data.data.accessToken);
                                 cookies.set('refreshToken', res.data.data.refreshToken);
                                 axios.get('/user').then((res) => {

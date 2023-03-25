@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
 import { Global } from '@emotion/react';
