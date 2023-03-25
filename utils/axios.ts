@@ -4,7 +4,7 @@ import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
 const customAxios = Axios.create({
-    baseURL: '/',
+    baseURL: '/mzti',
     timeout: 10000,
 });
 
