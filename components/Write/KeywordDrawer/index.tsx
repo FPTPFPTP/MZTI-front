@@ -1,42 +1,45 @@
-import { useState } from 'react';
-import { Drawer, Empty, message } from 'antd';
+import { useEffect, useState } from 'react';
+import { Drawer, Empty } from 'antd';
 import { Button, Tag } from '@components/Commons';
-import { useGetTags, postTag } from '@apis/posts';
+import { useGetTags } from '@apis/posts';
 import { ContainerStyle, TagSearchWrapStyle, TagSearchDropdownStyle, TagSearchDropdownItemStyle } from './styled';
 import { ITagModel } from '@/types/post';
 import classNames from 'classnames';
 
 interface IKeywordDrawer {
     isDrawer: boolean;
-    selectKeyword: ITagModel[];
-    handleSetSelectKeyword: React.Dispatch<React.SetStateAction<ITagModel[]>>;
+    selectKeywords: ITagModel[];
+    onAddKeyword: (keywords: ITagModel[]) => void;
     onClose: () => void;
 }
 
 const KeywordDrawer = (props: IKeywordDrawer) => {
-    const { isDrawer, selectKeyword, handleSetSelectKeyword, onClose } = props;
+    const { isDrawer, selectKeywords, onAddKeyword, onClose } = props;
 
     const [isDropdown, setIsDropdown] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [keywords, setKeywords] = useState<ITagModel[]>([]);
 
     const tags = useGetTags(searchValue);
 
     // 테그 생성
     const onTagAdd = async () => {
-        try {
-            if (!searchValue.length) {
-                message.warning('추가할 키워드 이름을 입력해주세요');
-                return;
-            }
-            const data = await postTag(searchValue);
-            if (data) {
-                message.success(`입력한 키워드가 추가됬어요`);
-                setSearchValue('');
-                return;
-            }
-        } catch (error) {
-            console.log({ error });
-        }
+        onAddKeyword(keywords);
+        onClose();
+        // try {
+        //     if (!searchValue.length) {
+        //         message.warning('추가할 키워드 이름을 입력해주세요');
+        //         return;
+        //     }
+        //     const data = await postTag(searchValue);
+        //     if (data) {
+        //         message.success(`입력한 키워드가 추가됬어요`);
+        //         setSearchValue('');
+        //         return;
+        //     }
+        // } catch (error) {
+        //     console.log({ error });
+        // }
     };
 
     // 드롭다운 켜고 끄기
@@ -46,14 +49,12 @@ const KeywordDrawer = (props: IKeywordDrawer) => {
 
     // 태그 선택시 선택한 태그에 추가 결정
     const onTagClick = (tag: ITagModel) => {
-        handleSetSelectKeyword(
-            selectKeyword.find((selectTag) => selectTag.id === tag.id) ? selectKeyword.filter((selectTag) => selectTag.id !== tag.id) : [...selectKeyword, tag],
-        );
+        setKeywords(keywords.find((selectTag) => selectTag.id === tag.id) ? keywords.filter((selectTag) => selectTag.id !== tag.id) : [...keywords, tag]);
     };
 
     // 선택한 태그에서 태그 제거
     const onTagDelete = (id: number) => {
-        handleSetSelectKeyword(selectKeyword.filter((tag) => tag.id !== id));
+        setKeywords(keywords.filter((tag) => tag.id !== id));
     };
 
     // 엔터
@@ -62,6 +63,12 @@ const KeywordDrawer = (props: IKeywordDrawer) => {
             onDropdown();
         }
     };
+
+    useEffect(() => {
+        if (isDrawer) {
+            setKeywords(selectKeywords);
+        }
+    }, [isDrawer]);
 
     return (
         <Drawer
@@ -72,14 +79,14 @@ const KeywordDrawer = (props: IKeywordDrawer) => {
             onClose={onClose}
             open={isDrawer}
             extra={
-                <Button buttonStyle="text" onClick={onTagAdd}>
+                <Button buttonStyle="text" onClick={onTagAdd} style={{ textDecoration: 'none', fontSize: '16px' }}>
                     추가
                 </Button>
             }
         >
             <div css={ContainerStyle}>
                 <ul css={TagSearchWrapStyle} onClick={onDropdown}>
-                    {selectKeyword.map((tag) => (
+                    {keywords.map((tag) => (
                         <Tag
                             key={tag.id}
                             title={tag.tag}
@@ -98,7 +105,7 @@ const KeywordDrawer = (props: IKeywordDrawer) => {
                             <>
                                 {tags.map((tag) => (
                                     <li
-                                        className={classNames({ active: selectKeyword.find((keyword) => keyword.id === tag.id) })}
+                                        className={classNames({ active: keywords.find((keyword) => keyword.id === tag.id) })}
                                         key={tag.id}
                                         css={TagSearchDropdownItemStyle}
                                         onClick={() => onTagClick(tag)}

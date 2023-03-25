@@ -204,8 +204,8 @@ const EditorBox = (props: IEditorBox) => {
             <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />
             <KeywordDrawer
                 isDrawer={isKeywordDrawer}
-                selectKeyword={selectKeyword}
-                handleSetSelectKeyword={setSelectKeyword}
+                selectKeywords={selectKeyword}
+                onAddKeyword={setSelectKeyword}
                 onClose={() => {
                     setIsKeywordDrawer(false);
                 }}
