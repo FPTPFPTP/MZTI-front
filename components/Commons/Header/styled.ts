@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
+import colors from '@styles/color';
 
-export const HeaderContainer = css`
+export const HeaderContainerStyle = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,7 +14,7 @@ export const HeaderContainer = css`
     background-color: #fff;
 `;
 
-export const TitleStyle = () => css`
+export const TitleStyle = css`
     position: absolute;
     top: 50%;
     left: 50%;
@@ -22,21 +23,10 @@ export const TitleStyle = () => css`
     font-weight: 600;
 `;
 
-export const HomeMenu = () => css`
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    h1 {
-        font-size: 1.6rem;
-    }
-    .right {
-        display: flex;
-        .alarm {
-            margin-right: 0.5rem;
-        }
-        a {
-            font-size: 1.6rem;
-            color: #000;
-        }
+export const RightWrapStyle = css`
+    svg {
+        width: 32px;
+        height: 32px;
+        fill: ${colors.BLACK};
     }
 `;

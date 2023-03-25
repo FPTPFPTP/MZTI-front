@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from 'react';
+import { forwardRef } from 'react';
 
 // Toast 에디터
 import '@toast-ui/editor/dist/toastui-editor.css';

@@ -4,7 +4,7 @@ import { Divider, message, Select } from 'antd';
 import { useForm } from 'react-hook-form';
 import { Editor } from '@toast-ui/react-editor';
 import { Header, Input, Tag } from '@components/Commons';
-import EditSvg from '@assets/icons/edit.svg';
+import CheckSvg from '@assets/icons/circle_check.svg';
 import PlusSvg from '@assets/icons/plus.svg';
 import VoteSvg from '@assets/icons/vote.svg';
 import ToastEditor from '@/components/Commons/ToastEditor';
@@ -30,7 +30,7 @@ const EditorBox = (props: IEditorBox) => {
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
     const [selectKeyword, setSelectKeyword] = useState<ITagModel[]>([]);
     const editorRef = useRef<Editor>(null);
-    const { register, watch, reset, setValue } = useForm();
+    const { register, watch, reset } = useForm();
     const { title } = watch();
 
     // 게시판 메뉴
@@ -78,8 +78,6 @@ const EditorBox = (props: IEditorBox) => {
 
                 if (data.code === 'SUCCESS') {
                     message.success('작성한 글 업로드에 성공했어요');
-
-                    console.log({ data });
                 }
             } catch (error) {
                 console.log(error);
@@ -107,14 +105,9 @@ const EditorBox = (props: IEditorBox) => {
     };
 
     useEffect(() => {
-        console.log({ surveyData });
-    }, [surveyData]);
-
-    useEffect(() => {
         if (editorRef.current) {
             // 전달받은 html값으로 초기화
             editorRef.current.getInstance().setHTML(contents);
-            console.log('77777', editorRef.current.getInstance());
 
             // 기존 이미지 업로드 기능 제거
             editorRef.current.getInstance().removeHook('addImageBlobHook');
@@ -129,7 +122,6 @@ const EditorBox = (props: IEditorBox) => {
                         },
                     });
                     if (data) {
-                        console.log(data.data.data);
                         callback(data.data.data, 'alt text');
                     }
                 })();
@@ -146,7 +138,7 @@ const EditorBox = (props: IEditorBox) => {
                 title={'글쓰기'}
                 rightElement={
                     <button onClick={handleRegisterButton}>
-                        <EditSvg />
+                        <CheckSvg />
                     </button>
                 }
             />

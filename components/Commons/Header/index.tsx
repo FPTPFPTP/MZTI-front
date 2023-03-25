@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import ArrowLeftOutlined from '@assets/icons/left_arrow.svg';
-import { HeaderContainer, HomeMenu, TitleStyle } from './styled';
+import { HeaderContainerStyle, TitleStyle, RightWrapStyle } from './styled';
 
 interface IHeaderBaseProps {
     title?: string;
@@ -31,14 +31,14 @@ const Header = (props: THeaderProps) => {
     };
 
     return (
-        <header css={HeaderContainer}>
+        <header css={HeaderContainerStyle}>
             {isPrevBtn && (
                 <button onClick={onBackPage}>
                     <ArrowLeftOutlined style={{ fontSize: 30 }} />
                 </button>
             )}
             {title && <h1 css={TitleStyle}>{title}</h1>}
-            {rightElement && <>{rightElement}</>}
+            {rightElement && <div css={RightWrapStyle}>{rightElement}</div>}
         </header>
     );
 };
