@@ -8,7 +8,7 @@ module.exports = withPWA({
     async rewrites() {
         return [
             {
-                source: '/:path*',
+                source: '/mzti/:path*',
                 destination: 'http://ip-set-nlp-2cce1cff97b66aa1.elb.ap-northeast-2.amazonaws.com/:path*',
             },
         ];
