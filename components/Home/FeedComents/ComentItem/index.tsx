@@ -1,15 +1,15 @@
 import { Avatar } from '@/components/Commons';
 import { CommentItemSylte } from '../styled';
 
-type TCommentProps = {
+interface ICommentProps {
     nickname: string;
     mbti: string;
     profileImage: string;
     userId: number;
     comment: string;
     like: number;
-};
-const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like }: TCommentProps) => {
+}
+const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like }: ICommentProps) => {
     return (
         <section css={CommentItemSylte} key={userId}>
             <div className="commentItemWrap">

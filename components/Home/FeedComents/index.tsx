@@ -3,16 +3,16 @@ import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
 import MoreComment from '@assets/icons/comment/more.svg';
 import ComentItem from './ComentItem';
 
-type TCommentProps = {
+interface ICommentProps {
     nickname: string;
     mbti: string;
     profileImage: string;
     userId: number;
     comment: string;
     like: number;
-};
+}
 
-const FeedComents = ({ nickname, mbti, profileImage, userId, comment, like }: TCommentProps) => {
+const FeedComents = ({ nickname, mbti, profileImage, userId, comment, like }: ICommentProps) => {
     const handleRefrash = () => {
         location.reload();
     };

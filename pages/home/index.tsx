@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BottomMenu from '@/components/Commons/BottomMenu';
 import FeedItem from '@/components/Home/FeedItem';
@@ -14,19 +14,14 @@ import { HomeMenu, searchWrap } from './styled';
 import ListTab from '@/components/Home/ListTab';
 
 const home = () => {
-    // 검색
-    const [searchValue, setSearchValue] = useState<string>('');
-    const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
+    const [searchText, setSearchText] = useState<string>('');
+    const { register, watch, reset } = useForm<{ search: string }>();
     const { search } = watch();
 
-    const onSubmit = (data: { search: string }) => {
-        setSearchValue(data.search);
-    };
-
     // 데이터 패칭
-    const { data, fetchNextPage, hasNextPage, isLoading, isError, isFetchingNextPage } = useInfiniteQuery(
-        ['page'],
-        ({ pageParam = 0 }) => getFeedPost(pageParam),
+    const { data, fetchNextPage, hasNextPage, isLoading, isError } = useInfiniteQuery(
+        ['page', searchText],
+        ({ pageParam = 0 }) => getFeedPost({ page: pageParam, content: searchText, view: 5 }),
         {
             getNextPageParam: (lastPage, allPosts) => {
                 return lastPage.page !== allPosts[0].totalPage ? lastPage.page + 1 : undefined;
@@ -34,8 +29,19 @@ const home = () => {
         },
     );
 
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
+
     if (isLoading) return <h3>로딩중</h3>;
     if (isError) return <h3>잘못된 데이터 입니다.</h3>;
+
+    const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            console.log('searchText', searchText);
+            setSearchText(search);
+        }
+    };
 
     return (
         <main>
@@ -57,31 +63,27 @@ const home = () => {
                     </div>
                 }
             />
-
             <div css={searchWrap}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form>
                     <Input
                         inputStyle={'search'}
                         placeholder={'관심있는 MBTI, 키워드, 이슈 검색'}
                         isResetBtn={!!search}
                         handleReset={() => reset()}
                         maxLength={8}
+                        onKeyPress={handleOnKeyPress}
                         {...register('search')}
                     />
                 </form>
             </div>
-
             {/* 인기 게시판 & 전체 게시판 */}
             <ListTab />
-
             {/* 핫토픽 키워드 */}
             <HotKeyword />
-
             {/* 피드 게시물 */}
             <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                <FeedItem data={data} />
+                {data.pages[0].list.length === 0 ? <h1>검색 결과가 없습니다.</h1> : <FeedItem data={data} />}
             </InfiniteScroll>
-
             {/* 메뉴 */}
             <BottomMenu />
         </main>

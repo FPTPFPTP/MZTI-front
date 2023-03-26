@@ -1,5 +1,11 @@
 import Axios from '@utils/axios';
-import { useInfiniteQuery } from '@tanstack/react-query';
+
+interface IDetailPost {
+    tag?: string;
+    view: number;
+    page: number;
+    content: string;
+}
 
 // 마이페이지
 export const getMyPage = async () => {
@@ -8,8 +14,15 @@ export const getMyPage = async () => {
 };
 
 // 피드 불러오기
-export const getFeedPost = async (page: number) => {
-    const res = await Axios.get(`/post?page=${page}&view=5`);
+export const getFeedPost = async ({ page, content, view, tag }: IDetailPost) => {
+    const res = await Axios.get(`/post`, {
+        params: {
+            page,
+            view,
+            content,
+            tag,
+        },
+    });
     return res.data.data;
 };
 
