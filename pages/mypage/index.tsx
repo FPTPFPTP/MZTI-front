@@ -41,9 +41,11 @@ const mypage = () => {
             <Header
                 title="마이페이지"
                 rightElement={
-                    <Link href="/mypage/edit">
-                        <EditSvg />
-                    </Link>
+                    myInfo && (
+                        <Link href="/mypage/edit">
+                            <EditSvg />
+                        </Link>
+                    )
                 }
             />
             <div css={MypageWrap}>
