@@ -67,7 +67,7 @@ const WriteCommentList = () => {
             </form>
             <ListBox>
                 {commentList.length ? (
-                    commentList.map((item, index) => <ListItem key={item.id} id={item.id} number={index + 1} title={item.title} date={item.date} />)
+                    commentList.map((item, index) => <ListItem key={item.id} number={index + 1} title={item.title} date={item.date} id={item.id} />)
                 ) : (
                     <Empty title="작성한 댓글이 없습니다" subTitle="첫 댓글을 남겨보러 갈까요?" buttonTitle="댓글 작성하러 가기" href="/" />
                 )}

@@ -1,10 +1,21 @@
 import { useState } from 'react';
-import { VscComment } from 'react-icons/Vsc';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/Ai';
-import { BsBookmark, BsBookmarkFill } from 'react-icons/Bs';
 import { ItemFooterStyle } from '../styled';
+import BookMarkIcon from '@assets/icons/detailPost/bookMark.svg';
+import FillBookMarkIcon from '@assets/icons/detailPost/bookMarkFill.svg';
+import CommentIcon from '@assets/icons/detailPost/comment.svg';
+import HeartIcon from '@assets/icons/detailPost/heart.svg';
+import FillHeartIcon from '@assets/icons/detailPost/heartFill.svg';
+import ShareIcon from '@assets/icons/comment/share.svg';
+import { LinkCopy } from '@/utils/copy';
 
-const ItemFooter = () => {
+interface IItemProps {
+    like?: number;
+    command?: number;
+    className?: string;
+    isFeed?: boolean;
+    bookmark?: number;
+}
+const ItemFooter = ({ like, command, className, isFeed = true, bookmark }: IItemProps) => {
     const [isLike, setIsLike] = useState<boolean>(false);
     const [isBookMark, setIsBookMark] = useState<boolean>(false);
 
@@ -12,33 +23,29 @@ const ItemFooter = () => {
 
     const handleBookMark = () => [setIsBookMark((isBookMark) => !isBookMark)];
     return (
-        <section css={ItemFooterStyle}>
-            {isLike ? (
-                <button onClick={handleLike}>
-                    <AiFillHeart />
-                    <span>35</span>
-                </button>
-            ) : (
-                <button onClick={handleLike}>
-                    <AiOutlineHeart />
-                    <span>35</span>
-                </button>
-            )}
-
-            <button>
-                <VscComment />
-                <span>35</span>
+        <section css={ItemFooterStyle} className={className}>
+            <button onClick={handleLike}>
+                {isLike ? <FillHeartIcon /> : <HeartIcon />}
+                <span>{like === 0 ? '좋아요' : like}</span>
             </button>
 
-            {isBookMark ? (
-                <button onClick={handleBookMark}>
-                    <BsBookmarkFill />
-                    <span>35</span>
-                </button>
+            <button>
+                <CommentIcon />
+                <span>{command ? command : 0}</span>
+            </button>
+
+            {isFeed ? (
+                <>
+                    {/* TODO : 조회수로 바뀔 예정 */}
+                    <button onClick={handleBookMark}>
+                        {isBookMark ? <FillBookMarkIcon /> : <BookMarkIcon />}
+                        <span>{bookmark}</span>
+                    </button>
+                </>
             ) : (
-                <button onClick={handleBookMark}>
-                    <BsBookmark />
-                    <span>35</span>
+                <button onClick={LinkCopy}>
+                    <ShareIcon />
+                    <span className="share">공유</span>
                 </button>
             )}
         </section>

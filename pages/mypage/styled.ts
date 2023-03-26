@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 export const MypageWrap = css`
-    padding: 0 30px;
+    padding: 0 34px;
     margin: 50px 0 0 0;
     .notUser {
         &__flex {

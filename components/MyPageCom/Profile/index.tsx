@@ -7,7 +7,7 @@ const Profile = ({ mbti, nickname, intro, profileImage }: IUserModel) => {
         <section css={ProfileStyle}>
             <div className="photo">
                 {/* TODO: 나중에 이미지 태그로 변경  */}
-                <Avatar size={200} alt="나의 이미지" src={profileImage ? profileImage : ''} />
+                <Avatar size={120} alt="나의 이미지" src={profileImage ? profileImage : ''} />
                 <span>Lv.1</span>
             </div>
             <div>

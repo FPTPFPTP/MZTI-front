@@ -38,10 +38,10 @@ const login = () => {
                     setAccessToken(res.data.data.accessToken);
                     cookies.set('refreshToken', res.data.data.refreshToken);
                     axios.get('/user').then((res) => {
-                        if (res.data.nickname === undefined) {
+                        if (res.data.data.nickname === undefined) {
                             router.push('/signup');
                         } else {
-                            router.push('/main');
+                            router.push('/home');
                         }
                     });
                 })
@@ -76,14 +76,6 @@ const login = () => {
                                     }
                                 });
                             });
-
-                        console.log('Login Success!', response);
-                    }}
-                    onFail={(error) => {
-                        console.log('Login Failed!', error);
-                    }}
-                    onProfileSuccess={(response) => {
-                        console.log('Get Profile Success!', response);
                     }}
                     render={(renderProps) => (
                         <button onClick={renderProps.onClick}>
