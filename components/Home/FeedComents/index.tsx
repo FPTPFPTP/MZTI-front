@@ -3,10 +3,20 @@ import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
 import MoreComment from '@assets/icons/comment/more.svg';
 import ComentItem from './ComentItem';
 
-const FeedComents = () => {
+type TCommentProps = {
+    nickname: string;
+    mbti: string;
+    profileImage: string;
+    userId: number;
+    comment: string;
+    like: number;
+};
+
+const FeedComents = ({ nickname, mbti, profileImage, userId, comment, like }: TCommentProps) => {
     const handleRefrash = () => {
         location.reload();
     };
+
     return (
         <>
             <section css={FeedComentsStyle}>
@@ -22,7 +32,7 @@ const FeedComents = () => {
                     <span>이전 댓글 더보기</span>
                 </button>
             </section>
-            <ComentItem />
+            <ComentItem nickname={nickname} mbti={mbti} profileImage={profileImage} userId={userId} comment={comment} like={like} />
         </>
     );
 };

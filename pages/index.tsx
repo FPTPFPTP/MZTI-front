@@ -14,7 +14,6 @@ const Home: NextPage = () => {
     // 로그인 여부
     useEffect(() => {
         if (cookies.get('refreshToken')) {
-            console.log('하이', cookies.get('refreshToken'));
             setIsLoginUser({ login: true });
         }
     }, []);

@@ -34,6 +34,7 @@ export type WriterProps = {
     profileImage: string;
     moreBtn?: boolean;
     createAt?: any;
+    userId?: number;
 };
 
 export type CheckProps = {

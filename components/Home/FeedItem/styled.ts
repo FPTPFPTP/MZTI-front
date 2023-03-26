@@ -41,6 +41,10 @@ export const ItemHeaderStyle = css`
         }
         .userInfo__Text {
             width: 86%;
+            .userInfo__Text--layout {
+                display: flex;
+                justify-content: space-between;
+            }
             .mbti {
                 display: inline-block;
                 margin-right: 6px;
@@ -187,6 +191,34 @@ export const ItemContentStyle = css`
             color: #585858;
             font-size: 16px;
             border: 1px solid #bfbfbf;
+        }
+    }
+`;
+
+export const PostMore = css`
+    .postDrawer__backdrop {
+        z-index: 101;
+    }
+    .postDrawer {
+        z-index: 105;
+        height: 30vh;
+        h3 {
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.3rem;
+            margin-top: 28px;
+        }
+        ul {
+            margin-top: 39px;
+            padding-left: 33px;
+            li {
+                margin-bottom: 18px;
+                font-weight: 300;
+                font-size: 1.3rem;
+                &.none {
+                    color: #a7a7a7;
+                }
+            }
         }
     }
 `;
