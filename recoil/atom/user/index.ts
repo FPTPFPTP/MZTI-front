@@ -23,14 +23,9 @@ export const userInfoState = atom<IUserModel>({
 });
 
 // 마이페이지 정보 api get `/user`
-export const myPageInfo = atom<IUserModel>({
+export const myPageInfo = atom<IUserModel | undefined>({
     key: `myPageInfoState/${v1()}`,
-    default: {
-        nickname: '',
-        mbti: '',
-        intro: '',
-        profileImage: '',
-    },
+    default: undefined,
 });
 
 export const isLogin = atom<{ login: boolean }>({
