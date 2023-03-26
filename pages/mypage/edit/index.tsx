@@ -151,7 +151,7 @@ const edit = () => {
                 <div>
                     <div css={editTitle}>
                         <h4>프로필 사진</h4>
-                        <span>카메라 버튼을 눌러 프로필 사진 변경</span>
+                        <span className="desc">카메라 버튼을 눌러 프로필 사진 변경</span>
                     </div>
 
                     <div css={Container}>

@@ -5,12 +5,13 @@ export const BannerStyle = css`
     overflow: hidden;
     background-color: #f2f2f2;
     min-width: 390px;
-    padding: 22px 18px;
+    padding: 2.2rem 1.8rem;
     h4 {
-        font-size: 20px;
+        font-size: 1.4rem;
         font-weight: 400;
+        margin-bottom: 6px;
     }
     p {
-        font-size: 16px;
+        font-size: 1.2rem;
     }
 `;

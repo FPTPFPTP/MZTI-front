@@ -8,8 +8,7 @@ export const BottomButtonStyle = css`
     justify-content: center;
     align-items: center;
     width: 100%;
-    background: #000;
-    color: #fff;
+    background: #f7f7f7;
     height: 84px;
     min-width: 390px;
     max-width: 600px;
@@ -24,14 +23,10 @@ export const BottomButtonStyle = css`
         color: #fff;
         svg {
             font-size: 1.6rem;
+            color: #292d32;
         }
         a {
             color: #fff;
         }
-    }
-    .write {
-        border: 2px solid #fff;
-        border-radius: 50%;
-        padding: 10px;
     }
 `;

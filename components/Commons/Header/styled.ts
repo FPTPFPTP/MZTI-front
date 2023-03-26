@@ -8,7 +8,7 @@ export const HeaderContainer = css`
     top: 0;
     width: 100%;
     height: 80px;
-    padding: 4px 16px;
+    padding: 33px;
     z-index: 100;
     background-color: #fff;
 `;
@@ -18,8 +18,8 @@ export const TitleStyle = () => css`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 300;
 `;
 
 export const HomeMenu = () => css`

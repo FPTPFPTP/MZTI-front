@@ -3,8 +3,7 @@ import type { NextPage } from 'next';
 import Login from './login';
 import { isLogin } from '@/recoil/atom/user';
 import { Cookies } from 'react-cookie';
-
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import Splash from '@/components/Splash';
 
 const Home: NextPage = () => {
@@ -14,9 +13,7 @@ const Home: NextPage = () => {
 
     // 로그인 여부
     useEffect(() => {
-        console.log('dd', cookies.get('refreshToken'));
         if (cookies.get('refreshToken')) {
-            console.log('하이', cookies.get('refreshToken'));
             setIsLoginUser({ login: true });
         }
     }, []);
