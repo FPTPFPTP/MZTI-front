@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 export const HomeMenu = () => css`
     display: flex;
     width: 100%;
+    padding: 33px;
+
     justify-content: space-between;
     h1 {
         font-size: 1.6rem;

@@ -163,6 +163,10 @@ export const ItemContentStyle = css`
                 letter-spacing: 0.5px;
                 color: #000000;
             }
+            svg {
+                width: 23px;
+                height: 23px;
+            }
         }
         .vote__title {
             margin-left: 23px;

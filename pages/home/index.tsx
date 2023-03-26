@@ -46,23 +46,20 @@ const home = () => {
     return (
         <main>
             {/* 헤더 */}
-            <Header
-                isPrevBtn={false}
-                rightElement={
-                    <div css={HomeMenu}>
-                        <h1>MZTI</h1>
 
-                        <div className="right">
-                            <Link href="/alarm" className="alarm">
-                                <AlarmIcon />
-                            </Link>
-                            <Link href="/mypage">
-                                <MyPageIcon />
-                            </Link>
-                        </div>
-                    </div>
-                }
-            />
+            <div css={HomeMenu}>
+                <h1>MZTI</h1>
+
+                <div className="right">
+                    <Link href="/alarm" className="alarm">
+                        <AlarmIcon />
+                    </Link>
+                    <Link href="/mypage">
+                        <MyPageIcon />
+                    </Link>
+                </div>
+            </div>
+
             <div css={searchWrap}>
                 <form>
                     <Input
