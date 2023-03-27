@@ -38,4 +38,18 @@ export interface IWriterModel {
     mbti: string;
     level: number;
     profileImage: string;
+    userId?: number;
+    id: number;
+}
+export type CheckProps = {
+    check: boolean;
+    count: number;
+};
+export interface ICommentModel {
+    id: number;
+    comment: string;
+    createAt: string;
+    writer: IWriterModel;
+    like: CheckProps;
+    subComment: CheckProps;
 }

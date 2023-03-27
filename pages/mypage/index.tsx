@@ -36,7 +36,7 @@ const menuList = [
     {
         title: '기타 서비스 정보 및 계정 관리 ',
         subDesc: '이용약관 등',
-        url: '/mypage/account_mgt',
+        url: '/mypage/etc',
     },
 ];
 
