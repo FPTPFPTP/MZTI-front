@@ -5,13 +5,13 @@ import { Header } from '@components/Commons';
 import Head from 'next/head';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
+import { PostStyle, PostContent } from '@styles/pages/homeStyled';
 import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import { useRouter } from 'next/router';
 import Axios from '@utils/axios';
 import xss from 'xss';
-import { PostStyle, PostContent } from './styled';
 import { IResponseBase } from '@/types/global';
 import { IPostModel } from '@/types/post';
 

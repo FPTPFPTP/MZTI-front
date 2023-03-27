@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Header } from '@components/Commons';
-import { feedbackStyled } from './styled';
+import { feedbackStyled } from '@styles/pages/mypageFeedbackStyled';
 
 const feedback = () => {
     const [selected, setSelected] = useState<string>('contact');

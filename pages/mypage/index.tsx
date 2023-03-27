@@ -3,7 +3,7 @@ import Menu from '@/components/MyPageCom/Menu';
 import Profile from '@/components/MyPageCom/Profile';
 import Write from '@/components/MyPageCom/Write';
 import { Header } from '@components/Commons';
-import { MypageWrap } from './styled';
+import { MypageWrap } from '@styles/pages/mypageStyled';
 import EditSvg from '@assets/icons/edit.svg';
 import Link from 'next/link';
 import { getMyPage } from '@/utils/apis/user';
