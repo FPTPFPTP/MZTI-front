@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Header } from '@components/Commons';
 import { feedbackStyled } from '@styles/pages/mypageFeedbackStyled';
+import { LinkButton } from '@/components/Commons/Button';
 
 const feedback = () => {
     const [selected, setSelected] = useState<string>('contact');
@@ -36,9 +37,7 @@ const feedback = () => {
                 <span>오류 제보, 홍보 의심 유저 제보 등 운영진에게 전달하고싶은 내용을 자유롭게 작성해주세요</span>
 
                 <div className="buttonWrap">
-                    <button type="submit" onSubmit={handleSubmit}>
-                        건의사항 보내기
-                    </button>
+                    <LinkButton onSubmit={handleSubmit}>건의사항 보내기</LinkButton>
                 </div>
             </form>
         </>
