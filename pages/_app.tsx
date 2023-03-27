@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import App, { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 import nextCookies from 'next-cookies';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot, MutableSnapshot } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
@@ -50,6 +51,7 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
                         <Component {...pageProps} />
                     </Layout>
                 </RecoilRoot>
+                <ReactQueryDevtools />
             </QueryClientProvider>
         </>
     );

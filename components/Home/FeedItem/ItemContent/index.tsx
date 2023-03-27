@@ -1,28 +1,39 @@
 import { ItemContentStyle } from '../styled';
-import { MdHowToVote } from 'react-icons/Md';
-import Image from 'next/image';
+import { PollListProps, TagProps } from '@/utils/types';
+import VoteIcon from '@assets/icons/vote.svg';
+import xss from 'xss';
 
-const ItemContent = () => {
+interface IItemContentProps {
+    id: number;
+    title: string;
+    content: string;
+    pollList?: PollListProps[];
+    tags?: TagProps[];
+}
+
+const ItemContent = ({ id, title, content, pollList, tags }: IItemContentProps) => {
     return (
-        <section css={ItemContentStyle}>
-            <h4>나 엔팁인데 진심 인프제 좋아</h4>
-            <p>본문은 작은글씨 이정도 글씨로 두줄 분량</p>
+        <section css={ItemContentStyle} key={id}>
+            <h4 className="itemContent__title">{title}</h4>
+
+            <div
+                className="itemContent__content"
+                dangerouslySetInnerHTML={{
+                    __html: xss(content),
+                }}
+            />
 
             {/* 투표기능이 있을경우 */}
-            <div className="vote">
-                <MdHowToVote />
-                <h5>인프제 VS 인티제남, 누가 낫냐</h5>
-            </div>
+            {pollList?.length && (
+                <div className="vote">
+                    <div className="vote__top">
+                        <VoteIcon />
+                        <p>투표</p>
+                    </div>
 
-            {/* 이미지가 있을 경우 */}
-            <Image src="/images/1.jpeg" alt="" width={600} height={400} />
-
-            {/* 해시태그 있을 경우 */}
-            <ul className="hashTag">
-                <li>#INFJ</li>
-                <li>#인프제</li>
-                <li>#카톡상담</li>
-            </ul>
+                    <h5 className="vote__title">{pollList[0].title}</h5>
+                </div>
+            )}
         </section>
     );
 };

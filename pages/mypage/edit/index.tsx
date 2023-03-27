@@ -3,9 +3,9 @@ import { Header, Input, ProfileUpload } from '@components/Commons';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
-import { editLayout, editTitle } from './styled';
+import { editLayout, editTitle } from '@styles/pages/mypageEditStyled';
 import { BottomButton } from '@/components/Commons/Button';
-import { MbtiStyles, Container, editButton, MbtiFlex } from './styled';
+import { MbtiStyles, Container, editButton, MbtiFlex } from '@styles/pages/mypageEditStyled';
 import ProfileEdit from '@assets/icons/profile_edit.svg';
 import { IUserModel } from '@/types/user';
 import { Button, Modal } from 'antd';
@@ -159,7 +159,7 @@ const edit = () => {
                 <div>
                     <div css={editTitle}>
                         <h4>프로필 사진</h4>
-                        <span>카메라 버튼을 눌러 프로필 사진 변경</span>
+                        <span className="desc">카메라 버튼을 눌러 프로필 사진 변경</span>
                     </div>
 
                     <div css={Container}>

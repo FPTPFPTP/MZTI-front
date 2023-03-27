@@ -1,7 +1,7 @@
 import { BottomButtonStyle } from './styled';
-import { AiFillHome } from 'react-icons/Ai';
-import { BsFillGridFill } from 'react-icons/Bs';
-import { HiOutlinePlus } from 'react-icons/Hi';
+import HomeIcon from '@assets/icons/footerMenu/home.svg';
+import MoreIcon from '@assets/icons/footerMenu/more.svg';
+import WriteIcon from '@assets/icons/footerMenu/write.svg';
 import Link from 'next/link';
 
 const BottomMenu = () => {
@@ -10,16 +10,18 @@ const BottomMenu = () => {
             <ul>
                 <li>
                     <Link href="/home">
-                        <AiFillHome />
-                    </Link>
-                </li>
-                <li className="write">
-                    <Link href="/write">
-                        <HiOutlinePlus />
+                        <HomeIcon />
                     </Link>
                 </li>
                 <li>
-                    <BsFillGridFill />
+                    <Link href="/write">
+                        <WriteIcon />
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/board-list">
+                        <MoreIcon />
+                    </Link>
                 </li>
             </ul>
         </nav>

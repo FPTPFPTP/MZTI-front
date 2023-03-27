@@ -9,6 +9,7 @@ const Layout: React.FC<any> = (props) => {
 export default Layout;
 
 const StyledLayout = css`
+    position: relative;
     min-width: 390px;
     max-width: 600px;
     height: 100vh;

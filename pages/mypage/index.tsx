@@ -3,7 +3,7 @@ import Menu from '@/components/MyPageCom/Menu';
 import Profile from '@/components/MyPageCom/Profile';
 import Write from '@/components/MyPageCom/Write';
 import { Header } from '@components/Commons';
-import { MypageWrap } from './styled';
+import { MypageWrap } from '@styles/pages/mypageStyled';
 import EditSvg from '@assets/icons/edit.svg';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
@@ -14,22 +14,22 @@ const menuList = [
     {
         title: '내가 북마크 한 글',
         subDesc: '',
-        url: '',
+        url: '/mypage/bookmark',
     },
     {
         title: '서포트 센터',
-        subDesc: 'FAQ, 1:1 문의, 피드백페이지',
-        url: '',
+        subDesc: '1:1 문의, 건의 사항',
+        url: '/mypage/feedback',
     },
     {
         title: '공지사항',
         subDesc: '업데이트 소식, 게시판 추가 등',
-        url: '',
+        url: '/mypage/notice',
     },
     {
         title: '계정 관리',
         subDesc: '로그아웃 등',
-        url: '',
+        url: '/mypage/account_mgt',
     },
 ];
 
