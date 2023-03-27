@@ -114,26 +114,12 @@ const post = ({ data }: IPostProps) => {
             />
 
             {postData && (
-                <>
-                    <div css={PostStyle}>
-                        <div className="postHeaderWrap">
-                            <h3 className="postTitle">{postData.title}</h3>
-                            <ItemHeader
-                                nickname={postData.writer.nickname}
-                                mbti={postData.writer.mbti}
-                                level={postData.writer.level}
-                                profileImage={postData.writer.profileImage}
-                                moreBtn={false}
-                                createAt={postData.createAt}
-                            />
-                        </div>
+                <div css={PostStyle}>
+                    <div className="postHeaderWrap">
+                        <h3 className="postTitle">{postData.title}</h3>
+                        <ItemHeader writer={postData.writer} createAt={postData.updateAt} />
                     </div>
                     <ToastViewer contentHtml={postData.content} />
-                    {/* <article
-                        dangerouslySetInnerHTML={{
-                            __html: xss(data.content),
-                        }}
-                    /> */}
                     {surveyData.map((survey) => (
                         <>
                             {survey.self ? (
@@ -143,7 +129,7 @@ const post = ({ data }: IPostProps) => {
                             )}
                         </>
                     ))}
-                </>
+                </div>
             )}
 
             <ItemFooter className="postFooter" isFeed={false} />

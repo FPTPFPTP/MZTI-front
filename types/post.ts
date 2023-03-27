@@ -6,11 +6,12 @@ export interface IPostModel {
     content: string;
     createAt: string;
     updateAt: string;
-    like: number;
-    command: number;
+    like: ILikeModel;
+    command: ICommandModel;
     pollList: IPollModel[];
     tags: ITagModel[];
     writer: IWriterModel;
+    bookmark: IBookmarkModel;
 }
 
 export interface IPollModel {
@@ -42,4 +43,18 @@ export interface IWriterModel {
     mbti: string;
     level: number;
     profileImage: string;
+}
+
+export interface ILikeModel {
+    check: boolean;
+    count: number;
+}
+
+export interface IBookmarkModel {
+    check: boolean;
+    count: number;
+}
+export interface ICommandModel {
+    check: boolean;
+    count: number;
 }

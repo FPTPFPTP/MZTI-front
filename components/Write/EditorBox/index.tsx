@@ -11,18 +11,19 @@ import ToastEditor from '@/components/Commons/ToastEditor';
 import { ContentWrapStyle, FlexCenterStyle, KeywordWrapStyle, BottomWrapStyle, BottomBtnWrapStyle } from './styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite } from '@apis/write';
+import { putPost } from '@apis/posts';
 import { useGetBoards } from '@/apis/boards';
 import Axios from '@utils/axios';
 import SurveyModal from '../SurveyModal';
 import KeywordDrawer from '../KeywordDrawer';
-import { ITagModel } from '@/types/post';
+import { ITagModel, IPostModel } from '@/types/post';
 
 interface IEditorBox {
-    contents: string;
+    postItem?: IPostModel;
 }
 
 const EditorBox = (props: IEditorBox) => {
-    const { contents } = props;
+    const { postItem } = props;
     const router = useRouter();
     const [isSurveyModal, setIsSurveyModal] = useState<boolean>(false);
     const [isKeywordDrawer, setIsKeywordDrawer] = useState<boolean>(false);
@@ -30,7 +31,7 @@ const EditorBox = (props: IEditorBox) => {
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
     const [selectKeyword, setSelectKeyword] = useState<ITagModel[]>([]);
     const editorRef = useRef<Editor>(null);
-    const { register, watch, reset } = useForm();
+    const { register, watch, reset, setValue } = useForm();
     const { title } = watch();
 
     // 게시판 메뉴
@@ -46,43 +47,65 @@ const EditorBox = (props: IEditorBox) => {
 
     // 등록 버튼 핸들러
     const handleRegisterButton = async () => {
-        if (editorRef.current) {
-            // 입력창에 입력한 내용을 HTML 태그 형태로 취득
-            // console.log(editorRef.current?.getInstance().getHTML());
-            // 입력창에 입력한 내용을 MarkDown 형태로 취득
-            // console.log(editorRef.current?.getInstance().getMarkdown());
-            try {
-                const pollList = [];
-                if (!title.length) {
-                    message.error('게시글 타이틀을 작성해주세요');
+        if (postItem) {
+            if (editorRef.current) {
+                try {
+                    if (!title.length) {
+                        message.error('게시글 타이틀을 작성해주세요');
+                        return;
+                    }
+                    const data = await putPost({
+                        id: postItem.id,
+                        title,
+                        categoryId: selectCategory,
+                        content: editorRef.current?.getInstance().getHTML(),
+                        tagList: selectKeyword.map((keyword) => keyword.id),
+                    });
+
+                    if (data) {
+                        message.success('작성한 글 수정에 성공했어요');
+                        router.push(`/home/${data.id}`);
+                    }
+                } catch (error) {
+                    console.log(error);
                     return;
                 }
-                if (surveyData.length) {
-                    for (const survey of surveyData) {
-                        pollList.push({
-                            title: survey.title,
-                            startDate: survey.startDate,
-                            endDate: survey.endDate,
-                            checkCount: survey.maxChoice,
-                            items: survey.questions,
-                        });
+            }
+        } else {
+            if (editorRef.current) {
+                try {
+                    const pollList = [];
+                    if (!title.length) {
+                        message.error('게시글 타이틀을 작성해주세요');
+                        return;
                     }
-                }
-                const data = await postWrite({
-                    title,
-                    categoryId: selectCategory,
-                    content: editorRef.current?.getInstance().getHTML(),
-                    tagList: selectKeyword.map((keyword) => keyword.id),
-                    pollList,
-                });
+                    if (surveyData.length) {
+                        for (const survey of surveyData) {
+                            pollList.push({
+                                title: survey.title,
+                                startDate: survey.startDate,
+                                endDate: survey.endDate,
+                                checkCount: survey.maxChoice,
+                                items: survey.questions,
+                            });
+                        }
+                    }
+                    const data = await postWrite({
+                        title,
+                        categoryId: selectCategory,
+                        content: editorRef.current?.getInstance().getHTML(),
+                        tagList: selectKeyword.map((keyword) => keyword.id),
+                        pollList,
+                    });
 
-                if (data && data.code === 'SUCCESS') {
-                    message.success('작성한 글 업로드에 성공했어요');
-                    router.push(`/home/${data.data.id}`);
+                    if (data && data.code === 'SUCCESS') {
+                        message.success('작성한 글 업로드에 성공했어요');
+                        router.push(`/home/${data.data.id}`);
+                    }
+                } catch (error) {
+                    console.log(error);
+                    return;
                 }
-            } catch (error) {
-                console.log(error);
-                return;
             }
         }
     };
@@ -106,10 +129,17 @@ const EditorBox = (props: IEditorBox) => {
     };
 
     useEffect(() => {
-        if (editorRef.current) {
-            // 전달받은 html값으로 초기화
-            editorRef.current.getInstance().setHTML(contents);
+        // 전달받은 html값으로 초기화
+        if (editorRef.current && postItem) {
+            editorRef.current.getInstance().setHTML(postItem.content);
+            setValue('title', postItem.title);
+            setSelectCategory(postItem.categoryId);
+            setSelectKeyword(postItem.tags);
+        }
+    }, [postItem]);
 
+    useEffect(() => {
+        if (editorRef.current) {
             // 기존 이미지 업로드 기능 제거
             editorRef.current.getInstance().removeHook('addImageBlobHook');
             // 이미지 서버로 데이터를 전달하는 기능 추가
@@ -136,7 +166,7 @@ const EditorBox = (props: IEditorBox) => {
         <>
             <Header
                 onClickBackButton={onBackPage}
-                title={'글쓰기'}
+                title={postItem ? '글쓰기 수정' : '글쓰기'}
                 rightElement={
                     <button onClick={handleRegisterButton}>
                         <CheckSvg />
@@ -190,13 +220,15 @@ const EditorBox = (props: IEditorBox) => {
                             />
                         ))}
                 </ul>
-                <ul css={BottomBtnWrapStyle}>
-                    <button onClick={onSurveyModalOpen}>
-                        <VoteSvg />
-                    </button>
-                </ul>
+                {!postItem && (
+                    <ul css={BottomBtnWrapStyle}>
+                        <button onClick={onSurveyModalOpen}>
+                            <VoteSvg />
+                        </button>
+                    </ul>
+                )}
             </div>
-            <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />
+            {!postItem && <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />}
             <KeywordDrawer
                 isDrawer={isKeywordDrawer}
                 selectKeywords={selectKeyword}

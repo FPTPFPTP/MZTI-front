@@ -8,7 +8,7 @@ const EditorBox = dynamic(() => import('@components/Write/EditorBox'), {
 const Write = () => {
     return (
         <>
-            <EditorBox contents={``} />
+            <EditorBox />
         </>
     );
 };

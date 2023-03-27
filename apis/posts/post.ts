@@ -8,3 +8,13 @@ export const getPost = async ({ postId }: { postId: number }) => {
 
     return res.data.data;
 };
+
+interface IPutPostReq extends Pick<IPostModel, 'id' | 'title' | 'categoryId' | 'content'> {
+    tagList: number[];
+}
+
+export const putPost = async (form: IPutPostReq) => {
+    const res = await Axios.put<IResponseBase<IPostModel>>(`/post`, { ...form });
+
+    return res.data.data;
+};
