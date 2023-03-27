@@ -1,6 +1,8 @@
 import { GetServerSideProps, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
+import { message } from 'antd';
+
 import { Header } from '@components/Commons';
 import Head from 'next/head';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
@@ -11,21 +13,22 @@ import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import { useRouter } from 'next/router';
 import Axios from '@utils/axios';
-import xss from 'xss';
+import { getPost } from '@apis/posts';
 import { IResponseBase } from '@/types/global';
 import { IPostModel } from '@/types/post';
+import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
 });
 
 interface IPostProps {
-    data: IPostModel | null;
+    data?: IPostModel;
     // commentData: any;
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, params }: any) => {
-    let data = null;
+    let data;
     // let commentData = null;
     try {
         const token = req.cookies['refreshToken'];
@@ -50,13 +53,52 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
 };
 
 const post = ({ data }: IPostProps) => {
+    const [postData, setPostData] = useState<IPostModel | undefined>(data);
     const [isBookMark, setIsBookMark] = useState<boolean>(false);
-
+    const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
     const handleBookMark = () => [setIsBookMark((isBookMark) => !isBookMark)];
 
+    const onPoll = (result: SurveyType.IDefaultModeSurveyResult) => {
+        Axios.post('/post/poll', {
+            pollId: Number(result.id),
+            pollList: result.answer.map((id) => Number(id)),
+        }).then((res) => {
+            message.success('투표 참여에 성공했어요');
+            if (postData) {
+                getPost({ postId: postData.id }).then((result) => {
+                    console.log({ result });
+                    setPostData(result);
+                });
+            }
+        });
+    };
+
     useEffect(() => {
-        console.log({ data });
-    }, [data]);
+        if (postData && postData.pollList.length) {
+            console.log({ data });
+            const survey: SurveyType.IDefaultModeSurveyResult[] = postData.pollList.map((poll) => ({
+                id: poll.id.toString(),
+                title: poll.title,
+                type: ESurveyTypes.MULTI_SELECT,
+                required: true,
+                answer: [],
+                startDate: poll.startDate,
+                endDate: poll.endDate,
+                maxChoice: poll.checkCount,
+                questions: poll.items.map((item, index) => ({
+                    id: item.id.toString(),
+                    item: item.item,
+                    index,
+                    image: item.image,
+                    count: item.count,
+                    self: item.self,
+                })),
+                count: poll.count,
+                self: poll.self,
+            }));
+            setSurveyData(survey);
+        }
+    }, [postData]);
 
     return (
         <main>
@@ -71,27 +113,36 @@ const post = ({ data }: IPostProps) => {
                 }
             />
 
-            {data && (
+            {postData && (
                 <>
                     <div css={PostStyle}>
                         <div className="postHeaderWrap">
-                            <h3 className="postTitle">{data.title}</h3>
+                            <h3 className="postTitle">{postData.title}</h3>
                             <ItemHeader
-                                nickname={data.writer.nickname}
-                                mbti={data.writer.mbti}
-                                level={data.writer.level}
-                                profileImage={data.writer.profileImage}
+                                nickname={postData.writer.nickname}
+                                mbti={postData.writer.mbti}
+                                level={postData.writer.level}
+                                profileImage={postData.writer.profileImage}
                                 moreBtn={false}
-                                createAt={data.createAt}
+                                createAt={postData.createAt}
                             />
                         </div>
                     </div>
-                    <ToastViewer contentHtml={data.content} />
+                    <ToastViewer contentHtml={postData.content} />
                     {/* <article
                         dangerouslySetInnerHTML={{
                             __html: xss(data.content),
                         }}
                     /> */}
+                    {surveyData.map((survey) => (
+                        <>
+                            {survey.self ? (
+                                <DefaultModeResult key={survey.id} survey={survey} onSubmit={onPoll} />
+                            ) : (
+                                <DefaultModeViewer key={survey.id} survey={survey} onSubmit={onPoll} />
+                            )}
+                        </>
+                    ))}
                 </>
             )}
 

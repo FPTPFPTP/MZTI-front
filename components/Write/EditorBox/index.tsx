@@ -76,8 +76,9 @@ const EditorBox = (props: IEditorBox) => {
                     pollList,
                 });
 
-                if (data.code === 'SUCCESS') {
+                if (data && data.code === 'SUCCESS') {
                     message.success('작성한 글 업로드에 성공했어요');
+                    router.push(`/home/${data.data.id}`);
                 }
             } catch (error) {
                 console.log(error);
@@ -168,13 +169,7 @@ const EditorBox = (props: IEditorBox) => {
                 </form>
                 <ToastEditor ref={editorRef} />
                 {surveyData.map((survey) => (
-                    <DefaultModeViewer
-                        key={survey.id}
-                        survey={survey}
-                        onResult={() => console.log('결과 페이지 이동')}
-                        onSubmit={(result) => console.log({ result })}
-                        onRemove={onSurveyRemove}
-                    />
+                    <DefaultModeViewer key={survey.id} survey={survey} onSubmit={(result) => console.log({ result })} onRemove={onSurveyRemove} />
                 ))}
             </div>
             <div css={BottomWrapStyle}>
