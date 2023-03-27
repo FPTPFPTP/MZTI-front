@@ -4,13 +4,13 @@ import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
 const customAxios = Axios.create({
-    baseURL: '/',
+    baseURL: '/mzti',
     timeout: 10000,
 });
 
-// const token = cookies.get('refreshToken');
-const token =
-    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlVTRVJfUk9MRSIsImV4cCI6MTY3ODA4OTMyN30.rCSTspaEu_FS7hknl2MP1fDnc-uWSuXB_bzY5uSQFsVxpvLZccdQ4xIAd5saa_sBFiFUshdzapKMr4i8GfD7ig';
+const token = cookies.get('refreshToken');
+// const token =
+//     'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlVTRVJfUk9MRSIsImV4cCI6MTY3ODA4OTMyN30.rCSTspaEu_FS7hknl2MP1fDnc-uWSuXB_bzY5uSQFsVxpvLZccdQ4xIAd5saa_sBFiFUshdzapKMr4i8GfD7ig';
 
 customAxios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
 
@@ -49,7 +49,7 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
  * -> 서버에서 확인이 필요한 에러
  */
 const onResponseError = async (error: AxiosError<any>) => {
-    // console.log('onResponseError', error.response);
+    console.log('onResponseError', error);
     if (error.response) {
         const { status, data } = error.response;
         switch (true) {

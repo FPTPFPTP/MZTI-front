@@ -4,7 +4,7 @@ import { Login } from '@styles/pages/loginStyled';
 import axios from 'utils/axios';
 import { useRouter } from 'next/router';
 import { accessTokenState } from '@/recoil/atom/auth';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { Cookies } from 'react-cookie';
 
@@ -38,10 +38,10 @@ const login = () => {
                     setAccessToken(res.data.data.accessToken);
                     cookies.set('refreshToken', res.data.data.refreshToken);
                     axios.get('/user').then((res) => {
-                        if (res.data.nickname === undefined) {
+                        if (res.data.data.nickname === undefined) {
                             router.push('/signup');
                         } else {
-                            router.push('/main');
+                            router.push('/home');
                         }
                     });
                 })
@@ -56,7 +56,7 @@ const login = () => {
             <div css={Login}>
                 <h1>MBTI에 과몰입 할 MZ들 모여라!</h1>
                 <button onClick={handleKaKao}>
-                    <Image src="/images/kakao.png" alt="카카오톡으로 시작하기" width={500} height={500} />
+                    <Image src="/images/kakao.png" alt="카카오톡으로 시작하기" width={400} height={100} />
                 </button>
                 <FacebookLogin
                     appId={process.env.NEXT_PUBLIC_FACEBOOK_URL!}
@@ -69,25 +69,17 @@ const login = () => {
                                 setAccessToken(res.data.data.accessToken);
                                 cookies.set('refreshToken', res.data.data.refreshToken);
                                 axios.get('/user').then((res) => {
-                                    if (res.data.nickname === undefined) {
+                                    if (res.data.data.nickname === undefined) {
                                         router.push('/signup');
                                     } else {
-                                        router.push('/main');
+                                        router.push('/home');
                                     }
                                 });
                             });
-
-                        console.log('Login Success!', response);
-                    }}
-                    onFail={(error) => {
-                        console.log('Login Failed!', error);
-                    }}
-                    onProfileSuccess={(response) => {
-                        console.log('Get Profile Success!', response);
                     }}
                     render={(renderProps) => (
                         <button onClick={renderProps.onClick}>
-                            <Image src="/images/facebook.png" alt="페이스북으로 시작하기" width={500} height={500} />
+                            <Image src="/images/facebook.png" alt="페이스북으로 시작하기" width={400} height={100} />
                         </button>
                     )}
                 />

@@ -24,3 +24,9 @@ export const FlexStart = css`
     gap: 4px;
     color: ${colors.GRAY_ORIGIN_1};
 `;
+
+export const RuleWrap = css`
+    float: left;
+    width: 100%;
+    padding: 0 25px;
+`;
