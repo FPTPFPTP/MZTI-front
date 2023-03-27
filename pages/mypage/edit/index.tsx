@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Header, Input, ProfileUpload } from '@components/Commons';
 import { useForm } from 'react-hook-form';
-import { editLayout, editTitle } from './styled';
+import { editLayout, editTitle } from '@styles/pages/mypageEditStyled';
 import { BottomButton } from '@/components/Commons/Button';
-import { MbtiStyles, Container, editButton, MbtiFlex } from './styled';
+import { MbtiStyles, Container, editButton, MbtiFlex } from '@styles/pages/mypageEditStyled';
 import ProfileEdit from '@assets/icons/profile_edit.svg';
 import { IUserModel } from '@/types/user';
 import { Button, Modal } from 'antd';

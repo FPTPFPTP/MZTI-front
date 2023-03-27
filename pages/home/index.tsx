@@ -10,7 +10,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
 import { getFeedPost } from '@/utils/apis/user';
 import Link from 'next/link';
-import { HomeMenu, searchWrap } from './styled';
+import { HomeMenu, searchWrap } from '@styles/pages/homeStyled';
 import ListTab from '@/components/Home/ListTab';
 
 const home = () => {

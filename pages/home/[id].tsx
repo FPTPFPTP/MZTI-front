@@ -4,7 +4,7 @@ import { Header } from '@components/Commons';
 import Head from 'next/head';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
-import { PostStyle, PostContent } from './styled';
+import { PostStyle, PostContent } from '@styles/pages/homeStyled';
 import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
