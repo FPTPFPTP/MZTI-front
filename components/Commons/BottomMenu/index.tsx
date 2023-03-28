@@ -1,7 +1,7 @@
 import { BottomButtonStyle } from './styled';
 import HomeIcon from '@assets/icons/footerMenu/home.svg';
 import MoreIcon from '@assets/icons/footerMenu/more.svg';
-import WriteIcon from '@assets/icons/footerMenu/write.svg';
+import WriteIcon from '@assets/icons/footerMenu/circle_plus.svg';
 import Link from 'next/link';
 
 const BottomMenu = () => {

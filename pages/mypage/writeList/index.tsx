@@ -72,7 +72,7 @@ const WriteList = () => {
             </form>
             <ListBox>
                 {writeList.length ? (
-                    writeList.map((item) => <ListItem key={item.id} id={item.id} title={item.title} date={item.date} thumbnail={item.thumbnail} />)
+                    writeList.map((item) => <ListItem key={item.id} id={item.id} content={item.content} createAt={item.createAt} thumbnail={item.thumbnail} />)
                 ) : (
                     <>
                         {searchValue.length ? (
@@ -83,7 +83,7 @@ const WriteList = () => {
                                 href="/mypage/writeList"
                             />
                         ) : (
-                            <Empty title="작성한 글이 없습니다" subTitle="첫 글을 남겨보러 갈까요?" buttonTitle="목록으로" href="/" />
+                            <Empty title="작성한 글이 없습니다" subTitle="첫 글을 남겨보러 갈까요?" buttonTitle="목록으로" href="/home" />
                         )}
                     </>
                 )}

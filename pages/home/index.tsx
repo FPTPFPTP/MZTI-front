@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BottomMenu from '@/components/Commons/BottomMenu';
 import FeedItem from '@/components/Home/FeedItem';
 import HotKeyword from '@/components/Home/HotKeyword';
-import { Header, Input } from '@components/Commons';
+import { Input } from '@components/Commons';
 import AlarmIcon from '@assets/icons/header/alarm.svg';
 import MyPageIcon from '@assets/icons/header/mypage.svg';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -12,6 +12,7 @@ import { getFeedPost } from '@/utils/apis/user';
 import Link from 'next/link';
 import { HomeMenu, searchWrap } from '@styles/pages/homeStyled';
 import ListTab from '@/components/Home/ListTab';
+import { Empty } from '@/components/MyPageCom';
 
 const home = () => {
     const [searchText, setSearchText] = useState<string>('');
@@ -29,18 +30,17 @@ const home = () => {
         },
     );
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
-
     if (isLoading) return <h3>로딩중</h3>;
     if (isError) return <h3>잘못된 데이터 입니다.</h3>;
 
     const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            console.log('searchText', searchText);
             setSearchText(search);
         }
+    };
+
+    const handleOnClick = () => {
+        setSearchText('');
     };
 
     return (
@@ -51,9 +51,10 @@ const home = () => {
                 <h1>MZTI</h1>
 
                 <div className="right">
-                    <Link href="/alarm" className="alarm">
+                    {/* TODO : 2차 오픈때 개발 예정 */}
+                    {/* <Link href="/alarm" className="alarm">
                         <AlarmIcon />
-                    </Link>
+                    </Link> */}
                     <Link href="/mypage">
                         <MyPageIcon />
                     </Link>
@@ -73,13 +74,23 @@ const home = () => {
                     />
                 </form>
             </div>
-            {/* 인기 게시판 & 전체 게시판 */}
-            <ListTab />
-            {/* 핫토픽 키워드 */}
-            <HotKeyword />
+
+            {data.pages[0].list.length !== 0 && (
+                <>
+                    {/* 인기 게시판 & 전체 게시판 */}
+                    <ListTab />
+                    {/* 핫토픽 키워드 */}
+                    <HotKeyword />
+                </>
+            )}
+
             {/* 피드 게시물 */}
             <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                {data.pages[0].list.length === 0 ? <h1>검색 결과가 없습니다.</h1> : <FeedItem data={data} />}
+                {data.pages[0].list.length === 0 ? (
+                    <Empty title="검색한 결과가 없습니다" subTitle="다른 검색어로 검색해보세요" buttonTitle="돌아가기" onClick={handleOnClick} />
+                ) : (
+                    <FeedItem data={data} />
+                )}
             </InfiniteScroll>
             {/* 메뉴 */}
             <BottomMenu />

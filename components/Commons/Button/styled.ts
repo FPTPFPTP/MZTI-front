@@ -30,14 +30,11 @@ export const BaseButtonStyle = css`
 `;
 
 export const LinkButtonStyle = css`
-    ${DefaultStyle};
     background: ${colors.BLACK};
     color: ${colors.WHITE};
     box-shadow: ${colors.BOX_SHADOW};
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: ${colors.BOX_SHADOW};
-    }
+    font-size: 1.2rem;
+    padding: 7px 38px;
     &:disabled {
         background: ${colors.GRAY_BRIGHT_1};
         cursor: not-allowed;
