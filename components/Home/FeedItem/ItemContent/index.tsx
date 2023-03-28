@@ -1,14 +1,14 @@
 import { ItemContentStyle } from '../styled';
-import { PollListProps, TagProps } from '@/utils/types';
 import VoteIcon from '@assets/icons/vote.svg';
 import xss from 'xss';
+import { IPollModel, ITagModel } from '@/types/post';
 
 interface IItemContentProps {
     id: number;
     title: string;
     content: string;
-    pollList?: PollListProps[];
-    tags?: TagProps[];
+    pollList: IPollModel[];
+    tags: ITagModel[];
 }
 
 const ItemContent = ({ id, title, content, pollList, tags }: IItemContentProps) => {
