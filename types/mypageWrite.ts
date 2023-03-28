@@ -1,6 +1,6 @@
 export interface IMypageWriteModel {
     id: string;
-    title: string;
-    date: string;
+    content: string;
+    createAt: string;
     thumbnail: string;
 }

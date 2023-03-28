@@ -7,7 +7,7 @@ import { Header } from '@components/Commons';
 import Head from 'next/head';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
-import { PostStyle, PostContent } from '@styles/pages/homeStyled';
+import { PostStyle } from '@styles/pages/homeStyled';
 import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
@@ -24,7 +24,7 @@ const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
 
 interface IPostProps {
     data?: IPostModel;
-    // commentData: any;
+    commentData: any;
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, params }: any) => {
@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
     };
 };
 
-const post = ({ data }: IPostProps) => {
+const post = ({ data, commentData }: IPostProps) => {
     const [postData, setPostData] = useState<IPostModel | undefined>(data);
     const [isBookMark, setIsBookMark] = useState<boolean>(false);
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
@@ -100,6 +100,7 @@ const post = ({ data }: IPostProps) => {
         }
     }, [postData]);
 
+    console.log('--', commentData);
     return (
         <main>
             {/* 헤더 */}
@@ -134,16 +135,7 @@ const post = ({ data }: IPostProps) => {
 
             <ItemFooter className="postFooter" isFeed={false} />
 
-            {/* {commentData.length > 0 && (
-                <FeedComents
-                    nickname={commentData.writer.nickname}
-                    mbti={commentData.writer.mbti}
-                    profileImage={commentData.writer.profileImage}
-                    userId={commentData.writer.userId}
-                    comment={commentData.comment}
-                    like={commentData.like.count}
-                />
-            )} */}
+            <FeedComents commentData={commentData} />
         </main>
     );
 };

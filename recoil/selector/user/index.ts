@@ -1,13 +1,20 @@
-import { selector, selectorFamily } from 'recoil';
+import { IUserModel } from '@/types/user';
+import { selector } from 'recoil';
 import axios from 'utils/axios';
 
-// 국내 코인 거래소 인덱스
-export const getUserInfo = selector({
-    key: 'api/userInfo',
-    get: () => async () => {
-        const res = await axios.get(`/user`);
-        console.log('res--->', res);
+const getUserInfo = async () => {
+    const res = await axios.get(`/user`);
+    return res.data.data;
+};
 
-        return res.data;
+export const userSelector = selector<IUserModel>({
+    key: 'userInfo',
+    get: async () => {
+        try {
+            const res = await getUserInfo();
+            return res;
+        } catch (error: any) {
+            console.log('error', error);
+        }
     },
 });

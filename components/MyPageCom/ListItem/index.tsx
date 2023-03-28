@@ -8,14 +8,14 @@ import { ListItemWrapCss } from './styled';
 
 interface IListItemProps {
     id: string;
-    title: string;
-    date: string;
+    content: string;
+    createAt: string;
     number?: number;
     thumbnail?: string;
 }
 
 const ListItem = (props: IListItemProps) => {
-    const { id, number, title, date, thumbnail } = props;
+    const { id, number, content, createAt, thumbnail } = props;
 
     const target = useRef(null); // 대상 ref
     const [visible, setVisible] = useState<boolean>(false); // DOM을 렌더할 조건
@@ -41,10 +41,10 @@ const ListItem = (props: IListItemProps) => {
                     )}
 
                     <Typography.Text className="title" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                        {title}
+                        {content}
                     </Typography.Text>
                     <Typography.Text className="date" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                        {date}
+                        {createAt}
                     </Typography.Text>
                 </>
             )}

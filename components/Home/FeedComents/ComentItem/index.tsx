@@ -1,4 +1,5 @@
 import { Avatar } from '@/components/Commons';
+import { timeForToday } from '@/utils/time';
 import { CommentItemSylte } from '../styled';
 
 interface ICommentProps {
@@ -8,8 +9,9 @@ interface ICommentProps {
     userId: number;
     comment: string;
     like: number;
+    createAt: string;
 }
-const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like }: ICommentProps) => {
+const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, createAt }: ICommentProps) => {
     return (
         <section css={CommentItemSylte} key={userId}>
             <div className="commentItemWrap">
@@ -20,7 +22,7 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like }: ICo
                 </div>
                 <p className="coment">{comment}</p>
                 <div className="commentItemFooter">
-                    <p className="time">2분 전</p>
+                    <p className="time">{timeForToday(createAt)}</p>
                     <button className="like">{like > 0 ? like : '좋아요'}</button>
                     <button className="reComment">대댓글</button>
                 </div>
