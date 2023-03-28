@@ -6,7 +6,7 @@ export const useGetComments = (search: string) => {
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length;
 
-            return lastPage.contents.length !== 0 ? nextPage : undefined;
+            return lastPage.contents?.length !== 0 ? nextPage : undefined;
         },
     });
     const { data } = res;
