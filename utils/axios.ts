@@ -49,7 +49,7 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
  * -> 서버에서 확인이 필요한 에러
  */
 const onResponseError = async (error: AxiosError<any>) => {
-    console.log('onResponseError', error);
+    // console.log('onResponseError', error);
     if (error.response) {
         const { status, data } = error.response;
         switch (true) {

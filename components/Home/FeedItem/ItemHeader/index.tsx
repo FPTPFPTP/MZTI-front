@@ -1,16 +1,23 @@
-import React, { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
-import { WriterProps } from '@/utils/types';
 import { ItemHeaderStyle, PostMore } from '../styled';
 import Drawer from 'react-bottom-drawer';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
 import Link from 'next/link';
+import { IWriterModel } from '@/types/post';
 
-const ItemHeader = ({ nickname, mbti, level, profileImage, moreBtn = true, createAt }: WriterProps) => {
+interface IItemHeader {
+    writer: IWriterModel;
+    createAt: string;
+}
+
+const ItemHeader = ({ writer, createAt }: IItemHeader) => {
+    const { nickname, mbti, level, profileImage } = writer;
+
     const [isVisible, setIsVisible] = useState(false);
-    const openDrawer = useCallback(() => setIsVisible(true), []);
-    const closeDrawer = useCallback(() => setIsVisible(false), []);
+    const openDrawer = () => setIsVisible(true);
+    const closeDrawer = () => setIsVisible(false);
 
     return (
         <>

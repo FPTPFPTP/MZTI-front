@@ -18,7 +18,7 @@ const SurveyModal = (props: ISurveyModalProps) => {
 
         return {
             baseUrl: 'http://ip-set-nlp-2cce1cff97b66aa1.elb.ap-northeast-2.amazonaws.com', // proxy url
-            actionUrl: '/post/image', // 업로드 url 경로
+            actionUrl: '/mzti/post/image', // 업로드 url 경로
             authorization: cookies.get('refreshToken'), // 토큰
         };
     }, []);
