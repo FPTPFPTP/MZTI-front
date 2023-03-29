@@ -62,12 +62,11 @@ MyCustomApp.getInitialProps = async (appContext: AppContext) => {
     const appProps = await App.getInitialProps(appContext);
     const { ctx } = appContext;
     const allCookies = nextCookies(ctx);
-
-    const accessToken = allCookies['ACCESS_TOKEN'];
-    const refreshToken = allCookies['REFRESH_TOKEN'];
+    const accessToken = allCookies['accessToken'];
+    const refreshToken = allCookies['refreshToken'];
     const removeAllCookies = () => {
         // 서버 사이드 쿠키 삭제
-        ctx.res && ctx.res.setHeader('Set-Cookie', [`ACCESS_TOKEN=deleted; Max-Age=0`, `REFRESH_TOKEN=deleted; Max-Age=0`]);
+        ctx.res && ctx.res.setHeader('Set-Cookie', [`accessToken=deleted; Max-Age=0`, `refreshToken=deleted; Max-Age=0`]);
         // 클라이언트 사이드 쿠키 삭제
         removeTokenAll();
     };
@@ -87,6 +86,8 @@ MyCustomApp.getInitialProps = async (appContext: AppContext) => {
             }
         } catch (e) {
             console.log({ e });
+        } finally {
+            axios.defaults.baseURL = '/mzti';
         }
     }
 

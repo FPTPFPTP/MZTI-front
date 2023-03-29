@@ -1,39 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useLayoutEffect } from 'react';
+import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
-import Login from './login';
-import { isLogin } from '@/recoil/atom/user';
-import { Cookies } from 'react-cookie';
-import { useRecoilState } from 'recoil';
-import Splash from '@/components/Splash';
 
 const Home: NextPage = () => {
-    const [userInfo, setUserInfo] = useRecoilState(myPageInfo);
-    useEffect(() => {
-        if (cookies.get('refreshToken')) {
-            setIsLoginUser({ login: true });
-        }
-    }, []);
+    const router = useRouter();
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoding(false);
-        }, 3000);
-    }, []);
+    useLayoutEffect(() => {
+        router.push('/home');
+    }, [router]);
 
-    useEffect(() => {
-        console.log(isLoginUser, 'isLoginUser');
-    }, [isLoginUser]);
-    return (
-        <div>
-            {isLoding ? (
-                <Splash />
-            ) : (
-                <>
-                    <Login />
-                </>
-            )}
-        </div>
-    );
+    return null;
 };
 
 export default Home;

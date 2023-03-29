@@ -32,8 +32,10 @@ const login = () => {
                     code: codeValue,
                 })
                 .then((res) => {
-                    setToken('ACCESS_TOKEN', res.data.data.accessToken);
-                    setToken('REFRESH_TOKEN', res.data.data.refreshToken);
+                    setToken('accessToken', res.data.data.accessToken);
+                    setToken('refreshToken', res.data.data.refreshToken);
+                    router.replace('/');
+                    router.reload();
                 })
                 .catch((error) => {
                     console.log(error);
@@ -56,10 +58,10 @@ const login = () => {
                                 accessToken: response.accessToken,
                             })
                             .then((res) => {
-                                setToken('ACCESS_TOKEN', res.data.data.accessToken);
-                                setToken('REFRESH_TOKEN', res.data.data.refreshToken);
-                                console.log('bbbbbbb');
+                                setToken('accessToken', res.data.data.accessToken);
+                                setToken('refreshToken', res.data.data.refreshToken);
                                 router.replace('/');
+                                router.reload();
                             });
                         console.log('Login Success!', response);
                     }}
@@ -87,7 +89,7 @@ const login = () => {
 };
 
 export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-    if (req.cookies['ACCESS_TOKEN'] && req.cookies['REFRESH_TOKEN']) {
+    if (req.cookies['accessToken'] && req.cookies['refreshToken']) {
         return {
             redirect: {
                 destination: '/',

@@ -2,30 +2,29 @@ import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
 
-export const setToken = (key: 'ACCESS_TOKEN' | 'REFRESH_TOKEN', token: string) => {
+export const setToken = (key: 'accessToken' | 'refreshToken', token: string) => {
     const expires = new Date();
     expires.setDate(expires.getDate() + 14);
 
-    console.log({ key, token });
     cookies.set(key, token, {
         path: '/',
-        expires: key === 'REFRESH_TOKEN' ? expires : undefined,
+        expires: key === 'refreshToken' ? expires : undefined,
     });
 };
 
-export const removeToken = (key: 'ACCESS_TOKEN' | 'REFRESH_TOKEN') => {
+export const removeToken = (key: 'accessToken' | 'refreshToken') => {
     cookies.remove(key, { path: '/' });
 };
 
 export const removeTokenAll = () => {
-    removeToken('ACCESS_TOKEN');
-    removeToken('REFRESH_TOKEN');
+    removeToken('accessToken');
+    removeToken('refreshToken');
 };
 
 export const getAccessToken = () => {
-    return cookies.get('ACCESS_TOKEN');
+    return cookies.get('accessToken');
 };
 
 export const getRefreshToken = () => {
-    return cookies.get('REFRESH_TOKEN');
+    return cookies.get('refreshToken');
 };

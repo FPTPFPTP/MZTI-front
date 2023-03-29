@@ -1,5 +1,5 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { Modal, message } from 'antd';
+import { Modal } from 'antd';
 import { getAccessToken } from '@utils/auth';
 import { isWindow } from '@utils/window';
 
