@@ -8,6 +8,9 @@ export const ListItemWrapCss = css`
     padding: 18px 9px;
     background: none;
     border-bottom: 1px solid ${colors.GRAY_ORIGIN_1};
+    font-size: 15px;
+    font-weight: 500;
+    color: ${colors.BLACK};
     cursor: pointer;
     &: hover {
         background: ${colors.GRAY_LIGHT_1};
@@ -16,7 +19,7 @@ export const ListItemWrapCss = css`
         width: 50px;
     }
     .thumbnail {
-        margin-right: 10px;
+        margin-left: 10px;
     }
     .title {
         width: 100%;

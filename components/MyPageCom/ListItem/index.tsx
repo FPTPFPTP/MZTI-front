@@ -1,9 +1,8 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { Typography } from 'antd';
+import dayjs from 'dayjs';
 import { Avatar } from '@components/Commons';
 import { useObserver } from '@/hooks/useObserver';
-import { timeForToday } from '@/utils/time';
 import colors from '@styles/color';
 import { ListItemWrapCss } from './styled';
 
@@ -33,18 +32,13 @@ const ListItem = (props: IListItemProps) => {
         <Link href={`/home/${id}`} css={ListItemWrapCss} ref={target}>
             {visible && (
                 <>
+                    <span className="id">{id}</span>
                     {thumbnail && <Avatar className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} size={40} />}
 
-                    <Typography.Text className="id" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                        {id}
-                    </Typography.Text>
-
-                    <Typography.Text className="title" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                        {content}
-                    </Typography.Text>
-                    <Typography.Text className="date" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                        {timeForToday(createAt)}
-                    </Typography.Text>
+                    <span className="title">{content}</span>
+                    <span className="date" style={{ color: colors.GRAY_ORIGIN_1 }}>
+                        {dayjs(createAt).format('YYYY.MM.DD')}
+                    </span>
                 </>
             )}
         </Link>
