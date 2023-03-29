@@ -2,7 +2,7 @@ export interface StringKeyObject<T> {
     [key: string]: T;
 }
 
-export interface IPaginationResponse<T> {
+export interface IPaginationResponseFake<T> {
     contents: T[];
     pageNumber: number;
     pageSize: number;
@@ -16,4 +16,18 @@ export interface IResponseBase<T> {
     code: 'SUCCESS' | 'FAILURE';
     message: string;
     data: T;
+}
+
+export interface IPageObjReqModel {
+    page: number;
+    view: number;
+    search?: string;
+}
+
+export interface IPaginationResponse<T> {
+    list: T[];
+    page: number;
+    view: number;
+    totalPage: number;
+    totalCount: number;
 }

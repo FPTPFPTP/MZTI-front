@@ -1,10 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { WriteCommentsMockData } from '@/mocks/mypageCommentList';
-import { IPaginationResponse } from '@/types/global';
+import { IPaginationResponseFake } from '@/types/global';
 import { IMypageWriteModel } from '@/types/mypageWrite';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<IPaginationResponse<IMypageWriteModel>>) {
+export default function handler(req: NextApiRequest, res: NextApiResponse<IPaginationResponseFake<IMypageWriteModel>>) {
     const query = req.query;
     const { search } = query;
 

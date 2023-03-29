@@ -72,3 +72,9 @@ export interface ICommandModel {
     check: boolean;
     count: number;
 }
+
+export interface IPostMeModel {
+    id: number;
+    content: string;
+    createAt: string;
+}
