@@ -78,3 +78,9 @@ export interface IPostMeModel {
     content: string;
     createAt: string;
 }
+
+export interface IPostCommentMeModel {
+    id: number;
+    content: string;
+    createAt: string;
+}

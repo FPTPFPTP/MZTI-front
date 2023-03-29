@@ -1,3 +1,4 @@
+export * from './commentMe';
 export * from './me';
 export * from './post';
 export * from './tag';
