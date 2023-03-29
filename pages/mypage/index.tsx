@@ -50,9 +50,11 @@ const mypage = () => {
     });
 
     useEffect(() => {
-        getMyPageActive().then((res) => {
-            setMyActive(res);
-        });
+        if (myInfo) {
+            getMyPageActive().then((res) => {
+                setMyActive(res);
+            });
+        }
     }, []);
 
     return (
