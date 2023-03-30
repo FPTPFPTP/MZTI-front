@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import { CommentItemSylte } from '../styled';
+import MoreButton from '@assets/icons/detailPost/moreButton.svg';
+import MoreDrawer from '@/components/Commons/MoreDrawer';
 
 interface ICommentProps {
     nickname: string;
@@ -12,6 +15,10 @@ interface ICommentProps {
     createAt: string;
 }
 const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, createAt }: ICommentProps) => {
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const openDrawer = () => setIsVisible(true);
+    const closeDrawer = () => setIsVisible(false);
+
     return (
         <section css={CommentItemSylte} key={userId}>
             <div className="commentItemWrap">
@@ -25,8 +32,14 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                     <p className="time">{timeForToday(createAt)}</p>
                     <button className="like">{like > 0 ? like : '좋아요'}</button>
                     <button className="reComment">대댓글</button>
+
+                    <button onClick={openDrawer} className="moreButton">
+                        <MoreButton />
+                    </button>
                 </div>
             </div>
+
+            <MoreDrawer desc="댓글" onClick={closeDrawer} isVisible={isVisible} />
         </section>
     );
 };

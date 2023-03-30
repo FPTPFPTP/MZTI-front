@@ -27,7 +27,6 @@ export const HomeMenu = () => css`
 export const PostStyle = () => css`
     overflow-y: auto;
     padding: 0 32px;
-    height: calc(100vh - 168px);
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 

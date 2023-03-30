@@ -118,6 +118,18 @@ export const ItemFooterStyle = css`
         border-top: none;
         padding: 21px 0 23px;
     }
+    .viewIcon {
+        display: flex;
+        align-items: center;
+        svg {
+            margin-left: 1rem;
+        }
+        .count {
+            font-weight: 300;
+            font-size: 1.3rem;
+            margin-left: 15px;
+        }
+    }
 `;
 
 export const ItemContentStyle = css`
