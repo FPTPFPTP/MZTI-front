@@ -1,5 +1,5 @@
 import { Button, Header } from '@components/Commons';
-import { SecessionStyled } from '../styled';
+import { SecessionStyled } from '@styles/pages/mypageEtcStyled';
 const secession = () => {
     return (
         <main css={SecessionStyled}>
