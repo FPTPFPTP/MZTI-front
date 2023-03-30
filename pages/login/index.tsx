@@ -1,20 +1,17 @@
 import React, { useEffect, useMemo } from 'react';
+import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { Login } from '@styles/pages/loginStyled';
 import axios from 'utils/axios';
 import { useRouter } from 'next/router';
-import { accessTokenState } from '@/recoil/atom/auth';
-import { useSetRecoilState } from 'recoil';
 import FacebookLogin from '@greatsumini/react-facebook-login';
-import { Cookies } from 'react-cookie';
+import { setToken } from '@/utils/auth';
 
 const login = () => {
     const REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_API;
     const REDIRECT_URI = process.env.NEXT_PUBLIC_REDIRECT_URL;
     const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     const router = useRouter();
-    const cookies = new Cookies();
-    const setAccessToken = useSetRecoilState(accessTokenState);
 
     // 코드값 추출
     const codeValue = useMemo(() => {
@@ -35,15 +32,10 @@ const login = () => {
                     code: codeValue,
                 })
                 .then((res) => {
-                    setAccessToken(res.data.data.accessToken);
-                    cookies.set('refreshToken', res.data.data.refreshToken);
-                    axios.get('/user').then((res) => {
-                        if (res.data.data.nickname === undefined) {
-                            router.push('/signup');
-                        } else {
-                            router.push('/home');
-                        }
-                    });
+                    setToken('accessToken', res.data.data.accessToken);
+                    setToken('refreshToken', res.data.data.refreshToken);
+                    router.replace('/');
+                    router.reload();
                 })
                 .catch((error) => {
                     console.log(error);
@@ -66,16 +58,18 @@ const login = () => {
                                 accessToken: response.accessToken,
                             })
                             .then((res) => {
-                                setAccessToken(res.data.data.accessToken);
-                                cookies.set('refreshToken', res.data.data.refreshToken);
-                                axios.get('/user').then((res) => {
-                                    if (res.data.data.nickname === undefined) {
-                                        router.push('/signup');
-                                    } else {
-                                        router.push('/home');
-                                    }
-                                });
+                                setToken('accessToken', res.data.data.accessToken);
+                                setToken('refreshToken', res.data.data.refreshToken);
+                                router.replace('/');
+                                router.reload();
                             });
+                        console.log('Login Success!', response);
+                    }}
+                    onFail={(error) => {
+                        console.log('Login Failed!', error);
+                    }}
+                    onProfileSuccess={(response) => {
+                        console.log('Get Profile Success!', response);
                     }}
                     render={(renderProps) => (
                         <button onClick={renderProps.onClick}>
@@ -94,4 +88,17 @@ const login = () => {
     );
 };
 
+export async function getServerSideProps({ req }: GetServerSidePropsContext) {
+    if (req.cookies['accessToken'] && req.cookies['refreshToken']) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
+    return {
+        props: {},
+    };
+}
 export default login;

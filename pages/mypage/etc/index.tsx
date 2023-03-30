@@ -1,8 +1,10 @@
+import { useRouter } from 'next/router';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { isLogin, myPageInfo } from '@/recoil/atom/user';
 import Menu from '@/components/MyPageCom/Menu';
 import { Header } from '@components/Commons';
+import { removeTokenAll } from '@utils/auth';
 import { MypageWrap } from '@styles/pages/mypageStyled';
-import { useRecoilValue } from 'recoil';
-import { isLogin } from '@/recoil/atom/user';
 import { MypageEtcMenu } from './styled';
 
 const menuList = [
@@ -33,6 +35,8 @@ const accountMng = [
 
 const etc = () => {
     const iamUser = useRecoilValue(isLogin);
+    const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
+    const router = useRouter();
 
     return (
         <>
@@ -45,7 +49,17 @@ const etc = () => {
 
                 <section css={MypageEtcMenu}>
                     <h3>계정 관리</h3>
-                    <button className="logout">로그아웃</button>
+                    <button
+                        className="logout"
+                        onClick={() => {
+                            removeTokenAll();
+                            setMyInfo(undefined);
+                            router.replace('/');
+                        }}
+                    >
+                        로그아웃
+                    </button>
+
                     <Menu menuList={accountMng} />
                 </section>
             </div>

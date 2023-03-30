@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
     // let commentData = null;
     try {
         const token = req.cookies['refreshToken'];
-        Axios.defaults.baseURL = 'http://ip-set-nlp-2cce1cff97b66aa1.elb.ap-northeast-2.amazonaws.com/';
+        Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
         Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
         const res = await Axios.get<IResponseBase<IPostModel>>(`/post/${params.id}`);
         // const commentRes = await Axios.get<IResponseBase<any>>('/post/comment', {
