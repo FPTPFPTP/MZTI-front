@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Header, Input, ProfileUpload } from '@components/Commons';
 import { useForm } from 'react-hook-form';
+import { useRecoilValue } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
 import { editLayout, editTitle } from '@styles/pages/mypageEditStyled';
 import { BottomButton } from '@/components/Commons/Button';
 import { MbtiStyles, Container, editButton, MbtiFlex } from '@styles/pages/mypageEditStyled';
@@ -13,6 +15,8 @@ import axios from '@/utils/axios';
 import { useRouter } from 'next/router';
 
 const edit = () => {
+    const myInfo = useRecoilValue(myPageInfo);
+
     const { register, watch, reset, setValue } = useForm<IUserModel>();
     const { nickname, intro } = watch();
     // back단 프로필
@@ -99,16 +103,20 @@ const edit = () => {
     };
 
     useEffect(() => {
-        getMyPage().then((res: IUserModel) => {
-            const { nickname, mbti, intro, profileImage } = res;
+        if (myInfo) {
+            const { nickname, mbti, intro, profileImage } = myInfo;
             setValue('nickname', nickname);
             setValue('intro', intro);
             setMbtiValue(mbti);
             if (profileImage) {
                 setPreviewFileSrc(profileImage);
             }
-        });
+        } else {
+            router.back();
+        }
+    }, [myInfo]);
 
+    useEffect(() => {
         return () => {
             if (previewFileSrc) {
                 URL.revokeObjectURL(previewFileSrc);

@@ -1,4 +1,4 @@
-import Axios from '@utils/axios';
+import axios from 'axios';
 import { IPaginationResponse } from '@/types/global';
 import { IMypageWriteModel } from '@/types/mypageWrite';
 

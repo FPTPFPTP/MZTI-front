@@ -6,10 +6,10 @@ import { Header } from '@components/Commons';
 import { MypageWrap } from '@styles/pages/mypageStyled';
 import EditSvg from '@assets/icons/edit.svg';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
 import { getMyPage, getMyPageActive } from '@/utils/apis/user';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { myPageInfo, isLogin } from '@/recoil/atom/user';
 import NotUser from '@/components/MyPageCom/NotUser';
 
 interface MyPageProps {
@@ -41,8 +41,7 @@ const menuList = [
 ];
 
 const mypage = () => {
-    const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
-    const iamUser = useRecoilValue(isLogin);
+    const myInfo = useRecoilValue(myPageInfo);
     // 나의 활동 - 작성한 게시글, 댓글, 추천수
     const [myActive, setMyActive] = useState<MyPageProps>({
         post: 0,
@@ -51,16 +50,11 @@ const mypage = () => {
     });
 
     useEffect(() => {
-        console.log('iamUser', iamUser);
-    }, []);
-
-    useEffect(() => {
-        getMyPage().then((res) => {
-            setMyInfo(res);
-        });
-        getMyPageActive().then((res) => {
-            setMyActive(res);
-        });
+        if (myInfo) {
+            getMyPageActive().then((res) => {
+                setMyActive(res);
+            });
+        }
     }, []);
 
     return (
@@ -68,13 +62,15 @@ const mypage = () => {
             <Header
                 title="마이페이지"
                 rightElement={
-                    <Link href="/mypage/edit">
-                        <EditSvg />
-                    </Link>
+                    myInfo && (
+                        <Link href="/mypage/edit">
+                            <EditSvg />
+                        </Link>
+                    )
                 }
             />
             <div css={MypageWrap}>
-                {iamUser ? (
+                {myInfo ? (
                     <>
                         <Profile mbti={myInfo.mbti} nickname={myInfo.nickname} intro={myInfo.intro} profileImage={myInfo.profileImage} />
                         <Write write={myActive.post} comment={myActive.comment} recommend={myActive.like} />
