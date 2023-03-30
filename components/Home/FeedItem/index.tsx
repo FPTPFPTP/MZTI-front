@@ -25,7 +25,13 @@ const FeedItem = ({ data }: any) => {
                                     />
                                 </Link>
 
-                                <ItemFooter like={item.like.count} command={item.command.count} bookmark={item.bookmark.count} />
+                                <ItemFooter
+                                    viewCount={item.viewCount}
+                                    postId={item.id}
+                                    like={item.like.count}
+                                    command={item.command.count}
+                                    bookmark={item.bookmark.count}
+                                />
                             </div>
                         </div>
                     );

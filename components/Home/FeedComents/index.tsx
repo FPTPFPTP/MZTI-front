@@ -1,4 +1,5 @@
 import { FeedComentsStyle, MoreCommentStyle, CommentItemSylte } from './styled';
+import { useState } from 'react';
 import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
 import MoreComment from '@assets/icons/comment/more.svg';
 import ComentItem from './ComentItem';
@@ -13,6 +14,8 @@ const FeedComents = ({ commentData }: ICommentProps) => {
         location.reload();
     };
 
+    console.log('commentData-->', commentData);
+
     return (
         <>
             <section css={FeedComentsStyle}>
@@ -22,13 +25,16 @@ const FeedComents = ({ commentData }: ICommentProps) => {
                 </button>
             </section>
 
-            <section css={MoreCommentStyle}>
-                <button>
-                    <MoreComment />
-                    <span>이전 댓글 더보기</span>
-                </button>
-            </section>
-            {commentData?.map((item: ICommentModel) => {
+            {commentData && commentData?.length > 9 && (
+                <section css={MoreCommentStyle}>
+                    <button>
+                        <MoreComment />
+                        <span>이전 댓글 더보기</span>
+                    </button>
+                </section>
+            )}
+
+            {commentData?.map((item: ICommentModel, index: number) => {
                 return (
                     <ComentItem
                         key={item.id}

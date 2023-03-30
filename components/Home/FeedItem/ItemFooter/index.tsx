@@ -1,54 +1,55 @@
 import { useState } from 'react';
 import { ItemFooterStyle } from '../styled';
-import BookMarkIcon from '@assets/icons/detailPost/bookMark.svg';
-import FillBookMarkIcon from '@assets/icons/detailPost/bookMarkFill.svg';
+import Views from '@assets/icons/detailPost/eyes.svg';
 import CommentIcon from '@assets/icons/detailPost/comment.svg';
 import HeartIcon from '@assets/icons/detailPost/heart.svg';
 import FillHeartIcon from '@assets/icons/detailPost/heartFill.svg';
 import ShareIcon from '@assets/icons/comment/share.svg';
 import { LinkCopy } from '@/utils/copy';
-
+import axios from '@/utils/axios';
 interface IItemProps {
-    like?: number;
+    like?: number | string;
     command?: number;
     className?: string;
     isFeed?: boolean;
     bookmark?: number;
+    postId?: number;
+    viewCount: number;
 }
-const ItemFooter = ({ like, command, className, isFeed = true, bookmark }: IItemProps) => {
+const ItemFooter = ({ postId, like, command, className, viewCount, isFeed = true, bookmark }: IItemProps) => {
     const [isLike, setIsLike] = useState<boolean>(false);
-    const [isBookMark, setIsBookMark] = useState<boolean>(false);
 
-    const handleLike = () => [setIsLike((isLike) => !isLike)];
+    const handleLike = () => {
+        setIsLike((isLike) => !isLike);
 
-    const handleBookMark = () => [setIsBookMark((isBookMark) => !isBookMark)];
+        return axios.post(`/post/like/${postId}`);
+    };
     return (
-        <section css={ItemFooterStyle} className={className}>
-            <button onClick={handleLike}>
-                {isLike ? <FillHeartIcon /> : <HeartIcon />}
-                <span>{like === 0 ? '좋아요' : like}</span>
-            </button>
-
-            <button>
-                <CommentIcon />
-                <span>{command ? command : 0}</span>
-            </button>
-
-            {isFeed ? (
-                <>
-                    {/* TODO : 조회수로 바뀔 예정 */}
-                    <button onClick={handleBookMark}>
-                        {isBookMark ? <FillBookMarkIcon /> : <BookMarkIcon />}
-                        <span>{bookmark}</span>
-                    </button>
-                </>
-            ) : (
-                <button onClick={LinkCopy}>
-                    <ShareIcon />
-                    <span className="share">공유</span>
+        <>
+            <section css={ItemFooterStyle} className={className}>
+                <button onClick={handleLike}>
+                    {isLike ? <FillHeartIcon /> : <HeartIcon />}
+                    <span>{like === 0 ? '좋아요' : like}</span>
                 </button>
-            )}
-        </section>
+
+                <button>
+                    <CommentIcon />
+                    <span>{command ? command : 0}</span>
+                </button>
+
+                {isFeed ? (
+                    <div className="viewIcon">
+                        <Views />
+                        <span className="count">{viewCount}</span>
+                    </div>
+                ) : (
+                    <button onClick={LinkCopy}>
+                        <ShareIcon />
+                        <span className="share">공유</span>
+                    </button>
+                )}
+            </section>
+        </>
     );
 };
 

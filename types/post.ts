@@ -12,6 +12,7 @@ export interface IPostModel {
     tags: ITagModel[];
     writer: IWriterModel;
     bookmark: IBookmarkModel;
+    viewCount: number;
 }
 
 export interface IPollModel {
