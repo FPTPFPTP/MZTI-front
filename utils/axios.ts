@@ -1,18 +1,16 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Modal } from 'antd';
-import { Cookies } from 'react-cookie';
-const cookies = new Cookies();
+import { getAccessToken } from '@utils/auth';
+import { isWindow } from '@utils/window';
 
 const customAxios = Axios.create({
     baseURL: '/mzti',
     timeout: 10000,
 });
 
-const token = cookies.get('refreshToken');
-// const token =
-//     'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlVTRVJfUk9MRSIsImV4cCI6MTY3ODA4OTMyN30.rCSTspaEu_FS7hknl2MP1fDnc-uWSuXB_bzY5uSQFsVxpvLZccdQ4xIAd5saa_sBFiFUshdzapKMr4i8GfD7ig';
+const token = getAccessToken();
 
-customAxios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
+customAxios.defaults.headers.common['Authorization'] = getAccessToken() ? `Bearer ${token}` : '';
 
 const onRequest = (config: AxiosRequestConfig): any => {
     // console.info(`[request] [${JSON.stringify(config)}]`);
@@ -49,50 +47,45 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
  * -> 서버에서 확인이 필요한 에러
  */
 const onResponseError = async (error: AxiosError<any>) => {
-    console.log('onResponseError', error);
+    // console.log(`response Error`, error);
+    const onError = (data: any) => {
+        isWindow()
+            ? Modal.error({
+                  title: `Error Code: ${data.code}`,
+                  content: data.message,
+              })
+            : console.log({ code: `Error Code: ${data.code}`, message: data.message });
+    };
     if (error.response) {
         const { status, data } = error.response;
         switch (true) {
             case status === 400: {
-                Modal.error({
-                    title: `Error Code: ${data.errorCode}`,
-                    content: data.errorMessage,
-                });
+                onError(data);
                 break;
             }
             case status === 401: {
-                Modal.error({
-                    title: `Error Code: ${data.errorCode}`,
-                    content: data.errorMessage,
-                });
+                onError(data);
+
                 break;
             }
             case status === 403: {
-                Modal.error({
-                    title: `Error Code: ${data.errorCode}`,
-                    content: data.errorMessage,
-                });
+                onError(data);
+
                 break;
             }
             case status === 404: {
-                Modal.error({
-                    title: `Error Code: ${data.errorCode}`,
-                    content: data.errorMessage,
-                });
+                onError(data);
+
                 break;
             }
             case status >= 500: {
-                Modal.error({
-                    title: `서버 확인 필요`,
-                    content: '관리자에게 문의하세요.',
-                });
+                onError(data);
+
                 break;
             }
             default: {
-                Modal.error({
-                    title: `Error Code: ${data.errorCode}`,
-                    content: data.errorMessage,
-                });
+                onError(data);
+
                 break;
             }
         }

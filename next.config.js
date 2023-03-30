@@ -9,7 +9,7 @@ module.exports = withPWA({
         return [
             {
                 source: '/mzti/:path*',
-                destination: 'http://ip-set-nlp-2cce1cff97b66aa1.elb.ap-northeast-2.amazonaws.com/:path*',
+                destination: `${process.env.NEXT_PUBLIC_API_BASE_URL}/:path*`,
             },
         ];
     },

@@ -39,6 +39,15 @@ export const MoreCommentStyle = css`
 `;
 export const CommentItemSylte = css`
     border-bottom: 0.5px solid #a7a7a7;
+    &:last-of-type {
+        border-bottom: none;
+        &::after {
+            content: '';
+            height: 80px;
+            display: block;
+            border-top: 0.5px solid #a7a7a7;
+        }
+    }
     .commentItemWrap {
         padding: 1rem 33px;
     }
@@ -67,6 +76,12 @@ export const CommentItemSylte = css`
     .commentItemFooter {
         display: flex;
         color: #a7a7a7;
+        position: relative;
+        align-items: center;
+        .moreButton {
+            position: absolute;
+            right: 0;
+        }
         .time {
             margin-right: 30px;
         }

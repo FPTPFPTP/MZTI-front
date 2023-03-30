@@ -7,7 +7,6 @@ type Props = {
 type menuProps = {
     title: string; // 메뉴명
     url: string; // 메뉴 url
-    subDesc: string;
 };
 
 const Menu = ({ menuList }: Props) => {
@@ -17,9 +16,7 @@ const Menu = ({ menuList }: Props) => {
                 return (
                     <li key={index}>
                         <Link href={item.url}>
-                            <span>
-                                {item.title} <strong>{item.subDesc}</strong>
-                            </span>
+                            <span>{item.title}</span>
 
                             <span>
                                 <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">

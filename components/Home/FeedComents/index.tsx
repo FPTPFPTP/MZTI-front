@@ -1,21 +1,20 @@
 import { FeedComentsStyle, MoreCommentStyle, CommentItemSylte } from './styled';
+import { useState } from 'react';
 import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
 import MoreComment from '@assets/icons/comment/more.svg';
 import ComentItem from './ComentItem';
+import { ICommentModel } from '@/types/post';
 
 interface ICommentProps {
-    nickname: string;
-    mbti: string;
-    profileImage: string;
-    userId: number;
-    comment: string;
-    like: number;
+    commentData?: [];
 }
 
-const FeedComents = ({ nickname, mbti, profileImage, userId, comment, like }: ICommentProps) => {
+const FeedComents = ({ commentData }: ICommentProps) => {
     const handleRefrash = () => {
         location.reload();
     };
+
+    console.log('commentData-->', commentData);
 
     return (
         <>
@@ -26,13 +25,29 @@ const FeedComents = ({ nickname, mbti, profileImage, userId, comment, like }: IC
                 </button>
             </section>
 
-            <section css={MoreCommentStyle}>
-                <button>
-                    <MoreComment />
-                    <span>이전 댓글 더보기</span>
-                </button>
-            </section>
-            <ComentItem nickname={nickname} mbti={mbti} profileImage={profileImage} userId={userId} comment={comment} like={like} />
+            {commentData && commentData?.length > 9 && (
+                <section css={MoreCommentStyle}>
+                    <button>
+                        <MoreComment />
+                        <span>이전 댓글 더보기</span>
+                    </button>
+                </section>
+            )}
+
+            {commentData?.map((item: ICommentModel, index: number) => {
+                return (
+                    <ComentItem
+                        key={item.id}
+                        nickname={item.writer.nickname}
+                        mbti={item.writer.mbti}
+                        profileImage={item.writer.profileImage}
+                        userId={item.writer.id}
+                        comment={item.comment}
+                        like={item.like.count}
+                        createAt={item.createAt}
+                    />
+                );
+            })}
         </>
     );
 };

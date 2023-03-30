@@ -2,19 +2,24 @@ import { css } from '@emotion/react';
 
 export const feedbackStyled = css`
     padding: 0 35px;
+    .ant-select {
+        width: 100% !important;
+    }
+    .selectOption {
+        font-size: 1.1rem !important;
+        color: #292d32 !important;
+    }
+
+    .ant-select-selector {
+        height: 50px !important;
+    }
+    .ant-select-arrow {
+        margin-top: -12px !important;
+    }
     h3 {
         margin-bottom: 7px;
         font-weight: 400;
         font-size: 1.3rem;
-    }
-    select {
-        width: 100%;
-        padding: 14px 13px;
-        option {
-            font-weight: 400;
-            font-size: 13px;
-            color: #292d32;
-        }
     }
     .type {
         margin-bottom: 18px;
@@ -51,5 +56,12 @@ export const feedbackStyled = css`
             padding: 0.4rem 2.3rem;
             margin-top: 50px;
         }
+    }
+`;
+
+export const feedbackWrapStyled = css`
+    .buttonWrap {
+        margin-top: 1rem;
+        text-align: center;
     }
 `;
