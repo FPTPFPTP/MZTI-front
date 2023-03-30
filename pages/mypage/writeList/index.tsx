@@ -1,21 +1,19 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
-import { useObserver } from '@/hooks/useObserver';
-import { useGetWrites } from '@apis/mypage';
+// import { useObserver } from '@/hooks/useObserver';
+import { useGetPostsMe } from '@apis/posts';
 import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
 
 const WriteList = () => {
     const observerRef = useRef(null);
 
-    const [searchValue, setSearchValue] = useState<string>('');
-
-    const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
+    const { register, watch, reset } = useForm<{ search: string }>();
     const { search } = watch();
 
-    const { contents: writeList, hasNextPage, fetchNextPage } = useGetWrites(searchValue);
+    const { contents: writeList, hasNextPage, fetchNextPage } = useGetPostsMe(search);
 
     // // useObserver로 넘겨줄 callback, entry로 넘어오는 HTMLElement가
     // // isIntersecting이라면 무한 스크롤을 위한 fetchNextPage가 실행될 것이다.
@@ -53,14 +51,10 @@ const WriteList = () => {
         }
     }, [fetchNextPage, hasNextPage, handleObserver]);
 
-    const onSubmit = (data: { search: string }) => {
-        setSearchValue(data.search);
-    };
-
     return (
         <div css={Layout}>
             <Header title={'내가 작성한 글'} rightElement={<EditSvg />} />
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form>
                 <Input
                     inputStyle={'search'}
                     placeholder={'글 제목, 글 본문 내용 등 검색'}
@@ -72,10 +66,10 @@ const WriteList = () => {
             </form>
             <ListBox>
                 {writeList.length ? (
-                    writeList.map((item) => <ListItem key={item.id} id={item.id} content={item.content} createAt={item.createAt} thumbnail={item.thumbnail} />)
+                    writeList.map((item) => <ListItem key={item.id} id={item.id} content={item.content} createAt={item.createAt} />)
                 ) : (
                     <>
-                        {searchValue.length ? (
+                        {search && search.length ? (
                             <Empty
                                 title="검색 결과가 없습니다"
                                 subTitle="정확한 검색어를 입력해주세요"

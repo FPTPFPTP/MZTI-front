@@ -1,21 +1,20 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { Typography } from 'antd';
+import dayjs from 'dayjs';
 import { Avatar } from '@components/Commons';
 import { useObserver } from '@/hooks/useObserver';
 import colors from '@styles/color';
 import { ListItemWrapCss } from './styled';
 
 interface IListItemProps {
-    id: string;
+    id: number;
     content: string;
     createAt: string;
-    number?: number;
     thumbnail?: string;
 }
 
 const ListItem = (props: IListItemProps) => {
-    const { id, number, content, createAt, thumbnail } = props;
+    const { id, content, createAt, thumbnail } = props;
 
     const target = useRef(null); // 대상 ref
     const [visible, setVisible] = useState<boolean>(false); // DOM을 렌더할 조건
@@ -30,22 +29,16 @@ const ListItem = (props: IListItemProps) => {
     });
 
     return (
-        <Link href={`/post/${id}`} css={ListItemWrapCss} ref={target}>
+        <Link href={`/home/${id}`} css={ListItemWrapCss} ref={target}>
             {visible && (
                 <>
+                    <span className="id">{id}</span>
                     {thumbnail && <Avatar className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} size={40} />}
-                    {number && (
-                        <Typography.Text className="id" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                            {number}
-                        </Typography.Text>
-                    )}
 
-                    <Typography.Text className="title" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                        {content}
-                    </Typography.Text>
-                    <Typography.Text className="date" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                        {createAt}
-                    </Typography.Text>
+                    <span className="title">{content}</span>
+                    <span className="date" style={{ color: colors.GRAY_ORIGIN_1 }}>
+                        {dayjs(createAt).format('YYYY.MM.DD')}
+                    </span>
                 </>
             )}
         </Link>
