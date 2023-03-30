@@ -23,6 +23,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
     try {
         const token = req.cookies['refreshToken'];
         Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
         Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
         const res = await Axios.get<IResponseBase<IPostModel>>(`/post/${params.id}`);
 

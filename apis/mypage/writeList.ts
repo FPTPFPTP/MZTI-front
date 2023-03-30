@@ -3,7 +3,7 @@ import { IPaginationResponse } from '@/types/global';
 import { IMypageWriteModel } from '@/types/mypageWrite';
 
 export const getWriteList = async ({ pageParam, search }: { pageParam: number; search: string }) => {
-    const res = await axios.get<IPaginationResponse<IMypageWriteModel>>('/api/mypageList', { params: { pageParam, search } });
+    const res = await Axios.get<IPaginationResponse<IMypageWriteModel>>('/post/me', { params: { pageParam, search } });
 
     return res.data;
 };

@@ -1,14 +1,17 @@
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { message } from 'antd';
+
 import { Header } from '@components/Commons';
+import Head from 'next/head';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
 import { PostStyle } from '@styles/pages/homeStyled';
 import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
+import { useRouter } from 'next/router';
 import Axios from '@utils/axios';
 import { getPost } from '@apis/posts';
 import { IResponseBase } from '@/types/global';

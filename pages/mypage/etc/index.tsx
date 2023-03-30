@@ -59,6 +59,7 @@ const etc = () => {
                     >
                         로그아웃
                     </button>
+
                     <Menu menuList={accountMng} />
                 </section>
             </div>
