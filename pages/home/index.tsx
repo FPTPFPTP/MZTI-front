@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import BottomMenu from '@/components/Commons/BottomMenu';
 import FeedItem from '@/components/Home/FeedItem';
 import HotKeyword from '@/components/Home/HotKeyword';
-import { Input } from '@components/Commons';
+import { Input, BottomMenu } from '@components/Commons';
 import AlarmIcon from '@assets/icons/header/alarm.svg';
 import MyPageIcon from '@assets/icons/header/mypage.svg';
 import { useInfiniteQuery } from '@tanstack/react-query';

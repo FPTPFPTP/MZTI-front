@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ListTabStyle } from './styled';
+import { ListTabStyle } from '../styled';
 import classnames from 'classnames';
 
 const menus = [

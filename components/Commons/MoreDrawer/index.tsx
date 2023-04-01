@@ -1,6 +1,6 @@
 import Drawer from 'react-bottom-drawer';
 import Link from 'next/link';
-import { PostMore } from '@/components/Home/FeedItem/styled';
+import { PostMore } from './styled';
 
 interface MoreDrawerProps {
     isVisible: boolean;

@@ -1,6 +1,137 @@
 import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
+export const ListTabStyle = css`
+    display: flex;
+    justify-content: space-around;
+    button {
+        font-weight: 500;
+        font-size: 1.3rem;
+        padding: 15px 0 11px;
+        width: 100%;
+        border-bottom: 2px solid ${colors.GRAY_ORIGIN_1};
+        &.active {
+            border-bottom: 2px solid ${colors.BLACK};
+        }
+    }
+`;
+
+export const HotKeywordStyle = css`
+    .keyowordBox__content {
+        padding: 24px 35px 18px;
+        background-color: ${colors.GRAY_LIGHT_5};
+        h3 {
+            font-weight: 500;
+            font-size: 1.5rem;
+            color: ${colors.BLACK};
+        }
+    }
+    .keyword {
+        margin-top: 18px;
+        li {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 6px 12px;
+            border-radius: 12.5px;
+            margin-bottom: 6px;
+            background-color: ${colors.WHITE};
+            color: ${colors.GRAY_STRONG_3};
+            font-size: 1.2rem;
+        }
+    }
+`;
+
+export const FeedComentsStyle = css`
+    display: flex;
+    padding: 1.6rem 32px 1.4rem 35px;
+    justify-content: space-between;
+    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    h4 {
+        font-weight: 300;
+        font-size: 1.3rem;
+        color: ${colors.GRAY_ORIGIN_3};
+    }
+    button {
+        display: flex;
+        align-items: center;
+        span {
+            font-weight: 300;
+            font-size: 1.3rem;
+            color: ${colors.GRAY_ORIGIN_1};
+            margin-right: 10px;
+        }
+    }
+    .moreComment {
+        border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    }
+`;
+
+export const MoreCommentStyle = css`
+    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    padding: 1.1rem 33px;
+    button {
+        display: flex;
+        align-items: center;
+        span {
+            margin-left: 7px;
+            font-size: 1.3rem;
+        }
+    }
+`;
+export const CommentItemSylte = css`
+    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    &:last-of-type {
+        border-bottom: none;
+        &::after {
+            content: '';
+            height: 80px;
+            display: block;
+            border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
+        }
+    }
+    .commentItemWrap {
+        padding: 1rem 33px;
+    }
+    .writer {
+        display: flex;
+        font-size: 1.3rem;
+        align-items: center;
+    }
+    .mbti {
+        font-size: 1.3rem;
+        border: 1px solid ${colors.GRAY_ORIGIN_1};
+        border-radius: 55px;
+        padding: 1px 9px;
+        margin-right: 8px;
+        margin-left: 11px;
+    }
+    .nickName {
+        font-size: 1.1rem;
+        font-weight: 300;
+    }
+    .coment {
+        font-size: 1.2rem;
+        font-weight: 400;
+        margin: 0.8rem 0;
+    }
+    .commentItemFooter {
+        display: flex;
+        color: ${colors.GRAY_ORIGIN_1};
+        position: relative;
+        align-items: center;
+        .moreButton {
+            position: absolute;
+            right: 0;
+        }
+        .time {
+            margin-right: 30px;
+        }
+        .like {
+            margin-right: 30px;
+        }
+    }
+`;
+
 export const FeedItemStyle = css`
     background: ${colors.GRAY_BRIGHT_2};
     padding-bottom: 90px;
@@ -208,34 +339,6 @@ export const ItemContentStyle = css`
             color: ${colors.GRAY_STRONG_3};
             font-size: 16px;
             border: 1px solid ${colors.GRAY_ORIGIN_2};
-        }
-    }
-`;
-
-export const PostMore = css`
-    .postDrawer__backdrop {
-        z-index: 101;
-    }
-    .postDrawer {
-        z-index: 105;
-        height: 30vh;
-        h3 {
-            text-align: center;
-            font-weight: 500;
-            font-size: 1.3rem;
-            margin-top: 28px;
-        }
-        ul {
-            margin-top: 39px;
-            padding-left: 33px;
-            li {
-                margin-bottom: 18px;
-                font-weight: 300;
-                font-size: 1.3rem;
-                &.none {
-                    color: ${colors.GRAY_ORIGIN_1};
-                }
-            }
         }
     }
 `;

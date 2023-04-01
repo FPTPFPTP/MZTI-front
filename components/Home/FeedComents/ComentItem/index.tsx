@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
-import { CommentItemSylte } from '../styled';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
-import MoreDrawer from '@/components/Commons/MoreDrawer';
+import { MoreDrawer } from '@/components/Commons';
+import { CommentItemSylte } from '../../styled';
 
 interface ICommentProps {
     nickname: string;

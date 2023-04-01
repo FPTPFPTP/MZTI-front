@@ -1,4 +1,4 @@
-import { HotKeywordStyle } from './styled';
+import { HotKeywordStyle } from '../styled';
 
 const HotKeyword = () => {
     return (

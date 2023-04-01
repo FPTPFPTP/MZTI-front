@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ItemFooterStyle } from '../styled';
+import { ItemFooterStyle } from '../../styled';
 import Views from '@assets/icons/detailPost/eyes.svg';
 import CommentIcon from '@assets/icons/detailPost/comment.svg';
 import HeartIcon from '@assets/icons/detailPost/heart.svg';

@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Avatar } from '@/components/Commons';
+import { Avatar, MoreDrawer } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
-import { ItemHeaderStyle, PostMore } from '../styled';
+import { ItemHeaderStyle } from '../../styled';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
 import { IWriterModel } from '@/types/post';
-import MoreDrawer from '@/components/Commons/MoreDrawer';
 
 interface IItemHeader {
     writer: IWriterModel;

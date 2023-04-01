@@ -3,7 +3,7 @@ import { IPostModel } from '@/types/post';
 import ItemContent from './ItemContent';
 import ItemFooter from './ItemFooter';
 import ItemHeader from './ItemHeader';
-import { FeedItemStyle } from './styled';
+import { FeedItemStyle } from '../styled';
 import Link from 'next/link';
 
 const FeedItem = ({ data }: any) => {
