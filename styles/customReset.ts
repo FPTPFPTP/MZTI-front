@@ -135,6 +135,7 @@ const globalReset = () => css`
     body {
         height: 100vh;
         width: 100%;
+        background: ${colors.GRAY_LIGHT_3};
     }
 `;
 export default globalReset;

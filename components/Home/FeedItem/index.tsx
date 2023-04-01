@@ -9,7 +9,7 @@ import Link from 'next/link';
 const FeedItem = ({ data }: any) => {
     return (
         <div css={FeedItemStyle}>
-            {data.pages.map((page: PageInfo) => {
+            {data?.pages.map((page: PageInfo) => {
                 return page.list.map((item: IPostModel) => {
                     return (
                         <div className="feedLayout" key={item.id}>

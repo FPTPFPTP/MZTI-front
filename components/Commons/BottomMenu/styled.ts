@@ -21,13 +21,14 @@ export const BottomButtonStyle = css`
         width: 100%;
     }
     li {
-        color: ${color.WHITE};
         svg {
             font-size: 1.6rem;
             color: ${color.GRAY_DARK_2};
+            margin-left: 5px;
+            margin-bottom: 5px;
         }
         a {
-            color: ${color.WHITE};
+            color: ${color.BLACK};
         }
     }
 `;

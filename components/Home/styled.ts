@@ -4,6 +4,7 @@ import colors from '@/styles/color';
 export const ListTabStyle = css`
     display: flex;
     justify-content: space-around;
+    background-color: #fff;
     button {
         font-weight: 500;
         font-size: 1.3rem;
@@ -46,6 +47,7 @@ export const FeedComentsStyle = css`
     padding: 1.6rem 32px 1.4rem 35px;
     justify-content: space-between;
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    background-color: ${colors.WHITE};
     h4 {
         font-weight: 300;
         font-size: 1.3rem;
@@ -91,6 +93,7 @@ export const CommentItemSylte = css`
     }
     .commentItemWrap {
         padding: 1rem 33px;
+        background-color: ${colors.WHITE};
     }
     .writer {
         display: flex;

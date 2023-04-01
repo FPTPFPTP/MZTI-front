@@ -2,8 +2,14 @@ import { useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
+import FillreCommentLike from '@assets/icons/comment/reCommentLikeFill.svg';
+import ReComment from '@assets/icons/comment/reComment.svg';
+import ReCommentLike from '@assets/icons/comment/reCommentLike.svg';
 import { MoreDrawer } from '@/components/Commons';
 import { CommentItemSylte } from '../../styled';
+import { useRecoilValue } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
+import { EType } from '@/components/Commons/MoreDrawer';
 
 interface ICommentProps {
     nickname: string;
@@ -15,6 +21,7 @@ interface ICommentProps {
     createAt: string;
 }
 const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, createAt }: ICommentProps) => {
+    const myInfo = useRecoilValue(myPageInfo);
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
@@ -30,8 +37,22 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                 <p className="coment">{comment}</p>
                 <div className="commentItemFooter">
                     <p className="time">{timeForToday(createAt)}</p>
-                    <button className="like">{like > 0 ? like : '좋아요'}</button>
-                    <button className="reComment">대댓글</button>
+                    <button className="like">
+                        {like > 0 ? (
+                            <>
+                                <ReCommentLike />
+                                {like}
+                            </>
+                        ) : (
+                            <>
+                                <FillreCommentLike /> 좋아요
+                            </>
+                        )}
+                    </button>
+                    <button className="reComment">
+                        <ReComment />
+                        대댓글
+                    </button>
 
                     <button onClick={openDrawer} className="moreButton">
                         <MoreButton />
@@ -39,7 +60,7 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                 </div>
             </div>
 
-            <MoreDrawer desc="댓글" onClick={closeDrawer} isVisible={isVisible} />
+            <MoreDrawer type={myInfo ? EType.COMMENT : EType.COMMENT_TIPOFF} onClick={closeDrawer} isVisible={isVisible} />
         </section>
     );
 };

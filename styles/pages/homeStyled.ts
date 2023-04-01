@@ -28,9 +28,9 @@ export const HomeMenu = () => css`
 export const PostStyle = () => css`
     overflow-y: auto;
     padding: 0 32px;
+    background: #fff;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-
     &::-webkit-scrollbar {
         display: none;
         width: 0 !important;
@@ -52,4 +52,5 @@ export const PostContent = () => css`
 
 export const searchWrap = () => css`
     padding: 0 33px;
+    background-color: ${colors.WHITE};
 `;

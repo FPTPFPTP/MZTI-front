@@ -4,6 +4,9 @@ import { timeForToday } from '@/utils/time';
 import { ItemHeaderStyle } from '../../styled';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
 import { IWriterModel } from '@/types/post';
+import { useRecoilValue } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
+import { EType } from '@/components/Commons/MoreDrawer';
 
 interface IItemHeader {
     writer: IWriterModel;
@@ -12,7 +15,7 @@ interface IItemHeader {
 
 const ItemHeader = ({ writer, createAt }: IItemHeader) => {
     const { nickname, mbti, level, profileImage } = writer;
-
+    const myInfo = useRecoilValue(myPageInfo);
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
@@ -44,7 +47,7 @@ const ItemHeader = ({ writer, createAt }: IItemHeader) => {
                 </div>
             </section>
 
-            <MoreDrawer desc="게시글" onClick={closeDrawer} isVisible={isVisible} />
+            <MoreDrawer type={myInfo ? EType.WRITE : EType.WRITET_TIPOFF} onClick={closeDrawer} isVisible={isVisible} />
         </>
     );
 };
