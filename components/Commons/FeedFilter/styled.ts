@@ -1,3 +1,4 @@
+import color from '@/styles/color';
 import { css } from '@emotion/react';
 
 export const FeedFilterStyle = css`
@@ -7,7 +8,7 @@ export const FeedFilterStyle = css`
         font-weight: 400;
         font-size: 16px;
         line-height: 16px;
-        color: #a7a7a7;
+        color: ${color.GRAY_ORIGIN_1};
         padding: 11px 35px;
         display: flex;
         align-items: center;
@@ -19,9 +20,9 @@ export const FeedFilterStyle = css`
         position: absolute;
         top: 34px;
         right: 0;
-        background-color: #fff;
-        color: #000;
-        border: 1px solid #000;
+        background-color: ${color.WHITE};
+        color: ${color.BLACK};
+        border: 1px solid ${color.BLACK};
         padding: 0.4rem;
         li {
             margin: 0.4rem;

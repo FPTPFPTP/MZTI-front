@@ -37,6 +37,7 @@ module.exports = {
     GRAY_STRONG_1: '#666666',
     GRAY_STRONG_2: '#444',
     GRAY_STRONG_3: '#585858',
+    GRAY_STRONG_4: '#333',
 
     // Gray Dark
     GRAY_DARK: '#2f2f2f', // Text/Default/Icon

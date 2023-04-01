@@ -40,7 +40,7 @@ export const ProgressUl = css`
             font-size: 1.5rem;
             line-height: 20px;
             display: block;
-            color: #333;
+            color: ${colors.GRAY_STRONG_4};
             background: white;
             border-radius: 3px;
             margin: 0 auto 5px auto;

@@ -70,8 +70,8 @@ export const BottomButtonStyle = css`
     justify-content: center;
     align-items: center;
     width: 100%;
-    background: #000;
-    color: #fff;
+    background: ${colors.BLACK};
+    color: ${colors.WHITE};
     height: 80px;
     min-width: 390px;
     max-width: 600px;

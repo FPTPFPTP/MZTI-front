@@ -5,7 +5,7 @@ export const InputWrapCss = css`
     display: flex;
     align-items: center;
     width: 100%;
-    border: 1px solid #000000;
+    border: 1px solid ${colors.BLACK};
     padding: 4px 8px;
     gap: 0.5rem;
 `;

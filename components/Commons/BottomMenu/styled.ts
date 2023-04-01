@@ -1,3 +1,4 @@
+import color from '@/styles/color';
 import { css } from '@emotion/react';
 
 export const BottomButtonStyle = css`
@@ -8,7 +9,7 @@ export const BottomButtonStyle = css`
     justify-content: center;
     align-items: center;
     width: 100%;
-    background: #f7f7f7;
+    background: ${color.GRAY_LIGHT_5};
     height: 84px;
     min-width: 390px;
     max-width: 600px;
@@ -20,13 +21,13 @@ export const BottomButtonStyle = css`
         width: 100%;
     }
     li {
-        color: #fff;
+        color: ${color.WHITE};
         svg {
             font-size: 1.6rem;
-            color: #292d32;
+            color: ${color.GRAY_DARK_2};
         }
         a {
-            color: #fff;
+            color: ${color.WHITE};
         }
     }
 `;
