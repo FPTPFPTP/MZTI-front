@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { signupState } from '@/recoil/atom/signup';
 import { Input } from '@components/Commons';
-import { Container, ContentWrap } from './styled';
+import { Container, ContentWrap } from '../styled';
 
 interface IIntroduceContent {
     onSubmit: (data: { introduce?: string }) => void;
