@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { WriteStyle } from './styled';
+import { WriteStyle } from '../styled';
 
 type Props = {
     write: number; // 작성한 글

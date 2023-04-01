@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MenuStyle } from './styled';
+import { MenuStyle } from '../styled';
 
 type Props = {
     menuList: menuProps[];

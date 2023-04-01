@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { ListBoxCss } from './styled';
+import { ListBoxStyle } from '../styled';
 
 interface IListBoxProps {}
 
@@ -7,7 +7,7 @@ const ListBox = (props: PropsWithChildren<IListBoxProps>) => {
     const { children, ...rest } = props;
 
     return (
-        <div css={ListBoxCss} {...rest}>
+        <div css={ListBoxStyle} {...rest}>
             {children}
         </div>
     );

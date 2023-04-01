@@ -1,12 +1,13 @@
 import { css } from '@emotion/react';
+import colors from '@/styles/color';
 
 export const FeedItemStyle = css`
-    background: #ccc;
+    background: ${colors.GRAY_BRIGHT_2};
     padding-bottom: 90px;
     .feedLayout {
         padding-top: 4px;
         .feedLayout__bg {
-            background: #fff;
+            background: ${colors.WHITE};
             padding: 0 33px;
         }
     }
@@ -25,7 +26,7 @@ export const ItemHeaderStyle = css`
             overflow: hidden;
             margin-right: 0.6rem;
             border-radius: 50%;
-            border: 1px solid #444;
+            border: 1px solid ${colors.GRAY_STRONG_2};
             width: 60px;
             height: 60px;
             display: flex;
@@ -48,29 +49,29 @@ export const ItemHeaderStyle = css`
             .mbti {
                 display: inline-block;
                 margin-right: 6px;
-                border: 1px solid #a7a7a7;
+                border: 1px solid ${colors.GRAY_ORIGIN_1};
                 padding: 1px 9px;
                 border-radius: 41px;
                 margin-bottom: 0.4rem;
-                color: #8c8c8c;
+                color: ${colors.GRAY_STRONG};
                 font-size: 1.2rem;
             }
             .level {
                 font-size: 1.2rem;
                 font-weight: 300;
-                color: #8c8c8c;
+                color: ${colors.GRAY_STRONG};
             }
             .nickname_time {
                 display: flex;
                 font-weight: 300;
                 font-size: 1.8rem;
-                color: #8c8c8c;
+                color: ${colors.GRAY_STRONG};
                 justify-content: space-between;
                 align-items: center;
                 .nickname {
                     font-weight: 300;
                     font-size: 1.3rem;
-                    color: #8c8c8c;
+                    color: ${colors.GRAY_STRONG};
                 }
                 .time {
                     font-size: 1rem;
@@ -81,12 +82,12 @@ export const ItemHeaderStyle = css`
     .moreButton {
         .moreButton__box {
             position: absolute;
-            background-color: #fff;
-            color: #000;
+            background-color: ${colors.WHITE};
+            color: ${colors.BLACK};
             font-size: 1.3rem;
             right: 0;
             button {
-                border: 1px solid #ccc;
+                border: 1px solid ${colors.GRAY_BRIGHT_2};
                 padding: 0.2rem 0.6rem;
                 font-size: 1rem;
                 border-radius: 15px;
@@ -99,8 +100,8 @@ export const ItemFooterStyle = css`
     display: flex;
     justify-content: space-around;
     padding: 12px 0 21px;
-    border-top: 0.5px solid #a7a7a7;
-    background-color: #fff;
+    border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    background-color: ${colors.WHITE};
     button {
         display: flex;
         align-items: center;
@@ -114,7 +115,7 @@ export const ItemFooterStyle = css`
         margin-left: 13px;
     }
     &.postFooter {
-        background: #f8f8f8;
+        background: ${colors.GRAY_LIGHT_3};
         border-top: none;
         padding: 21px 0 23px;
     }
@@ -153,13 +154,13 @@ export const ItemContentStyle = css`
     p {
         font-size: 1rem;
         font-weight: 500;
-        color: #444;
+        color: ${colors.GRAY_STRONG_2};
     }
     img {
         margin-top: 20px;
     }
     .vote {
-        background: #f9f9f9;
+        background: ${colors.GRAY_LIGHT_4};
         padding: 36px 34px;
         margin: 0 0 20px 0;
         display: flex;
@@ -173,7 +174,7 @@ export const ItemContentStyle = css`
                 font-size: 1.4rem;
                 line-height: 16px;
                 letter-spacing: 0.5px;
-                color: #000000;
+                color: ${colors.BLACK};
             }
             svg {
                 width: 23px;
@@ -185,7 +186,7 @@ export const ItemContentStyle = css`
             font-weight: 300;
             font-size: 1.3rem;
             letter-spacing: 0.5px;
-            color: #000000;
+            color: ${colors.BLACK};
         }
 
         svg {
@@ -201,12 +202,12 @@ export const ItemContentStyle = css`
             padding: 6px 12px;
             border-radius: 15px;
             margin-bottom: 6px;
-            background-color: #fff;
+            background-color: ${colors.WHITE};
             line-height: 14px;
             text-align: center;
-            color: #585858;
+            color: ${colors.GRAY_STRONG_3};
             font-size: 16px;
-            border: 1px solid #bfbfbf;
+            border: 1px solid ${colors.GRAY_ORIGIN_2};
         }
     }
 `;
@@ -232,7 +233,7 @@ export const PostMore = css`
                 font-weight: 300;
                 font-size: 1.3rem;
                 &.none {
-                    color: #a7a7a7;
+                    color: ${colors.GRAY_ORIGIN_1};
                 }
             }
         }

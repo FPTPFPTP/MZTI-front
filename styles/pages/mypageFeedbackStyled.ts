@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import colors from '@/styles/color';
 
 export const feedbackStyled = css`
     padding: 0 35px;
@@ -7,7 +8,7 @@ export const feedbackStyled = css`
     }
     .selectOption {
         font-size: 1.1rem !important;
-        color: #292d32 !important;
+        color: ${colors.GRAY_DARK_2} !important;
     }
 
     .ant-select-selector {
@@ -27,19 +28,19 @@ export const feedbackStyled = css`
     }
     textarea {
         resize: none;
-        border: 1px solid #000;
+        border: 1px solid ${colors.BLACK};
         width: 100%;
         padding: 17px 13px;
         height: 379px;
         &::placeholder {
-            color: #a7a7a7;
+            color: ${colors.GRAY_ORIGIN_1};
         }
     }
     span {
         font-weight: 400;
         font-size: 1.1rem;
         line-height: 1.3;
-        color: #292d32;
+        color: ${colors.GRAY_DARK_2};
         margin-top: 14px;
     }
 
@@ -47,8 +48,8 @@ export const feedbackStyled = css`
         display: flex;
         justify-content: center;
         button {
-            background: #000000;
-            color: #ffffff;
+            background: ${colors.BLACK};
+            color: ${colors.WHITE};
             font-weight: 400;
             font-size: 1.2rem;
             line-height: 22px;

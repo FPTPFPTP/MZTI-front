@@ -1,13 +1,14 @@
 import { css } from '@emotion/react';
+import colors from '@/styles/color';
 
 export const HotKeywordStyle = css`
     .keyowordBox__content {
         padding: 24px 35px 18px;
-        background-color: #f7f7f7;
+        background-color: ${colors.GRAY_LIGHT_5};
         h3 {
             font-weight: 500;
             font-size: 1.5rem;
-            color: #000000;
+            color: ${colors.BLACK};
         }
     }
     .keyword {
@@ -18,8 +19,8 @@ export const HotKeywordStyle = css`
             padding: 6px 12px;
             border-radius: 12.5px;
             margin-bottom: 6px;
-            background-color: #fff;
-            color: #585858;
+            background-color: ${colors.WHITE};
+            color: ${colors.GRAY_STRONG_3};
             font-size: 1.2rem;
         }
     }

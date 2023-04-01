@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { Avatar } from '@components/Commons';
 import { useObserver } from '@/hooks/useObserver';
 import colors from '@styles/color';
-import { ListItemWrapCss } from './styled';
+import { ListItemStyle } from '../styled';
 
 interface IListItemProps {
     id: number;
@@ -29,7 +29,7 @@ const ListItem = (props: IListItemProps) => {
     });
 
     return (
-        <Link href={`/home/${id}`} css={ListItemWrapCss} ref={target}>
+        <Link href={`/home/${id}`} css={ListItemStyle} ref={target}>
             {visible && (
                 <>
                     <span className="id">{id}</span>

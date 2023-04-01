@@ -1,14 +1,15 @@
 import { css } from '@emotion/react';
+import colors from '@/styles/color';
 
 export const FeedComentsStyle = css`
     display: flex;
     padding: 1.6rem 32px 1.4rem 35px;
     justify-content: space-between;
-    border-bottom: 0.5px solid #a7a7a7;
+    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     h4 {
         font-weight: 300;
         font-size: 1.3rem;
-        color: #bababa;
+        color: ${colors.GRAY_ORIGIN_3};
     }
     button {
         display: flex;
@@ -16,17 +17,17 @@ export const FeedComentsStyle = css`
         span {
             font-weight: 300;
             font-size: 1.3rem;
-            color: #a7a7a7;
+            color: ${colors.GRAY_ORIGIN_1};
             margin-right: 10px;
         }
     }
     .moreComment {
-        border-bottom: 0.5px solid #a7a7a7;
+        border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     }
 `;
 
 export const MoreCommentStyle = css`
-    border-bottom: 0.5px solid #a7a7a7;
+    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     padding: 1.1rem 33px;
     button {
         display: flex;
@@ -38,14 +39,14 @@ export const MoreCommentStyle = css`
     }
 `;
 export const CommentItemSylte = css`
-    border-bottom: 0.5px solid #a7a7a7;
+    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     &:last-of-type {
         border-bottom: none;
         &::after {
             content: '';
             height: 80px;
             display: block;
-            border-top: 0.5px solid #a7a7a7;
+            border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
         }
     }
     .commentItemWrap {
@@ -58,7 +59,7 @@ export const CommentItemSylte = css`
     }
     .mbti {
         font-size: 1.3rem;
-        border: 1px solid #a7a7a7;
+        border: 1px solid ${colors.GRAY_ORIGIN_1};
         border-radius: 55px;
         padding: 1px 9px;
         margin-right: 8px;
@@ -75,7 +76,7 @@ export const CommentItemSylte = css`
     }
     .commentItemFooter {
         display: flex;
-        color: #a7a7a7;
+        color: ${colors.GRAY_ORIGIN_1};
         position: relative;
         align-items: center;
         .moreButton {

@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import colors from '@/styles/color';
 
 export const HomeMenu = () => css`
     display: flex;
@@ -7,7 +8,7 @@ export const HomeMenu = () => css`
     justify-content: space-between;
     position: sticky;
     top: 0;
-    background-color: #fff;
+    background-color: ${colors.WHITE};
     z-index: 50;
     h1 {
         font-size: 1.6rem;
@@ -19,7 +20,7 @@ export const HomeMenu = () => css`
         }
         a {
             font-size: 1.6rem;
-            color: #000;
+            color: ${colors.BLACK};
         }
     }
 `;
@@ -45,7 +46,7 @@ export const PostStyle = () => css`
 export const PostContent = () => css`
     font-weight: 300;
     font-size: 1.4rem;
-    color: #000000;
+    color: ${colors.BLACK};
     padding: 57px 33px;
 `;
 

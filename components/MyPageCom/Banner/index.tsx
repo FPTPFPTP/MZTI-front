@@ -1,4 +1,4 @@
-import { BannerStyle } from './styled';
+import { BannerStyle } from '../styled';
 
 const Banner = () => {
     return (
