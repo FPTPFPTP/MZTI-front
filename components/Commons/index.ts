@@ -7,3 +7,5 @@ export { default as Mbti } from './Mbti';
 export { default as ProfileUpload } from './ProfileUpload';
 export { default as ProgressLineBar } from './ProgressLineBar';
 export { default as Tag } from './Tag';
+export { default as BottomMenu } from './BottomMenu';
+export { default as MoreDrawer } from './MoreDrawer';

@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 import { signupState } from '@/recoil/atom/signup';
 import { Input } from '@components/Commons';
 import { ISignupState } from '@/types/signup';
-import { Container, ContentWrap, FlexStart, RuleWrap } from './styled';
+import { Container, ContentWrap, FlexStart, RuleWrap } from '../styled';
 import colors from '@styles/color';
 
 interface INickname {

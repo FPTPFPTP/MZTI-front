@@ -3,7 +3,7 @@ import { Typography } from 'antd';
 import { useSetRecoilState } from 'recoil';
 import { signupProfileFileState } from '@/recoil/atom/signup';
 import { ProfileUpload } from '@components/Commons';
-import { Container } from './styled';
+import { Container } from '../styled';
 
 /**
  *  Profile Tab

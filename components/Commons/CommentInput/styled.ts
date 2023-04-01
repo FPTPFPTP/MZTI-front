@@ -1,8 +1,9 @@
+import color from '@/styles/color';
 import { css } from '@emotion/react';
 
 export const CommentInputStyle = css`
     position: fixed;
-    background: #f7f7f7;
+    background: ${color.GRAY_LIGHT_5};
     padding: 15px 27px;
     height: 80px;
     min-width: 390px;

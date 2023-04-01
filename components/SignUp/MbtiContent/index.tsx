@@ -3,7 +3,7 @@ import { Typography } from 'antd';
 import { useRecoilState } from 'recoil';
 import { signupState } from '@/recoil/atom/signup';
 import { Mbti } from '@components/Commons';
-import { ContainerStyle } from './styled';
+import { ContainerStyle } from '../styled';
 
 const MbtiContent = () => {
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);

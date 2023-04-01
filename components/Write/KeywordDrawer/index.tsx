@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Drawer, Empty } from 'antd';
 import { Button, Tag } from '@components/Commons';
 import { useGetTags } from '@apis/posts';
-import { ContainerStyle, TagSearchWrapStyle, TagSearchDropdownStyle, TagSearchDropdownItemStyle } from './styled';
+import { ContainerStyle, TagSearchWrapStyle, TagSearchDropdownStyle, TagSearchDropdownItemStyle } from '../styled';
 import { ITagModel } from '@/types/post';
 import classNames from 'classnames';
 

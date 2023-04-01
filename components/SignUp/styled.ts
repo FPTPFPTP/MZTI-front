@@ -1,4 +1,26 @@
 import { css } from '@emotion/react';
+import colors from '@styles/color';
+
+export const Container = css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+export const ContentWrap = css`
+    width: 100%;
+    .form-item-error {
+        margin-top: 0.5rem;
+        color: ${colors.RED_ORIGIN};
+    }
+`;
+
+export const ContainerStyle = css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+`;
 
 export const ProgressUl = css`
     overflow: hidden;
@@ -18,7 +40,7 @@ export const ProgressUl = css`
             font-size: 1.5rem;
             line-height: 20px;
             display: block;
-            color: #333;
+            color: ${colors.GRAY_STRONG_4};
             background: white;
             border-radius: 3px;
             margin: 0 auto 5px auto;
@@ -43,4 +65,20 @@ export const ProgressUl = css`
             color: white;
         }
     }
+`;
+
+export const FlexStart = css`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: auto;
+    margin-bottom: 0.5rem;
+    gap: 4px;
+    color: ${colors.GRAY_ORIGIN_1};
+`;
+
+export const RuleWrap = css`
+    float: left;
+    width: 100%;
+    padding: 0 25px;
 `;

@@ -1,4 +1,4 @@
-import { ProfileStyle } from './styled';
+import { ProfileStyle } from '../styled';
 import { IUserModel } from '@/types/user';
 import Avatar from '@/components/Commons/Avatar';
 

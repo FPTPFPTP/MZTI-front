@@ -22,7 +22,7 @@ export const editTitle = css`
         font-weight: 400;
         font-size: 1rem;
         display: inline-block;
-        color: #a7a7a7;
+        color: ${colors.GRAY_ORIGIN_1};
     }
 `;
 
@@ -32,16 +32,16 @@ export const Container = css`
     align-items: center;
     margin-top: 2rem;
     .css-pf00bf-ProfileUpload {
-        border: 3px solid #000;
+        border: 3px solid ${colors.BLACK};
     }
 `;
 
 export const MbtiStyles = css`
-    border: 1px solid #000000;
+    border: 1px solid ${colors.BLACK};
     border-radius: 55px;
     display: inline-block;
     padding: 0.2rem 0.7rem;
-    background: #fff;
+    background: ${colors.WHITE};
     font-weight: 700;
     font-size: 1.7rem;
     margin-top: 13px;

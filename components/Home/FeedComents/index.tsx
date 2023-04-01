@@ -1,5 +1,4 @@
-import { FeedComentsStyle, MoreCommentStyle, CommentItemSylte } from './styled';
-import { useState } from 'react';
+import { FeedComentsStyle, MoreCommentStyle } from '../styled';
 import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
 import MoreComment from '@assets/icons/comment/more.svg';
 import ComentItem from './ComentItem';
@@ -13,9 +12,6 @@ const FeedComents = ({ commentData }: ICommentProps) => {
     const handleRefrash = () => {
         location.reload();
     };
-
-    console.log('commentData-->', commentData);
-
     return (
         <>
             <section css={FeedComentsStyle}>

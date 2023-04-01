@@ -1,4 +1,4 @@
-import { ItemContentStyle } from '../styled';
+import { ItemContentStyle } from '../../styled';
 import VoteIcon from '@assets/icons/vote.svg';
 import xss from 'xss';
 import { IPollModel, ITagModel } from '@/types/post';

@@ -8,7 +8,7 @@ import CheckSvg from '@assets/icons/circle_check.svg';
 import PlusSvg from '@assets/icons/plus.svg';
 import VoteSvg from '@assets/icons/vote.svg';
 import ToastEditor from '@/components/Commons/ToastEditor';
-import { ContentWrapStyle, FlexCenterStyle, KeywordWrapStyle, BottomWrapStyle, BottomBtnWrapStyle } from './styled';
+import { ContentWrapStyle, FlexCenterStyle, KeywordWrapStyle, BottomWrapStyle, BottomBtnWrapStyle } from '../styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite } from '@apis/write';
 import { putPost } from '@apis/posts';

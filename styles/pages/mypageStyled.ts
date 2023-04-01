@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import colors from '@/styles/color';
 
 export const Layout = css`
     position: relative;
@@ -23,7 +24,7 @@ export const MypageWrap = css`
                 margin-right: 25px;
                 text-align: center;
                 .profile {
-                    border: 2px solid #000;
+                    border: 2px solid ${colors.BLACK};
                     padding: 14px 10px 0 10px;
                     border-radius: 50%;
                     overflow: hidden;
@@ -50,12 +51,12 @@ export const MypageWrap = css`
             }
         }
         .loginButton {
-            background: #000000;
+            background: ${colors.BLACK};
             font-weight: 400;
             font-size: 18px;
             line-height: 21px;
             text-align: center;
-            color: #ffffff;
+            color: ${colors.WHITE};
             width: 100%;
             padding: 10px 0;
             margin: 40px 0 38px;

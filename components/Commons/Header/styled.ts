@@ -11,7 +11,7 @@ export const HeaderContainerStyle = css`
     height: 80px;
     padding: 33px;
     z-index: 100;
-    background-color: #fff;
+    background-color: ${colors.WHITE};
 `;
 
 export const TitleStyle = css`

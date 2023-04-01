@@ -11,6 +11,7 @@ const BottomMenu = () => {
                 <li>
                     <Link href="/home">
                         <HomeIcon />
+                        <span>홈</span>
                     </Link>
                 </li>
                 <li>
@@ -21,6 +22,7 @@ const BottomMenu = () => {
                 <li>
                     <Link href="/board-list">
                         <MoreIcon />
+                        <span>게시판</span>
                     </Link>
                 </li>
             </ul>

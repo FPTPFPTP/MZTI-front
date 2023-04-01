@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@components/Commons';
 import colors from '@styles/color';
-import { EmptyWrapCss } from './styled';
+import { EmptyStyle } from '../styled';
 
 interface IEmptyProps {
     title: string; // 제목
@@ -19,7 +19,7 @@ interface IEmptyProps {
 const Empty = (props: IEmptyProps) => {
     const { title, subTitle, buttonTitle, onClick, href } = props;
     return (
-        <div css={EmptyWrapCss}>
+        <div css={EmptyStyle}>
             <p className="title">{title}</p>
             <p className="sub_title" style={{ color: colors.GRAY_ORIGIN_1 }}>
                 {subTitle}

@@ -1,4 +1,4 @@
-import { ProgressUl } from './styled';
+import { ProgressUl } from '../styled';
 
 const StepProgressBar = ({ items, active }: { items: string[]; active: number }) => {
     return (
