@@ -5,7 +5,7 @@ import Menu from '@/components/MyPageCom/Menu';
 import { Header } from '@components/Commons';
 import { removeTokenAll } from '@utils/auth';
 import { MypageWrap } from '@styles/pages/mypageStyled';
-import { MypageEtcMenu } from './styled';
+import { MypageEtcMenu } from '@styles/pages/mypageEtcStyled';
 
 const menuList = [
     {
