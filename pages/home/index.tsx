@@ -36,10 +36,6 @@ const home = () => {
         setValue('search', '');
     };
 
-    const handleOnClick = () => {
-        setSearchText('');
-    };
-
     return (
         <main>
             {/* 헤더 */}
