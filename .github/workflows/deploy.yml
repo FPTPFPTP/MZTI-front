@@ -24,14 +24,14 @@ jobs:
       with:
         context: .
         push: false
-        tags: my-ecs-repo:latest
+        tags: mzti-front:latest
 
     - name: Deploy to ECS
       uses: aws-actions/amazon-ecs-deploy@v1
       with:
-        cluster: my-ecs-cluster
-        service: my-ecs-service
-        image: my-ecs-repo:latest
+        cluster: mzti-cluster
+        service: mzti-front
+        image: mzti-front:latest
         access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: ap-northeast-2
