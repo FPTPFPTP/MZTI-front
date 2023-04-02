@@ -64,3 +64,12 @@ export const MbtiFlex = css`
         align-items: center;
     }
 `;
+
+export const myPageEditStyle = css`
+    background-color: ${colors.WHITE};
+    padding-bottom: 130px;
+    .buttonWrap {
+        text-align: center;
+        margin-top: 48px;
+    }
+`;
