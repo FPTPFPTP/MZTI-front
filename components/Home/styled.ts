@@ -99,6 +99,9 @@ export const CommentItemSylte = css`
         display: flex;
         font-size: 1.3rem;
         align-items: center;
+        .css-3nludd-Avatar {
+            overflow: hidden;
+        }
     }
     .mbti {
         font-size: 1.3rem;
@@ -131,6 +134,18 @@ export const CommentItemSylte = css`
         }
         .like {
             margin-right: 30px;
+            display: flex;
+            align-items: center;
+            svg {
+                margin-right: 5px;
+            }
+        }
+        .reComment {
+            display: flex;
+            align-items: center;
+            svg {
+                margin-right: 5px;
+            }
         }
     }
 `;

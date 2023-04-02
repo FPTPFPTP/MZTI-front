@@ -40,18 +40,19 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                     <button className="like">
                         {like > 0 ? (
                             <>
-                                <ReCommentLike />
+                                <FillreCommentLike />
                                 {like}
                             </>
                         ) : (
                             <>
-                                <FillreCommentLike /> 좋아요
+                                <ReCommentLike />
+                                <span>좋아요</span>
                             </>
                         )}
                     </button>
                     <button className="reComment">
                         <ReComment />
-                        대댓글
+                        <span>대댓글</span>
                     </button>
 
                     <button onClick={openDrawer} className="moreButton">
