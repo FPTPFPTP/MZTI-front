@@ -5,6 +5,7 @@ import { Avatar } from '@components/Commons';
 import { useObserver } from '@/hooks/useObserver';
 import colors from '@styles/color';
 import { ListItemStyle } from '../styled';
+import xss from 'xss';
 
 interface IListItemProps {
     id: number;
@@ -28,6 +29,9 @@ const ListItem = (props: IListItemProps) => {
         threshold: 0.1, // 화면 양끝에서 10%만 보여져도 onIntersect를 실행한다.
     });
 
+    const convertContent = content.split('</p>')[0];
+    console.log('convertContent', convertContent);
+
     return (
         <Link href={`/home/${id}`} css={ListItemStyle} ref={target}>
             {visible && (
@@ -35,7 +39,12 @@ const ListItem = (props: IListItemProps) => {
                     <span className="id">{id}</span>
                     {thumbnail && <Avatar className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} size={40} />}
 
-                    <span className="title">{content}</span>
+                    <span
+                        className="title"
+                        dangerouslySetInnerHTML={{
+                            __html: xss(convertContent),
+                        }}
+                    />
                     <span className="date" style={{ color: colors.GRAY_ORIGIN_1 }}>
                         {dayjs(createAt).format('YYYY.MM.DD')}
                     </span>
