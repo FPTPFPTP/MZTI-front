@@ -6,7 +6,8 @@ import HeartIcon from '@assets/icons/detailPost/heart.svg';
 import FillHeartIcon from '@assets/icons/detailPost/heartFill.svg';
 import ShareIcon from '@assets/icons/comment/share.svg';
 import { LinkCopy } from '@/utils/copy';
-import axios from '@/utils/axios';
+import { useMutation } from '@tanstack/react-query';
+import { postLike } from '@/apis/post';
 interface IItemProps {
     like?: number | string;
     command?: number;
@@ -18,11 +19,11 @@ interface IItemProps {
 }
 const ItemFooter = ({ postId, like, command, className, viewCount, isFeed = true, bookmark }: IItemProps) => {
     const [isLike, setIsLike] = useState<boolean>(false);
+    const usePostLike = useMutation((id: any) => postLike(id));
 
     const handleLike = () => {
         setIsLike((isLike) => !isLike);
-
-        return axios.post(`/post/like/${postId}`);
+        usePostLike.mutate(postId);
     };
     return (
         <>
