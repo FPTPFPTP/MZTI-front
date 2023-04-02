@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import FeedItem from '@/components/Home/FeedItem';
 import HotKeyword from '@/components/Home/HotKeyword';
 import { Input, BottomMenu } from '@components/Commons';
-import AlarmIcon from '@assets/icons/header/alarm.svg';
 import MyPageIcon from '@assets/icons/header/mypage.svg';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
-import { getFeedPost } from '@/utils/apis/user';
 import Link from 'next/link';
 import { HomeMenu, searchWrap } from '@styles/pages/homeStyled';
 import ListTab from '@/components/Home/ListTab';
 import { Empty } from '@/components/MyPageCom';
+import { getFeedPost } from '@/apis/post';
 
 const home = () => {
     const { register, watch, reset, setValue } = useForm<{ search: string }>();

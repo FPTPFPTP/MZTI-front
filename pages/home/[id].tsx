@@ -10,7 +10,7 @@ import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import Axios from '@utils/axios';
-import { getPost } from '@apis/posts';
+import { getPost } from '@apis/post';
 import { IResponseBase } from '@/types/global';
 import { IPostModel } from '@/types/post';
 import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
@@ -108,7 +108,7 @@ const post = ({ data, commentData }: IPostProps) => {
                 title="자유게시판"
                 rightElement={
                     <div className="right">
-                        <button onClick={handleBookMark}>{isBookMark ? <FillBookMarkIcon /> : <BookMarkIcon />}</button>
+                        <button onClick={handleBookMark}>{isBookMark ? <BookMarkIcon /> : <FillBookMarkIcon />}</button>
                     </div>
                 }
             />
