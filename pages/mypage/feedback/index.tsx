@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Header } from '@components/Commons';
 import { feedbackStyled, feedbackWrapStyled } from '@styles/pages/mypageFeedbackStyled';
 import { BlackButton } from '@/components/Commons/Button';
-import { postSupport, useGetSupportCategory } from '@/apis/mypage/support';
+import { postSupport, useGetSupportCategory } from '@/apis/support';
 import { Select, message } from 'antd';
 
 const feedback = () => {
