@@ -42,6 +42,14 @@ export const HotKeywordStyle = css`
     }
 `;
 
+export const FeedNoComentsStyle = css`
+    color: rgba(0, 0, 0, 0.45);
+    margin-top: 69px;
+    text-align: center;
+    padding-bottom: 245px;
+    background-color: ${colors.WHITE};
+`;
+
 export const FeedComentsStyle = css`
     display: flex;
     padding: 1.6rem 32px 1.4rem 35px;
