@@ -2,8 +2,16 @@ import { myPageInfo } from '@/recoil/atom/user';
 import { Button, Header } from '@components/Commons';
 import { SecessionStyled } from '@styles/pages/mypageEtcStyled';
 import { useRecoilValue } from 'recoil';
+import { Checkbox } from 'antd';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { useState } from 'react';
+
 const secession = () => {
     const myNickName = useRecoilValue(myPageInfo);
+    const [checked, setChecked] = useState<boolean>(false);
+    const onChange = (e: CheckboxChangeEvent) => {
+        setChecked(e.target.checked);
+    };
 
     return (
         <main css={SecessionStyled}>
@@ -29,12 +37,13 @@ const secession = () => {
                 </ul>
 
                 <label className="secessionAgree">
-                    <input type="checkbox" value="agree" name="agree" />
-                    <p>유의사항을 모두 확인하였으며 이에 동의합니다.</p>
+                    <Checkbox onChange={onChange}>유의사항을 모두 확인하였으며 이에 동의합니다.</Checkbox>
                 </label>
 
                 <div className="buttonWrap">
-                    <Button buttonStyle="black">탈퇴하기</Button>
+                    <Button buttonStyle="black" disabled={!checked}>
+                        탈퇴하기
+                    </Button>
                 </div>
             </div>
         </main>

@@ -54,7 +54,8 @@ const etc = () => {
                         onClick={() => {
                             removeTokenAll();
                             setMyInfo(undefined);
-                            router.replace('/');
+                            alert('로그아웃 되셨습니다.');
+                            router.replace('/home');
                         }}
                     >
                         로그아웃
