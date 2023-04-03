@@ -110,4 +110,5 @@ export interface IMyPageActive {
 export interface IAddComment {
     postId: number;
     comment: string;
+    image: string;
 }
