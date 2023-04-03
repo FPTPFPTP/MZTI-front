@@ -232,6 +232,28 @@ export const postLike = async (postId: any) => {
 };
 
 /**
+ * [API] DELETE 게시글 삭제
+ * @param postId
+ * @returns
+ */
+export const deletePost = async (postId: any) => {
+    const res = await Axios.delete<IResponseBase<any>>(`/post/${postId}`);
+
+    return res.data.data;
+};
+
+/**
+ * [API] POST 북마크 생성/삭제
+ * @param postId
+ * @returns
+ */
+export const postBookmark = async (postId: any) => {
+    const res = await Axios.post<IResponseBase<any>>(`/post/bookmark/${postId}`);
+
+    return res.data.data;
+};
+
+/**
  * [API] POST 댓글 좋아요
  * @param postId
  * @returns
@@ -242,10 +264,42 @@ export const commentLike = async (postId: number) => {
     return res.data.data;
 };
 
-export const commentPost = async ({ postId, comment }: IAddComment) => {
-    const res = await Axios.post<IResponseBase<any>>(`/post/comment`, {
+/**
+ * [API] POST 댓글 작성하기
+ * @param param0
+ * @returns
+ */
+export const commentPost = async ({ postId, comment, image }: IAddComment) => {
+    const res = await Axios.post<IResponseBase<IAddComment>>(`/post/comment`, {
         postId: postId,
         comment: comment,
+        image: image,
+    });
+
+    return res.data.data;
+};
+
+/**
+ * [API] DELETE 댓글 삭제
+ * @param postId
+ * @returns
+ */
+export const deleteComment = async (postId: any) => {
+    const res = await Axios.delete<IResponseBase<any>>(`/post/comment/${postId}`);
+
+    return res.data.data;
+};
+
+/**
+ * [API] POST 대댓글 작성하기
+ * @param param0
+ * @returns
+ */
+export const reCommentPost = async ({ postId, comment, image }: IAddComment) => {
+    const res = await Axios.post<IResponseBase<IAddComment>>(`/post/comment/sub`, {
+        postId: postId,
+        comment: comment,
+        image: image,
     });
 
     return res.data.data;
