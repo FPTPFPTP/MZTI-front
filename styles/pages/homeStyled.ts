@@ -1,6 +1,14 @@
 import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
+export const BookMarkIconStyle = () => css`
+    .notFill {
+        svg {
+            fill: #fff;
+        }
+    }
+`;
+
 export const HomeMenu = () => css`
     display: flex;
     width: 100%;

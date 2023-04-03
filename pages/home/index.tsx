@@ -23,7 +23,6 @@ const home = () => {
             getNextPageParam: (lastPage, allPosts) => {
                 return lastPage.page !== allPosts[0].totalPage ? lastPage.page + 1 : undefined;
             },
-            staleTime: 3000,
         },
     );
 

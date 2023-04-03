@@ -5,16 +5,18 @@ import { message } from 'antd';
 import { Header } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
-import { PostStyle } from '@styles/pages/homeStyled';
+import { BookMarkIconStyle, PostStyle } from '@styles/pages/homeStyled';
 import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import Axios from '@utils/axios';
-import { getPost } from '@apis/post';
+import { getPost, postBookmark } from '@apis/post';
 import { IResponseBase } from '@/types/global';
 import { IPostModel } from '@/types/post';
+import { useMutation } from '@tanstack/react-query';
 import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
 import CommentInput from '@/components/Commons/CommentInput';
+import classNames from 'classnames';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
@@ -32,10 +34,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
         Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
         const res = await Axios.get<IResponseBase<IPostModel>>(`/post/${params.id}`);
         const commentRes = await Axios.get<IResponseBase<any>>('/post/comment', {
-            params: { postId: params.id, page: 0, view: 10 },
+            params: { postId: params.id },
         });
         data = res.data.data;
-        commentData = commentRes.data.data.list;
+        commentData = commentRes.data.data;
     } catch (err) {
         console.log('error', err);
     }
@@ -47,11 +49,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
     };
 };
 const post = ({ data, commentData }: IPostProps) => {
+    const usePostLike = useMutation((id: any) => postBookmark(id));
     const [postData, setPostData] = useState<IPostModel | undefined>(data);
     const [isBookMark, setIsBookMark] = useState<boolean>(false);
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
-    const [comment, setComment] = useState<[]>(commentData);
-    const handleBookMark = () => [setIsBookMark((isBookMark) => !isBookMark)];
+    const [comment, setComment] = useState<[]>(commentData.list);
+    const [commentCount, setCommentCount] = useState<number>(commentData.totalCount);
+
+    const handleBookMark = () => {
+        setIsBookMark((isBookMark) => !isBookMark);
+        usePostLike.mutate(data?.id);
+    };
     const onPoll = (result: SurveyType.IDefaultModeSurveyResult) => {
         Axios.post('/post/poll', {
             pollId: Number(result.id),
@@ -66,11 +74,13 @@ const post = ({ data, commentData }: IPostProps) => {
             }
         });
     };
+
     const onSuccessComment = async () => {
         const commentRes = await Axios.get<IResponseBase<any>>('/post/comment', {
-            params: { postId: data?.id, page: 0, view: 10 },
+            params: { postId: data?.id },
         });
         setComment(commentRes.data.data.list);
+        setCommentCount(commentCount + 1);
     };
 
     useEffect(() => {
@@ -107,8 +117,10 @@ const post = ({ data, commentData }: IPostProps) => {
                 isPrevBtn={true}
                 title="자유게시판"
                 rightElement={
-                    <div className="right">
-                        <button onClick={handleBookMark}>{isBookMark ? <BookMarkIcon /> : <FillBookMarkIcon />}</button>
+                    <div className="right" css={BookMarkIconStyle}>
+                        <button onClick={handleBookMark} className={classNames(isBookMark ? 'fill' : 'notFill')}>
+                            {data?.bookmark.check === true ? <FillBookMarkIcon /> : <BookMarkIcon />}
+                        </button>
                     </div>
                 }
             />
@@ -116,7 +128,7 @@ const post = ({ data, commentData }: IPostProps) => {
                 <div css={PostStyle}>
                     <div className="postHeaderWrap">
                         <h3 className="postTitle">{postData.title}</h3>
-                        <ItemHeader writer={postData.writer} createAt={postData.updateAt} />
+                        <ItemHeader writer={postData.writer} createAt={postData.updateAt} writerID={postData.id} />
                     </div>
                     <ToastViewer contentHtml={postData.content} />
                     {surveyData.map((survey) => (
@@ -130,14 +142,16 @@ const post = ({ data, commentData }: IPostProps) => {
                     ))}
                 </div>
             )}
+
             {data && (
                 <ItemFooter
                     postId={data.id}
                     className="postFooter"
                     like={data.like.count === 0 ? '좋아요' : data.like?.count}
-                    command={data.command?.count === 0 ? 0 : data.command?.count}
+                    command={commentCount}
                     isFeed={false}
                     viewCount={data.viewCount}
+                    likeCheck={data.like.check}
                 />
             )}
 

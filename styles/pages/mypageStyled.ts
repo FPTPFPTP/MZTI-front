@@ -6,6 +6,7 @@ export const Layout = css`
     position: relative;
     height: 100vh;
     padding: 20px;
+    background-color: ${color.WHITE};
     .loader {
         display: flex;
         justify-content: center;
