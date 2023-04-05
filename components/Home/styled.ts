@@ -31,13 +31,20 @@ export const HotKeywordStyle = css`
         margin-top: 18px;
         li {
             display: inline-block;
+        }
+        .more {
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .hotlist {
             margin-right: 10px;
             padding: 6px 12px;
-            border-radius: 12.5px;
-            margin-bottom: 6px;
+            border-radius: 21.5px;
+            margin-bottom: 8px;
             background-color: ${colors.WHITE};
             color: ${colors.GRAY_STRONG_3};
-            font-size: 1.2rem;
+            font-size: 1rem;
+            font-weight: 400;
         }
     }
 `;

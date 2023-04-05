@@ -47,7 +47,7 @@ const FeedComents = ({ commentData, writerId }: ICommentProps) => {
                                 nickname={item.writer.nickname}
                                 mbti={item.writer.mbti}
                                 profileImage={item.writer.profileImage}
-                                userId={item.writer.id}
+                                userId={item.id}
                                 comment={item.comment}
                                 like={item.like.count}
                                 createAt={item.createAt}

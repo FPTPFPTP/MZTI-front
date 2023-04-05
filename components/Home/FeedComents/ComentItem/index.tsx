@@ -13,6 +13,7 @@ import { myPageInfo } from '@/recoil/atom/user';
 import { EType } from '@/components/Commons/MoreDrawer';
 import { useMutation } from '@tanstack/react-query';
 import { deleteComment } from '@/apis/post';
+import { useRouter } from 'next/router';
 
 interface ICommentProps {
     nickname: string;
@@ -29,15 +30,19 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
+    const router = useRouter();
     // 댓글 삭제
-    const usePostDelete = useMutation((id: any) => deleteComment(id));
+    const { mutate } = useMutation((id: any) => deleteComment(id));
 
     const handleCommentDelete = () => {
         confirm('댓글을 삭제하시겠습니까?');
-        usePostDelete.mutate(userId);
+        mutate(userId, {
+            onSuccess: () => {
+                alert('삭제 완료되었습니다.');
+                router.push(`/home/${userId}`);
+            },
+        });
     };
-
-    console.log('ddd', writerId, nickname);
 
     return (
         <section css={CommentItemSylte} key={userId}>

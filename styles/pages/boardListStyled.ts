@@ -15,4 +15,8 @@ export const BoardListStyle = () => css`
             }
         }
     }
+    .titleSection {
+        color: ${color.GRAY_STRONG_3};
+        padding: 31px 0 15px 35px;
+    }
 `;
