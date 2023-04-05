@@ -67,7 +67,7 @@ const WriteList = () => {
                 </form>
                 <ListBox>
                     {writeList.length ? (
-                        writeList.map((item) => <ListItem key={item.id} id={item.id} content={item.content} createAt={item.createAt} />)
+                        writeList.map((item) => <ListItem key={item.id} item={item} />)
                     ) : (
                         <>
                             {search && search.length ? (

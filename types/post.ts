@@ -76,18 +76,7 @@ export interface ICommandModel {
 
 export interface IPostMeModel {
     id: number;
-    content: string;
-    createAt: string;
-}
-
-export interface IPostCommentMeModel {
-    id: number;
-    content: string;
-    createAt: string;
-}
-
-export interface IPostBookMarkModel {
-    id: number;
+    title: string;
     content: string;
     createAt: string;
 }

@@ -1,10 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
-// import { useObserver } from '@/hooks/useObserver';
-// import { useGetComments } from '@apis/mypage';
-
 import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetBookMarkMe } from '@/apis/post';
@@ -64,7 +61,7 @@ const BookMarkList = () => {
                 </form>
                 <ListBox>
                     {bookMakrList.length ? (
-                        bookMakrList.map((item) => <ListItem key={item.id} id={item.id} content={item.content} createAt={item.createAt} />)
+                        bookMakrList.map((item) => <ListItem key={item.id} item={item} />)
                     ) : (
                         <Empty title="북마크한 글이 없습니다" subTitle="" buttonTitle="북마크하러 가기" href="/home" />
                     )}

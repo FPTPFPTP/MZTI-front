@@ -107,7 +107,7 @@ export const ListItemStyle = css`
         width: 50px;
     }
     .thumbnail {
-        margin-left: 10px;
+        margin-right: 10px;
     }
     .title {
         width: 100%;
@@ -124,7 +124,7 @@ export const ListItemStyle = css`
 export const ListBoxStyle = css`
     overflow-y: auto;
     width: 100%;
-    height: calc(100% - 168px);
+    height: calc(100vh - 168px);
     background: none;
     margin-top: 20px;
     -ms-overflow-style: none; /* IE and Edge */
