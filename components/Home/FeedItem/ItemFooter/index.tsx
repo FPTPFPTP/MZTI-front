@@ -36,31 +36,29 @@ const ItemFooter = ({ postId, likeCheck, like, command, className, viewCount, is
      */
 
     return (
-        <>
-            <section css={ItemFooterStyle} className={className}>
-                <button onClick={handleLike}>
-                    {isLike === false ? <HeartIcon /> : <FillHeartIcon />}
-                    <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
-                </button>
+        <section css={ItemFooterStyle} className={className}>
+            <button onClick={handleLike}>
+                {isLike === false ? <HeartIcon /> : <FillHeartIcon />}
+                <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
+            </button>
 
-                <button>
-                    <CommentIcon />
-                    <span>{command}</span>
-                </button>
+            <button>
+                <CommentIcon />
+                <span>{command}</span>
+            </button>
 
-                {isFeed ? (
-                    <div className="viewIcon">
-                        <Views />
-                        <span className="count">{viewCount}</span>
-                    </div>
-                ) : (
-                    <button onClick={LinkCopy}>
-                        <ShareIcon />
-                        <span className="share">공유</span>
-                    </button>
-                )}
-            </section>
-        </>
+            {isFeed ? (
+                <div className="viewIcon">
+                    <Views />
+                    <span className="count">{viewCount}</span>
+                </div>
+            ) : (
+                <button onClick={LinkCopy}>
+                    <ShareIcon />
+                    <span className="share">공유</span>
+                </button>
+            )}
+        </section>
     );
 };
 

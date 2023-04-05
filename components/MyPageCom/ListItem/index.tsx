@@ -36,7 +36,6 @@ const ListItem = (props: IListItemProps) => {
         <Link href={`/home/${id}`} css={ListItemStyle} ref={target}>
             {visible && (
                 <>
-                    <span className="id">{id}</span>
                     {thumbnail && <Avatar className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} size={40} />}
 
                     <span

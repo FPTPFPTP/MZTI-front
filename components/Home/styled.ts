@@ -275,6 +275,7 @@ export const ItemFooterStyle = css`
         background: ${colors.GRAY_LIGHT_3};
         border-top: none;
         padding: 21px 0 23px;
+        margin-top: 1.4rem;
     }
     .viewIcon {
         display: flex;
