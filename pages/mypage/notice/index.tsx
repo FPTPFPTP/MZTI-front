@@ -1,19 +1,19 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
 
 import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
-import { useGetPostCommentsMe } from '@/apis/post';
+import { useGetNotice } from '@/apis/notice';
 
-const WriteCommentList = () => {
+const notice = () => {
     const observerRef = useRef(null);
 
-    const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
+    const { register, watch, reset } = useForm<{ search: string }>();
     const { search } = watch();
 
-    const { contents: commentList, hasNextPage, fetchNextPage } = useGetPostCommentsMe(search);
+    const { contents: noticeList, hasNextPage, fetchNextPage } = useGetNotice(search);
 
     const handleObserver = useCallback(
         (entries: IntersectionObserverEntry[]) => {
@@ -38,12 +38,12 @@ const WriteCommentList = () => {
 
     return (
         <>
-            <Header title={'내가 작성한 댓글'} rightElement={<EditSvg />} />
+            <Header title={'공지사항'} />
             <div css={Layout}>
                 <form>
                     <Input
                         inputStyle={'search'}
-                        placeholder={'댓글 내용 검색'}
+                        placeholder={'공지사항 검색'}
                         isResetBtn={!!search}
                         handleReset={() => reset()}
                         maxLength={8}
@@ -51,11 +51,7 @@ const WriteCommentList = () => {
                     />
                 </form>
                 <ListBox>
-                    {commentList.length ? (
-                        commentList.map((item) => <ListItem key={item.id} id={item.id} content={item.content} createAt={item.createAt} />)
-                    ) : (
-                        <Empty title="작성한 댓글이 없습니다" subTitle="첫 댓글을 남겨보러 갈까요?" buttonTitle="댓글 작성하러 가기" href="/home" />
-                    )}
+                    {noticeList.length && noticeList.map((item) => <ListItem key={item.id} id={item.id} content={item.title} createAt={item.createAt} />)}
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}
                     </div>
@@ -65,4 +61,4 @@ const WriteCommentList = () => {
     );
 };
 
-export default WriteCommentList;
+export default notice;

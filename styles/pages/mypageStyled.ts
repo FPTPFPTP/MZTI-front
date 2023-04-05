@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
 import colors from '@/styles/color';
+import color from '@/styles/color';
 
 export const Layout = css`
     position: relative;
     height: 100vh;
     padding: 20px;
+    background-color: ${color.WHITE};
     .loader {
         display: flex;
         justify-content: center;
@@ -15,6 +17,7 @@ export const Layout = css`
 export const MypageWrap = css`
     padding: 0 34px;
     margin: 50px 0 0 0;
+    background-color: ${color.WHITE};
     .notUser {
         &__flex {
             display: flex;

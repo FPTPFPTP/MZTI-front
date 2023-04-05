@@ -13,10 +13,12 @@ interface MoreDrawerProps {
     isVisible: boolean;
     onClick: () => void;
     type: EType;
-    writerID?: number;
+    writerID: number;
+    handlePostDelete?: () => void;
+    handleCommentDelete?: () => void;
 }
 
-const MoreDrawer = ({ isVisible, onClick, type, writerID }: MoreDrawerProps) => {
+const MoreDrawer = ({ isVisible, onClick, type, writerID, handlePostDelete, handleCommentDelete }: MoreDrawerProps) => {
     const Content = ({ type }: { type: EType }) => {
         if (type === EType.COMMENT) {
             return (
@@ -25,7 +27,7 @@ const MoreDrawer = ({ isVisible, onClick, type, writerID }: MoreDrawerProps) => 
                         <Link href={`/write/${writerID}`}>댓글 수정하기</Link>
                     </li>
                     <li>
-                        <button>댓글 삭제하기</button>
+                        <button onClick={handleCommentDelete}>댓글 삭제하기</button>
                     </li>
                 </ul>
             );
@@ -36,7 +38,7 @@ const MoreDrawer = ({ isVisible, onClick, type, writerID }: MoreDrawerProps) => 
                         <Link href={`/write/${writerID}`}>게시글 수정하기</Link>
                     </li>
                     <li>
-                        <button>게시글 삭제하기</button>
+                        <button onClick={handlePostDelete}>게시글 삭제하기</button>
                     </li>
                 </ul>
             );

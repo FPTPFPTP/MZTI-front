@@ -3,14 +3,13 @@ import { Header, Input, ProfileUpload } from '@components/Commons';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
-import { editLayout, editTitle } from '@styles/pages/mypageEditStyled';
-import { BottomButton } from '@/components/Commons/Button';
+import { editLayout, editTitle, myPageEditStyle } from '@styles/pages/mypageEditStyled';
+import { BlackButton } from '@/components/Commons/Button';
 import { MbtiStyles, Container, editButton, MbtiFlex } from '@styles/pages/mypageEditStyled';
 import ProfileEdit from '@assets/icons/profile_edit.svg';
 import { IUserModel } from '@/types/user';
 import { Button, Modal } from 'antd';
 import Mbti from '@/components/Commons/Mbti';
-import { getMyPage } from '@/utils/apis/user';
 import axios from '@/utils/axios';
 import { useRouter } from 'next/router';
 
@@ -125,7 +124,7 @@ const edit = () => {
     }, []);
 
     return (
-        <>
+        <main css={myPageEditStyle}>
             <Header title="회원정보 수정" />
             <form css={editLayout}>
                 <div>
@@ -191,8 +190,12 @@ const edit = () => {
                     </div>
                 </div>
             </form>
-            <BottomButton onClick={handleEdit}>수정 완료하기</BottomButton>
-        </>
+            <div className="buttonWrap">
+                <BlackButton onClick={handleEdit} type="submit">
+                    수정 완료하기
+                </BlackButton>
+            </div>
+        </main>
     );
 };
 

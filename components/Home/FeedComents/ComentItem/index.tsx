@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -10,6 +10,8 @@ import { CommentItemSylte } from '../../styled';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { EType } from '@/components/Commons/MoreDrawer';
+import { useMutation } from '@tanstack/react-query';
+import { deleteComment } from '@/apis/post';
 
 interface ICommentProps {
     nickname: string;
@@ -25,6 +27,13 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
+    // 댓글 삭제
+    const usePostDelete = useMutation((id: any) => deleteComment(id));
+
+    const handleCommentDelete = () => {
+        confirm('댓글을 삭제하시겠습니까?');
+        usePostDelete.mutate(userId);
+    };
 
     return (
         <section css={CommentItemSylte} key={userId}>
@@ -40,18 +49,19 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                     <button className="like">
                         {like > 0 ? (
                             <>
-                                <ReCommentLike />
-                                {like}
+                                <FillreCommentLike />
+                                {like + 1}
                             </>
                         ) : (
                             <>
-                                <FillreCommentLike /> 좋아요
+                                <ReCommentLike />
+                                <span>좋아요</span>
                             </>
                         )}
                     </button>
                     <button className="reComment">
                         <ReComment />
-                        대댓글
+                        <span>대댓글</span>
                     </button>
 
                     <button onClick={openDrawer} className="moreButton">
@@ -60,7 +70,13 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                 </div>
             </div>
 
-            <MoreDrawer type={myInfo ? EType.COMMENT : EType.COMMENT_TIPOFF} onClick={closeDrawer} isVisible={isVisible} />
+            <MoreDrawer
+                type={myInfo?.nickname === nickname ? EType.COMMENT : EType.COMMENT_TIPOFF}
+                onClick={closeDrawer}
+                isVisible={isVisible}
+                writerID={userId}
+                handleCommentDelete={handleCommentDelete}
+            />
         </section>
     );
 };

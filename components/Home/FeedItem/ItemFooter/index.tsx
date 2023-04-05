@@ -6,7 +6,8 @@ import HeartIcon from '@assets/icons/detailPost/heart.svg';
 import FillHeartIcon from '@assets/icons/detailPost/heartFill.svg';
 import ShareIcon from '@assets/icons/comment/share.svg';
 import { LinkCopy } from '@/utils/copy';
-import axios from '@/utils/axios';
+import { useMutation } from '@tanstack/react-query';
+import { postLike } from '@/apis/post';
 interface IItemProps {
     like?: number | string;
     command?: number;
@@ -15,26 +16,36 @@ interface IItemProps {
     bookmark?: number;
     postId?: number;
     viewCount: number;
+    likeCheck: boolean;
 }
-const ItemFooter = ({ postId, like, command, className, viewCount, isFeed = true, bookmark }: IItemProps) => {
-    const [isLike, setIsLike] = useState<boolean>(false);
+const ItemFooter = ({ postId, likeCheck, like, command, className, viewCount, isFeed = true, bookmark }: IItemProps) => {
+    const [isLike, setIsLike] = useState<boolean>(likeCheck);
+    const [likeCount, setLikeCount] = useState<any>(like);
+    // 게시글 좋아요
+    const usePostLike = useMutation((id: any) => postLike(id));
 
     const handleLike = () => {
+        usePostLike.mutate(postId);
         setIsLike((isLike) => !isLike);
-
-        return axios.post(`/post/like/${postId}`);
+        setLikeCount(likeCount);
     };
+
+    /**
+     * like.check === false이면 그냥 like count 보여주기
+     * true이면 +1 해주기
+     */
+
     return (
         <>
             <section css={ItemFooterStyle} className={className}>
                 <button onClick={handleLike}>
-                    {isLike ? <FillHeartIcon /> : <HeartIcon />}
-                    <span>{like === 0 ? '좋아요' : like}</span>
+                    {isLike === false ? <HeartIcon /> : <FillHeartIcon />}
+                    <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
                 </button>
 
                 <button>
                     <CommentIcon />
-                    <span>{command ? command : 0}</span>
+                    <span>{command}</span>
                 </button>
 
                 {isFeed ? (

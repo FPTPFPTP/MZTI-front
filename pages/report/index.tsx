@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { Header } from '@components/Commons';
 import { feedbackStyled, feedbackWrapStyled } from '@styles/pages/mypageFeedbackStyled';
 import { BlackButton } from '@/components/Commons/Button';
-import { postSupport, useGetSupportCategory } from '@/apis/support';
 import { Select, message } from 'antd';
+import { postReport, useGetReportCategory } from '@/apis/report';
 
-const feedback = () => {
+const report = () => {
     const [selected, setSelected] = useState<number>(1);
     const [contactText, setContactText] = useState<string>('');
-    const categorys = useGetSupportCategory();
+    const categorys = useGetReportCategory();
 
     const handleSelect = (value: string) => {
         setSelected(Number(value));
@@ -26,8 +26,12 @@ const feedback = () => {
             return;
         } else {
             try {
-                const data = await postSupport({
-                    type: selected,
+                const data = await postReport({
+                    /**
+                     * [TODO] target 부분 해당 게시글이나 댓글 번호 가져오기
+                     */
+                    target: selected,
+                    reason: selected,
                     content: contactText,
                 });
 
@@ -44,10 +48,10 @@ const feedback = () => {
 
     return (
         <main css={feedbackWrapStyled}>
-            <Header title="서포트 센터" />
+            <Header title="신고하기" />
             <form css={feedbackStyled}>
                 <div className="type">
-                    <h3>문의 유형</h3>
+                    <h3>신고사유 선택</h3>
                     {categorys && categorys.length > 0 && (
                         <Select defaultValue={categorys[0].name} style={{ width: 170 }} onChange={handleSelect}>
                             {categorys.map((category) => (
@@ -60,20 +64,20 @@ const feedback = () => {
                 </div>
 
                 <div className="content">
-                    <h3>문의 내용</h3>
-                    <textarea placeholder="건의 사항을 작성해주세요" onChange={handleContact} name="contact_content" value={contactText} />
+                    <h3>상세 설명</h3>
+                    <textarea placeholder="신고 사유를 작성해주세요" onChange={handleContact} name="contact_content" value={contactText} />
                 </div>
 
-                <span>오류 제보, 홍보 의심 유저 제보 등 운영진에게 전달하고싶은 내용을 자유롭게 작성해주세요</span>
+                <span>허위신고의 경우, 신고자의 활동이 제한될 수 있어요</span>
             </form>
 
             <div className="buttonWrap">
-                <BlackButton onClick={handleSubmit} type="submit">
-                    건의사항 보내기
+                <BlackButton onClick={handleSubmit} type="submit" disabled={!contactText}>
+                    확인
                 </BlackButton>
             </div>
         </main>
     );
 };
 
-export default feedback;
+export default report;

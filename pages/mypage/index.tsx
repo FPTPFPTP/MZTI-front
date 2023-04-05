@@ -8,15 +8,9 @@ import EditSvg from '@assets/icons/edit.svg';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
-import { getMyPage, getMyPageActive } from '@/utils/apis/user';
-import { useEffect, useState } from 'react';
 import NotUser from '@/components/MyPageCom/NotUser';
+import { useGetMyPageActive } from '@/apis/post';
 
-interface MyPageProps {
-    post: number;
-    comment: number;
-    like: number;
-}
 const menuList = [
     {
         title: '내가 북마크 한 글',
@@ -42,20 +36,7 @@ const menuList = [
 
 const mypage = () => {
     const myInfo = useRecoilValue(myPageInfo);
-    // 나의 활동 - 작성한 게시글, 댓글, 추천수
-    const [myActive, setMyActive] = useState<MyPageProps>({
-        post: 0,
-        comment: 0,
-        like: 0,
-    });
-
-    useEffect(() => {
-        if (myInfo) {
-            getMyPageActive().then((res) => {
-                setMyActive(res);
-            });
-        }
-    }, []);
+    const myActive = useGetMyPageActive();
 
     return (
         <>
@@ -73,7 +54,7 @@ const mypage = () => {
                 {myInfo ? (
                     <>
                         <Profile mbti={myInfo.mbti} nickname={myInfo.nickname} intro={myInfo.intro} profileImage={myInfo.profileImage} />
-                        <Write write={myActive.post} comment={myActive.comment} recommend={myActive.like} />
+                        {myActive && <Write write={myActive.post} comment={myActive.comment} recommend={myActive.like} />}
                     </>
                 ) : (
                     <NotUser />

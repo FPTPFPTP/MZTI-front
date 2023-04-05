@@ -85,3 +85,30 @@ export interface IPostCommentMeModel {
     content: string;
     createAt: string;
 }
+
+export interface IPostBookMarkModel {
+    id: number;
+    content: string;
+    createAt: string;
+}
+
+// 피드 불러오기 타입
+export interface IDetailPost {
+    tag?: string;
+    view: number;
+    page: number;
+    content: string;
+}
+
+// 마이페이지 내 활동 조회 타입
+export interface IMyPageActive {
+    post: number;
+    comment: number;
+    like: number;
+}
+
+export interface IAddComment {
+    postId: number;
+    comment: string;
+    image: string;
+}

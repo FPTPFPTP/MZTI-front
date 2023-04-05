@@ -7,18 +7,28 @@ import { IWriterModel } from '@/types/post';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { EType } from '@/components/Commons/MoreDrawer';
+import { useMutation } from '@tanstack/react-query';
+import { deletePost } from '@/apis/post';
 
 interface IItemHeader {
     writer: IWriterModel;
     createAt: string;
+    writerID: number;
 }
 
-const ItemHeader = ({ writer, createAt }: IItemHeader) => {
+const ItemHeader = ({ writer, createAt, writerID }: IItemHeader) => {
     const { nickname, mbti, level, profileImage } = writer;
     const myInfo = useRecoilValue(myPageInfo);
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
+    // 게시글 삭제
+    const usePostDelete = useMutation((id: any) => deletePost(id));
+
+    const handlePostDelete = () => {
+        confirm('게시글을 삭제하시겠습니까?');
+        usePostDelete.mutate(writerID);
+    };
 
     return (
         <>
@@ -47,7 +57,13 @@ const ItemHeader = ({ writer, createAt }: IItemHeader) => {
                 </div>
             </section>
 
-            <MoreDrawer type={myInfo ? EType.WRITE : EType.WRITET_TIPOFF} onClick={closeDrawer} isVisible={isVisible} />
+            <MoreDrawer
+                writerID={writerID}
+                type={myInfo?.nickname === nickname ? EType.WRITE : EType.WRITET_TIPOFF}
+                onClick={closeDrawer}
+                isVisible={isVisible}
+                handlePostDelete={handlePostDelete}
+            />
         </>
     );
 };

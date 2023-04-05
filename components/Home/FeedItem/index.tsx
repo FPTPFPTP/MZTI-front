@@ -14,7 +14,7 @@ const FeedItem = ({ data }: any) => {
                     return (
                         <div className="feedLayout" key={item.id}>
                             <div className="feedLayout__bg">
-                                <ItemHeader writer={item.writer} createAt={item.createAt} />
+                                <ItemHeader writer={item.writer} createAt={item.createAt} writerID={item.id} />
                                 <Link href={`/home/${item.id}`}>
                                     <ItemContent
                                         id={item.id}
@@ -26,6 +26,7 @@ const FeedItem = ({ data }: any) => {
                                 </Link>
 
                                 <ItemFooter
+                                    likeCheck={item.like.check}
                                     viewCount={item.viewCount}
                                     postId={item.id}
                                     like={item.like.count}
