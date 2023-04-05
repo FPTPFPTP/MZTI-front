@@ -12,10 +12,11 @@ interface IListItemProps {
     content: string;
     createAt: string;
     thumbnail?: string;
+    url?: string;
 }
 
 const ListItem = (props: IListItemProps) => {
-    const { id, content, createAt, thumbnail } = props;
+    const { id, content, createAt, thumbnail, url = `/home/${id}` } = props;
 
     const target = useRef(null); // 대상 ref
     const [visible, setVisible] = useState<boolean>(false); // DOM을 렌더할 조건
@@ -33,7 +34,7 @@ const ListItem = (props: IListItemProps) => {
     console.log('convertContent', convertContent);
 
     return (
-        <Link href={`/home/${id}`} css={ListItemStyle} ref={target}>
+        <Link href={url} css={ListItemStyle} ref={target}>
             {visible && (
                 <>
                     {thumbnail && <Avatar className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} size={40} />}

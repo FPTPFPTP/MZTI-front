@@ -51,7 +51,10 @@ const notice = () => {
                     />
                 </form>
                 <ListBox>
-                    {noticeList.length && noticeList.map((item) => <ListItem key={item.id} id={item.id} content={item.title} createAt={item.createAt} />)}
+                    {noticeList.length &&
+                        noticeList.map((item) => (
+                            <ListItem key={item.id} id={item.id} content={item.title} createAt={item.createAt} url={`/mypage/notice/${item.id}`} />
+                        ))}
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}
                     </div>
