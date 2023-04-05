@@ -155,7 +155,7 @@ const post = ({ data, commentData }: IPostProps) => {
                 />
             )}
 
-            <FeedComents commentData={comment} />
+            <FeedComents commentData={comment} writerId={data?.writer.nickname} />
             <CommentInput postId={data?.id} onSuccess={onSuccessComment} />
         </main>
     );

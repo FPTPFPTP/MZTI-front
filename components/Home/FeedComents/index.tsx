@@ -6,9 +6,10 @@ import { ICommentModel } from '@/types/post';
 
 interface ICommentProps {
     commentData?: [];
+    writerId?: any;
 }
 
-const FeedComents = ({ commentData }: ICommentProps) => {
+const FeedComents = ({ commentData, writerId }: ICommentProps) => {
     const handleRefrash = () => {
         location.reload();
     };
@@ -50,6 +51,7 @@ const FeedComents = ({ commentData }: ICommentProps) => {
                                 comment={item.comment}
                                 like={item.like.count}
                                 createAt={item.createAt}
+                                writerId={writerId}
                             />
                         );
                     })}

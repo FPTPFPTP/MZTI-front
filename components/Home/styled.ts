@@ -122,6 +122,11 @@ export const CommentItemSylte = css`
     .nickName {
         font-size: 1.1rem;
         font-weight: 300;
+        display: flex;
+        align-items: center;
+        & > span {
+            margin-left: 5px;
+        }
     }
     .coment {
         font-size: 1.2rem;
