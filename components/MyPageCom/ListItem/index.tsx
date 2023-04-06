@@ -31,7 +31,6 @@ const ListItem = (props: IListItemProps) => {
     });
 
     const convertContent = content.split('</p>')[0];
-
     return (
         <Link href={url} css={ListItemStyle} ref={target}>
             {visible && (

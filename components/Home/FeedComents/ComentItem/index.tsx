@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -41,7 +41,6 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                 alert('삭제 완료되었습니다.');
             },
         });
-    };
 
     return (
         <section css={CommentItemSylte} key={userId}>
