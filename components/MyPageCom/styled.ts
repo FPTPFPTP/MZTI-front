@@ -96,7 +96,7 @@ export const ListItemStyle = css`
     padding: 18px 9px;
     background: none;
     border-bottom: 1px solid ${color.GRAY_ORIGIN_1};
-    font-size: 15px;
+    font-size: 1.2rem;
     font-weight: 500;
     color: ${color.BLACK};
     cursor: pointer;
@@ -116,7 +116,7 @@ export const ListItemStyle = css`
         white-space: nowrap;
     }
     .date {
-        width: 90px;
+        font-size: 1rem;
         white-space: nowrap;
     }
 `;

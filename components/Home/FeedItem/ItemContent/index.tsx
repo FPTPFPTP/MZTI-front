@@ -24,7 +24,7 @@ const ItemContent = ({ id, title, content, pollList, tags }: IItemContentProps) 
             />
 
             {/* 투표기능이 있을경우 */}
-            {pollList?.length && (
+            {pollList?.length ? (
                 <div className="vote">
                     <div className="vote__top">
                         <VoteIcon />
@@ -33,7 +33,7 @@ const ItemContent = ({ id, title, content, pollList, tags }: IItemContentProps) 
 
                     <h5 className="vote__title">{pollList[0].title}</h5>
                 </div>
-            )}
+            ) : null}
         </section>
     );
 };

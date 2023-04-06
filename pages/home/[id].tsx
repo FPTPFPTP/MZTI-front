@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
     let data;
     let commentData;
     try {
-        const token = req.cookies['refreshToken'];
+        const token = req.cookies['accessToken'];
         Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
         Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
         const res = await Axios.get<IResponseBase<IPostModel>>(`/post/${params.id}`);
@@ -155,7 +155,7 @@ const post = ({ data, commentData }: IPostProps) => {
                 />
             )}
 
-            <FeedComents commentData={comment} />
+            <FeedComents commentData={comment} writerId={data?.writer.nickname} />
             <CommentInput postId={data?.id} onSuccess={onSuccessComment} />
         </main>
     );

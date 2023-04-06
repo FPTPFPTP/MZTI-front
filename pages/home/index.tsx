@@ -69,7 +69,7 @@ const home = () => {
                     {/* 인기 게시판 & 전체 게시판 */}
                     <ListTab />
                     {/* 핫토픽 키워드 */}
-                    <HotKeyword />
+                    <HotKeyword title="🔥실시간 HOT 키워드" more={true} />
                 </>
             )}
 

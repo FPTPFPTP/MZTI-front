@@ -137,5 +137,8 @@ const globalReset = () => css`
         width: 100%;
         background: ${colors.GRAY_LIGHT_3};
     }
+    .toastui-editor-contents p {
+        font-size: 1.2rem;
+    }
 `;
 export default globalReset;
