@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -43,7 +43,6 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
             },
         });
     };
-
     return (
         <section css={CommentItemSylte} key={userId}>
             <div className="commentItemWrap">
@@ -60,6 +59,7 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                         )}
                     </p>
                 </div>
+
                 <p className="coment">{comment}</p>
                 <div className="commentItemFooter">
                     <p className="time">{timeForToday(createAt)}</p>
@@ -97,5 +97,4 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
         </section>
     );
 };
-
 export default ComentItem;

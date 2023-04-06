@@ -85,7 +85,6 @@ const post = ({ data, commentData }: IPostProps) => {
 
     useEffect(() => {
         if (postData && postData.pollList.length) {
-            console.log({ data });
             const survey: SurveyType.IDefaultModeSurveyResult[] = postData.pollList.map((poll) => ({
                 id: poll.id.toString(),
                 title: poll.title,
