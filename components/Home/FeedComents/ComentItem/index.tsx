@@ -41,6 +41,7 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                 alert('삭제 완료되었습니다.');
             },
         });
+    };
 
     return (
         <section css={CommentItemSylte} key={userId}>
