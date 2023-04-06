@@ -25,6 +25,7 @@ interface ICommentProps {
     createAt: string;
     writerId: string;
 }
+
 const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, createAt, writerId }: ICommentProps) => {
     const myInfo = useRecoilValue(myPageInfo);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -41,7 +42,7 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                 alert('삭제 완료되었습니다.');
             },
         });
-
+    };
     return (
         <section css={CommentItemSylte} key={userId}>
             <div className="commentItemWrap">
@@ -58,6 +59,7 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                         )}
                     </p>
                 </div>
+
                 <p className="coment">{comment}</p>
                 <div className="commentItemFooter">
                     <p className="time">{timeForToday(createAt)}</p>
@@ -95,5 +97,4 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
         </section>
     );
 };
-
 export default ComentItem;

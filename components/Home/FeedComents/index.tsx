@@ -40,7 +40,7 @@ const FeedComents = ({ commentData, writerId }: ICommentProps) => {
                         </section>
                     )}
 
-                    {commentData?.map((item: ICommentModel, index: number) => {
+                    {commentData?.map((item: ICommentModel) => {
                         return (
                             <ComentItem
                                 key={item.id}
