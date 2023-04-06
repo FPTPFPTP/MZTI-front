@@ -39,7 +39,6 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
         mutate(userId, {
             onSuccess: () => {
                 alert('삭제 완료되었습니다.');
-                router.push(`/home/${userId}`);
             },
         });
     };
