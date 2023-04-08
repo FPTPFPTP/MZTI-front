@@ -27,6 +27,8 @@ module.exports = {
     // Text/Disabled/Placeholder
     GRAY_BRIGHT_1: '#c4c4c4',
     GRAY_BRIGHT_2: '#ccc',
+    GRAY_BRIGHT_3: '#D9D9D9',
+
     // Gray Origin
     GRAY_ORIGIN_1: '#a7a7a7',
     GRAY_ORIGIN_2: '#bfbfbf',
@@ -38,6 +40,7 @@ module.exports = {
     GRAY_STRONG_2: '#444',
     GRAY_STRONG_3: '#585858',
     GRAY_STRONG_4: '#333',
+    GRAY_STRONG_5: '#49454F',
 
     // Gray Dark
     GRAY_DARK: '#2f2f2f', // Text/Default/Icon

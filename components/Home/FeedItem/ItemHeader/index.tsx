@@ -9,6 +9,7 @@ import { myPageInfo } from '@/recoil/atom/user';
 import { EType } from '@/components/Commons/MoreDrawer';
 import { useMutation } from '@tanstack/react-query';
 import { deletePost } from '@/apis/post';
+import { useRouter } from 'next/router';
 
 interface IItemHeader {
     writer: IWriterModel;
@@ -23,11 +24,18 @@ const ItemHeader = ({ writer, createAt, writerID }: IItemHeader) => {
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
     // 게시글 삭제
-    const usePostDelete = useMutation((id: any) => deletePost(id));
+    const { mutate } = useMutation((id: any) => deletePost(id));
+
+    const router = useRouter();
 
     const handlePostDelete = () => {
         confirm('게시글을 삭제하시겠습니까?');
-        usePostDelete.mutate(writerID);
+        mutate(writerID, {
+            onSuccess: () => {
+                alert('삭제 완료되었습니다.');
+                router.push('/home');
+            },
+        });
     };
 
     return (

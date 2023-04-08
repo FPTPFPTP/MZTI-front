@@ -11,18 +11,7 @@ const BookMarkList = () => {
 
     const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
     const { search } = watch();
-
     const { contents: bookMakrList, hasNextPage, fetchNextPage } = useGetBookMarkMe(search);
-
-    // // useObserver로 넘겨줄 callback, entry로 넘어오는 HTMLElement가
-    // // isIntersecting이라면 무한 스크롤을 위한 fetchNextPage가 실행될 것이다.
-    // const onIntersect = ([entry]: any) => entry.isIntersecting && fetchNextPage();
-
-    // // useObserver로 observerRef와 onIntersect를 넘겨 주자.
-    // useObserver({
-    //     target: observerRef,
-    //     onIntersect,
-    // });
 
     const handleObserver = useCallback(
         (entries: IntersectionObserverEntry[]) => {

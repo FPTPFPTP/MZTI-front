@@ -36,7 +36,11 @@ const menuList = [
 
 const mypage = () => {
     const myInfo = useRecoilValue(myPageInfo);
-    const myActive = useGetMyPageActive();
+    let myActive = null;
+
+    if (myInfo) {
+        myActive = useGetMyPageActive();
+    }
 
     return (
         <>

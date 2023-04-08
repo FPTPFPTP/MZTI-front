@@ -31,20 +31,27 @@ export const HotKeywordStyle = css`
         margin-top: 18px;
         li {
             display: inline-block;
+        }
+        .more {
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .hotlist {
             margin-right: 10px;
             padding: 6px 12px;
-            border-radius: 12.5px;
-            margin-bottom: 6px;
+            border-radius: 21.5px;
+            margin-bottom: 8px;
             background-color: ${colors.WHITE};
             color: ${colors.GRAY_STRONG_3};
-            font-size: 1.2rem;
+            font-size: 1rem;
+            font-weight: 400;
         }
     }
 `;
 
 export const FeedNoComentsStyle = css`
     color: rgba(0, 0, 0, 0.45);
-    margin-top: 69px;
+    padding-top: 69px;
     text-align: center;
     padding-bottom: 245px;
     background-color: ${colors.WHITE};
@@ -122,6 +129,11 @@ export const CommentItemSylte = css`
     .nickName {
         font-size: 1.1rem;
         font-weight: 300;
+        display: flex;
+        align-items: center;
+        & > span {
+            margin-left: 5px;
+        }
     }
     .coment {
         font-size: 1.2rem;
@@ -275,6 +287,7 @@ export const ItemFooterStyle = css`
         background: ${colors.GRAY_LIGHT_3};
         border-top: none;
         padding: 21px 0 23px;
+        margin-top: 1.4rem;
     }
     .viewIcon {
         display: flex;

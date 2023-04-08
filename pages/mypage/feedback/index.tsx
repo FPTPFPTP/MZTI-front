@@ -68,7 +68,7 @@ const feedback = () => {
             </form>
 
             <div className="buttonWrap">
-                <BlackButton onClick={handleSubmit} type="submit">
+                <BlackButton onClick={handleSubmit} type="submit" disabled={!contactText}>
                     건의사항 보내기
                 </BlackButton>
             </div>

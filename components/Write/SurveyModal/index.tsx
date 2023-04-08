@@ -19,7 +19,7 @@ const SurveyModal = (props: ISurveyModalProps) => {
         return {
             baseUrl: 'https://api.mzti.kr', // proxy url
             actionUrl: '/mzti/post/image', // 업로드 url 경로
-            authorization: cookies.get('refreshToken'), // 토큰
+            authorization: cookies.get('accessToken'), // 토큰
         };
     }, []);
 
