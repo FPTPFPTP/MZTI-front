@@ -381,3 +381,11 @@ export const ItemContentStyle = css`
         }
     }
 `;
+
+export const DeletedComment = css`
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: ${colors.GRAY_STRONG};
+    padding: 1rem 33px;
+    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+`;

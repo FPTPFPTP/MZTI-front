@@ -58,6 +58,7 @@ export interface ICommentModel {
     writer: IWriterModel;
     like: CheckProps;
     subComment: CheckProps;
+    deleted: boolean;
 }
 
 export interface ILikeModel {
