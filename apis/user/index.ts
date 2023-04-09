@@ -35,3 +35,17 @@ export const secessionUser = async () => {
 
     return res.data.data;
 };
+
+/**
+ * [API] POST 마이페이지 수정
+ * @returns
+ */
+export const postMyPage = async ({ nickname, mbti, intro }: IUserModel) => {
+    const res = await Axios.post<IResponseBase<IUserModel>>('/user', {
+        nickname: nickname,
+        mbti: mbti,
+        intro: intro,
+    });
+
+    return res.data.data;
+};
