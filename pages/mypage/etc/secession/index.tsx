@@ -1,10 +1,11 @@
 import { myPageInfo } from '@/recoil/atom/user';
 import { Button, Header } from '@components/Commons';
 import { SecessionStyled } from '@styles/pages/mypageEtcStyled';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useMutation } from '@tanstack/react-query';
+import { removeTokenAll } from '@utils/auth';
 import { useState } from 'react';
 import Link from 'next/link';
 import { secessionUser } from '@/apis/user';
@@ -19,10 +20,13 @@ const secession = () => {
     const router = useRouter();
 
     const { mutate } = useMutation(() => secessionUser());
+    const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
 
     const handleSecession = () => {
         confirm('탈퇴하시겠습니까?');
         mutate();
+        removeTokenAll();
+        setMyInfo(undefined);
         router.push('/home');
     };
 
