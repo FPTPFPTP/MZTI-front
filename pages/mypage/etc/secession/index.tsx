@@ -4,14 +4,26 @@ import { SecessionStyled } from '@styles/pages/mypageEtcStyled';
 import { useRecoilValue } from 'recoil';
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import Link from 'next/link';
+import { secessionUser } from '@/apis/user';
+import { useRouter } from 'next/router';
 
 const secession = () => {
     const myNickName = useRecoilValue(myPageInfo);
     const [checked, setChecked] = useState<boolean>(false);
     const onChange = (e: CheckboxChangeEvent) => {
         setChecked(e.target.checked);
+    };
+    const router = useRouter();
+
+    const { mutate } = useMutation(() => secessionUser());
+
+    const handleSecession = () => {
+        confirm('탈퇴하시겠습니까?');
+        mutate();
+        router.push('/home');
     };
 
     return (
@@ -44,7 +56,7 @@ const secession = () => {
                 </label>
 
                 <div className="buttonWrap">
-                    <Button buttonStyle="black" disabled={!checked}>
+                    <Button buttonStyle="black" disabled={!checked} onClick={handleSecession}>
                         탈퇴하기
                     </Button>
                 </div>
