@@ -58,6 +58,7 @@ export interface ICommentModel {
     writer: IWriterModel;
     like: CheckProps;
     subComment: CheckProps;
+    deleted: boolean;
 }
 
 export interface ILikeModel {
@@ -95,9 +96,9 @@ export interface IPostBookMarkModel {
 // 피드 불러오기 타입
 export interface IDetailPost {
     tag?: string;
-    view: number;
+    view?: number;
     page: number;
-    content: string;
+    content?: string;
 }
 
 // 마이페이지 내 활동 조회 타입

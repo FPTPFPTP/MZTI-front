@@ -32,6 +32,7 @@ const FeedItem = ({ data }: any) => {
                                     like={item.like.count}
                                     command={item.command.count}
                                     bookmark={item.bookmark.count}
+                                    postLink={item.id}
                                 />
                             </div>
                         </div>

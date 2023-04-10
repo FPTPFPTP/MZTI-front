@@ -1,4 +1,4 @@
-import { FeedComentsStyle, FeedNoComentsStyle, MoreCommentStyle } from '../styled';
+import { DeletedComment, FeedComentsStyle, FeedNoComentsStyle, MoreCommentStyle } from '../styled';
 import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
 import MoreComment from '@assets/icons/comment/more.svg';
 import ComentItem from './ComentItem';
@@ -41,7 +41,9 @@ const FeedComents = ({ commentData, writerId }: ICommentProps) => {
                     )}
 
                     {commentData?.map((item: ICommentModel) => {
-                        return (
+                        return item.deleted === true ? (
+                            <p css={DeletedComment}>삭제된 댓글입니다.</p>
+                        ) : (
                             <ComentItem
                                 key={item.id}
                                 nickname={item.writer.nickname}
