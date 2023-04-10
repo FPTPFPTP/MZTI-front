@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -12,8 +12,8 @@ import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { EType } from '@/components/Commons/MoreDrawer';
 import { useMutation } from '@tanstack/react-query';
-import { deleteComment } from '@/apis/post';
-import { useRouter } from 'next/router';
+import { deleteComment, commentLike } from '@/apis/post';
+import { ILikeModel } from '@/types/post';
 
 interface ICommentProps {
     nickname: string;
@@ -24,25 +24,50 @@ interface ICommentProps {
     like: number;
     createAt: string;
     writerId: string;
+    likeCheck: boolean;
 }
 
-const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, createAt, writerId }: ICommentProps) => {
+const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, createAt, writerId, likeCheck }: ICommentProps) => {
     const myInfo = useRecoilValue(myPageInfo);
+    const [isLike, setIsLike] = useState<boolean>(likeCheck);
     const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [likeCount, setLikeCount] = useState<any>(like);
+
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
-    const router = useRouter();
     // 댓글 삭제
-    const { mutate } = useMutation((id: any) => deleteComment(id));
+    const commentDelete = useMutation((id: number) => deleteComment(id));
+    // 대댓글 좋아요
+    const reCommentLike = useMutation((id: number) => commentLike(id));
 
     const handleCommentDelete = () => {
         confirm('댓글을 삭제하시겠습니까?');
-        mutate(userId, {
+        commentDelete.mutate(userId, {
             onSuccess: () => {
                 alert('삭제 완료되었습니다.');
             },
         });
     };
+
+    const handleReCommentLike = () => {
+        console.log('zzzs');
+        reCommentLike.mutate(userId, {
+            onSuccess: (data: ILikeModel) => {
+                if (data.check === true) {
+                    setLikeCount(data.count);
+                } else {
+                    setLikeCount(data.count);
+                }
+
+                setIsLike((isLike) => !isLike);
+            },
+        });
+    };
+
+    useEffect(() => {
+        console.log('like', like);
+    }, []);
+
     return (
         <section css={CommentItemSylte} key={userId}>
             <div className="commentItemWrap">
@@ -63,19 +88,11 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
                 <p className="coment">{comment}</p>
                 <div className="commentItemFooter">
                     <p className="time">{timeForToday(createAt)}</p>
-                    <button className="like">
-                        {like > 0 ? (
-                            <>
-                                <FillreCommentLike />
-                                {like + 1}
-                            </>
-                        ) : (
-                            <>
-                                <ReCommentLike />
-                                <span>좋아요</span>
-                            </>
-                        )}
+                    <button onClick={handleReCommentLike} className="like">
+                        {isLike === false ? <ReCommentLike /> : <FillreCommentLike />}
+                        <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
                     </button>
+
                     <button className="reComment">
                         <ReComment />
                         <span>대댓글</span>
