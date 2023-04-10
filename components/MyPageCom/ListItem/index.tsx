@@ -8,15 +8,17 @@ import { ListItemStyle } from '../styled';
 import { IPostMeModel } from '@/types/post';
 
 interface IListItemProps {
+    index: number;
     item: IPostMeModel;
 }
 
 const ListItem = (props: IListItemProps) => {
-    const { item } = props;
+    const { index, item } = props;
 
     const { id, title, content, createAt } = item;
 
     const target = useRef(null); // 대상 ref
+
     const [visible, setVisible] = useState<boolean>(false); // DOM을 렌더할 조건
     // 이미지 있을 때 첫번째 이미지만 가져오기
     const thumbnail = useMemo(() => {
@@ -42,10 +44,10 @@ const ListItem = (props: IListItemProps) => {
         <Link href={`/home/${id}`} css={ListItemStyle} ref={target}>
             {visible && (
                 <>
-                    <span className="id">{id}</span>
+                    <span className="id">{index}</span>
                     {thumbnail !== null && <Avatar className={'thumbnail'} src={thumbnail[1]} alt={'게시글 이미지'} size={50} />}
 
-                    <span className="title">{title}</span>
+                    <span className="title">{title || content}</span>
                     <span className="date" style={{ color: colors.GRAY_ORIGIN_1 }}>
                         {dayjs(createAt).format('YYYY.MM.DD')}
                     </span>

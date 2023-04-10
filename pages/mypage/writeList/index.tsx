@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
 // import { useObserver } from '@/hooks/useObserver';
-import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostsMe } from '@/apis/post';
 
@@ -53,7 +52,7 @@ const WriteList = () => {
 
     return (
         <>
-            <Header title={'내가 작성한 글'} rightElement={<EditSvg />} />
+            <Header title={'내가 작성한 글'} />
             <div css={Layout}>
                 <form>
                     <Input
@@ -67,7 +66,7 @@ const WriteList = () => {
                 </form>
                 <ListBox>
                     {writeList.length ? (
-                        writeList.map((item) => <ListItem key={item.id} item={item} />)
+                        writeList.map((item) => <ListItem key={item.id} index={item.id} item={item} />)
                     ) : (
                         <>
                             {search && search.length ? (
