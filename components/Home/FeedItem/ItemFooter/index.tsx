@@ -9,36 +9,36 @@ import { LinkCopy } from '@/utils/copy';
 import { useMutation } from '@tanstack/react-query';
 import { postLike } from '@/apis/post';
 import Link from 'next/link';
+import { ILikeModel } from '@/types/post';
 interface IItemProps {
     like?: number | string;
     command?: number;
     className?: string;
     isFeed?: boolean;
-    bookmark?: number;
     postId?: number;
     viewCount: number;
     likeCheck: boolean;
-    postLink: number;
+    postLink?: number;
 }
-const ItemFooter = ({ postLink, postId, likeCheck, like, command, className, viewCount, isFeed = true, bookmark }: IItemProps) => {
+const ItemFooter = ({ postLink, postId, likeCheck, like, command, className, viewCount, isFeed = true }: IItemProps) => {
     const [isLike, setIsLike] = useState<boolean>(likeCheck);
     const [likeCount, setLikeCount] = useState<any>(like);
     // 게시글 좋아요
-    const usePostLike = useMutation((id: any) => postLike(id));
+    const { mutate } = useMutation((id: any) => postLike(id));
 
     const handleLike = () => {
-        usePostLike.mutate(postId, {
-            onSuccess: () => {
-                setLikeCount(likeCount + 1);
+        mutate(postId, {
+            onSuccess: (data: ILikeModel) => {
+                if (data.check === true) {
+                    setLikeCount(data.count);
+                } else {
+                    setLikeCount(data.count);
+                }
+
                 setIsLike((isLike) => !isLike);
             },
         });
     };
-
-    /**
-     * like.check === false이면 그냥 like count 보여주기
-     * true이면 +1 해주기
-     */
 
     return (
         <section css={ItemFooterStyle} className={className}>
