@@ -10,11 +10,12 @@ import { HomeMenu, searchWrap } from '@styles/pages/homeStyled';
 import ListTab from '@/components/Home/ListTab';
 import { getFeedPost } from '@/apis/post';
 import Search from '@/components/Home/Search';
+import Skeleton from '@/components/Skeleton/FeedSkeleton';
 
 const home = () => {
     const [search, setSearch] = useState<boolean>(false);
     // 데이터 패칭
-    const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(['page'], ({ pageParam = 0 }) => getFeedPost({ page: pageParam }), {
+    const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(['page'], ({ pageParam = 0 }) => getFeedPost({ page: pageParam }), {
         getNextPageParam: (lastPage, allPosts) => {
             return lastPage.page !== allPosts[0].totalPage ? lastPage.page + 1 : undefined;
         },
@@ -36,8 +37,8 @@ const home = () => {
                         <div className="right">
                             {/* TODO : 2차 오픈때 개발 예정 */}
                             {/* <Link href="/alarm" className="alarm">
-                        <AlarmIcon />
-                    </Link> */}
+                                    <AlarmIcon />
+                                </Link> */}
                             <Link href="/mypage">
                                 <MyPageIcon />
                             </Link>
@@ -64,8 +65,7 @@ const home = () => {
                 ) : (
                     <FeedItem data={data && data} />
                 )} */}
-
-                        <FeedItem data={data && data} />
+                        <FeedItem data={data && data} isLoading={isLoading} />
                     </InfiniteScroll>
                 </>
             )}
