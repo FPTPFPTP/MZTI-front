@@ -321,7 +321,7 @@ export const ItemContentStyle = css`
         & > * {
             font-weight: 300;
             font-size: 1.2rem;
-            color: #444;
+            color: ${colors.GRAY_STRONG_2};
             em {
                 font-style: normal !important;
                 font-weight: 300;

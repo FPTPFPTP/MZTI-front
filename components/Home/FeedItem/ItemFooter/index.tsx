@@ -27,7 +27,11 @@ const ItemFooter = ({ postLink, postId, likeCheck, like, command, className, vie
     const usePostLike = useMutation((id: any) => postLike(id));
 
     const handleLike = () => {
-        usePostLike.mutate(postId);
+        usePostLike.mutate(postId, {
+            onSuccess: () => {
+                setLikeCount(likeCount + 1);
+            },
+        });
         setIsLike((isLike) => !isLike);
         setLikeCount(likeCount);
     };

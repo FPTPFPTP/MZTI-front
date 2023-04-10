@@ -10,6 +10,7 @@ export const ContainerStyle = ({ size }: { size: number }) => css`
     height: ${size}px;
     border: 1px solid ${colors.GRAY_ORIGIN_1};
     border-radius: 50%;
+    overflow: hidden;
     img {
         object-fit: cover;
     }
