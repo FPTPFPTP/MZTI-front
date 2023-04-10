@@ -210,6 +210,19 @@ export const getPost = async ({ postId }: { postId: number }) => {
 };
 
 /**
+ * [API] GET 게시글 상세페이지 댓글 불러오기
+ * @param param0
+ * @returns
+ */
+export const getComments = async ({ postId }: { postId: number }) => {
+    const res = await Axios.get<IResponseBase<any>>(`/post/comment`, {
+        params: { postId: postId },
+    });
+
+    return res.data.data;
+};
+
+/**
  * [API] PUT 게시글 수정하기
  * @param form
  * @returns

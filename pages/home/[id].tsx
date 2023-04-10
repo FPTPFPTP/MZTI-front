@@ -10,7 +10,7 @@ import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import Axios from '@utils/axios';
-import { getPost, postBookmark } from '@apis/post';
+import { getPost, postBookmark, getComments } from '@apis/post';
 import { IResponseBase } from '@/types/global';
 import { IPostModel } from '@/types/post';
 import { useMutation } from '@tanstack/react-query';
@@ -48,6 +48,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
         },
     };
 };
+
 const post = ({ data, commentData }: IPostProps) => {
     const usePostLike = useMutation((id: any) => postBookmark(id));
     const [postData, setPostData] = useState<IPostModel | undefined>(data);
@@ -81,6 +82,14 @@ const post = ({ data, commentData }: IPostProps) => {
         });
         setComment(commentRes.data.data.list);
         setCommentCount(commentCount + 1);
+    };
+
+    const handleRefrash = () => {
+        if (postData) {
+            getComments({ postId: postData.id }).then((result) => {
+                setComment(result.list);
+            });
+        }
     };
 
     useEffect(() => {
@@ -154,7 +163,7 @@ const post = ({ data, commentData }: IPostProps) => {
                 />
             )}
 
-            <FeedComents commentData={comment} writerId={data?.writer.nickname} />
+            <FeedComents commentData={comment} writerId={data?.writer.nickname} handleRefrash={handleRefrash} />
             <CommentInput postId={data?.id} onSuccess={onSuccessComment} />
         </main>
     );
