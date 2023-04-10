@@ -34,3 +34,15 @@ export const isLogin = atom<{ login: boolean }>({
         login: false,
     },
 });
+
+// 댓글 신고하기
+export const reportUserComment = atom<number>({
+    key: `reportId/${v1()}`,
+    default: undefined,
+});
+
+// 게시글 신고하기
+export const reportUserWrite = atom<number>({
+    key: `reportId/${v1()}`,
+    default: undefined,
+});

@@ -1,6 +1,7 @@
 import Drawer from 'react-bottom-drawer';
 import Link from 'next/link';
 import { PostMore } from './styled';
+import { useRouter } from 'next/router';
 
 export enum EType {
     WRITE = 'write',
@@ -19,12 +20,14 @@ interface MoreDrawerProps {
 }
 
 const MoreDrawer = ({ isVisible, onClick, type, writerID, handlePostDelete, handleCommentDelete }: MoreDrawerProps) => {
+    const router = useRouter();
+
     const Content = ({ type }: { type: EType }) => {
         if (type === EType.COMMENT) {
             return (
                 <ul>
                     <li>
-                        <Link href={`/write/${writerID}`}>댓글 수정하기</Link>
+                        <button>댓글 수정하기</button>
                     </li>
                     <li>
                         <button onClick={handleCommentDelete}>댓글 삭제하기</button>
@@ -46,7 +49,7 @@ const MoreDrawer = ({ isVisible, onClick, type, writerID, handlePostDelete, hand
             return (
                 <ul>
                     <li>
-                        <Link href={`/write/${writerID}`}>게시글 신고하기</Link>
+                        <Link href={`/report/write-${writerID}`}>게시글 신고하기</Link>
                     </li>
                     <li className="none">
                         <button>글쓴이 차단 (추후 오픈 예정)</button>
@@ -57,7 +60,7 @@ const MoreDrawer = ({ isVisible, onClick, type, writerID, handlePostDelete, hand
             return (
                 <ul>
                     <li>
-                        <Link href={`/write/${writerID}`}>댓글 신고하기</Link>
+                        <Link href={`/report/comment-${writerID}`}>댓글 신고하기</Link>
                     </li>
                     <li className="none">
                         <button>글쓴이 차단 (추후 오픈 예정)</button>
@@ -68,6 +71,7 @@ const MoreDrawer = ({ isVisible, onClick, type, writerID, handlePostDelete, hand
             return null;
         }
     };
+
     return (
         <nav css={PostMore}>
             <Drawer duration={250} hideScrollbars={true} onClose={onClick} isVisible={isVisible} className="postDrawer">

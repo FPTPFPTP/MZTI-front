@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Header } from '@components/Commons';
 import { feedbackStyled, feedbackWrapStyled } from '@styles/pages/mypageFeedbackStyled';
 import { BlackButton } from '@/components/Commons/Button';
 import { Select, message } from 'antd';
-import { postReport, useGetReportCategory } from '@/apis/report';
+import { postReport, useGetReportCategory, commentReport } from '@/apis/report';
+import { useRecoilState } from 'recoil';
+import { reportUserComment, reportUserWrite } from '@/recoil/atom/user';
+import { useRouter } from 'next/router';
 
 const report = () => {
     const [selected, setSelected] = useState<number>(1);
     const [contactText, setContactText] = useState<string>('');
     const categorys = useGetReportCategory();
+    const router = useRouter();
+    const [reportComment, setReportCommet] = useRecoilState(reportUserComment);
+    const [reportWrite, setReportWrite] = useRecoilState(reportUserWrite);
 
     const handleSelect = (value: string) => {
         setSelected(Number(value));
@@ -18,26 +24,44 @@ const report = () => {
         setContactText(e.target.value);
     };
 
+    useEffect(() => {
+        const currentCommentId = router.asPath.split('comment-')[1];
+        const currentWriteId = router.asPath.split('write-')[1];
+
+        if (window.location.pathname.includes('comment')) {
+            setReportCommet(Number(currentCommentId));
+        } else if (window.location.pathname.includes('write')) {
+            setReportWrite(Number(currentWriteId));
+        }
+    }, [reportComment, reportWrite]);
+
     // 건의사항 보내기
     const handleSubmit = async () => {
-        console.log('ddd');
         if (!contactText.length) {
             message.error('문의 내용을 작성해주세요');
             return;
         } else {
             try {
-                const data = await postReport({
-                    /**
-                     * [TODO] target 부분 해당 게시글이나 댓글 번호 가져오기
-                     */
-                    target: selected,
-                    reason: selected,
-                    content: contactText,
-                });
-
-                if (data && data.code === 'SUCCESS') {
-                    message.success('접수 완료 되었습니다.');
-                    setContactText('');
+                if (router.asPath.includes('comment')) {
+                    const data = await commentReport({
+                        target: reportComment,
+                        reason: selected,
+                        content: contactText,
+                    });
+                    if (data && data.code === 'SUCCESS') {
+                        message.success('댓글 신고 접수 완료 되었습니다.');
+                        setContactText('');
+                    }
+                } else if (router.asPath.includes('write')) {
+                    const data = await postReport({
+                        target: reportWrite,
+                        reason: selected,
+                        content: contactText,
+                    });
+                    if (data && data.code === 'SUCCESS') {
+                        message.success('게시글 신고 접수 완료 되었습니다.');
+                        setContactText('');
+                    }
                 }
             } catch (error) {
                 console.log(error);
