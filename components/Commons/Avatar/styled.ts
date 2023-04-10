@@ -8,6 +8,7 @@ export const ContainerStyle = ({ size }: { size: number }) => css`
     align-items: center;
     position: relative;
     width: ${size}px;
+    height: ${size}px;
     border: 1px solid ${colors.GRAY_ORIGIN_1};
     border-radius: 50%;
     overflow: hidden;

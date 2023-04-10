@@ -104,9 +104,10 @@ export const ListItemStyle = css`
         background: ${color.GRAY_LIGHT_1};
     }
     .id {
-        width: 50px;
+        margin-right: 10px;
     }
     .thumbnail {
+        width: 73px;
         margin-right: 10px;
     }
     .title {

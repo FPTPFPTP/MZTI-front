@@ -26,7 +26,7 @@ const Avatar = (props: IAvatar) => {
 
     return (
         <div css={ContainerStyle({ size })} {...rest}>
-            <LazyLoadImage src={src} alt={alt} width={size} height={size} onError={handleImgError} />
+            <LazyLoadImage src={src} alt={alt} onError={handleImgError} />
         </div>
     );
 };
