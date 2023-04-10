@@ -97,6 +97,7 @@ export async function getServerSideProps({ req }: GetServerSidePropsContext) {
             },
         };
     }
+
     return {
         props: {},
     };

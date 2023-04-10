@@ -271,6 +271,7 @@ export const ItemFooterStyle = css`
     padding: 12px 0 21px;
     border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
     background-color: ${colors.WHITE};
+    a,
     button {
         display: flex;
         align-items: center;
@@ -309,22 +310,38 @@ export const ItemContentStyle = css`
         font-size: 1.5rem;
     }
     .itemContent__content {
+        margin-bottom: 20px;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
         font-weight: 300;
         font-size: 1.2rem;
-        margin-bottom: 20px;
+        & > * {
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: ${colors.GRAY_STRONG_2};
+            em {
+                font-style: normal !important;
+                font-weight: 300;
+            }
+            p {
+                font-size: 1.2rem;
+                font-weight: 300;
+                color: ${colors.GRAY_STRONG_2};
+            }
+        }
         img {
             width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
     }
     h4 {
         font-size: 1.5rem;
         font-weight: 700;
         margin-bottom: 10px;
-    }
-    p {
-        font-size: 1rem;
-        font-weight: 500;
-        color: ${colors.GRAY_STRONG_2};
     }
     img {
         margin-top: 20px;
@@ -380,4 +397,12 @@ export const ItemContentStyle = css`
             border: 1px solid ${colors.GRAY_ORIGIN_2};
         }
     }
+`;
+
+export const DeletedComment = css`
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: ${colors.GRAY_STRONG};
+    padding: 1rem 33px;
+    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
 `;

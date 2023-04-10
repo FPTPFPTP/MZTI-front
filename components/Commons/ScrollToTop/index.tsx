@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
-import color from '@/styles/color';
 import TopButton from '@assets/icons/common/scrollToTop.svg';
 
-const Layout: React.FC<any> = (props) => {
-    const { children } = props;
+const ScrollToTop = () => {
     const [showButton, setShowButton] = useState<boolean>(false);
 
     // 👉 클릭 시 맨 위로 올라가도록
@@ -33,8 +31,6 @@ const Layout: React.FC<any> = (props) => {
     }, []);
     return (
         <div css={StyledLayout}>
-            {children}
-
             {showButton && (
                 <div className="topBtn_wrap">
                     <button className="topBtn" onClick={handleScroll}>
@@ -46,20 +42,12 @@ const Layout: React.FC<any> = (props) => {
     );
 };
 
-export default Layout;
+export default ScrollToTop;
 
 const StyledLayout = css`
-    background-color: ${color.WHITE};
-    position: relative;
-    min-width: 390px;
-    max-width: 600px;
-    width: 100%;
-    height: 100vh;
-    margin: 0 auto;
     .topBtn_wrap {
         position: sticky;
         bottom: 106px;
         float: right;
-        margin-right: 30px;
     }
 `;

@@ -36,12 +36,12 @@ const BookMarkList = () => {
 
     return (
         <>
-            <Header title={'내가 북마크한 글'} rightElement={<EditSvg />} />
+            <Header title={'내가 북마크한 글'} />
             <div css={Layout}>
                 <form>
                     <Input
                         inputStyle={'search'}
-                        placeholder={'북마크한 내용 검색'}
+                        placeholder={'검색글 제목, 글 본문 내용 등 검색'}
                         isResetBtn={!!search}
                         handleReset={() => reset()}
                         maxLength={8}
@@ -52,7 +52,7 @@ const BookMarkList = () => {
                     {bookMakrList.length ? (
                         bookMakrList.map((item) => <ListItem key={item.id} item={item} />)
                     ) : (
-                        <Empty title="북마크한 글이 없습니다" subTitle="" buttonTitle="북마크하러 가기" href="/home" />
+                        <Empty title="북마크한 글이 없습니다" subTitle="새로운 게시글을 살펴보러 갈까요?" buttonTitle="메인화면으로 가기" href="/home" />
                     )}
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}
