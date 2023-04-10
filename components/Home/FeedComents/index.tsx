@@ -1,4 +1,4 @@
-import { DeletedComment, FeedComentsStyle, FeedNoComentsStyle, MoreCommentStyle } from '../styled';
+import { DeletedComment, FeedComentsStyle, FeedNoComentsStyle, MoreCommentStyle, FeedComentsWrapStyle } from '../styled';
 import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
 import MoreComment from '@assets/icons/comment/more.svg';
 import ComentItem from './ComentItem';
@@ -7,14 +7,12 @@ import { ICommentModel } from '@/types/post';
 interface ICommentProps {
     commentData?: [];
     writerId?: any;
+    handleRefrash: () => void;
 }
 
-const FeedComents = ({ commentData, writerId }: ICommentProps) => {
-    const handleRefrash = () => {
-        location.reload();
-    };
+const FeedComents = ({ commentData, writerId, handleRefrash }: ICommentProps) => {
     return (
-        <>
+        <div css={FeedComentsWrapStyle}>
             <section css={FeedComentsStyle}>
                 <h4>댓글 목록</h4>
                 <button onClick={handleRefrash}>
@@ -45,6 +43,7 @@ const FeedComents = ({ commentData, writerId }: ICommentProps) => {
                             <p css={DeletedComment}>삭제된 댓글입니다.</p>
                         ) : (
                             <ComentItem
+                                likeCheck={item.like.check}
                                 key={item.id}
                                 nickname={item.writer.nickname}
                                 mbti={item.writer.mbti}
@@ -59,7 +58,7 @@ const FeedComents = ({ commentData, writerId }: ICommentProps) => {
                     })}
                 </>
             )}
-        </>
+        </div>
     );
 };
 

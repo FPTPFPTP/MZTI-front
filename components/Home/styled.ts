@@ -1,6 +1,11 @@
 import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
+export const FeedComentsWrapStyle = css`
+    padding-bottom: 80px;
+    background-color: #fff;
+`;
+
 export const ListTabStyle = css`
     display: flex;
     justify-content: space-around;
@@ -97,15 +102,6 @@ export const MoreCommentStyle = css`
 `;
 export const CommentItemSylte = css`
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
-    &:last-of-type {
-        border-bottom: none;
-        &::after {
-            content: '';
-            height: 80px;
-            display: block;
-            border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
-        }
-    }
     .commentItemWrap {
         padding: 1rem 33px;
         background-color: ${colors.WHITE};
@@ -171,10 +167,10 @@ export const CommentItemSylte = css`
 `;
 
 export const FeedItemStyle = css`
-    background: ${colors.GRAY_BRIGHT_2};
+    background: ${colors.WHITE};
     padding-bottom: 90px;
     .feedLayout {
-        padding-top: 4px;
+        border-bottom: 4px solid ${colors.GRAY_BRIGHT_2};
         .feedLayout__bg {
             background: ${colors.WHITE};
             padding: 0 33px;
