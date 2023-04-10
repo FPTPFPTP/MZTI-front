@@ -68,3 +68,24 @@ export const MypageWrap = css`
         }
     }
 `;
+
+export const NoticeViewStyle = css`
+    .header {
+        padding: 10px 32px 16px;
+        border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+        h3 {
+            font-size: 1.4rem;
+        }
+        p {
+            font-size: 1rem;
+            color: ${colors.GRAY_STRONG};
+            font-weight: 300;
+            text-align: right;
+            margin-top: 35px;
+        }
+    }
+    article {
+        padding: 57px 33px;
+        font-size: 1.2rem;
+    }
+`;
