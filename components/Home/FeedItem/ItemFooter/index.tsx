@@ -30,10 +30,9 @@ const ItemFooter = ({ postLink, postId, likeCheck, like, command, className, vie
         usePostLike.mutate(postId, {
             onSuccess: () => {
                 setLikeCount(likeCount + 1);
+                setIsLike((isLike) => !isLike);
             },
         });
-        setIsLike((isLike) => !isLike);
-        setLikeCount(likeCount);
     };
 
     /**
