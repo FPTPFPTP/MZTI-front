@@ -2,7 +2,13 @@ import { ProfileStyle } from '../styled';
 import { IUserModel } from '@/types/user';
 import Avatar from '@/components/Commons/Avatar';
 
-const Profile = ({ mbti, nickname, intro, profileImage }: IUserModel) => {
+interface IProfileProps {
+    user: IUserModel;
+}
+
+const Profile = ({ user }: IProfileProps) => {
+    const { mbti, nickname, intro, profileImage } = user;
+
     return (
         <section css={ProfileStyle}>
             <div className="photo">
