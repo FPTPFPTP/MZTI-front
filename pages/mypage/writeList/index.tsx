@@ -66,7 +66,22 @@ const WriteList = () => {
                 </form>
                 <ListBox>
                     {writeList.length ? (
-                        writeList.map((item) => <ListItem key={item.id} index={item.id} item={item} />)
+                        writeList.map((item) => {
+                            // 이미지 있을 때 첫번째 이미지만 가져오기
+                            let thumbnail;
+
+                            const list = item.content.match(/(<(img[^>]+)>)/g);
+                            if (list && list.length) {
+                                const myRegex = /<img[^>]+src="(https:\/\/[^">]+)"/g;
+
+                                const result = myRegex.exec(list[0]);
+                                if (result !== null) {
+                                    thumbnail = result[1];
+                                }
+                            }
+
+                            return <ListItem key={item.id} item={item} thumbnail={thumbnail} />;
+                        })
                     ) : (
                         <>
                             {search && search.length ? (

@@ -49,7 +49,7 @@ const BookMarkList = () => {
                 </form>
                 <ListBox>
                     {bookMakrList.length ? (
-                        bookMakrList.map((item) => <ListItem key={item.id} index={item.id} item={item} />)
+                        bookMakrList.map((item) => <ListItem key={item.id} item={item} />)
                     ) : (
                         <Empty title="북마크한 글이 없습니다" subTitle="새로운 게시글을 살펴보러 갈까요?" buttonTitle="메인화면으로 가기" href="/home" />
                     )}
