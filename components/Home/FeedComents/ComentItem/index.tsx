@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -63,10 +63,6 @@ const ComentItem = ({ nickname, mbti, profileImage, userId, comment, like, creat
             },
         });
     };
-
-    useEffect(() => {
-        console.log('like', like);
-    }, []);
 
     return (
         <section css={CommentItemSylte} key={userId}>

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useState } from 'react';
 import FeedItem from '@/components/Home/FeedItem';
 import HotKeyword from '@/components/Home/HotKeyword';
 import { Input, BottomMenu } from '@components/Commons';
@@ -10,7 +10,6 @@ import { HomeMenu, searchWrap } from '@styles/pages/homeStyled';
 import ListTab from '@/components/Home/ListTab';
 import { getFeedPost } from '@/apis/post';
 import Search from '@/components/Home/Search';
-import Skeleton from '@/components/Skeleton/FeedSkeleton';
 
 const home = () => {
     const [search, setSearch] = useState<boolean>(false);
@@ -24,6 +23,7 @@ const home = () => {
     const searchClose = () => {
         setSearch(false);
     };
+
     return (
         <main>
             {search ? (
@@ -33,7 +33,6 @@ const home = () => {
                     {/* 헤더 */}
                     <div css={HomeMenu}>
                         <h1>MZTI</h1>
-
                         <div className="right">
                             {/* TODO : 2차 오픈때 개발 예정 */}
                             {/* <Link href="/alarm" className="alarm">
@@ -60,11 +59,6 @@ const home = () => {
 
                     {/* 피드 게시물 */}
                     <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                        {/* {data?.pages[0].list.length === 0 ? (
-                    <Empty title="검색한 결과가 없습니다" subTitle="다른 검색어로 검색해보세요" buttonTitle="돌아가기" onClick={handleOnClick} />
-                ) : (
-                    <FeedItem data={data && data} />
-                )} */}
                         <FeedItem data={data && data} isLoading={isLoading} />
                     </InfiniteScroll>
                 </>

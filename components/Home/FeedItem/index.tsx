@@ -29,14 +29,12 @@ const FeedItem = ({ data, isLoading }: any) => {
                                                 tags={item.tags && item.tags}
                                             />
                                         </Link>
-
                                         <ItemFooter
                                             likeCheck={item.like.check}
                                             viewCount={item.viewCount}
                                             postId={item.id}
                                             like={item.like.count}
                                             command={item.command.count}
-                                            bookmark={item.bookmark.count}
                                             postLink={item.id}
                                         />
                                     </div>
