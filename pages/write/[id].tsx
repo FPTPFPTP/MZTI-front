@@ -19,10 +19,9 @@ const Write = ({ data }: IWriteProps) => {
 export const getServerSideProps: GetServerSideProps = async ({ req, params }: any) => {
     let data;
     try {
-        const token = req.cookies['accessToken'];
-        Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-        Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
+        const accessToken = req.cookies['accessToken'];
+        Axios.defaults.baseURL = 'http://localhost:3000/mzti';
+        Axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         const res = await Axios.get<IResponseBase<IPostModel>>(`/post/${params.id}`);
 
         if (res) {

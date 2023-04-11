@@ -75,8 +75,8 @@ MyCustomApp.getInitialProps = async (appContext: AppContext) => {
     // 서버 사이드 쿠키가 남아있을 경우, 해당 쿠키로 인증 시도
     if (refreshToken && accessToken) {
         try {
-            axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-            axios.defaults.headers.common['Authorization'] = accessToken ? `Bearer ${accessToken}` : '';
+            axios.defaults.baseURL = 'http://localhost:3000/mzti';
+            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
             const data = await getMeUserInfo();
             if (!data) {
