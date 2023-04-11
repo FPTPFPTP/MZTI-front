@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
-
-import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetNotice } from '@/apis/notice';
 
@@ -51,10 +49,7 @@ const notice = () => {
                     />
                 </form>
                 <ListBox>
-                    {noticeList.length &&
-                        noticeList.map((item) => (
-                            <ListItem key={item.id} id={item.id} content={item.title} createAt={item.createAt} url={`/mypage/notice/${item.id}`} />
-                        ))}
+                    {noticeList.length && noticeList.map((item) => <ListItem key={item.id} item={item} />)}
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}
                     </div>
