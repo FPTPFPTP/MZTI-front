@@ -19,8 +19,7 @@ const noticeDetail = () => {
 
     useEffect(() => {
         getDetailNotice(Number(noticeId)).then((res) => {
-            console.log('res--->', res);
-            setContents(res.list);
+            setContents(res);
         });
     }, []);
 
