@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import App, { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 import nextCookies from 'next-cookies';
@@ -10,7 +10,7 @@ import { Global } from '@emotion/react';
 import Layout from '@components/Layout';
 import globalReset from '@/styles/customReset';
 import axios from '@/utils/axios';
-import { removeTokenAll } from '@utils/auth';
+import { removeTokenAll, setCookie } from '@utils/auth';
 import { getMeUserInfo } from '@apis/user';
 import { IUserModel } from '@/types/user';
 
@@ -32,6 +32,12 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
             },
         [userInfo],
     );
+
+    useEffect(() => {
+        if (userInfo) {
+            setCookie('userId', userInfo.id.toString());
+        }
+    }, [userInfo]);
 
     return (
         <>

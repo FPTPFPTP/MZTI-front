@@ -1,6 +1,7 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Modal } from 'antd';
-import { getAccessToken } from '@utils/auth';
+import { postLoginRefresh } from '@apis/auth';
+import { getAccessToken, getRefreshToken, getCookie, setToken, removeTokenAll } from '@utils/auth';
 import { isWindow } from '@utils/window';
 
 const customAxios = Axios.create({
@@ -36,7 +37,7 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
  * -> 클라이언트가 권한이 없기 때문에 작업을 진행할 수 없는 경우.
  * (api를 요청할 때 토큰을 포함해서 요청하지 않은 경우 혹은
  *  access Token이 만료된 경우 서버에서 401 상태코드를 가진 응답을 주며 해당 경우에는
- *  refresh Token으로 다시 access Token을 요청하거나 다시 로그인하는 동작이 필요합니다.)
+ *  refresh Token으로 다시 access Token을 요청하거나 다시 로그인하는 동작)
  * 403
  * -> 클라이언트는 콘텐츠에 접근할 권리를 가지고 있지 않을 경우.(일반유저 권한을 가진 사용자가 관리자 권한의 기능을 요청했을 경우.)
  * 404
@@ -48,44 +49,46 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
  */
 const onResponseError = async (error: AxiosError<any>) => {
     // console.log(`response Error`, error);
-    const onError = (data: any) => {
+    const { config, response } = error;
+    const onError = (data: any, response: any) => {
         isWindow()
             ? Modal.error({
-                  title: `Error Code: ${data.code}`,
+                  title: `Error Code: ${response.status}`,
                   content: data.message,
               })
-            : console.log({ code: `Error Code: ${data.code}`, message: data.message });
+            : console.log({ code: `Error Code: ${response.status}`, message: data.message });
     };
     if (error.response) {
         const { status, data } = error.response;
         switch (true) {
             case status === 400: {
-                onError(data);
+                onError(data, response);
                 break;
             }
             case status === 401: {
-                onError(data);
-
+                const originalRequest = config;
+                postLoginRefresh({ userId: getCookie('userId'), refresh: getRefreshToken() });
+                return;
                 break;
             }
             case status === 403: {
-                onError(data);
+                onError(data, response);
 
                 break;
             }
             case status === 404: {
-                onError(data);
+                onError(data, response);
 
                 break;
             }
             case status >= 500: {
-                onError(data);
+                // console.log({ error });
+                // onError(data, response);
 
                 break;
             }
             default: {
-                onError(data);
-
+                onError(data, response);
                 break;
             }
         }
