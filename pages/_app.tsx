@@ -4,6 +4,7 @@ import Head from 'next/head';
 import nextCookies from 'next-cookies';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import toast, { Toaster } from 'react-hot-toast';
 import { RecoilRoot, MutableSnapshot } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { Global } from '@emotion/react';
@@ -55,6 +56,7 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
                     <Global styles={globalReset} />
                     <Layout>
                         <Component {...pageProps} />
+                        <Toaster />
                     </Layout>
                 </RecoilRoot>
                 <ReactQueryDevtools />
