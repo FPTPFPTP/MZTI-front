@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { myPageInfo } from '@/recoil/atom/user';
 import { Button, Header, Modal } from '@components/Commons';
 import { SecessionStyled } from '@styles/pages/mypageEtcStyled';
@@ -7,11 +6,11 @@ import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useMutation } from '@tanstack/react-query';
 import { removeTokenAll } from '@utils/auth';
+import { openToast } from '@/utils/toast';
 import { useState } from 'react';
 import Link from 'next/link';
 import { secessionUser } from '@/apis/user';
 import { useRouter } from 'next/router';
-import colors from '@styles/color';
 
 const secession = () => {
     const myNickName = useRecoilValue(myPageInfo);
@@ -32,17 +31,7 @@ const secession = () => {
         removeTokenAll();
         setMyInfo(undefined);
         router.replace('/home');
-        toast('탈퇴 신청이 완료되었습니다.', {
-            duration: 3000,
-            position: 'top-center',
-            style: {
-                width: '100%',
-                textAlign: 'left',
-                borderRadius: '4px',
-                background: colors.BLACK,
-                color: colors.WHITE,
-            },
-        });
+        openToast({ message: '탈퇴 신청이 완료되었습니다.', duration: 3000 });
     };
 
     return (

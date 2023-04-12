@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { message } from 'antd';
 import Filter from 'badwords-ko';
-import toast from 'react-hot-toast';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
@@ -11,8 +10,8 @@ import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 import { getMeUserInfo, patchNickname, patchMbti, patchIntroduce, patchProfile } from '@apis/user';
 import RegExp, { NICKNAME_REG } from '@utils/regExp';
+import { openToast } from '@/utils/toast';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
-import colors from '@styles/color';
 
 const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
@@ -123,17 +122,7 @@ const SignUp = () => {
                 const user = await getMeUserInfo();
                 if (user) {
                     setMyInfo(user);
-                    toast('MZTI 회원이 되신걸 환영해요 💓', {
-                        duration: 2000,
-                        position: 'top-center',
-                        style: {
-                            width: '100%',
-                            textAlign: 'left',
-                            borderRadius: '4px',
-                            background: colors.BLACK,
-                            color: colors.WHITE,
-                        },
-                    });
+                    openToast({ message: 'MZTI 회원이 되신걸 환영해요 💓' });
                     router.replace('/');
                 } else {
                     message.warning('서버에 문가 있어요.');
