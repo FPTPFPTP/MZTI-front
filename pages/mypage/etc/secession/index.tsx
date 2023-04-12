@@ -1,5 +1,6 @@
+import toast from 'react-hot-toast';
 import { myPageInfo } from '@/recoil/atom/user';
-import { Button, Header } from '@components/Commons';
+import { Button, Header, Modal } from '@components/Commons';
 import { SecessionStyled } from '@styles/pages/mypageEtcStyled';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { Checkbox } from 'antd';
@@ -10,24 +11,38 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { secessionUser } from '@/apis/user';
 import { useRouter } from 'next/router';
+import colors from '@styles/color';
 
 const secession = () => {
     const myNickName = useRecoilValue(myPageInfo);
     const [checked, setChecked] = useState<boolean>(false);
+    const [isSecessionModal, setIsSecessionModal] = useState<boolean>(false);
+
     const onChange = (e: CheckboxChangeEvent) => {
         setChecked(e.target.checked);
     };
+
     const router = useRouter();
 
     const { mutate } = useMutation(() => secessionUser());
     const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
 
     const handleSecession = () => {
-        confirm('탈퇴하시겠습니까?');
         mutate();
         removeTokenAll();
         setMyInfo(undefined);
-        router.push('/home');
+        router.replace('/home');
+        toast('탈퇴 신청이 완료되었습니다.', {
+            duration: 3000,
+            position: 'top-center',
+            style: {
+                width: '100%',
+                textAlign: 'left',
+                borderRadius: '4px',
+                background: colors.BLACK,
+                color: colors.WHITE,
+            },
+        });
     };
 
     return (
@@ -60,11 +75,24 @@ const secession = () => {
                 </label>
 
                 <div className="buttonWrap">
-                    <Button buttonStyle="black" disabled={!checked} onClick={handleSecession}>
+                    <Button buttonStyle="black" disabled={!checked} onClick={() => setIsSecessionModal(true)}>
                         탈퇴하기
                     </Button>
                 </div>
             </div>
+            <Modal
+                title={'회원탈퇴'}
+                isModalVisible={isSecessionModal}
+                closable={false}
+                footer={
+                    <>
+                        <button onClick={() => setIsSecessionModal(false)}>취소</button>
+                        <button onClick={handleSecession}>탈퇴</button>
+                    </>
+                }
+            >
+                <p>탈퇴하시겠습니까?</p>
+            </Modal>
         </main>
     );
 };
