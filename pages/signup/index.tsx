@@ -9,7 +9,7 @@ import { Button, Header, ProgressLineBar } from '@components/Commons';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 import Axios from '@utils/axios';
-import { getMeUserInfo } from '@apis/user';
+import { getMeUserInfo, patchNickname, patchMbti, patchIntroduce, patchProfile } from '@apis/user';
 import RegExp, { NICKNAME_REG } from '@utils/regExp';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
 
@@ -94,27 +94,21 @@ const SignUp = () => {
                     message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
                     return;
                 } else {
-                    await Axios.patch('/user/nickname', {
-                        nickname: signupStateObj.nickname,
-                    });
+                    await patchNickname({ nickname: signupStateObj.nickname });
                 }
                 break;
             }
             case 2: {
                 // MBTI Tab
                 if (signupStateObj.mbti.length === 4) {
-                    await Axios.patch('/user/mbti', {
-                        mbti: signupStateObj.mbti,
-                    });
+                    await patchMbti({ mbti: signupStateObj.mbti });
                 }
                 break;
             }
             case 3: {
                 // 자기소개 Tab
                 if (signupStateObj.introduce.length > 0) {
-                    await Axios.patch('/user/intro', {
-                        intro: signupStateObj.introduce,
-                    });
+                    await patchIntroduce({ intro: signupStateObj.introduce });
                 }
                 break;
             }
@@ -123,14 +117,7 @@ const SignUp = () => {
                 if (signupProfileFile !== null) {
                     const fmData = new FormData();
                     fmData.append('file', signupProfileFile);
-                    const data = await Axios.patch(`/user/profile`, fmData, {
-                        headers: {
-                            'content-type': 'multipart/form-data',
-                        },
-                    });
-                    if (data.status !== 200) {
-                        return;
-                    }
+                    await patchProfile({ fmData: fmData });
                 }
                 const user = await getMeUserInfo();
                 if (user) {
