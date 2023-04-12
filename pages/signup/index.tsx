@@ -2,12 +2,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { message } from 'antd';
 import Filter from 'badwords-ko';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
 import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
 import { Button, Header, ProgressLineBar } from '@components/Commons';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 import Axios from '@utils/axios';
+import { getMeUserInfo } from '@apis/user';
 import RegExp, { NICKNAME_REG } from '@utils/regExp';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
 
@@ -15,6 +17,7 @@ const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
 
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
+    const setMyInfo = useSetRecoilState(myPageInfo);
     const signupProfileFile = useRecoilValue(signupProfileFileState);
 
     // 다음단계 버튼 활성화
@@ -129,8 +132,15 @@ const SignUp = () => {
                         return;
                     }
                 }
-                alert('MZTI 회원이 되신걸 환영해요 💓');
-                router.push('/home');
+                const user = await getMeUserInfo();
+                if (user) {
+                    setMyInfo(user);
+                    message.success('MZTI 회원이 되신걸 환영해요 💓');
+                    router.replace('/');
+                } else {
+                    message.warning('서버에 문가 있어요.');
+                }
+
                 return;
             }
             default: {
