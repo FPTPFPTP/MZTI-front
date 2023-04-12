@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { isLogin, myPageInfo } from '@/recoil/atom/user';
+import { useRecoilState } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
 import Menu from '@/components/MyPageCom/Menu';
-import { Header } from '@components/Commons';
+import { Header, Modal } from '@components/Commons';
 import { removeTokenAll } from '@utils/auth';
 import { MypageWrap } from '@styles/pages/mypageStyled';
 import { MypageEtcMenu } from '@styles/pages/mypageEtcStyled';
@@ -34,9 +35,17 @@ const accountMng = [
 ];
 
 const etc = () => {
-    const iamUser = useRecoilValue(isLogin);
+    const [isLogoutModal, setIsLogoutModal] = useState(false);
     const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
     const router = useRouter();
+
+    const onLogout = () => {
+        removeTokenAll();
+        setMyInfo(undefined);
+        setIsLogoutModal(false);
+        alert('로그아웃 되셨습니다.');
+        router.replace('/home');
+    };
 
     return (
         <>
@@ -49,21 +58,26 @@ const etc = () => {
 
                 <section css={MypageEtcMenu}>
                     <h3>계정 관리</h3>
-                    <button
-                        className="logout"
-                        onClick={() => {
-                            removeTokenAll();
-                            setMyInfo(undefined);
-                            alert('로그아웃 되셨습니다.');
-                            router.replace('/home');
-                        }}
-                    >
+                    <button className="logout" onClick={() => setIsLogoutModal(true)}>
                         로그아웃
                     </button>
 
                     <Menu menuList={accountMng} />
                 </section>
             </div>
+            <Modal
+                title={'로그아웃'}
+                isModalVisible={isLogoutModal}
+                closable={false}
+                footer={
+                    <>
+                        <button onClick={() => setIsLogoutModal(false)}>취소</button>
+                        <button onClick={onLogout}>로그아웃</button>
+                    </>
+                }
+            >
+                <p>아래 계정으로 다시 로그인할 수 있습니다.</p>
+            </Modal>
         </>
     );
 };
