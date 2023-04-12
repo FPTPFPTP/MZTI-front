@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import Menu from '@/components/MyPageCom/Menu';
@@ -7,6 +8,7 @@ import { Header, Modal } from '@components/Commons';
 import { removeTokenAll } from '@utils/auth';
 import { MypageWrap } from '@styles/pages/mypageStyled';
 import { MypageEtcMenu } from '@styles/pages/mypageEtcStyled';
+import colors from '@styles/color';
 
 const menuList = [
     {
@@ -43,7 +45,17 @@ const etc = () => {
         removeTokenAll();
         setMyInfo(undefined);
         setIsLogoutModal(false);
-        alert('로그아웃 되셨습니다.');
+        toast('로그아웃 했어요', {
+            duration: 1000,
+            position: 'top-center',
+            style: {
+                width: '100%',
+                textAlign: 'left',
+                borderRadius: '4px',
+                background: colors.BLACK,
+                color: colors.WHITE,
+            },
+        });
         router.replace('/home');
     };
 
