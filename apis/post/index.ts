@@ -2,17 +2,7 @@ import Axios from '@utils/axios';
 import { IBoardModel } from '@/types/board';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { IResponseBase, IPageObjReqModel, IPaginationResponse } from '@/types/global';
-import {
-    IPostMeModel,
-    IDetailPost,
-    ITagModel,
-    IMyPageActive,
-    IPostCommentMeModel,
-    IPostBookMarkModel,
-    IPostModel,
-    IPollModel,
-    IAddComment,
-} from '@/types/post';
+import { IDetailPost, ITagModel, IMyPageActive, IPostMeModel, IPostModel, IPollModel, IAddComment } from '@/types/post';
 
 export interface IPostWriteReq extends Pick<IPostModel, 'title' | 'categoryId' | 'content'> {
     tagList: number[];
@@ -111,7 +101,7 @@ export const useGetPostsMe = (search: string) => {
  * @returns
  */
 export const getPostCommentsMe = async ({ page, view, search }: IPageObjReqModel) => {
-    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostCommentMeModel>>>('/post/comment/me', { params: { page, view, search } });
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostMeModel>>>('/post/comment/me', { params: { page, view, search } });
 
     return res.data.data;
 };
@@ -136,7 +126,7 @@ export const useGetPostCommentsMe = (search: string) => {
  * @returns
  */
 export const getBookMarkMe = async ({ page, view, search }: IPageObjReqModel) => {
-    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostBookMarkModel>>>('/post/bookmark/me', { params: { page, view, search } });
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostMeModel>>>('/post/bookmark/me', { params: { page, view, search } });
 
     return res.data.data;
 };

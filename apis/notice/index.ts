@@ -1,15 +1,10 @@
 import Axios from '@utils/axios';
 import { IPageObjReqModel, IResponseBase, IPaginationResponse } from '@/types/global';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
-
-interface INoticeProps {
-    id: number;
-    title: string;
-    createAt: string;
-}
+import { IPostMeModel } from '@/types/post';
 
 const getNotice = async ({ page, view, search }: IPageObjReqModel) => {
-    const res = await Axios.get<IResponseBase<IPaginationResponse<INoticeProps>>>('/notice', { params: { page, view, search } });
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostMeModel>>>('/notice', { params: { page, view, search } });
 
     return res.data.data;
 };
