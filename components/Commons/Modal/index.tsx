@@ -1,7 +1,8 @@
 import React from 'react';
 import { Modal as AntdModal, ModalProps } from 'antd';
 import { ModalStyle } from './styled';
-interface props extends ModalProps {
+
+interface IModalProps extends ModalProps {
     isModalVisible: boolean;
     closeModal?: () => void;
     onOk?: () => void;
@@ -9,7 +10,7 @@ interface props extends ModalProps {
     width?: number;
 }
 
-const Modal: React.FC<props> = (props) => {
+const Modal: React.FC<IModalProps> = (props) => {
     const { isModalVisible, closeModal, children, onOk, footer, width } = props;
 
     return (

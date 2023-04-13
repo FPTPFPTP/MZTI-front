@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import NotUser from '@/components/MyPageCom/NotUser';
-import { useGetMyPageActive, getMyPageActive } from '@/apis/post';
+import { getMyPageActive } from '@/apis/post';
 import { getAccessToken } from '@utils/auth';
 import { IMyPageActive } from '@/types/post';
 const menuList = [

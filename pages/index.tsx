@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (myInfo && !myInfo.nickname && !myInfo.mbti) {
+        if (myInfo && (!myInfo.nickname || !myInfo.mbti)) {
             router.push('/signup');
         } else {
             router.push('/home');

@@ -125,7 +125,7 @@ const SignUp = () => {
                     openToast({ message: 'MZTI 회원이 되신걸 환영해요 💓' });
                     router.replace('/');
                 } else {
-                    message.warning('서버에 문가 있어요.');
+                    message.warning('서버에 문제가 있어요');
                 }
 
                 return;

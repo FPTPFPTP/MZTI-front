@@ -36,7 +36,7 @@ const accountMng = [
 ];
 
 const etc = () => {
-    const [isLogoutModal, setIsLogoutModal] = useState(false);
+    const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
     const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
     const router = useRouter();
 
