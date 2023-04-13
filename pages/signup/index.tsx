@@ -2,19 +2,22 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { message } from 'antd';
 import Filter from 'badwords-ko';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
 import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
 import { Button, Header, ProgressLineBar } from '@components/Commons';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
-import Axios from '@utils/axios';
+import { getMeUserInfo, patchNickname, patchMbti, patchIntroduce, patchProfile } from '@apis/user';
 import RegExp, { NICKNAME_REG } from '@utils/regExp';
+import { openToast } from '@/utils/toast';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
 
 const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
 
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
+    const setMyInfo = useSetRecoilState(myPageInfo);
     const signupProfileFile = useRecoilValue(signupProfileFileState);
 
     // 다음단계 버튼 활성화
@@ -91,27 +94,21 @@ const SignUp = () => {
                     message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
                     return;
                 } else {
-                    await Axios.patch('/user/nickname', {
-                        nickname: signupStateObj.nickname,
-                    });
+                    await patchNickname({ nickname: signupStateObj.nickname });
                 }
                 break;
             }
             case 2: {
                 // MBTI Tab
                 if (signupStateObj.mbti.length === 4) {
-                    await Axios.patch('/user/mbti', {
-                        mbti: signupStateObj.mbti,
-                    });
+                    await patchMbti({ mbti: signupStateObj.mbti });
                 }
                 break;
             }
             case 3: {
                 // 자기소개 Tab
                 if (signupStateObj.introduce.length > 0) {
-                    await Axios.patch('/user/intro', {
-                        intro: signupStateObj.introduce,
-                    });
+                    await patchIntroduce({ intro: signupStateObj.introduce });
                 }
                 break;
             }
@@ -120,17 +117,17 @@ const SignUp = () => {
                 if (signupProfileFile !== null) {
                     const fmData = new FormData();
                     fmData.append('file', signupProfileFile);
-                    const data = await Axios.patch(`/user/profile`, fmData, {
-                        headers: {
-                            'content-type': 'multipart/form-data',
-                        },
-                    });
-                    if (data.status !== 200) {
-                        return;
-                    }
+                    await patchProfile({ fmData: fmData });
                 }
-                alert('MZTI 회원이 되신걸 환영해요 💓');
-                router.push('/home');
+                const user = await getMeUserInfo();
+                if (user) {
+                    setMyInfo(user);
+                    openToast({ message: 'MZTI 회원이 되신걸 환영해요 💓' });
+                    router.replace('/');
+                } else {
+                    message.warning('서버에 문제가 있어요');
+                }
+
                 return;
             }
             default: {

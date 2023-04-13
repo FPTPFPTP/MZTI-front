@@ -28,3 +28,16 @@ export const getAccessToken = () => {
 export const getRefreshToken = () => {
     return cookies.get('refreshToken');
 };
+
+export const setCookie = (key: string, value: string) => {
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 14);
+    cookies.set(key, value, {
+        path: '/',
+        expires: expires,
+    });
+};
+
+export const getCookie = (key: string) => {
+    return cookies.get(key);
+};
