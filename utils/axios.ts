@@ -67,8 +67,19 @@ const onResponseError = async (error: AxiosError<any>) => {
             }
             case status === 401: {
                 const originalRequest = config;
-                postLoginRefresh({ userId: getCookie('userId'), refresh: getRefreshToken() });
-                return;
+                const tokenObj = await postLoginRefresh();
+
+                if (tokenObj) {
+                    setToken('accessToken', tokenObj.accessToken);
+                    setToken('refreshToken', tokenObj.refreshToken);
+
+                    return await interceptorAxios({
+                        ...originalRequest,
+                        headers: {
+                            Authorization: `Bearer ${tokenObj.accessToken}`,
+                        },
+                    });
+                }
                 break;
             }
             case status === 403: {
@@ -102,4 +113,5 @@ export function setupInterceptorsTo(axiosInstance: AxiosInstance): AxiosInstance
     return axiosInstance;
 }
 
-export default setupInterceptorsTo(customAxios);
+const interceptorAxios = setupInterceptorsTo(customAxios);
+export default interceptorAxios;
