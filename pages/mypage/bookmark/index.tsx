@@ -49,7 +49,22 @@ const BookMarkList = () => {
                 </form>
                 <ListBox>
                     {bookMakrList.length ? (
-                        bookMakrList.map((item) => <ListItem key={item.id} item={item} />)
+                        bookMakrList.map((item) => {
+                            // 이미지 있을 때 첫번째 이미지만 가져오기
+                            let thumbnail;
+
+                            const list = item.content.match(/(<(img[^>]+)>)/g);
+                            if (list && list.length) {
+                                const myRegex = /<img[^>]+src="(https:\/\/[^">]+)"/g;
+
+                                const result = myRegex.exec(list[0]);
+                                if (result !== null) {
+                                    thumbnail = result[1];
+                                }
+                            }
+
+                            return <ListItem key={item.id} item={item} url={`/home/${item.id}`} thumbnail={thumbnail} />;
+                        })
                     ) : (
                         <Empty title="북마크한 글이 없습니다" subTitle="새로운 게시글을 살펴보러 갈까요?" buttonTitle="메인화면으로 가기" href="/home" />
                     )}

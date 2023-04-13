@@ -9,11 +9,12 @@ import { IPostMeModel } from '@/types/post';
 
 interface IListItemProps {
     item: IPostMeModel;
+    url: string;
     thumbnail?: string;
 }
 
 const ListItem = (props: IListItemProps) => {
-    const { item, thumbnail } = props;
+    const { item, url, thumbnail } = props;
 
     const { id, title, content, createAt } = item;
 
@@ -31,7 +32,7 @@ const ListItem = (props: IListItemProps) => {
     });
 
     return (
-        <Link href={`/home/${id}`} css={ListItemStyle} ref={target}>
+        <Link href={url} css={ListItemStyle} ref={target}>
             {visible && (
                 <>
                     {thumbnail && <Avatar className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} size={50} />}
