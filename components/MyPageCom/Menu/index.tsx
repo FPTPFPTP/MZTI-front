@@ -2,6 +2,7 @@ import { myPageInfo } from '@/recoil/atom/user';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { MenuStyle } from '../styled';
+import MyPageArr from '@assets/icons/common/myPageArr.svg';
 
 type Props = {
     menuList: menuProps[];
@@ -25,9 +26,7 @@ const Menu = ({ menuList }: Props) => {
                                     <span>{item.title}</span>
 
                                     <span>
-                                        <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1 1L7.5 7.5L1 14" stroke="#A7A7A7" strokeLinecap="round" />
-                                        </svg>
+                                        <MyPageArr />
                                     </span>
                                 </Link>
                             </li>
@@ -37,17 +36,17 @@ const Menu = ({ menuList }: Props) => {
                     }
                 } else {
                     return (
-                        <li key={index}>
-                            <Link href={item.url}>
-                                <span>{item.title}</span>
+                        <>
+                            <li key={index}>
+                                <Link href={item.url}>
+                                    <span>{item.title}</span>
 
-                                <span>
-                                    <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 1L7.5 7.5L1 14" stroke="#A7A7A7" strokeLinecap="round" />
-                                    </svg>
-                                </span>
-                            </Link>
-                        </li>
+                                    <span>
+                                        <MyPageArr />
+                                    </span>
+                                </Link>
+                            </li>
+                        </>
                     );
                 }
             })}

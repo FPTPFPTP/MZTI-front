@@ -14,6 +14,7 @@ import axios from '@/utils/axios';
 import { useRouter } from 'next/router';
 import { useMutation } from '@tanstack/react-query';
 import { postMyPage } from '@/apis/user';
+import { openToast } from '@/utils/toast';
 
 const edit = () => {
     const myInfo = useRecoilValue(myPageInfo);
@@ -63,9 +64,12 @@ const edit = () => {
             const textEdit = () => {
                 mutate(
                     { nickname, mbti, intro },
-                    // {
-                    //     onSuccess: () => {},
-                    // },
+                    {
+                        onSuccess: () => {
+                            openToast({ message: '프로필 수정을 완료했어요', duration: 2000 });
+                            router.push('/mypage');
+                        },
+                    },
                 );
             };
 
@@ -74,7 +78,6 @@ const edit = () => {
             }
             Promise.all([profileEdit(), textEdit()])
                 .then((res: any) => {
-                    alert('수정 완료되었습니다.');
                     router.push('/mypage');
                 })
                 .catch((error) => {

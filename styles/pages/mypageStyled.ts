@@ -67,6 +67,15 @@ export const MypageWrap = css`
             justify-content: center;
         }
     }
+    .advertisement {
+        font-weight: 400;
+        font-size: 1.3rem;
+        padding: 15px 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 20px;
+        width: 100%;
+    }
 `;
 
 export const NoticeViewStyle = css`
