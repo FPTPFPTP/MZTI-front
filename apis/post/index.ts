@@ -18,13 +18,14 @@ interface IPutPostReq extends Pick<IPostModel, 'id' | 'title' | 'categoryId' | '
  * @param param0
  * @returns
  */
-export const getFeedPost = async ({ page, content, view, tag }: IDetailPost) => {
+export const getFeedPost = async ({ page, content, view, tag, categoryId }: IDetailPost) => {
     const res = await Axios.get<IResponseBase<any>>(`/post`, {
         params: {
             page,
             view,
             content,
             tag,
+            categoryId,
         },
     });
     return res.data.data;
