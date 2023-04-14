@@ -4,7 +4,7 @@ import { uniq } from 'lodash';
 
 import { searchHistory } from '@/recoil/atom/search';
 
-const MAX_HISTORY_LENGTH = 5;
+const MAX_HISTORY_LENGTH = 10;
 
 const useSearchHistory = () => {
     const [searchHistories, setSearchHistories] = useRecoilState(searchHistory);
@@ -15,7 +15,13 @@ const useSearchHistory = () => {
                 return;
             }
 
+            const duplIndex = searchHistories.findIndex((history) => history.searchText === searchText);
+
             let addedSearchHistories = uniq([{ searchText, date }, ...searchHistories]);
+
+            if (duplIndex > -1) {
+                addedSearchHistories.splice(duplIndex + 1, 1);
+            }
 
             if (addedSearchHistories.length > MAX_HISTORY_LENGTH) {
                 addedSearchHistories = addedSearchHistories.slice(0, MAX_HISTORY_LENGTH);
