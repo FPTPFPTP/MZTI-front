@@ -113,3 +113,28 @@ export interface IAddComment {
     comment: string;
     image: string;
 }
+
+export interface IAddReComment {
+    commentId: number;
+    comment: string;
+    image: string;
+}
+
+export interface IReComment {
+    list: ICommentModel[];
+    page: number;
+    view: number;
+    totalPage: number;
+    totalCount: number;
+}
+
+export interface ICommentParam {
+    postId: number;
+    page?: number;
+    view?: number;
+}
+export interface IReCommentParam {
+    commentId: number;
+    page: number;
+    view: number;
+}

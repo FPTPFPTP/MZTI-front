@@ -89,3 +89,27 @@ export const NoticeViewStyle = css`
         font-size: 1.2rem;
     }
 `;
+
+export const NoticeShare = css`
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: ${color.GRAY_LIGHT_5};
+    height: 84px;
+    min-width: 390px;
+    max-width: 600px;
+    width: 100%;
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span {
+            margin-left: 14px;
+            font-weight: 300;
+        }
+    }
+`;

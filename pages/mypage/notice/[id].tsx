@@ -1,9 +1,11 @@
 import { Header } from '@components/Commons';
 import { timeForToday } from '@/utils/time';
-import { NoticeViewStyle } from '@styles/pages/mypageStyled';
+import { NoticeViewStyle, NoticeShare } from '@styles/pages/mypageStyled';
+import ShareIcon from '@assets/icons/comment/share.svg';
 import { useEffect, useState } from 'react';
 import { getDetailNotice } from '@/apis/notice';
 import { useRouter } from 'next/router';
+import { LinkCopy } from '@/utils/copy';
 
 interface noticeDetailProps {
     id: number;
@@ -34,6 +36,11 @@ const noticeDetail = () => {
 
                 <article>{contents?.content}</article>
             </div>
+            <nav css={NoticeShare}>
+                <button onClick={LinkCopy}>
+                    <ShareIcon /> <span>공유</span>
+                </button>
+            </nav>
         </>
     );
 };

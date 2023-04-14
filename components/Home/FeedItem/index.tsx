@@ -11,7 +11,11 @@ const FeedItem = ({ data, isLoading }: any) => {
     return (
         <div css={FeedItemStyle}>
             {isLoading ? (
-                <FeedSkeleton />
+                <>
+                    <FeedSkeleton />
+                    <FeedSkeleton />
+                    <FeedSkeleton />
+                </>
             ) : (
                 <>
                     {data?.pages.map((page: PageInfo) => {

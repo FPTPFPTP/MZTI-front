@@ -1,16 +1,18 @@
 import { DeletedComment, FeedComentsStyle, FeedNoComentsStyle, MoreCommentStyle, FeedComentsWrapStyle } from '../styled';
 import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
-import MoreComment from '@assets/icons/comment/more.svg';
-import ComentItem from './ComentItem';
+import CommentItem from './CommentItem';
 import { ICommentModel } from '@/types/post';
 
 interface ICommentProps {
-    commentData?: [];
+    commentData?: ICommentModel[];
     writerId?: any;
     handleRefrash: () => void;
+    userId: number;
+    handleMoreComment: () => void; // 댓글 더보기
+    isLastPage?: boolean;
 }
 
-const FeedComents = ({ commentData, writerId, handleRefrash }: ICommentProps) => {
+const FeedComents = ({ isLastPage, commentData, writerId, handleRefrash, handleMoreComment }: ICommentProps) => {
     return (
         <div css={FeedComentsWrapStyle}>
             <section css={FeedComentsStyle}>
@@ -29,31 +31,39 @@ const FeedComents = ({ commentData, writerId, handleRefrash }: ICommentProps) =>
                 </div>
             ) : (
                 <>
-                    {commentData && commentData?.length > 9 && (
-                        <section css={MoreCommentStyle}>
-                            <button>
-                                <MoreComment />
-                                <span>이전 댓글 더보기</span>
-                            </button>
-                        </section>
+                    {commentData && commentData?.length >= 15 && (
+                        <>
+                            {!isLastPage && (
+                                <section css={MoreCommentStyle}>
+                                    <button onClick={handleMoreComment}>
+                                        <span>+ 댓글 더보기</span>
+                                    </button>
+                                </section>
+                            )}
+                        </>
                     )}
 
                     {commentData?.map((item: ICommentModel) => {
                         return item.deleted === true ? (
-                            <p css={DeletedComment}>삭제된 댓글입니다.</p>
+                            <p css={DeletedComment} key={item.id}>
+                                삭제된 댓글입니다.
+                            </p>
                         ) : (
-                            <ComentItem
-                                likeCheck={item.like.check}
-                                key={item.id}
-                                nickname={item.writer.nickname}
-                                mbti={item.writer.mbti}
-                                profileImage={item.writer.profileImage}
-                                userId={item.id}
-                                comment={item.comment}
-                                like={item.like.count}
-                                createAt={item.createAt}
-                                writerId={writerId}
-                            />
+                            <div key={item.id}>
+                                <CommentItem
+                                    likeCheck={item.like.check}
+                                    key={item.id}
+                                    nickname={item.writer.nickname}
+                                    mbti={item.writer.mbti}
+                                    profileImage={item.writer.profileImage}
+                                    userId={item.id}
+                                    comment={item.comment}
+                                    like={item.like.count}
+                                    createAt={item.createAt}
+                                    writerId={writerId}
+                                    subComment={item.subComment.count}
+                                />
+                            </div>
                         );
                     })}
                 </>

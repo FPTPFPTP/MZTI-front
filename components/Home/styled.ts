@@ -89,14 +89,19 @@ export const FeedComentsStyle = css`
 `;
 
 export const MoreCommentStyle = css`
+    background-color: ${colors.GRAY_BRIGHT_4};
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
-    padding: 1.1rem 33px;
     button {
+        padding: 14px 0;
+        width: 100%;
+        text-align: center;
         display: flex;
         align-items: center;
+        justify-content: center;
         span {
             margin-left: 7px;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
+            color: ${colors.GRAY_STRONG_6};
         }
     }
 `;
@@ -105,6 +110,10 @@ export const CommentItemSylte = css`
     .commentItemWrap {
         padding: 1rem 33px;
         background-color: ${colors.WHITE};
+        &.replay {
+            padding: 1rem 33px 1rem 63px;
+            background-color: ${colors.GRAY_LIGHT_5};
+        }
     }
     .writer {
         display: flex;
@@ -401,4 +410,35 @@ export const DeletedComment = css`
     color: ${colors.GRAY_STRONG};
     padding: 1rem 33px;
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    &.reComment {
+        background: ${colors.GRAY_LIGHT_5};
+        display: flex;
+        span {
+            margin-left: 10.5px;
+        }
+    }
+`;
+
+export const ReplayCommentStyled = css`
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+
+    .ReplayCommentWrap {
+        background-color: ${colors.WHITE};
+        min-width: 390px;
+        max-width: 600px;
+        width: 100%;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+    .commentWrap {
+        padding-bottom: 80px;
+    }
 `;

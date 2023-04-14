@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
-import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetBookMarkMe } from '@/apis/post';
 
@@ -41,7 +40,7 @@ const BookMarkList = () => {
                 <form>
                     <Input
                         inputStyle={'search'}
-                        placeholder={'검색글 제목, 글 본문 내용 등 검색'}
+                        placeholder={'글 제목, 글 본문 내용 등 검색'}
                         isResetBtn={!!search}
                         handleReset={() => reset()}
                         maxLength={8}

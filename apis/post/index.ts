@@ -12,6 +12,11 @@ import {
     IPostModel,
     IPollModel,
     IAddComment,
+    IReComment,
+    ICommentModel,
+    IReCommentParam,
+    ICommentParam,
+    IAddReComment,
 } from '@/types/post';
 
 export interface IPostWriteReq extends Pick<IPostModel, 'title' | 'categoryId' | 'content'> {
@@ -214,10 +219,21 @@ export const getPost = async ({ postId }: { postId: number }) => {
  * @param param0
  * @returns
  */
-export const getComments = async ({ postId }: { postId: number }) => {
+export const getComments = async ({ postId, page, view }: ICommentParam) => {
     const res = await Axios.get<IResponseBase<any>>(`/post/comment`, {
-        params: { postId: postId },
+        params: { postId: postId, page: page, view: view },
     });
+
+    return res.data.data;
+};
+
+/**
+ * [API] GET 댓글의 상세 불러오기
+ * @param param0
+ * @returns
+ */
+export const getCommentDetail = async (id: number) => {
+    const res = await Axios.get<IResponseBase<ICommentModel>>(`/post/comment/${id}`);
 
     return res.data.data;
 };
@@ -308,12 +324,28 @@ export const deleteComment = async (postId: any) => {
  * @param param0
  * @returns
  */
-export const reCommentPost = async ({ postId, comment, image }: IAddComment) => {
-    const res = await Axios.post<IResponseBase<IAddComment>>(`/post/comment/sub`, {
-        postId: postId,
+export const reCommentPost = async ({ commentId, comment, image }: IAddReComment) => {
+    const res = await Axios.post<IResponseBase<IAddReComment>>(`/post/comment/sub`, {
+        commentId: commentId,
         comment: comment,
         image: image,
     });
 
+    return res.data.data;
+};
+
+/**
+ * [API] POST 대댓글 불러오기
+ * @param param0
+ * @returns
+ */
+export const reCommentGet = async ({ commentId, page, view }: IReCommentParam) => {
+    const res = await Axios.get<IResponseBase<IReComment>>(`/post/comment/sub`, {
+        params: {
+            commentId: commentId,
+            page: page,
+            view: view,
+        },
+    });
     return res.data.data;
 };

@@ -46,3 +46,21 @@ export const reportUserWrite = atom<number>({
     key: `reportId/${v1()}`,
     default: undefined,
 });
+
+// 대댓글 창 띄우기
+export const replayCommentState = atom<boolean>({
+    key: `replayComment/${v1()}`,
+    default: false,
+});
+
+// 해당 댓글 대댓글 할 때 id값 저장
+export const replayCommentId = atom<number>({
+    key: `replayCommentId/${v1()}`,
+    default: 0,
+});
+
+// 대댓글 창 띄우기
+export const replayCommentViewState = atom<number>({
+    key: `replayCommentViewState/${v1()}`,
+    default: 5,
+});
