@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
-
-import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostCommentsMe } from '@/apis/post';
 
@@ -38,7 +36,7 @@ const WriteCommentList = () => {
 
     return (
         <>
-            <Header title={'내가 작성한 댓글'} rightElement={<EditSvg />} />
+            <Header title={'내가 작성한 댓글'} />
             <div css={Layout}>
                 <form>
                     <Input
@@ -52,7 +50,7 @@ const WriteCommentList = () => {
                 </form>
                 <ListBox>
                     {commentList.length ? (
-                        commentList.map((item) => <ListItem key={item.id} id={item.id} content={item.content} createAt={item.createAt} />)
+                        commentList.map((item, index) => <ListItem key={index} item={item} url={`/home/${item.id}`} />)
                     ) : (
                         <Empty title="작성한 댓글이 없습니다" subTitle="첫 댓글을 남겨보러 갈까요?" buttonTitle="댓글 작성하러 가기" href="/home" />
                     )}
