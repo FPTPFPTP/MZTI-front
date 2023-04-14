@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -10,7 +11,6 @@ import { SearchHistoryItem } from '@components/Search';
 import { getFeedPost } from '@/apis/post';
 import useSearchHistory from '@/hooks/useSearchHistory';
 import { searchWrap, recentSearchWrap } from '@/styles/pages/searchStyled';
-import SearchCloseIcon from '@assets/icons/search/searchClose.svg';
 
 const Search = () => {
     const [searchValue, setSearchValue] = useState<string>('');
@@ -18,6 +18,9 @@ const Search = () => {
     const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
     const { search } = watch();
 
+    const router = useRouter();
+
+    // 최근 검색어
     const { searchHistories, removeSearchHistory, addSearchHistory } = useSearchHistory();
 
     // 데이터 패칭
@@ -45,8 +48,8 @@ const Search = () => {
                         <Input
                             inputStyle={'search'}
                             placeholder={'관심있는 MBTI, 키워드, 이슈 검색'}
-                            isResetBtn={!!search}
-                            handleReset={() => reset()}
+                            isResetBtn={true}
+                            handleReset={() => (!!search === false ? router.back() : reset())}
                             maxLength={8}
                             {...register('search')}
                         />

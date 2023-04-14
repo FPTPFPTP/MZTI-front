@@ -24,6 +24,11 @@ export const BorderlessWrapCss = css`
     border-bottom: 1px solid ${colors.BLACK};
     gap: 0.5rem;
     padding: 4px 8px;
+    svg {
+        path {
+            fill: ${colors.GRAY_ORIGIN_1};
+        }
+    }
 `;
 
 export const SeachWrapCss = css`
@@ -34,4 +39,9 @@ export const SeachWrapCss = css`
     border: 1px solid ${colors.GRAY_ORIGIN_1};
     border-radius: 46px;
     padding: 12px 25px;
+    svg {
+        path {
+            fill: ${colors.GRAY_ORIGIN_1};
+        }
+    }
 `;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
@@ -12,7 +12,6 @@ import { SearchHistoryItem } from '@components/Search';
 import { getFeedPost } from '@/apis/post';
 import useSearchHistory from '@/hooks/useSearchHistory';
 import { searchWrap, recentSearchWrap } from '@/styles/pages/searchStyled';
-import SearchCloseIcon from '@assets/icons/search/searchClose.svg';
 
 interface ISearchProps {
     id: number;
