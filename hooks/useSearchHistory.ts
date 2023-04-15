@@ -29,7 +29,7 @@ const useSearchHistory = () => {
 
             setSearchHistories(addedSearchHistories);
         },
-        [searchHistories, setSearchHistories],
+        [searchHistories],
     );
 
     const removeSearchHistory = useCallback(
@@ -43,7 +43,7 @@ const useSearchHistory = () => {
             removedSearchHistories.splice(removeIndex, 1);
             setSearchHistories(removedSearchHistories);
         },
-        [searchHistories, setSearchHistories],
+        [searchHistories],
     );
 
     return { searchHistories, addSearchHistory, removeSearchHistory };
