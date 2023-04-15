@@ -88,6 +88,7 @@ export interface IDetailPost {
     view?: number;
     page: number;
     content?: string;
+    categoryId?: number;
 }
 
 // 마이페이지 내 활동 조회 타입
