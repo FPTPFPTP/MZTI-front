@@ -21,7 +21,7 @@ const Search = (props: ISearchProps) => {
     const { id } = props;
     const [searchValue, setSearchValue] = useState<string>('');
 
-    const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
+    const { register, watch, handleSubmit, reset, setValue } = useForm<{ search: string }>();
     const { search } = watch();
 
     const router = useRouter();
@@ -89,7 +89,11 @@ const Search = (props: ISearchProps) => {
                                             key={index}
                                             searchText={search.searchText}
                                             date={search.date}
-                                            onClick={() => console.log('ㅈㅓㄴ체클릭')}
+                                            onClick={() => {
+                                                setValue('search', search.searchText);
+                                                setSearchValue(search.searchText);
+                                                addSearchHistory(search.searchText, dayjs().format());
+                                            }}
                                             onDelete={(e) => {
                                                 e.preventDefault();
                                                 e.stopPropagation();

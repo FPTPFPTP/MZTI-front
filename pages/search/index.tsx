@@ -15,7 +15,7 @@ import { searchWrap, recentSearchWrap } from '@/styles/pages/searchStyled';
 const Search = () => {
     const [searchValue, setSearchValue] = useState<string>('');
 
-    const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
+    const { register, watch, handleSubmit, reset, setValue } = useForm<{ search: string }>();
     const { search } = watch();
 
     const router = useRouter();
@@ -86,7 +86,11 @@ const Search = () => {
                                             key={index}
                                             searchText={search.searchText}
                                             date={search.date}
-                                            onClick={() => console.log('ㅈㅓㄴ체클릭')}
+                                            onClick={() => {
+                                                setValue('search', search.searchText);
+                                                setSearchValue(search.searchText);
+                                                addSearchHistory(search.searchText, dayjs().format());
+                                            }}
                                             onDelete={(e) => {
                                                 e.preventDefault();
                                                 e.stopPropagation();
