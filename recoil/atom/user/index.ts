@@ -52,3 +52,27 @@ export const replayCommentViewState = atom<number>({
     key: `replayCommentViewState/${v1()}`,
     default: 5,
 });
+
+// 일반 댓글/대댓글 내용
+export const commentText = atom<string>({
+    key: `commentText/${v1()}`,
+    default: '',
+});
+
+// 수정할 댓글/대댓글 내용
+export const commentContent = atom<string>({
+    key: `commentContent/${v1()}`,
+    default: '',
+});
+
+// 수정하기 클릭했을 때, 수정하기 전용 댓글 입력창
+export const commentModify = atom<boolean>({
+    key: `commentModify/${v1()}`,
+    default: false,
+});
+
+// 수정할 댓글 아이디
+export const commentModifyId = atom<number>({
+    key: `commentModifyId/${v1()}`,
+    default: 0,
+});

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -10,25 +10,21 @@ import ReCommentBoard from '@assets/icons/comment/reCommentBoard.svg';
 import { MoreDrawer } from '@/components/Commons';
 import { CommentItemSylte, DeletedComment, MoreCommentStyle } from '../../styled';
 import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
-import { myPageInfo, replayCommentState, replayCommentId, replayCommentViewState } from '@/recoil/atom/user';
+import {
+    myPageInfo,
+    replayCommentState,
+    replayCommentId,
+    replayCommentViewState,
+    commentContent,
+    commentText,
+    commentModify,
+    commentModifyId,
+} from '@/recoil/atom/user';
 import { EType } from '@/components/Commons/MoreDrawer';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { deleteComment, commentLike, reCommentGet } from '@/apis/post';
-import { ILikeModel, ICommentModel } from '@/types/post';
+import { deleteComment, commentLike, reCommentGet, getComments, getCommentDetail } from '@/apis/post';
+import { ILikeModel, ICommentModel, ICommentProps } from '@/types/post';
 import ReplayCommentItem from './ReplayCommentItem';
-
-interface ICommentProps {
-    nickname: string;
-    mbti: string;
-    profileImage: string;
-    userId: number;
-    comment: string;
-    like: number;
-    createAt: string;
-    writerId: string;
-    likeCheck: boolean;
-    subComment: number;
-}
 
 const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment, like, createAt, writerId, likeCheck }: ICommentProps) => {
     const myInfo = useRecoilValue(myPageInfo);
@@ -40,13 +36,17 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
     const [reCommentState, setReCommentState] = useRecoilState(replayCommentState);
-
     // 댓글 삭제
     const commentDelete = useMutation((id: number) => deleteComment(id));
     // 대댓글 좋아요
     const reCommentLike = useMutation((id: number) => commentLike(id));
     const { data } = useQuery(['getReCommentView', userId], () => reCommentGet({ commentId: userId, page: 0, view: reCommentView }));
+    const [commentContentState, setCommentContentState] = useRecoilState(commentContent);
+    const setCommentValue = useSetRecoilState(commentText);
+    const setCommentModifyState = useSetRecoilState(commentModify);
+    const setCommentModifyId = useSetRecoilState(commentModifyId);
 
+    // 댓글 삭제
     const handleCommentDelete = () => {
         confirm('댓글을 삭제하시겠습니까?');
         commentDelete.mutate(userId, {
@@ -56,6 +56,7 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
         });
     };
 
+    // 댓글 좋아요
     const handleReCommentLike = () => {
         reCommentLike.mutate(userId, {
             onSuccess: (data: ILikeModel) => {
@@ -79,6 +80,31 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
         setReplayCommentId(userId);
         setReCommentView(Number(data?.totalCount));
     };
+
+    // 댓글 수정하기
+    const handleCommentEdit = (userId: number) => {
+        console.log('userId-->', userId);
+        setCommentModifyId(userId);
+        getCommentDetail(userId).then((res) => {
+            console.log('dd', res.comment);
+            setCommentContentState(res.comment);
+        });
+
+        setIsVisible(false);
+        setCommentModifyState(true);
+    };
+
+    useEffect(() => {
+        console.log('ddd', reCommentState);
+        if (reCommentState === false) {
+            // TODO : 대댓글 더보기 컴포넌트 닫으면 reCommentView 다시 5개 전달했는데...
+        }
+    }, [reCommentState, data]);
+
+    useEffect(() => {
+        setCommentValue(commentContentState);
+        console.log('commentContentState--', commentContentState);
+    }, [commentContentState]);
 
     return (
         <>
@@ -123,6 +149,8 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
                     isVisible={isVisible}
                     writerID={userId}
                     handleCommentDelete={handleCommentDelete}
+                    commentId={userId}
+                    handleCommentEdit={() => handleCommentEdit(Number(userId))}
                 />
             </section>
 

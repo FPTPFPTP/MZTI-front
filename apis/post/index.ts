@@ -7,8 +7,6 @@ import {
     IDetailPost,
     ITagModel,
     IMyPageActive,
-    IPostCommentMeModel,
-    IPostBookMarkModel,
     IPostModel,
     IPollModel,
     IAddComment,
@@ -17,6 +15,8 @@ import {
     IReCommentParam,
     ICommentParam,
     IAddReComment,
+    IReCommentModal,
+    IEditComment,
 } from '@/types/post';
 
 export interface IPostWriteReq extends Pick<IPostModel, 'title' | 'categoryId' | 'content'> {
@@ -221,7 +221,7 @@ export const getPost = async ({ postId }: { postId: number }) => {
  * @returns
  */
 export const getComments = async ({ postId, page, view }: ICommentParam) => {
-    const res = await Axios.get<IResponseBase<any>>(`/post/comment`, {
+    const res = await Axios.get<IResponseBase<ICommentParam>>(`/post/comment`, {
         params: { postId: postId, page: page, view: view },
     });
 
@@ -310,6 +310,21 @@ export const commentPost = async ({ postId, comment, image }: IAddComment) => {
 };
 
 /**
+ * [API] PUT 댓글/대댓글 수정
+ * @param param0
+ * @returns
+ */
+export const commentPut = async ({ id, comment, image }: IEditComment) => {
+    const res = await Axios.put<IResponseBase<IAddComment>>(`/post/comment`, {
+        id: id,
+        comment: comment,
+        image: image,
+    });
+
+    return res.data.data;
+};
+
+/**
  * [API] DELETE 댓글 삭제
  * @param postId
  * @returns
@@ -341,7 +356,7 @@ export const reCommentPost = async ({ commentId, comment, image }: IAddReComment
  * @returns
  */
 export const reCommentGet = async ({ commentId, page, view }: IReCommentParam) => {
-    const res = await Axios.get<IResponseBase<IReComment>>(`/post/comment/sub`, {
+    const res = await Axios.get<IResponseBase<IReComment<IReCommentModal>>>(`/post/comment/sub`, {
         params: {
             commentId: commentId,
             page: page,

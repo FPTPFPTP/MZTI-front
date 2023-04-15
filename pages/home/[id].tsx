@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { message } from 'antd';
 import { Header } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
@@ -10,16 +10,17 @@ import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import Axios from '@utils/axios';
-import { getPost, postBookmark, getComments } from '@apis/post';
+import { getPost, postBookmark, getComments, commentPut } from '@apis/post';
 import { IResponseBase, IPaginationResponse } from '@/types/global';
-import { ICommentModel, IPostModel } from '@/types/post';
+import { ICommentModel, IEditComment, IPostModel } from '@/types/post';
 import { useMutation } from '@tanstack/react-query';
 import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
 import CommentInput from '@/components/Commons/CommentInput';
 import classNames from 'classnames';
-import { useRecoilValue } from 'recoil';
-import { replayCommentState } from '@/recoil/atom/user';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { commentModify, commentText, replayCommentState, commentModifyId } from '@/recoil/atom/user';
 import ReplayComment from '@/components/Home/FeedComents/ReplayComment';
+import CommentModifyInput from '@/components/Commons/CommentModifyInput';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
@@ -60,13 +61,22 @@ const post = ({ data, commentData }: IPostProps) => {
     const [comment, setComment] = useState<ICommentModel[]>(commentData.list);
     const [commentCount, setCommentCount] = useState<number>(commentData.totalCount);
     const replayState = useRecoilValue(replayCommentState);
-    const [commentText, setCommentText] = useState<string>('');
+    const [commentValue, setCommentValue] = useRecoilState(commentText);
     const [pageParam, setPagePagram] = useState<number>(0);
+    //  댓글 호출
+    const reRenderComment = getComments({ postId: Number(postData?.id), page: pageParam, view: 15 });
+    const [getCommentModifyState, setCommentModifyState] = useRecoilState(commentModify);
+    const getCommentModifyId = useRecoilValue(commentModifyId);
+    // 댓글 수정
+    const { mutate } = useMutation(({ id, comment, image }: IEditComment) => commentPut({ id: id, comment: comment, image: image }));
 
+    // 북마크하기
     const handleBookMark = () => {
         setIsBookMark((isBookMark) => !isBookMark);
         usePostLike.mutate(data?.id);
     };
+
+    // 투표
     const onPoll = (result: SurveyType.IDefaultModeSurveyResult) => {
         Axios.post('/post/poll', {
             pollId: Number(result.id),
@@ -83,7 +93,7 @@ const post = ({ data, commentData }: IPostProps) => {
     };
 
     const handleContact = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCommentText(e.target.value);
+        setCommentValue(e.target.value);
     };
 
     const onSuccessComment = async () => {
@@ -94,19 +104,37 @@ const post = ({ data, commentData }: IPostProps) => {
         setCommentCount(commentCount + 1);
     };
 
+    // 댓글 추가
     const AddComment = () => {
         return Axios.post('/post/comment', {
             postId: data?.id,
-            comment: commentText,
+            comment: commentValue,
         }).then((res) => {
             onSuccessComment();
-            setCommentText('');
+            setCommentValue('');
         });
     };
 
+    // 댓글 수정!!!
+    const PutComment = useCallback(() => {
+        mutate(
+            { id: getCommentModifyId, comment: commentValue, image: '' },
+            {
+                onSuccess: () => {
+                    reRenderComment.then((result: any) => {
+                        setComment(result.list);
+                    });
+                    setCommentValue('');
+                    setCommentModifyState(false);
+                },
+            },
+        );
+    }, [getCommentModifyId, commentValue]);
+
+    // 새로고침
     const handleRefrash = () => {
         if (postData) {
-            getComments({ postId: postData.id }).then((result) => {
+            reRenderComment.then((result: any) => {
                 setComment(result.list);
             });
         }
@@ -119,8 +147,7 @@ const post = ({ data, commentData }: IPostProps) => {
     useEffect(() => {
         if (pageParam >= 1) {
             if (postData) {
-                getComments({ postId: postData.id, page: pageParam, view: 15 }).then((result) => {
-                    console.log('result-->', result.list);
+                reRenderComment.then((result: any) => {
                     const resultList = result.list;
                     const sortList = [...comment, ...resultList];
                     const sorted_list = sortList.sort(function (a, b) {
@@ -164,7 +191,7 @@ const post = ({ data, commentData }: IPostProps) => {
             {/* 헤더 */}
             <Header
                 isPrevBtn={true}
-                title="자유게시판"
+                title={data?.categoryName}
                 rightElement={
                     <div className="right" css={BookMarkIconStyle}>
                         <button onClick={handleBookMark} className={classNames(isBookMark ? 'fill' : 'notFill')}>
@@ -217,12 +244,24 @@ const post = ({ data, commentData }: IPostProps) => {
                     handleMoreComment={handleMoreComment}
                 />
             )}
-            <CommentInput
-                onSuccess={onSuccessComment}
-                handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
-                AddComment={AddComment}
-                comment={commentText}
-            />
+
+            {getCommentModifyState ? (
+                // 댓글 수정용
+                <CommentModifyInput
+                    onSuccess={onSuccessComment}
+                    handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
+                    PutComment={PutComment}
+                    comment={commentValue}
+                />
+            ) : (
+                // 일반 댓글용
+                <CommentInput
+                    onSuccess={onSuccessComment}
+                    handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
+                    AddComment={AddComment}
+                    comment={commentValue}
+                />
+            )}
         </main>
     );
 };

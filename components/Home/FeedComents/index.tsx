@@ -5,8 +5,8 @@ import { ICommentModel } from '@/types/post';
 
 interface ICommentProps {
     commentData?: ICommentModel[];
-    writerId?: any;
-    handleRefrash: () => void;
+    writerId?: string; // 작성자 명
+    handleRefrash?: () => void; // 새로고침
     userId: number;
     handleMoreComment: () => void; // 댓글 더보기
     isLastPage?: boolean;
@@ -49,21 +49,19 @@ const FeedComents = ({ isLastPage, commentData, writerId, handleRefrash, handleM
                                 삭제된 댓글입니다.
                             </p>
                         ) : (
-                            <div key={item.id}>
-                                <CommentItem
-                                    likeCheck={item.like.check}
-                                    key={item.id}
-                                    nickname={item.writer.nickname}
-                                    mbti={item.writer.mbti}
-                                    profileImage={item.writer.profileImage}
-                                    userId={item.id}
-                                    comment={item.comment}
-                                    like={item.like.count}
-                                    createAt={item.createAt}
-                                    writerId={writerId}
-                                    subComment={item.subComment.count}
-                                />
-                            </div>
+                            <CommentItem
+                                likeCheck={item.like.check}
+                                key={item.id}
+                                nickname={item.writer.nickname}
+                                mbti={item.writer.mbti}
+                                profileImage={item.writer.profileImage}
+                                userId={item.id}
+                                comment={item.comment}
+                                like={item.like.count}
+                                createAt={item.createAt}
+                                writerId={String(writerId)}
+                                subComment={item.subComment.count}
+                            />
                         );
                     })}
                 </>
