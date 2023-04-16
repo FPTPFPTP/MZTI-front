@@ -21,6 +21,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { commentModify, commentText, replayCommentState, commentModifyId } from '@/recoil/atom/user';
 import ReplayComment from '@/components/Home/FeedComents/ReplayComment';
 import CommentModifyInput from '@/components/Commons/CommentModifyInput';
+import { openToast } from '@utils/toast';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
@@ -51,7 +52,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     // 북마크하기
     const handleBookMark = () => {
         setIsBookMark((isBookMark) => !isBookMark);
-        usePostLike.mutate(data?.id);
+        usePostLike.mutate(postData?.id);
     };
 
     // 투표
@@ -60,7 +61,8 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
             pollId: Number(result.id),
             pollList: result.answer.map((id) => Number(id)),
         }).then((res) => {
-            message.success('투표 참여에 성공했어요');
+            openToast({ message: '투표 참여에 성공했어요' });
+
             if (postData) {
                 getPost({ postId: postData.id }).then((result) => {
                     console.log({ result });
@@ -165,11 +167,11 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
             {/* 헤더 */}
             <Header
                 isPrevBtn={true}
-                title={data?.categoryName}
+                title={postData?.categoryName}
                 rightElement={
                     <div className="right" css={BookMarkIconStyle}>
                         <button onClick={handleBookMark} className={classNames(isBookMark ? 'fill' : 'notFill')}>
-                            {data?.bookmark.check === true ? <FillBookMarkIcon /> : <BookMarkIcon />}
+                            {postData?.bookmark.check === true ? <FillBookMarkIcon /> : <BookMarkIcon />}
                         </button>
                     </div>
                 }
@@ -178,7 +180,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                 <div css={PostStyle}>
                     <div className="postHeaderWrap">
                         <h3 className="postTitle">{postData.title}</h3>
-                        <ItemHeader writer={postData.writer} createAt={postData.updateAt} writerID={postData.id} />
+                        <ItemHeader writer={postData.writer} createAt={postData.updateAt} writerID={postData.id} categoryId={postData.categoryId} />
                     </div>
                     <ToastViewer contentHtml={postData.content} />
                     {surveyData.map((survey) => (
@@ -208,12 +210,12 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
             {/* 대댓글 */}
             {replayState && <ReplayComment />}
 
-            {data && (
+            {postData && (
                 <FeedComents
                     isLastPage={commentData.totalPage === pageParam}
                     commentData={comment}
-                    writerId={data.writer.nickname}
-                    userId={data.id}
+                    writerId={postData.writer.nickname}
+                    userId={postData.id}
                     handleRefrash={handleRefrash}
                     handleMoreComment={handleMoreComment}
                 />

@@ -10,14 +10,16 @@ import { EType } from '@/components/Commons/MoreDrawer';
 import { useMutation } from '@tanstack/react-query';
 import { deletePost } from '@/apis/post';
 import { useRouter } from 'next/router';
+import { openToast } from '@utils/toast';
 
 interface IItemHeader {
     writer: IWriterModel;
     createAt: string;
     writerID: number;
+    categoryId: number;
 }
 
-const ItemHeader = ({ writer, createAt, writerID }: IItemHeader) => {
+const ItemHeader = ({ writer, createAt, writerID, categoryId }: IItemHeader) => {
     const { nickname, mbti, level, profileImage } = writer;
     const myInfo = useRecoilValue(myPageInfo);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -32,8 +34,8 @@ const ItemHeader = ({ writer, createAt, writerID }: IItemHeader) => {
         confirm('게시글을 삭제하시겠습니까?');
         mutate(writerID, {
             onSuccess: () => {
-                alert('삭제 완료되었습니다.');
-                router.push('/home');
+                openToast({ message: '삭제 완료되었습니다.' });
+                router.push(`/board/${categoryId}`);
             },
         });
     };

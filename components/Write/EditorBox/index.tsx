@@ -71,7 +71,7 @@ const EditorBox = (props: IEditorBox) => {
 
                     if (data) {
                         message.success('작성한 글 수정에 성공했어요');
-                        router.push(`/home/${data.id}`);
+                        router.push(`/board/${data.categoryId}/${data.id}`);
                     }
                 } catch (error) {
                     console.log(error);

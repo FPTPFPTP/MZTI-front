@@ -200,7 +200,7 @@ const post = ({ data, commentData }: IPostProps) => {
                 <div css={PostStyle}>
                     <div className="postHeaderWrap">
                         <h3 className="postTitle">{postData.title}</h3>
-                        <ItemHeader writer={postData.writer} createAt={postData.updateAt} writerID={postData.id} />
+                        <ItemHeader writer={postData.writer} createAt={postData.updateAt} writerID={postData.id} categoryId={postData.categoryId} />
                     </div>
                     <ToastViewer contentHtml={postData.content} />
                     {surveyData.map((survey) => (
