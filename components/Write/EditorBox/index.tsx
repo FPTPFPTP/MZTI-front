@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Divider, message, Select } from 'antd';
 import { useForm } from 'react-hook-form';
@@ -11,11 +11,12 @@ import ToastEditor from '@/components/Commons/ToastEditor';
 import { ContentWrapStyle, FlexCenterStyle, KeywordWrapStyle, BottomWrapStyle, BottomBtnWrapStyle } from '../styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite, putPost } from '@apis/post';
-import { useGetBoards } from '@/apis/post';
 import Axios from '@utils/axios';
+import MenuJson from '@/constants/menu.json';
 import SurveyModal from '../SurveyModal';
 import KeywordDrawer from '../KeywordDrawer';
 import { ITagModel, IPostModel } from '@/types/post';
+import { IBoardModel, IBoardMenu } from '@/types/board';
 
 interface IEditorBox {
     postItem?: IPostModel;
@@ -34,7 +35,14 @@ const EditorBox = (props: IEditorBox) => {
     const { title } = watch();
 
     // 게시판 메뉴
-    const categorys = useGetBoards();
+    const categorys = useMemo(
+        () =>
+            MenuJson.reduce((prev: IBoardModel[], cur: IBoardMenu) => {
+                const menus = cur.menus.filter((menu) => menu.id !== 22);
+                return prev.concat(menus);
+            }, []),
+        [],
+    );
 
     const onBackPage = () => {
         router.back();
@@ -99,7 +107,7 @@ const EditorBox = (props: IEditorBox) => {
 
                     if (data && data.code === 'SUCCESS') {
                         message.success('작성한 글 업로드에 성공했어요');
-                        router.push(`/home/${data.data.id}`);
+                        router.push(`/board/${data.data.categoryId}/${data.data.id}`);
                     }
                 } catch (error) {
                     console.log(error);

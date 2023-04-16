@@ -1,4 +1,5 @@
-import { PageInfo } from '@/utils/types';
+import { InfiniteData } from '@tanstack/react-query';
+import { IPaginationResponse } from '@/types/global';
 import { IPostModel } from '@/types/post';
 import ItemContent from './ItemContent';
 import ItemFooter from './ItemFooter';
@@ -7,7 +8,7 @@ import { FeedItemStyle } from '../styled';
 import Link from 'next/link';
 import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
 
-const FeedItem = ({ data, isLoading }: any) => {
+const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<IPostModel>>; isLoading: boolean }) => {
     return (
         <div css={FeedItemStyle}>
             {isLoading ? (
@@ -18,13 +19,13 @@ const FeedItem = ({ data, isLoading }: any) => {
                 </>
             ) : (
                 <>
-                    {data?.pages.map((page: PageInfo) => {
-                        return page.list.map((item: IPostModel) => {
+                    {data?.pages.map((page) => {
+                        return page.list.map((item) => {
                             return (
                                 <div className="feedLayout" key={item.id}>
                                     <div className="feedLayout__bg">
                                         <ItemHeader writer={item.writer} createAt={item.createAt} writerID={item.id} />
-                                        <Link href={`/home/${item.id}`}>
+                                        <Link href={`/board/${item.categoryId}/${item.id}`}>
                                             <ItemContent
                                                 id={item.id}
                                                 title={item.title}

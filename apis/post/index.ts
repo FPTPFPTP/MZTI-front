@@ -34,7 +34,7 @@ interface IPutPostReq extends Pick<IPostModel, 'id' | 'title' | 'categoryId' | '
  * @returns
  */
 export const getFeedPost = async ({ page, content, view, tag, categoryId }: IDetailPost) => {
-    const res = await Axios.get<IResponseBase<any>>(`/post`, {
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostModel>>>(`/post`, {
         params: {
             page,
             view,
@@ -167,7 +167,7 @@ export const useGetBookMarkMe = (search: string) => {
  * @returns
  */
 export const postWrite = async (form: IPostWriteReq) => {
-    const res = await Axios.post<IResponseBase<any>>('/post', { ...form });
+    const res = await Axios.post<IResponseBase<IPostModel>>('/post', { ...form });
 
     return res.data;
 };
