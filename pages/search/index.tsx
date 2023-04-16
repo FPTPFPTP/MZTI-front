@@ -28,6 +28,7 @@ const Search = () => {
         data: searchList,
         fetchNextPage,
         hasNextPage,
+        isLoading,
     } = useInfiniteQuery(['page', searchValue], ({ pageParam = 0 }) => getFeedPost({ page: pageParam, content: searchValue }), {
         getNextPageParam: (lastPage, allPosts) => {
             return lastPage.page !== allPosts[0].totalPage ? lastPage.page + 1 : undefined;
@@ -69,7 +70,7 @@ const Search = () => {
             <div css={recentSearchWrap}>
                 {searchList && searchList.pages.length ? (
                     <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                        <FeedItem data={searchList} />
+                        <FeedItem data={searchList} isLoading={isLoading} />
                     </InfiniteScroll>
                 ) : (
                     <div className="recent__wrap">
