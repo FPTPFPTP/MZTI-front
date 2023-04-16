@@ -50,9 +50,11 @@ const home = () => {
                     </>
                 )}
                 {/* 피드 게시물 */}
-                <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                    <FeedItem data={data && data} isLoading={isLoading} />
-                </InfiniteScroll>
+                {data && (
+                    <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
+                        <FeedItem data={data} isLoading={isLoading} />
+                    </InfiniteScroll>
+                )}
             </>
             {/* 메뉴 */}
             <BottomMenu />
