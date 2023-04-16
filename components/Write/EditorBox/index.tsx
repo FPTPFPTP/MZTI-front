@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Divider, message, Select } from 'antd';
+import { Divider, Select } from 'antd';
 import { useForm } from 'react-hook-form';
 import { Editor } from '@toast-ui/react-editor';
 import { Header, Input, Tag } from '@components/Commons';
@@ -12,6 +12,7 @@ import { ContentWrapStyle, FlexCenterStyle, KeywordWrapStyle, BottomWrapStyle, B
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite, putPost } from '@apis/post';
 import Axios from '@utils/axios';
+import { openToast } from '@utils/toast';
 import MenuJson from '@/constants/menu.json';
 import SurveyModal from '../SurveyModal';
 import KeywordDrawer from '../KeywordDrawer';
@@ -58,7 +59,7 @@ const EditorBox = (props: IEditorBox) => {
             if (editorRef.current) {
                 try {
                     if (!title.length) {
-                        message.error('게시글 타이틀을 작성해주세요');
+                        openToast({ message: '게시글 타이틀을 작성해주세요' });
                         return;
                     }
                     const data = await putPost({
@@ -70,7 +71,7 @@ const EditorBox = (props: IEditorBox) => {
                     });
 
                     if (data) {
-                        message.success('작성한 글 수정에 성공했어요');
+                        openToast({ message: '작성한 글 수정에 성공했어요' });
                         router.push(`/board/${data.categoryId}/${data.id}`);
                     }
                 } catch (error) {
@@ -83,7 +84,7 @@ const EditorBox = (props: IEditorBox) => {
                 try {
                     const pollList = [];
                     if (!title.length) {
-                        message.error('게시글 타이틀을 작성해주세요');
+                        openToast({ message: '게시글 타이틀을 작성해주세요' });
                         return;
                     }
                     if (surveyData.length) {
@@ -106,7 +107,7 @@ const EditorBox = (props: IEditorBox) => {
                     });
 
                     if (data && data.code === 'SUCCESS') {
-                        message.success('작성한 글 업로드에 성공했어요');
+                        openToast({ message: '작성한 글 업로드에 성공했어요' });
                         router.push(`/board/${data.data.categoryId}/${data.data.id}`);
                     }
                 } catch (error) {

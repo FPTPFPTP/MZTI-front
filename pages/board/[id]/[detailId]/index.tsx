@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useState } from 'react';
-import { message } from 'antd';
 import { Header } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
