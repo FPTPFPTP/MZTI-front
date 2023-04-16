@@ -24,7 +24,7 @@ const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<
                             return (
                                 <div className="feedLayout" key={item.id}>
                                     <div className="feedLayout__bg">
-                                        <ItemHeader writer={item.writer} createAt={item.createAt} writerID={item.id} />
+                                        <ItemHeader writer={item.writer} createAt={item.createAt} writerID={item.id} categoryId={item.categoryId} />
                                         <Link href={`/board/${item.categoryId}/${item.id}`}>
                                             <ItemContent
                                                 id={item.id}
