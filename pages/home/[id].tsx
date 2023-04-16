@@ -121,9 +121,7 @@ const post = ({ data, commentData }: IPostProps) => {
             { id: getCommentModifyId, comment: commentValue, image: '' },
             {
                 onSuccess: () => {
-                    reRenderComment.then((result: any) => {
-                        setComment(result.list);
-                    });
+                    onSuccessComment();
                     setCommentValue('');
                     setCommentModifyState(false);
                 },
@@ -134,9 +132,7 @@ const post = ({ data, commentData }: IPostProps) => {
     // 새로고침
     const handleRefrash = () => {
         if (postData) {
-            reRenderComment.then((result: any) => {
-                setComment(result.list);
-            });
+            onSuccessComment();
         }
     };
 
