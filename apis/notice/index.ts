@@ -38,9 +38,9 @@ export const getDetailNotice = async (id?: number) => {
  * [API] GET 신고 유형
  * @returns
  */
-export const useGetDetailNotice = () => {
+export const useGetDetailNotice = (id: number) => {
     const { data } = useQuery(['getDetailNotice'], async () => {
-        const data = await getDetailNotice();
+        const data = await getDetailNotice(id);
 
         return data;
     });

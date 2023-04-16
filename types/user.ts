@@ -1,5 +1,5 @@
 export interface IUserModel {
-    id: number;
+    id?: number;
     nickname: string;
     mbti: string;
     intro: string;

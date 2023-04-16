@@ -8,6 +8,8 @@ import { removeTokenAll } from '@utils/auth';
 import { openToast } from '@/utils/toast';
 import { MypageWrap } from '@styles/pages/mypageStyled';
 import { MypageEtcMenu } from '@styles/pages/mypageEtcStyled';
+import MyPageArr from '@assets/icons/common/myPageArr.svg';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const menuList = [
     {
@@ -16,14 +18,6 @@ const menuList = [
     },
     {
         title: '개인정보 처리방침',
-        url: '?',
-    },
-    // { {TODO} : 2차때 할 예정임
-    //     title: '오픈소스 라이선스',
-    //     url: '?',
-    // },
-    {
-        title: '광고문의',
         url: '?',
     },
 ];
@@ -48,6 +42,10 @@ const etc = () => {
         router.replace('/home');
     };
 
+    const handleAdvertisement = () => {
+        openToast({ message: '✉️ fptp.mz@gmail.com \n 메일주소가 클립보드에 복사되었어요', duration: 3000 });
+    };
+
     return (
         <>
             <Header title="기타 서비스 정보 및 계정관리" />
@@ -55,6 +53,14 @@ const etc = () => {
                 <section>
                     <h3>서비스 정보</h3>
                     <Menu menuList={menuList} />
+                    <CopyToClipboard text="fptp.mz@gmail.com">
+                        <button className="advertisement" onClick={handleAdvertisement}>
+                            <span>광고문의</span>
+                            <span>
+                                <MyPageArr />
+                            </span>
+                        </button>
+                    </CopyToClipboard>
                 </section>
 
                 <section css={MypageEtcMenu}>

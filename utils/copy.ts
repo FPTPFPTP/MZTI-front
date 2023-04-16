@@ -1,3 +1,5 @@
+import { openToast } from '@/utils/toast';
+
 // 링크복사하기
 export const LinkCopy = (): void => {
     let url = '';
@@ -9,5 +11,5 @@ export const LinkCopy = (): void => {
     document.execCommand('copy');
     document.body.removeChild(textarea);
 
-    alert('링크 복사 되었습니다.');
+    openToast({ message: '해당 게시글의 링크가 복사되었어요', duration: 2000 });
 };

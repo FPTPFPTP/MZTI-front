@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import FeedItem from '@/components/Home/FeedItem';
 import HotKeyword from '@/components/Home/HotKeyword';
@@ -15,7 +14,7 @@ const home = () => {
     const router = useRouter();
 
     // 데이터 패칭
-    const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(['page'], ({ pageParam = 0 }) => getFeedPost({ page: pageParam }), {
+    const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(['page'], ({ pageParam = 0 }) => getFeedPost({ page: pageParam }), {
         getNextPageParam: (lastPage, allPosts) => {
             return lastPage.page !== allPosts[0].totalPage ? lastPage.page + 1 : undefined;
         },
@@ -50,16 +49,9 @@ const home = () => {
                         <HotKeyword title="🔥실시간 HOT 키워드" more={true} />
                     </>
                 )}
-
                 {/* 피드 게시물 */}
                 <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                    {/* {data?.pages[0].list.length === 0 ? (
-                    <Empty title="검색한 결과가 없습니다" subTitle="다른 검색어로 검색해보세요" buttonTitle="돌아가기" onClick={handleOnClick} />
-                ) : (
-                    <FeedItem data={data && data} />
-                )} */}
-
-                    <FeedItem data={data && data} />
+                    <FeedItem data={data && data} isLoading={isLoading} />
                 </InfiniteScroll>
             </>
             {/* 메뉴 */}

@@ -2,37 +2,21 @@ import { CommentInputStyle } from './styled';
 import PhotoIcon from '@assets/icons/comment/photo.svg';
 import SubmitButtonIcon from '@assets/icons/comment/submitButton.svg';
 import FillSubmitButtonIcon from '@assets/icons/comment/fillSubmitButton.svg';
-import Axios from '@utils/axios';
-import { useState } from 'react';
 
 interface PostIdProps {
-    postId?: number;
-    onSuccess: () => void;
+    onSuccess: () => void; // 성공시 다시 refresh 할 데이터
+    AddComment?: () => void; // 댓글 추가 api
+    handleContact?: (e: any) => void; // 댓글 내용 바뀔 때
+    commentId?: number;
+    comment: string; // value 값
 }
 
-const CommentInput = ({ postId, onSuccess }: PostIdProps) => {
-    const [comment, setComment] = useState<string>('');
-
-    const AddComment = () => {
-        return Axios.post('/post/comment', {
-            postId: postId,
-            comment: comment,
-        }).then((res) => {
-            onSuccess();
-            setComment('');
-        });
-    };
-
-    const handleContact = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setComment(e.target.value);
-    };
-
+const CommentInput = ({ comment, AddComment, handleContact }: PostIdProps) => {
     return (
         <div css={CommentInputStyle}>
-            {/* TODO : 2차 오픈 때 */}
-            {/* <button>
+            <button>
                 <PhotoIcon />
-            </button> */}
+            </button>
 
             <input type="text" value={comment} placeholder="댓글을 입력해주세요" onChange={handleContact} />
 

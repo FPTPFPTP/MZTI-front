@@ -40,7 +40,7 @@ const BookMarkList = () => {
                 <form>
                     <Input
                         inputStyle={'search'}
-                        placeholder={'검색글 제목, 글 본문 내용 등 검색'}
+                        placeholder={'글 제목, 글 본문 내용 등 검색'}
                         isResetBtn={!!search}
                         handleReset={() => reset()}
                         maxLength={8}

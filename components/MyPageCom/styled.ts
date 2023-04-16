@@ -155,6 +155,8 @@ export const EmptyStyle = css`
         font-weight: 400;
         color: ${color.GRAY_ORIGIN_1};
         margin-top: 10px;
+        white-space: pre-line;
+        text-align: center;
     }
 `;
 
