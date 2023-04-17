@@ -9,7 +9,7 @@ export const HeaderContainerStyle = css`
     top: 0;
     width: 100%;
     height: 80px;
-    padding: 33px;
+    padding: 33px 20px;
     z-index: 100;
     background-color: ${colors.WHITE};
 `;

@@ -6,7 +6,7 @@ export const CommentInputStyle = css`
     background: ${color.GRAY_LIGHT_5};
     padding: 15px 27px;
     height: 80px;
-    min-width: 390px;
+    min-width: 375px;
     max-width: 600px;
     width: 100%;
     font-weight: 400;

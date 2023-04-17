@@ -73,7 +73,7 @@ export const BottomButtonStyle = css`
     background: ${colors.BLACK};
     color: ${colors.WHITE};
     height: 80px;
-    min-width: 390px;
+    min-width: 375px;
     max-width: 600px;
     width: 100%;
     font-weight: 400;

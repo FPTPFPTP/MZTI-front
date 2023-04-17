@@ -51,7 +51,7 @@ export default Layout;
 const StyledLayout = css`
     background-color: ${color.WHITE};
     position: relative;
-    min-width: 390px;
+    min-width: 375px;
     max-width: 600px;
     width: 100%;
     height: 100vh;

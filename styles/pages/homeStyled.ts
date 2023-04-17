@@ -12,7 +12,8 @@ export const BookMarkIconStyle = () => css`
 export const HomeMenu = () => css`
     display: flex;
     width: 100%;
-    padding: 33px;
+    padding: 20px 20px;
+    border-bottom: 1px solid red;
     justify-content: space-between;
     position: sticky;
     top: 0;
@@ -23,6 +24,7 @@ export const HomeMenu = () => css`
     }
     .right {
         display: flex;
+        align-items: center;
         .alarm {
             margin-right: 20px;
         }
@@ -35,7 +37,7 @@ export const HomeMenu = () => css`
 
 export const PostStyle = () => css`
     overflow-y: auto;
-    padding: 0 32px;
+    padding: 0 20px;
     background: #fff;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -59,7 +61,7 @@ export const PostContent = () => css`
 `;
 
 export const searchWrap = () => css`
-    padding: 22px 33px 0;
+    padding: 22px 20px 0;
     background-color: ${colors.WHITE};
     .search__box {
         position: relative;

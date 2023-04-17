@@ -109,7 +109,7 @@ export const NoticeShare = css`
     width: 100%;
     background: ${color.GRAY_LIGHT_5};
     height: 84px;
-    min-width: 390px;
+    min-width: 375px;
     max-width: 600px;
     width: 100%;
     button {
