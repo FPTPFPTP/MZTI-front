@@ -35,7 +35,7 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
     );
 
     useEffect(() => {
-        if (userInfo) {
+        if (userInfo && userInfo.id) {
             setCookie('userId', userInfo.id.toString());
         }
     }, [userInfo]);

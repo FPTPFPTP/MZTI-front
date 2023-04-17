@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useState } from 'react';
-import { message } from 'antd';
 import { Header } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
@@ -21,39 +20,18 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { commentModify, commentText, replayCommentState, commentModifyId } from '@/recoil/atom/user';
 import ReplayComment from '@/components/Home/FeedComents/ReplayComment';
 import CommentModifyInput from '@/components/Commons/CommentModifyInput';
+import { openToast } from '@utils/toast';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
 });
-interface IPostProps {
+
+interface IPostDetailProps {
     data?: IPostModel;
     commentData: IPaginationResponse<ICommentModel>;
 }
-export const getServerSideProps: GetServerSideProps = async ({ req, params }: any) => {
-    let data;
-    let commentData;
-    try {
-        const token = req.cookies['accessToken'];
-        Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-        Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
-        const res = await Axios.get<IResponseBase<IPostModel>>(`/post/${params.id}`);
-        const commentRes = await Axios.get<IResponseBase<IPaginationResponse<ICommentModel>>>('/post/comment', {
-            params: { postId: params.id, view: 15 },
-        });
-        data = res.data.data;
-        commentData = commentRes.data.data;
-    } catch (err) {
-        console.log('error', err);
-    }
-    return {
-        props: {
-            data,
-            commentData,
-        },
-    };
-};
 
-const post = ({ data, commentData }: IPostProps) => {
+const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const usePostLike = useMutation((id: any) => postBookmark(id));
     const [postData, setPostData] = useState<IPostModel | undefined>(data);
     const [isBookMark, setIsBookMark] = useState<boolean>(false);
@@ -73,7 +51,7 @@ const post = ({ data, commentData }: IPostProps) => {
     // 북마크하기
     const handleBookMark = () => {
         setIsBookMark((isBookMark) => !isBookMark);
-        usePostLike.mutate(data?.id);
+        usePostLike.mutate(postData?.id);
     };
 
     // 투표
@@ -82,7 +60,8 @@ const post = ({ data, commentData }: IPostProps) => {
             pollId: Number(result.id),
             pollList: result.answer.map((id) => Number(id)),
         }).then((res) => {
-            message.success('투표 참여에 성공했어요');
+            openToast({ message: '투표 참여에 성공했어요' });
+
             if (postData) {
                 getPost({ postId: postData.id }).then((result) => {
                     console.log({ result });
@@ -187,11 +166,11 @@ const post = ({ data, commentData }: IPostProps) => {
             {/* 헤더 */}
             <Header
                 isPrevBtn={true}
-                title={data?.categoryName}
+                title={postData?.categoryName}
                 rightElement={
                     <div className="right" css={BookMarkIconStyle}>
                         <button onClick={handleBookMark} className={classNames(isBookMark ? 'fill' : 'notFill')}>
-                            {data?.bookmark.check === true ? <FillBookMarkIcon /> : <BookMarkIcon />}
+                            {postData?.bookmark.check === true ? <FillBookMarkIcon /> : <BookMarkIcon />}
                         </button>
                     </div>
                 }
@@ -230,12 +209,12 @@ const post = ({ data, commentData }: IPostProps) => {
             {/* 대댓글 */}
             {replayState && <ReplayComment />}
 
-            {data && (
+            {postData && (
                 <FeedComents
                     isLastPage={commentData.totalPage === pageParam}
                     commentData={comment}
-                    writerId={data.writer.nickname}
-                    userId={data.id}
+                    writerId={postData.writer.nickname}
+                    userId={postData.id}
                     handleRefrash={handleRefrash}
                     handleMoreComment={handleMoreComment}
                 />
@@ -261,4 +240,30 @@ const post = ({ data, commentData }: IPostProps) => {
         </main>
     );
 };
-export default post;
+
+export default postDetail;
+
+export const getServerSideProps: GetServerSideProps = async ({ req, params }: any) => {
+    let data;
+    let commentData;
+
+    try {
+        const token = req.cookies['accessToken'];
+        Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+        Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
+        const res = await Axios.get<IResponseBase<IPostModel>>(`/post/${params.detailId}`);
+        const commentRes = await Axios.get<IResponseBase<IPaginationResponse<ICommentModel>>>('/post/comment', {
+            params: { postId: params.detailId },
+        });
+        data = res.data.data;
+        commentData = commentRes.data.data;
+    } catch (err) {
+        console.log('error', err);
+    }
+    return {
+        props: {
+            data,
+            commentData,
+        },
+    };
+};
