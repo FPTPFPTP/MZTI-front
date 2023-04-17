@@ -1,16 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import App, { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 import nextCookies from 'next-cookies';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import toast, { Toaster } from 'react-hot-toast';
 import { RecoilRoot, MutableSnapshot } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { Global } from '@emotion/react';
 import Layout from '@components/Layout';
 import globalReset from '@/styles/customReset';
 import axios from '@/utils/axios';
-import { removeTokenAll } from '@utils/auth';
+import { removeTokenAll, setCookie } from '@utils/auth';
 import { getMeUserInfo } from '@apis/user';
 import { IUserModel } from '@/types/user';
 
@@ -33,6 +34,12 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
         [userInfo],
     );
 
+    useEffect(() => {
+        if (userInfo && userInfo.id) {
+            setCookie('userId', userInfo.id.toString());
+        }
+    }, [userInfo]);
+
     return (
         <>
             <QueryClientProvider client={queryClient}>
@@ -49,6 +56,7 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
                     <Global styles={globalReset} />
                     <Layout>
                         <Component {...pageProps} />
+                        <Toaster />
                     </Layout>
                 </RecoilRoot>
                 <ReactQueryDevtools />
@@ -75,8 +83,8 @@ MyCustomApp.getInitialProps = async (appContext: AppContext) => {
     // 서버 사이드 쿠키가 남아있을 경우, 해당 쿠키로 인증 시도
     if (refreshToken && accessToken) {
         try {
-            axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-            axios.defaults.headers.common['Authorization'] = accessToken ? `Bearer ${accessToken}` : '';
+            axios.defaults.baseURL = 'http://localhost:3000/mzti';
+            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
             const data = await getMeUserInfo();
             if (!data) {

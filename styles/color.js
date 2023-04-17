@@ -15,6 +15,10 @@ module.exports = {
 
     BLACK: '#000000',
 
+    STRONG_TEXT: '#292d32',
+    STRONG_TEXT_1: '#123262',
+    STRONG_TEXT_2: '#1c1b1f',
+
     // Gray Light
     GRAY_LIGHT_1: '#fafafa', // BG/Text/InputBG
     GRAY_LIGHT_2: '#F6F6F6',
@@ -28,6 +32,7 @@ module.exports = {
     GRAY_BRIGHT_1: '#c4c4c4',
     GRAY_BRIGHT_2: '#ccc',
     GRAY_BRIGHT_3: '#D9D9D9',
+    GRAY_BRIGHT_4: '#F5F5F5',
 
     // Gray Origin
     GRAY_ORIGIN_1: '#a7a7a7',
@@ -41,6 +46,7 @@ module.exports = {
     GRAY_STRONG_3: '#585858',
     GRAY_STRONG_4: '#333',
     GRAY_STRONG_5: '#49454F',
+    GRAY_STRONG_6: '#545454',
 
     // Gray Dark
     GRAY_DARK: '#2f2f2f', // Text/Default/Icon

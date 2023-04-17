@@ -12,6 +12,9 @@ import { Button, Modal } from 'antd';
 import Mbti from '@/components/Commons/Mbti';
 import axios from '@/utils/axios';
 import { useRouter } from 'next/router';
+import { useMutation } from '@tanstack/react-query';
+import { postMyPage } from '@/apis/user';
+import { openToast } from '@/utils/toast';
 
 const edit = () => {
     const myInfo = useRecoilValue(myPageInfo);
@@ -23,10 +26,12 @@ const edit = () => {
     // view단 프로필사진
     const [previewFileSrc, setPreviewFileSrc] = useState<string>('');
     // mbti
-    const [mbtiValue, setMbtiValue] = useState<string>('');
+    const [mbti, setMbti] = useState<string>('');
     // mbti 모달 open
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const router = useRouter();
+    // 댓글 삭제
+    const { mutate } = useMutation(({ nickname, mbti, intro }: IUserModel) => postMyPage({ nickname, mbti, intro }));
 
     /**
      * 프로필 사진 업로드
@@ -57,11 +62,15 @@ const edit = () => {
 
             // string 변경
             const textEdit = () => {
-                return axios.post('/user', {
-                    nickname: nickname,
-                    mbti: mbtiValue,
-                    intro: intro,
-                });
+                mutate(
+                    { nickname, mbti, intro },
+                    {
+                        onSuccess: () => {
+                            openToast({ message: '프로필 수정을 완료했어요', duration: 2000 });
+                            router.push('/mypage');
+                        },
+                    },
+                );
             };
 
             if (profileData !== null) {
@@ -69,7 +78,6 @@ const edit = () => {
             }
             Promise.all([profileEdit(), textEdit()])
                 .then((res: any) => {
-                    alert('수정 완료되었습니다.');
                     router.push('/mypage');
                 })
                 .catch((error) => {
@@ -86,9 +94,9 @@ const edit = () => {
      */
     const handleMbti = useCallback(
         (mbti: string) => {
-            setMbtiValue(mbti);
+            setMbti(mbti);
         },
-        [mbtiValue],
+        [mbti],
     );
 
     const handleMbtiModal = () => {
@@ -106,7 +114,7 @@ const edit = () => {
             const { nickname, mbti, intro, profileImage } = myInfo;
             setValue('nickname', nickname);
             setValue('intro', intro);
-            setMbtiValue(mbti);
+            setMbti(mbti);
             if (profileImage) {
                 setPreviewFileSrc(profileImage);
             }
@@ -170,7 +178,7 @@ const edit = () => {
                     <h4 css={editTitle}>MBTI</h4>
 
                     <div css={MbtiFlex}>
-                        <p css={MbtiStyles}>{mbtiValue}</p>
+                        <p css={MbtiStyles}>{mbti}</p>
                         <div>
                             <Button type="primary" css={editButton} onClick={handleModal}>
                                 <ProfileEdit />
@@ -184,7 +192,7 @@ const edit = () => {
                                 cancelText="닫기"
                                 centered={false}
                             >
-                                <Mbti mbti={mbtiValue} onUpdateMbti={handleMbti} />
+                                <Mbti mbti={mbti} onUpdateMbti={handleMbti} />
                             </Modal>
                         </div>
                     </div>

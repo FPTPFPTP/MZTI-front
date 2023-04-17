@@ -1,6 +1,11 @@
 import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
+export const FeedComentsWrapStyle = css`
+    padding-bottom: 80px;
+    background-color: #fff;
+`;
+
 export const ListTabStyle = css`
     display: flex;
     justify-content: space-around;
@@ -84,31 +89,31 @@ export const FeedComentsStyle = css`
 `;
 
 export const MoreCommentStyle = css`
+    background-color: ${colors.GRAY_BRIGHT_4};
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
-    padding: 1.1rem 33px;
     button {
+        padding: 14px 0;
+        width: 100%;
+        text-align: center;
         display: flex;
         align-items: center;
+        justify-content: center;
         span {
             margin-left: 7px;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
+            color: ${colors.GRAY_STRONG_6};
         }
     }
 `;
 export const CommentItemSylte = css`
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
-    &:last-of-type {
-        border-bottom: none;
-        &::after {
-            content: '';
-            height: 80px;
-            display: block;
-            border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
-        }
-    }
     .commentItemWrap {
         padding: 1rem 33px;
         background-color: ${colors.WHITE};
+        &.replay {
+            padding: 1rem 33px 1rem 63px;
+            background-color: ${colors.GRAY_LIGHT_5};
+        }
     }
     .writer {
         display: flex;
@@ -171,10 +176,10 @@ export const CommentItemSylte = css`
 `;
 
 export const FeedItemStyle = css`
-    background: ${colors.GRAY_BRIGHT_2};
+    background: ${colors.WHITE};
     padding-bottom: 90px;
     .feedLayout {
-        padding-top: 4px;
+        border-bottom: 4px solid ${colors.GRAY_BRIGHT_2};
         .feedLayout__bg {
             background: ${colors.WHITE};
             padding: 0 33px;
@@ -271,6 +276,7 @@ export const ItemFooterStyle = css`
     padding: 12px 0 21px;
     border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
     background-color: ${colors.WHITE};
+    a,
     button {
         display: flex;
         align-items: center;
@@ -309,22 +315,38 @@ export const ItemContentStyle = css`
         font-size: 1.5rem;
     }
     .itemContent__content {
+        margin-bottom: 20px;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
         font-weight: 300;
         font-size: 1.2rem;
-        margin-bottom: 20px;
+        & > * {
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: ${colors.GRAY_STRONG_2};
+            em {
+                font-style: normal !important;
+                font-weight: 300;
+            }
+            p {
+                font-size: 1.2rem;
+                font-weight: 300;
+                color: ${colors.GRAY_STRONG_2};
+            }
+        }
         img {
             width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
     }
     h4 {
         font-size: 1.5rem;
         font-weight: 700;
         margin-bottom: 10px;
-    }
-    p {
-        font-size: 1rem;
-        font-weight: 500;
-        color: ${colors.GRAY_STRONG_2};
     }
     img {
         margin-top: 20px;
@@ -379,5 +401,44 @@ export const ItemContentStyle = css`
             font-size: 16px;
             border: 1px solid ${colors.GRAY_ORIGIN_2};
         }
+    }
+`;
+
+export const DeletedComment = css`
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: ${colors.GRAY_STRONG};
+    padding: 1rem 33px;
+    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    &.reComment {
+        background: ${colors.GRAY_LIGHT_5};
+        display: flex;
+        span {
+            margin-left: 10.5px;
+        }
+    }
+`;
+
+export const ReplayCommentStyled = css`
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+
+    .ReplayCommentWrap {
+        background-color: ${colors.WHITE};
+        min-width: 390px;
+        max-width: 600px;
+        width: 100%;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+    .commentWrap {
+        padding-bottom: 80px;
     }
 `;

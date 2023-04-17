@@ -58,36 +58,41 @@ export interface ICommentModel {
     writer: IWriterModel;
     like: CheckProps;
     subComment: CheckProps;
+    deleted: boolean;
 }
 
+// 대댓글 타입
+export interface IReCommentModal {
+    id: number;
+    comment: string;
+    createAt: string;
+    writer: IWriterModel;
+    like: CheckProps;
+    deleted: boolean;
+}
+
+// 좋아요 수 타입
 export interface ILikeModel {
     check: boolean;
     count: number;
 }
 
+// 북마크 수 타입
 export interface IBookmarkModel {
     check: boolean;
     count: number;
 }
+
+// 댓글 수 타입
 export interface ICommandModel {
     check: boolean;
     count: number;
 }
 
+// 게시글 타입
 export interface IPostMeModel {
     id: number;
-    content: string;
-    createAt: string;
-}
-
-export interface IPostCommentMeModel {
-    id: number;
-    content: string;
-    createAt: string;
-}
-
-export interface IPostBookMarkModel {
-    id: number;
+    title: string;
     content: string;
     createAt: string;
 }
@@ -95,9 +100,10 @@ export interface IPostBookMarkModel {
 // 피드 불러오기 타입
 export interface IDetailPost {
     tag?: string;
-    view: number;
+    view?: number;
     page: number;
-    content: string;
+    content?: string;
+    categoryId?: number;
 }
 
 // 마이페이지 내 활동 조회 타입
@@ -107,8 +113,55 @@ export interface IMyPageActive {
     like: number;
 }
 
+// 댓글 추가 시 param에 넘겨줄 타입
 export interface IAddComment {
     postId: number;
     comment: string;
     image: string;
+}
+
+// 댓글&대댓글 업데이트 타입
+export interface IEditComment {
+    id: number;
+    comment: string;
+    image?: string;
+}
+
+// 대댓글 추가 시 param에 넘겨줄 타입
+export interface IAddReComment {
+    commentId: number;
+    comment: string;
+    image: string;
+}
+
+export interface IReComment<T> {
+    list: ICommentModel[];
+    page: number;
+    view: number;
+    totalPage: number;
+    totalCount: number;
+}
+
+export interface ICommentParam {
+    postId: number;
+    page?: number;
+    view?: number;
+}
+export interface IReCommentParam {
+    commentId: number;
+    page: number;
+    view: number;
+}
+
+export interface ICommentProps {
+    nickname: string;
+    mbti: string;
+    profileImage: string;
+    userId: number;
+    comment: string;
+    like: number;
+    createAt: string;
+    writerId: string;
+    likeCheck: boolean;
+    subComment: number;
 }

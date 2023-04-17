@@ -4,6 +4,7 @@ import { feedbackStyled, feedbackWrapStyled } from '@styles/pages/mypageFeedback
 import { BlackButton } from '@/components/Commons/Button';
 import { postSupport, useGetSupportCategory } from '@/apis/support';
 import { Select, message } from 'antd';
+import { openToast } from '@/utils/toast';
 
 const feedback = () => {
     const [selected, setSelected] = useState<number>(1);
@@ -32,7 +33,7 @@ const feedback = () => {
                 });
 
                 if (data && data.code === 'SUCCESS') {
-                    message.success('접수 완료 되었습니다.');
+                    openToast({ message: '문의사항이 정상적으로 전달되었어요', duration: 2000 });
                     setContactText('');
                 }
             } catch (error) {
@@ -69,7 +70,7 @@ const feedback = () => {
 
             <div className="buttonWrap">
                 <BlackButton onClick={handleSubmit} type="submit" disabled={!contactText}>
-                    건의사항 보내기
+                    문의사항 보내기
                 </BlackButton>
             </div>
         </main>

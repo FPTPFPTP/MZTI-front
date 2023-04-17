@@ -104,10 +104,11 @@ export const ListItemStyle = css`
         background: ${color.GRAY_LIGHT_1};
     }
     .id {
-        width: 50px;
+        margin-right: 10px;
     }
     .thumbnail {
-        margin-left: 10px;
+        width: 73px;
+        margin-right: 10px;
     }
     .title {
         width: 100%;
@@ -124,7 +125,7 @@ export const ListItemStyle = css`
 export const ListBoxStyle = css`
     overflow-y: auto;
     width: 100%;
-    height: calc(100% - 168px);
+    height: calc(100vh - 168px);
     background: none;
     margin-top: 20px;
     -ms-overflow-style: none; /* IE and Edge */
@@ -154,6 +155,8 @@ export const EmptyStyle = css`
         font-weight: 400;
         color: ${color.GRAY_ORIGIN_1};
         margin-top: 10px;
+        white-space: pre-line;
+        text-align: center;
     }
 `;
 

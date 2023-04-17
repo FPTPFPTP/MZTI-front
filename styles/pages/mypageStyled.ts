@@ -67,4 +67,58 @@ export const MypageWrap = css`
             justify-content: center;
         }
     }
+    .advertisement {
+        font-weight: 400;
+        font-size: 1.3rem;
+        padding: 15px 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 20px;
+        width: 100%;
+    }
+`;
+
+export const NoticeViewStyle = css`
+    .header {
+        padding: 10px 32px 16px;
+        border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+        h3 {
+            font-size: 1.4rem;
+        }
+        p {
+            font-size: 1rem;
+            color: ${colors.GRAY_STRONG};
+            font-weight: 300;
+            text-align: right;
+            margin-top: 35px;
+        }
+    }
+    article {
+        padding: 57px 33px;
+        font-size: 1.2rem;
+    }
+`;
+
+export const NoticeShare = css`
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: ${color.GRAY_LIGHT_5};
+    height: 84px;
+    min-width: 390px;
+    max-width: 600px;
+    width: 100%;
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span {
+            margin-left: 14px;
+            font-weight: 300;
+        }
+    }
 `;

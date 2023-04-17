@@ -25,3 +25,77 @@ export const postMeUserInfo = async ({ nickname, mbti, intro }: IUserModel) => {
 
     return res.data.data;
 };
+
+/**
+ * [API] Delete 회원탈퇴
+ * @returns
+ */
+export const secessionUser = async () => {
+    const res = await Axios.delete<IResponseBase<any>>('/user');
+
+    return res.data.data;
+};
+
+/**
+ * [API] POST 마이페이지 수정
+ * @returns
+ */
+export const postMyPage = async ({ nickname, mbti, intro }: IUserModel) => {
+    const res = await Axios.post<IResponseBase<IUserModel>>('/user', {
+        nickname: nickname,
+        mbti: mbti,
+        intro: intro,
+    });
+
+    return res.data.data;
+};
+
+/**
+ * [API] PATCH 넥네임 수정
+ * @returns
+ */
+export const patchNickname = async ({ nickname }: { nickname: string }) => {
+    const res = await Axios.patch<IResponseBase<IUserModel>>('/user/nickname', {
+        nickname,
+    });
+
+    return res.data.data;
+};
+
+/**
+ * [API] PATCH Mbti 수정
+ * @returns
+ */
+export const patchMbti = async ({ mbti }: { mbti: string }) => {
+    const res = await Axios.patch<IResponseBase<IUserModel>>('/user/mbti', {
+        mbti,
+    });
+
+    return res.data.data;
+};
+
+/**
+ * [API] PATCH 자기소개 수정
+ * @returns
+ */
+export const patchIntroduce = async ({ intro }: { intro: string }) => {
+    const res = await Axios.patch<IResponseBase<IUserModel>>('/user/intro', {
+        intro,
+    });
+
+    return res.data.data;
+};
+
+/**
+ * [API] PATCH 프로필 이미지 수정
+ * @returns
+ */
+export const patchProfile = async ({ fmData }: { fmData: FormData }) => {
+    const res = await Axios.patch<IResponseBase<IUserModel>>(`/user/profile`, fmData, {
+        headers: {
+            'content-type': 'multipart/form-data',
+        },
+    });
+
+    return res.data.data;
+};

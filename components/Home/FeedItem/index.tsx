@@ -1,43 +1,54 @@
-import { PageInfo } from '@/utils/types';
+import { InfiniteData } from '@tanstack/react-query';
+import { IPaginationResponse } from '@/types/global';
 import { IPostModel } from '@/types/post';
 import ItemContent from './ItemContent';
 import ItemFooter from './ItemFooter';
 import ItemHeader from './ItemHeader';
 import { FeedItemStyle } from '../styled';
 import Link from 'next/link';
+import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
 
-const FeedItem = ({ data }: any) => {
+const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<IPostModel>>; isLoading: boolean }) => {
     return (
         <div css={FeedItemStyle}>
-            {data?.pages.map((page: PageInfo) => {
-                return page.list.map((item: IPostModel) => {
-                    return (
-                        <div className="feedLayout" key={item.id}>
-                            <div className="feedLayout__bg">
-                                <ItemHeader writer={item.writer} createAt={item.createAt} writerID={item.id} />
-                                <Link href={`/home/${item.id}`}>
-                                    <ItemContent
-                                        id={item.id}
-                                        title={item.title}
-                                        content={item.content}
-                                        pollList={item.pollList}
-                                        tags={item.tags && item.tags}
-                                    />
-                                </Link>
-
-                                <ItemFooter
-                                    likeCheck={item.like.check}
-                                    viewCount={item.viewCount}
-                                    postId={item.id}
-                                    like={item.like.count}
-                                    command={item.command.count}
-                                    bookmark={item.bookmark.count}
-                                />
-                            </div>
-                        </div>
-                    );
-                });
-            })}
+            {isLoading ? (
+                <>
+                    <FeedSkeleton />
+                    <FeedSkeleton />
+                    <FeedSkeleton />
+                </>
+            ) : (
+                <>
+                    {data?.pages.map((page) => {
+                        return page.list.map((item) => {
+                            return (
+                                <div className="feedLayout" key={item.id}>
+                                    <div className="feedLayout__bg">
+                                        <ItemHeader writer={item.writer} createAt={item.createAt} writerID={item.id} categoryId={item.categoryId} />
+                                        <Link href={`/board/${item.categoryId}/${item.id}`}>
+                                            <ItemContent
+                                                id={item.id}
+                                                title={item.title}
+                                                content={item.content}
+                                                pollList={item.pollList}
+                                                tags={item.tags && item.tags}
+                                            />
+                                        </Link>
+                                        <ItemFooter
+                                            likeCheck={item.like.check}
+                                            viewCount={item.viewCount}
+                                            postId={item.id}
+                                            like={item.like.count}
+                                            command={item.command.count}
+                                            postLink={item.id}
+                                        />
+                                    </div>
+                                </div>
+                            );
+                        });
+                    })}
+                </>
+            )}
         </div>
     );
 };

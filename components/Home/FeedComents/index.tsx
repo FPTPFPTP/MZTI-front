@@ -1,20 +1,20 @@
-import { FeedComentsStyle, FeedNoComentsStyle, MoreCommentStyle } from '../styled';
+import { DeletedComment, FeedComentsStyle, FeedNoComentsStyle, MoreCommentStyle, FeedComentsWrapStyle } from '../styled';
 import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
-import MoreComment from '@assets/icons/comment/more.svg';
-import ComentItem from './ComentItem';
+import CommentItem from './CommentItem';
 import { ICommentModel } from '@/types/post';
 
 interface ICommentProps {
-    commentData?: [];
-    writerId?: any;
+    commentData?: ICommentModel[];
+    writerId?: string; // 작성자 명
+    handleRefrash?: () => void; // 새로고침
+    userId: number;
+    handleMoreComment: () => void; // 댓글 더보기
+    isLastPage?: boolean;
 }
 
-const FeedComents = ({ commentData, writerId }: ICommentProps) => {
-    const handleRefrash = () => {
-        location.reload();
-    };
+const FeedComents = ({ isLastPage, commentData, writerId, handleRefrash, handleMoreComment }: ICommentProps) => {
     return (
-        <>
+        <div css={FeedComentsWrapStyle}>
             <section css={FeedComentsStyle}>
                 <h4>댓글 목록</h4>
                 <button onClick={handleRefrash}>
@@ -31,18 +31,26 @@ const FeedComents = ({ commentData, writerId }: ICommentProps) => {
                 </div>
             ) : (
                 <>
-                    {commentData && commentData?.length > 9 && (
-                        <section css={MoreCommentStyle}>
-                            <button>
-                                <MoreComment />
-                                <span>이전 댓글 더보기</span>
-                            </button>
-                        </section>
+                    {commentData && commentData?.length >= 15 && (
+                        <>
+                            {!isLastPage && (
+                                <section css={MoreCommentStyle}>
+                                    <button onClick={handleMoreComment}>
+                                        <span>+ 댓글 더보기</span>
+                                    </button>
+                                </section>
+                            )}
+                        </>
                     )}
 
                     {commentData?.map((item: ICommentModel) => {
-                        return (
-                            <ComentItem
+                        return item.deleted === true ? (
+                            <p css={DeletedComment} key={item.id}>
+                                삭제된 댓글입니다.
+                            </p>
+                        ) : (
+                            <CommentItem
+                                likeCheck={item.like.check}
                                 key={item.id}
                                 nickname={item.writer.nickname}
                                 mbti={item.writer.mbti}
@@ -51,13 +59,14 @@ const FeedComents = ({ commentData, writerId }: ICommentProps) => {
                                 comment={item.comment}
                                 like={item.like.count}
                                 createAt={item.createAt}
-                                writerId={writerId}
+                                writerId={String(writerId)}
+                                subComment={item.subComment.count}
                             />
                         );
                     })}
                 </>
             )}
-        </>
+        </div>
     );
 };
 

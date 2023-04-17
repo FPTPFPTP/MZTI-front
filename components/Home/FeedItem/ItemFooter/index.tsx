@@ -8,32 +8,37 @@ import ShareIcon from '@assets/icons/comment/share.svg';
 import { LinkCopy } from '@/utils/copy';
 import { useMutation } from '@tanstack/react-query';
 import { postLike } from '@/apis/post';
+import Link from 'next/link';
+import { ILikeModel } from '@/types/post';
 interface IItemProps {
     like?: number | string;
     command?: number;
     className?: string;
     isFeed?: boolean;
-    bookmark?: number;
     postId?: number;
     viewCount: number;
     likeCheck: boolean;
+    postLink?: number;
 }
-const ItemFooter = ({ postId, likeCheck, like, command, className, viewCount, isFeed = true, bookmark }: IItemProps) => {
+const ItemFooter = ({ postLink, postId, likeCheck, like, command, className, viewCount, isFeed = true }: IItemProps) => {
     const [isLike, setIsLike] = useState<boolean>(likeCheck);
     const [likeCount, setLikeCount] = useState<any>(like);
     // 게시글 좋아요
-    const usePostLike = useMutation((id: any) => postLike(id));
+    const { mutate } = useMutation((id: any) => postLike(id));
 
     const handleLike = () => {
-        usePostLike.mutate(postId);
-        setIsLike((isLike) => !isLike);
-        setLikeCount(likeCount);
-    };
+        mutate(postId, {
+            onSuccess: (data: ILikeModel) => {
+                if (data.check === true) {
+                    setLikeCount(data.count);
+                } else {
+                    setLikeCount(data.count);
+                }
 
-    /**
-     * like.check === false이면 그냥 like count 보여주기
-     * true이면 +1 해주기
-     */
+                setIsLike((isLike) => !isLike);
+            },
+        });
+    };
 
     return (
         <section css={ItemFooterStyle} className={className}>
@@ -42,16 +47,16 @@ const ItemFooter = ({ postId, likeCheck, like, command, className, viewCount, is
                 <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
             </button>
 
-            <button>
+            <Link href={`home/${postLink}`}>
                 <CommentIcon />
                 <span>{command}</span>
-            </button>
+            </Link>
 
             {isFeed ? (
-                <div className="viewIcon">
+                <Link href={`home/${postLink}`} className="viewIcon">
                     <Views />
                     <span className="count">{viewCount}</span>
-                </div>
+                </Link>
             ) : (
                 <button onClick={LinkCopy}>
                     <ShareIcon />

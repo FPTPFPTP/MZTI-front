@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Banner from '@/components/MyPageCom/Banner';
 import Menu from '@/components/MyPageCom/Menu';
 import Profile from '@/components/MyPageCom/Profile';
@@ -9,8 +10,9 @@ import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import NotUser from '@/components/MyPageCom/NotUser';
-import { useGetMyPageActive } from '@/apis/post';
-
+import { getMyPageActive } from '@/apis/post';
+import { getAccessToken } from '@utils/auth';
+import { IMyPageActive } from '@/types/post';
 const menuList = [
     {
         title: '내가 북마크 한 글',
@@ -36,11 +38,13 @@ const menuList = [
 
 const mypage = () => {
     const myInfo = useRecoilValue(myPageInfo);
-    let myActive = null;
+    const [myActive, setMyactive] = useState<IMyPageActive>();
 
-    if (myInfo) {
-        myActive = useGetMyPageActive();
-    }
+    useEffect(() => {
+        if (getAccessToken()) {
+            getMyPageActive().then((res) => setMyactive(res));
+        }
+    }, []);
 
     return (
         <>
@@ -57,7 +61,7 @@ const mypage = () => {
             <div css={MypageWrap}>
                 {myInfo ? (
                     <>
-                        <Profile mbti={myInfo.mbti} nickname={myInfo.nickname} intro={myInfo.intro} profileImage={myInfo.profileImage} />
+                        <Profile user={myInfo} />
                         {myActive && <Write write={myActive.post} comment={myActive.comment} recommend={myActive.like} />}
                     </>
                 ) : (

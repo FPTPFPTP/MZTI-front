@@ -33,12 +33,18 @@ export const SecessionStyled = css`
                     display: inline-block;
                     width: 2px;
                     height: 2px;
-                    background: #292d32;
+                    background: ${color.STRONG_TEXT};
                     border-radius: 50%;
                     margin-right: 1rem;
                 }
+                a {
+                    color: ${color.STRONG_TEXT_1};
+                    font-weight: 600;
+                    text-decoration: underline;
+                }
             }
         }
+
         .buttonWrap {
             text-align: center;
             margin-top: 60px;
@@ -47,15 +53,18 @@ export const SecessionStyled = css`
             display: flex;
             align-items: center;
             margin-top: 90px;
+            label {
+                font-size: 1rem;
+            }
             input {
                 width: 18px;
                 height: 18px;
-                border: 2px solid #1c1b1f;
+                border: 2px solid ${color.STRONG_TEXT_2};
                 border-radius: 2px;
                 margin-right: 8px;
             }
             p {
-                color: #292d32;
+                color: ${color.STRONG_TEXT};
             }
         }
     }

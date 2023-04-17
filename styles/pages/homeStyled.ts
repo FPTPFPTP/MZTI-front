@@ -59,6 +59,20 @@ export const PostContent = () => css`
 `;
 
 export const searchWrap = () => css`
-    padding: 0 33px;
+    padding: 22px 33px 0;
     background-color: ${colors.WHITE};
+    .search__box {
+        position: relative;
+        button {
+            position: absolute;
+            right: 30px;
+            top: 25px;
+        }
+    }
+    .search__filter {
+        display: flex;
+        justify-content: space-between;
+        color: ${colors.GRAY_ORIGIN_1};
+        padding: 17px 0;
+    }
 `;

@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
 // import { useObserver } from '@/hooks/useObserver';
-import EditSvg from '@assets/icons/edit.svg';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostsMe } from '@/apis/post';
 
@@ -53,7 +52,7 @@ const WriteList = () => {
 
     return (
         <>
-            <Header title={'내가 작성한 글'} rightElement={<EditSvg />} />
+            <Header title={'내가 작성한 글'} />
             <div css={Layout}>
                 <form>
                     <Input
@@ -67,7 +66,22 @@ const WriteList = () => {
                 </form>
                 <ListBox>
                     {writeList.length ? (
-                        writeList.map((item) => <ListItem key={item.id} id={item.id} content={item.content} createAt={item.createAt} />)
+                        writeList.map((item) => {
+                            // 이미지 있을 때 첫번째 이미지만 가져오기
+                            let thumbnail;
+
+                            const list = item.content.match(/(<(img[^>]+)>)/g);
+                            if (list && list.length) {
+                                const myRegex = /<img[^>]+src="(https:\/\/[^">]+)"/g;
+
+                                const result = myRegex.exec(list[0]);
+                                if (result !== null) {
+                                    thumbnail = result[1];
+                                }
+                            }
+
+                            return <ListItem key={item.id} item={item} url={`/home/${item.id}`} thumbnail={thumbnail} />;
+                        })
                     ) : (
                         <>
                             {search && search.length ? (

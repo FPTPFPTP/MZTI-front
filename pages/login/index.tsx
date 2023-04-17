@@ -60,7 +60,7 @@ const login = () => {
                             .then((res) => {
                                 setToken('accessToken', res.data.data.accessToken);
                                 setToken('refreshToken', res.data.data.refreshToken);
-                                router.replace('/');
+                                // router.replace('/');
                                 router.reload();
                             });
                         console.log('Login Success!', response);
@@ -97,6 +97,7 @@ export async function getServerSideProps({ req }: GetServerSidePropsContext) {
             },
         };
     }
+
     return {
         props: {},
     };

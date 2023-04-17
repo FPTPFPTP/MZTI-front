@@ -1,5 +1,5 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react';
-import CircleCloseSvg from '@assets/icons/circle_close.svg';
+import SearchCloseIcon from '@assets/icons/search/searchClose.svg';
 import SearchSvg from '@assets/icons/search.svg';
 import { InputWrapCss, InputCss, BorderlessWrapCss, SeachWrapCss } from './styled';
 
@@ -47,7 +47,7 @@ const BorderLessInput = React.forwardRef(
             <div css={BorderlessWrapCss}>
                 <input css={InputCss} ref={ref} {...rest} />
 
-                {isResetBtn && <CircleCloseSvg onClick={handleReset} />}
+                {isResetBtn && <SearchCloseIcon onClick={handleReset} />}
             </div>
         );
     },
@@ -63,7 +63,7 @@ const SearchInput = React.forwardRef(
 
                 <input css={InputCss} ref={ref} {...rest} />
 
-                {isResetBtn && <CircleCloseSvg onClick={handleReset} style={{ width: 20 }} />}
+                {isResetBtn && <SearchCloseIcon onClick={handleReset} style={{ width: 20 }} />}
             </div>
         );
     },
