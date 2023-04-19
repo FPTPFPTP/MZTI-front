@@ -39,7 +39,6 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
     );
 
     const { isInstalled, canInstall, showInstallPrompt } = usePWA();
-    console.log({ isInstalled, canInstall, showInstallPrompt });
 
     const onClickInstallPWA = () => {
         showInstallPrompt();
@@ -55,6 +54,7 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
     }, []);
 
     useEffect(() => {
+        console.log({ isInstalled, canInstall, showInstallPrompt });
         if (!notVisiblePopup && !isInstalled && canInstall) {
             setIsInstallPopup(true);
         }
@@ -86,19 +86,21 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
                     </Layout>
                 </RecoilRoot>
                 <ReactQueryDevtools />
-                <Modal
-                    title={'MZTI를 설치하고 싶은가요?'}
-                    isModalVisible={isInstallPopup}
-                    closable={false}
-                    footer={
-                        <>
-                            <button onClick={onCloseModal}>취소</button>
-                            <button onClick={onClickInstallPWA}>설치하기</button>
-                        </>
-                    }
-                >
-                    <p>아래 계정으로 다시 로그인할 수 있습니다.</p>
-                </Modal>
+                {isInstallPopup && (
+                    <Modal
+                        title={'MZTI를 설치하고 싶은가요?'}
+                        isModalVisible={isInstallPopup}
+                        closable={false}
+                        footer={
+                            <>
+                                <button onClick={onCloseModal}>취소</button>
+                                <button onClick={onClickInstallPWA}>설치하기</button>
+                            </>
+                        }
+                    >
+                        <p>아래 계정으로 다시 로그인할 수 있습니다.</p>
+                    </Modal>
+                )}
             </QueryClientProvider>
         </>
     );
