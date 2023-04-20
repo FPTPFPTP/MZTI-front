@@ -15,7 +15,7 @@ export const Layout = css`
 `;
 
 export const MypageWrap = css`
-    padding: 0 34px;
+    padding: 0 20px;
     margin: 50px 0 0 0;
     background-color: ${color.WHITE};
     .notUser {
@@ -24,13 +24,18 @@ export const MypageWrap = css`
             align-items: center;
             justify-content: center;
             .notUser__left {
-                margin-right: 25px;
+                margin-right: 10px;
                 text-align: center;
                 .profile {
                     border: 2px solid ${colors.BLACK};
-                    padding: 14px 10px 0 10px;
                     border-radius: 50%;
                     overflow: hidden;
+                    width: 90px;
+                    height: 90px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-top: 16px;
                 }
                 p {
                     margin-top: 5px;

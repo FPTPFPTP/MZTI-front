@@ -38,7 +38,7 @@ export const SeachWrapCss = css`
     gap: 1rem;
     border: 1px solid ${colors.GRAY_ORIGIN_1};
     border-radius: 46px;
-    padding: 12px 25px;
+    padding: 5px 18px;
     svg {
         path {
             fill: ${colors.GRAY_ORIGIN_1};

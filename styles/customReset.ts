@@ -104,7 +104,10 @@ const globalReset = () => css`
         * 100vw/390px * 10px = 2.6667vw
         * -> 너비가 390px인 디자인 시안에서 10px을 1rem으로 간주  
         */
-        font-size: 2.6667vw;
+        /* font-size: 2.6667vw; */
+        line-height: 1;
+        font-size: 14px;
+        font-weight: 400;
         -webkit-text-size-adjust: none;
         -moz-text-size-adjust: none;
         -ms-text-size-adjust: none;
@@ -136,10 +139,17 @@ const globalReset = () => css`
         height: 100vh;
         width: 100%;
         background: ${colors.GRAY_LIGHT_3};
-        overflow-y: scroll;
     }
     .toastui-editor-contents p {
         font-size: 1.2rem;
+    }
+
+    /** 반응형 */
+    .homeLayout {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 100%;
     }
 `;
 export default globalReset;

@@ -2,13 +2,12 @@ import { useRouter } from 'next/router';
 import FeedItem from '@/components/Home/FeedItem';
 import HotKeyword from '@/components/Home/HotKeyword';
 import { Input, BottomMenu } from '@components/Commons';
-import MyPageIcon from '@assets/icons/header/mypage.svg';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
-import Link from 'next/link';
-import { HomeMenu, searchWrap } from '@styles/pages/homeStyled';
+import { searchWrap } from '@styles/pages/homeStyled';
 import ListTab from '@/components/Home/ListTab';
 import { getFeedPost } from '@/apis/post';
+import FeedHeader from '@/components/Commons/FeedHeader';
 
 const home = () => {
     const router = useRouter();
@@ -20,22 +19,10 @@ const home = () => {
         },
     });
     return (
-        <main>
+        <main className="homeLayout">
             <>
                 {/* 헤더 */}
-                <div css={HomeMenu}>
-                    <h1>MZTI</h1>
-
-                    <div className="right">
-                        {/* TODO : 2차 오픈때 개발 예정 */}
-                        {/* <Link href="/alarm" className="alarm">
-                        <AlarmIcon />
-                    </Link> */}
-                        <Link href="/mypage">
-                            <MyPageIcon />
-                        </Link>
-                    </div>
-                </div>
+                <FeedHeader />
 
                 <div css={searchWrap}>
                     <Input inputStyle={'search'} placeholder={'관심있는 MBTI, 키워드, 이슈 검색'} onClick={() => router.push('/search')} />

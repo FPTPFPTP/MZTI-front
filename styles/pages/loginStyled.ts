@@ -9,4 +9,7 @@ export const Login = css`
     h1 {
         font-size: 2rem;
     }
+    p {
+        font-size: 17px;
+    }
 `;

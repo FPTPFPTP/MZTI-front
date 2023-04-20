@@ -23,8 +23,6 @@ interface IMoreDrawerProps {
 }
 
 const MoreDrawer = ({ isVisible, onClick, type, writerID, handlePostDelete, handleCommentDelete, handleCommentEdit }: IMoreDrawerProps) => {
-    const getCommentId = useRecoilValue(replayCommentId);
-
     const Content = ({ type }: { type: EType }) => {
         if (type === EType.COMMENT) {
             return (

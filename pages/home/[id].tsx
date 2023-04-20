@@ -183,7 +183,7 @@ const post = ({ data, commentData }: IPostProps) => {
     }, [postData]);
 
     return (
-        <main>
+        <main className="homeLayout">
             {/* 헤더 */}
             <Header
                 isPrevBtn={true}
