@@ -6,6 +6,10 @@ import axios from 'utils/axios';
 import { useRouter } from 'next/router';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { setToken } from '@/utils/auth';
+import CopyText from '@assets/icons/login/copy_text.svg';
+import Kakao from '@assets/icons/login/kakao.svg';
+import Facebook from '@assets/icons/login/facebook.svg';
+import Link from 'next/link';
 
 const login = () => {
     const REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_API;
@@ -46,43 +50,49 @@ const login = () => {
     return (
         <>
             <div css={Login}>
-                <h1>MBTI에 과몰입 할 MZ들 모여라!</h1>
-                <button onClick={handleKaKao}>
-                    <Image src="/images/kakao.png" alt="카카오톡으로 시작하기" width={400} height={100} />
-                </button>
-                <FacebookLogin
-                    appId={process.env.NEXT_PUBLIC_FACEBOOK_URL!}
-                    onSuccess={(response) => {
-                        axios
-                            .post('/login/oauth/facebook', {
-                                accessToken: response.accessToken,
-                            })
-                            .then((res) => {
-                                setToken('accessToken', res.data.data.accessToken);
-                                setToken('refreshToken', res.data.data.refreshToken);
-                                // router.replace('/');
-                                router.reload();
-                            });
-                        console.log('Login Success!', response);
-                    }}
-                    onFail={(error) => {
-                        console.log('Login Failed!', error);
-                    }}
-                    onProfileSuccess={(response) => {
-                        console.log('Get Profile Success!', response);
-                    }}
-                    render={(renderProps) => (
-                        <button onClick={renderProps.onClick}>
-                            <Image src="/images/facebook.png" alt="페이스북으로 시작하기" width={400} height={100} />
-                        </button>
-                    )}
-                />
-                <p>
-                    회원가입을 건너뛸까요?{' '}
-                    <button>
-                        <strong>둘러보기</strong>
+                <h1 className="login_copyText">
+                    <CopyText />
+                </h1>
+
+                <div className="login_button">
+                    <p className="login_button--descTop">회원가입 / 로그인</p>
+                    <button onClick={handleKaKao} className="kakao_login">
+                        <Kakao />
                     </button>
-                </p>
+                    <FacebookLogin
+                        appId={process.env.NEXT_PUBLIC_FACEBOOK_URL!}
+                        onSuccess={(response) => {
+                            axios
+                                .post('/login/oauth/facebook', {
+                                    accessToken: response.accessToken,
+                                })
+                                .then((res) => {
+                                    setToken('accessToken', res.data.data.accessToken);
+                                    setToken('refreshToken', res.data.data.refreshToken);
+                                    // router.replace('/');
+                                    router.reload();
+                                });
+                            console.log('Login Success!', response);
+                        }}
+                        onFail={(error) => {
+                            console.log('Login Failed!', error);
+                        }}
+                        onProfileSuccess={(response) => {
+                            console.log('Get Profile Success!', response);
+                        }}
+                        render={(renderProps) => (
+                            <button onClick={renderProps.onClick}>
+                                <Facebook />
+                            </button>
+                        )}
+                    />
+                    <p className="login_button--descBottom">
+                        회원가입을 건너뛸까요?{' '}
+                        <Link href="/home">
+                            <strong>둘러보기</strong>
+                        </Link>
+                    </p>
+                </div>
             </div>
         </>
     );
