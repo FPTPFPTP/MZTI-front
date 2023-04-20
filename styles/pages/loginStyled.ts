@@ -36,7 +36,4 @@ export const Login = css`
             margin-left: 8px;
         }
     }
-    p {
-        font-size: 17px;
-    }
 `;
