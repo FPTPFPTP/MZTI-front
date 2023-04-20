@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
 export const searchWrap = () => css`
-    padding: 22px 33px 0;
+    padding: 22px 20px 0;
     background-color: ${colors.WHITE};
     .search__box {
         position: relative;

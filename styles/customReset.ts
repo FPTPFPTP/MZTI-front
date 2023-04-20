@@ -136,6 +136,7 @@ const globalReset = () => css`
         height: 100vh;
         width: 100%;
         background: ${colors.GRAY_LIGHT_3};
+        overflow-y: scroll;
     }
     .toastui-editor-contents p {
         font-size: 1.2rem;

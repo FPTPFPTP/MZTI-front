@@ -16,7 +16,7 @@ export const MypageEtcMenu = css`
 
 export const SecessionStyled = css`
     .wrap {
-        padding: 33px;
+        padding: 33px 20px;
         h3 {
             font-weight: 400;
             font-size: 1.4rem;

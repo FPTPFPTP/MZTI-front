@@ -24,7 +24,7 @@ export const ListTabStyle = css`
 
 export const HotKeywordStyle = css`
     .keyowordBox__content {
-        padding: 24px 35px 18px;
+        padding: 24px 20px 18px;
         background-color: ${colors.GRAY_LIGHT_5};
         h3 {
             font-weight: 500;
@@ -182,7 +182,7 @@ export const FeedItemStyle = css`
         border-bottom: 4px solid ${colors.GRAY_BRIGHT_2};
         .feedLayout__bg {
             background: ${colors.WHITE};
-            padding: 0 33px;
+            padding: 0 20px;
         }
     }
 `;
@@ -432,7 +432,7 @@ export const ReplayCommentStyled = css`
 
     .ReplayCommentWrap {
         background-color: ${colors.WHITE};
-        min-width: 390px;
+        min-width: 375px;
         max-width: 600px;
         width: 100%;
         height: 100vh;

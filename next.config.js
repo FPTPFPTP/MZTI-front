@@ -5,6 +5,7 @@ const withPWA = require('next-pwa')({
 });
 
 module.exports = withPWA({
+    output: 'standalone',
     reactStrictMode: false,
     async rewrites() {
         return [

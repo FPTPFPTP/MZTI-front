@@ -10,8 +10,8 @@ export const BottomButtonStyle = css`
     align-items: center;
     width: 100%;
     background: ${color.GRAY_LIGHT_5};
-    height: 84px;
-    min-width: 390px;
+    height: 65px;
+    min-width: 375px;
     max-width: 600px;
     width: 100%;
     ul {
@@ -24,8 +24,6 @@ export const BottomButtonStyle = css`
         svg {
             font-size: 1.6rem;
             color: ${color.GRAY_DARK_2};
-            margin-left: 5px;
-            margin-bottom: 5px;
         }
         a {
             color: ${color.BLACK};
