@@ -22,9 +22,9 @@ export default function Document() {
                 <meta name="msapplication-TileColor" content="#ffffff" />
                 <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png" />
                 <meta name="theme-color" content="#ffffff" />
-                <meta name="MZTI" content="MZ세대들의 MBTI 과몰입 커뮤니티" />
-                <meta property="og:image" content={`https://velog.velcdn.com/images/leemember/post/2d479ee2-3966-408a-8662-3e71f2437260/image.png`} />
-                <meta property="og:description" content="안녕하세요. MZ들의 MBTI 과몰입 커뮤니티에 오신 것을 환영합니다." />
+                <meta name="MZTI | MBTI에 과몰입할 MZ세대들 모여라!" content="MZ세대들의 MBTI 과몰입 커뮤니티" />
+                <meta property="og:image" content={`https://velog.velcdn.com/images/leemember/post/7767e642-e4ec-403e-af16-6ecda22a6f36/image.png`} />
+                <meta property="og:description" content="🅼🆉🆃🅸 | MBTI에 과몰입할 MZ세대들 모여라! | MBTI 뇌절 콘텐츠, MBTI 궁합, MBTI 짤 등" />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <body>
