@@ -48,10 +48,10 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
                         <title>MZTI</title>
                         <meta charSet="utf-8" />
                         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+                        <meta content="yes" name="apple-mobile-web-app-capable" />
+                        <meta content="minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no" name="viewport" />
                         <meta name="description" content="Description" />
                         <meta name="keywords" content="Keywords" />
-                        <meta name="theme-color" content="#FF98BA" />
                     </Head>
                     <Global styles={globalReset} />
                     <Layout>

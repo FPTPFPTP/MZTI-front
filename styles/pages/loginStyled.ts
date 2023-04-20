@@ -5,11 +5,35 @@ export const Login = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    h1 {
-        font-size: 2rem;
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    box-sizing: border-box;
+    .login_copyText {
+        margin-bottom: 196px;
+        margin-top: 134px;
     }
-    p {
-        font-size: 17px;
+    .login_button {
+        display: grid;
+        text-align: center;
+        color: #aeaeb2;
+        font-weight: 300;
+        font-size: 12px;
+    }
+    .kakao_login {
+        margin: 8px 0;
+    }
+    .login_button--descBottom {
+        margin-top: 40px;
+        font-size: 12px;
+        color: #aeaeb2;
+        a {
+            font-weight: 500;
+            font-size: 12px;
+            text-align: center;
+            text-decoration-line: underline;
+            color: #545456;
+            margin-left: 8px;
+        }
     }
 `;
