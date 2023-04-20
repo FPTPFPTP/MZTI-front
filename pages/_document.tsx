@@ -4,16 +4,28 @@ export default function Document() {
     return (
         <Html lang="en">
             <Head>
-                {/* <meta charSet="utf-8" />
-                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-                <meta name="description" content="Description" />
-                <meta name="keywords" content="Keywords" /> */}
-                {/* <title>MZTI</title> */}
                 <link rel="manifest" href="/manifest.json" />
-                <link href="/icons/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
-                <link href="/icons/favicons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
-                <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png" />
+                <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png" />
+                <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png" />
+                <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png" />
+                <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-icon-76x76.png" />
+                <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-icon-114x114.png" />
+                <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-icon-120x120.png" />
+                <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-icon-144x144.png" />
+                <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-icon-152x152.png" />
+                <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-icon-180x180.png" />
+                <link rel="icon" type="image/png" sizes="192x192" href="/icons/android-icon-192x192.png" />
+                <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+                <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png" />
+                <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+                <link rel="manifest" href="/icons/manifest.json" />
+                <meta name="msapplication-TileColor" content="#ffffff" />
+                <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png" />
+                <meta name="theme-color" content="#ffffff" />
+                <meta name="MZTI" content="MZ세대들의 MBTI 과몰입 커뮤니티" />
+                <meta property="og:image" content={`https://velog.velcdn.com/images/leemember/post/2d479ee2-3966-408a-8662-3e71f2437260/image.png`} />
+                <meta property="og:description" content="안녕하세요. MZ들의 MBTI 과몰입 커뮤니티에 오신 것을 환영합니다." />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <body>
                 <Main />
