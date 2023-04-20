@@ -18,6 +18,7 @@ const home = () => {
             return lastPage.page !== allPosts[0].totalPage ? lastPage.page + 1 : undefined;
         },
     });
+
     return (
         <main className="homeLayout">
             <>
