@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 export const CommentInputStyle = css`
     position: fixed;
     background: ${color.GRAY_LIGHT_5};
-    padding: 15px 27px;
+    padding: 15px 20px;
     height: 80px;
     min-width: 375px;
     max-width: 600px;

@@ -9,36 +9,10 @@ export const BookMarkIconStyle = () => css`
     }
 `;
 
-export const HomeMenu = () => css`
-    display: flex;
-    width: 100%;
-    padding: 20px 20px;
-    border-bottom: 1px solid red;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    background-color: ${colors.WHITE};
-    z-index: 50;
-    h1 {
-        font-size: 1.6rem;
-    }
-    .right {
-        display: flex;
-        align-items: center;
-        .alarm {
-            margin-right: 20px;
-        }
-        a {
-            font-size: 1.6rem;
-            color: ${colors.BLACK};
-        }
-    }
-`;
-
 export const PostStyle = () => css`
-    overflow-y: auto;
     padding: 0 20px;
     background: #fff;
+    margin-bottom: 20px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {

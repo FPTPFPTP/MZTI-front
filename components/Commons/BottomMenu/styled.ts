@@ -2,23 +2,20 @@ import color from '@/styles/color';
 import { css } from '@emotion/react';
 
 export const BottomButtonStyle = css`
-    position: fixed;
-    bottom: 0;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background: ${color.GRAY_LIGHT_5};
     height: 65px;
-    min-width: 375px;
-    max-width: 600px;
-    width: 100%;
+    flex: 0 0 65px;
     ul {
         display: flex;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 58px;
+        z-index: 50;
+        background: ${color.GRAY_LIGHT_5};
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.15);
         justify-content: space-around;
         align-items: center;
-        width: 100%;
     }
     li {
         svg {

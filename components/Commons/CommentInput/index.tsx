@@ -14,15 +14,17 @@ interface PostIdProps {
 const CommentInput = ({ comment, AddComment, handleContact }: PostIdProps) => {
     return (
         <div css={CommentInputStyle}>
-            <button>
-                <PhotoIcon />
-            </button>
+            <div>
+                <button>
+                    <PhotoIcon />
+                </button>
 
-            <input type="text" value={comment} placeholder="댓글을 입력해주세요" onChange={handleContact} />
+                <input type="text" value={comment} placeholder="댓글을 입력해주세요" onChange={handleContact} />
 
-            <button type="submit" onClick={AddComment} disabled={!comment}>
-                {comment ? <FillSubmitButtonIcon /> : <SubmitButtonIcon />}
-            </button>
+                <button type="submit" onClick={AddComment} disabled={!comment}>
+                    {comment ? <FillSubmitButtonIcon /> : <SubmitButtonIcon />}
+                </button>
+            </div>
         </div>
     );
 };

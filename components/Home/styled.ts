@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
 export const FeedComentsWrapStyle = css`
-    padding-bottom: 80px;
     background-color: #fff;
 `;
 
@@ -24,7 +23,7 @@ export const ListTabStyle = css`
 
 export const HotKeywordStyle = css`
     .keyowordBox__content {
-        padding: 24px 20px 18px;
+        padding: 18px 20px;
         background-color: ${colors.GRAY_LIGHT_5};
         h3 {
             font-weight: 500;
@@ -64,7 +63,7 @@ export const FeedNoComentsStyle = css`
 
 export const FeedComentsStyle = css`
     display: flex;
-    padding: 1.6rem 32px 1.4rem 35px;
+    padding: 1.6rem 20px 1.4rem 20px;
     justify-content: space-between;
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     background-color: ${colors.WHITE};
@@ -108,10 +107,10 @@ export const MoreCommentStyle = css`
 export const CommentItemSylte = css`
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     .commentItemWrap {
-        padding: 1rem 33px;
+        padding: 1rem 20px;
         background-color: ${colors.WHITE};
         &.replay {
-            padding: 1rem 33px 1rem 63px;
+            padding: 1rem 20px 1rem 40px;
             background-color: ${colors.GRAY_LIGHT_5};
         }
     }
@@ -128,7 +127,6 @@ export const CommentItemSylte = css`
         border: 1px solid ${colors.GRAY_ORIGIN_1};
         border-radius: 55px;
         padding: 1px 9px;
-        margin-right: 8px;
         margin-left: 11px;
     }
     .nickName {
@@ -177,7 +175,6 @@ export const CommentItemSylte = css`
 
 export const FeedItemStyle = css`
     background: ${colors.WHITE};
-    padding-bottom: 90px;
     .feedLayout {
         border-bottom: 4px solid ${colors.GRAY_BRIGHT_2};
         .feedLayout__bg {
@@ -203,6 +200,7 @@ export const ItemHeaderStyle = css`
             border: 1px solid ${colors.GRAY_STRONG_2};
             width: 60px;
             height: 60px;
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -293,7 +291,6 @@ export const ItemFooterStyle = css`
         background: ${colors.GRAY_LIGHT_3};
         border-top: none;
         padding: 21px 0 23px;
-        margin-top: 1.4rem;
     }
     .viewIcon {
         display: flex;
@@ -353,7 +350,7 @@ export const ItemContentStyle = css`
     }
     .vote {
         background: ${colors.GRAY_LIGHT_4};
-        padding: 36px 34px;
+        padding: 20px;
         margin: 0 0 20px 0;
         display: flex;
         align-items: center;
@@ -408,7 +405,7 @@ export const DeletedComment = css`
     font-weight: 400;
     font-size: 1.2rem;
     color: ${colors.GRAY_STRONG};
-    padding: 1rem 33px;
+    padding: 1rem 20px;
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     &.reComment {
         background: ${colors.GRAY_LIGHT_5};

@@ -1,12 +1,17 @@
 module.exports = {
+    // --MZTI 포인트 컬러------
+    POINT_COLOR: '#F56326',
+    MBTI_COLOR_01: '#F1B62D',
+    MBTI_COLOR_02: '#159870',
+    MBTI_COLOR_03: '#074CAD',
+    MBTI_COLOR_04: '#DF8EC6',
+    POINT_BG: '#FFFADE',
+    POINT_BG_01: '#C5EAFF',
+    //-----------------------
+
     PRIMARY: '#45D6C8',
-
     PURPLE_ORIGIN: '#c79ad6',
-
-    // Sencondary
     RED_ORIGIN: '#f60303', // Error
-
-    // Others
     BLUE_ORIGIN: '#00a3ff',
 
     GREEN_ORIGIN: '#00E033',
