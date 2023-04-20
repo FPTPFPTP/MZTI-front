@@ -42,8 +42,8 @@ interface IMyCustomApp extends AppProps {
 function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
     // 이렇게 해야 서로 다른 사용자와 요청 사이에 데이터가 공유되지 않는다.
     const [queryClient] = useState(() => new QueryClient());
-    const [isInstallPopup, setIsInstallPopup] = useState(false);
-    const [notVisiblePopup, setNotVisiblePopup] = useState(false);
+    const [isInstallPopup, setIsInstallPopup] = useState<boolean>(false);
+    const [notVisiblePopup, setNotVisiblePopup] = useState<boolean>(false);
 
     // user정보 초기값 설정
     const recoilInitializer = useMemo(
