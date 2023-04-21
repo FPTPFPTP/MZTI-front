@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Image from 'next/image';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -24,9 +25,10 @@ interface ICommentProps {
     createAt: string;
     writerId: string;
     likeCheck: boolean;
+    image: string;
 }
 
-const ReplayCommentItem = ({ nickname, mbti, profileImage, userId, comment, like, createAt, writerId, likeCheck }: ICommentProps) => {
+const ReplayCommentItem = ({ nickname, mbti, profileImage, userId, comment, like, createAt, writerId, likeCheck, image }: ICommentProps) => {
     const myInfo = useRecoilValue(myPageInfo);
     const [isLike, setIsLike] = useState<boolean>(likeCheck);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -80,6 +82,8 @@ const ReplayCommentItem = ({ nickname, mbti, profileImage, userId, comment, like
                     </div>
 
                     <p className="coment">{comment}</p>
+                    {image && <Image src={image} alt={'댓글이미지'} width={100} height={100} />}
+
                     <div className="commentItemFooter">
                         <p className="time">{timeForToday(createAt)}</p>
                         <button onClick={handleReCommentLike} className="like">
