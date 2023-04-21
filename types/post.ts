@@ -59,6 +59,7 @@ export interface ICommentModel {
     like: CheckProps;
     subComment: CheckProps;
     deleted: boolean;
+    image: string;
 }
 
 // 대댓글 타입
@@ -164,4 +165,5 @@ export interface ICommentProps {
     writerId: string;
     likeCheck: boolean;
     subComment: number;
+    image: string;
 }

@@ -9,7 +9,7 @@ import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import Axios from '@utils/axios';
-import { getPost, postBookmark, getComments, commentPut } from '@apis/post';
+import { getPost, postBookmark, getComments, commentPut, postImage } from '@apis/post';
 import { IResponseBase, IPaginationResponse } from '@/types/global';
 import { ICommentModel, IEditComment, IPostModel } from '@/types/post';
 import { useMutation } from '@tanstack/react-query';
@@ -84,29 +84,48 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     };
 
     // 댓글 추가
-    const AddComment = () => {
-        return Axios.post('/post/comment', {
+    const AddComment = async (imageFile?: File) => {
+        let imageSrc;
+        if (imageFile) {
+            const fmData = new FormData();
+            fmData.append('file', imageFile);
+            const image = await postImage({ formData: fmData });
+            imageSrc = image;
+        }
+        const comment = await Axios.post('/post/comment', {
             postId: data?.id,
             comment: commentValue,
-        }).then((res) => {
+            image: imageSrc,
+        });
+        if (comment) {
             onSuccessComment();
             setCommentValue('');
-        });
+        }
     };
 
     // 댓글 수정!!!
-    const PutComment = useCallback(() => {
-        mutate(
-            { id: getCommentModifyId, comment: commentValue, image: '' },
-            {
-                onSuccess: () => {
-                    onSuccessComment();
-                    setCommentValue('');
-                    setCommentModifyState(false);
+    const PutComment = useCallback(
+        async (imageFile?: File) => {
+            let imageSrc;
+            if (imageFile) {
+                const fmData = new FormData();
+                fmData.append('file', imageFile);
+                const image = await postImage({ formData: fmData });
+                imageSrc = image;
+            }
+            mutate(
+                { id: getCommentModifyId, comment: commentValue, image: imageSrc },
+                {
+                    onSuccess: () => {
+                        onSuccessComment();
+                        setCommentValue('');
+                        setCommentModifyState(false);
+                    },
                 },
-            },
-        );
-    }, [getCommentModifyId, commentValue]);
+            );
+        },
+        [getCommentModifyId, commentValue],
+    );
 
     // 새로고침
     const handleRefrash = () => {
