@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
 export const FeedComentsWrapStyle = css`
-    height: 100%;
     background-color: ${colors.WHITE};
 `;
 

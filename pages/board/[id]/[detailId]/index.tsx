@@ -9,7 +9,7 @@ import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import Axios from '@utils/axios';
-import { getPost, postBookmark, getComments, commentPut, postImage } from '@apis/post';
+import { getPost, postBookmark, getComments, commentPut } from '@apis/post';
 import { IResponseBase, IPaginationResponse } from '@/types/global';
 import { ICommentModel, IEditComment, IPostModel } from '@/types/post';
 import { useMutation } from '@tanstack/react-query';
@@ -21,6 +21,7 @@ import { commentModify, commentText, replayCommentState, commentModifyId } from 
 import ReplayComment from '@/components/Home/FeedComents/ReplayComment';
 import CommentModifyInput from '@/components/Commons/CommentModifyInput';
 import { openToast } from '@utils/toast';
+import { postImageUpload } from '@utils/upload';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
@@ -87,10 +88,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const AddComment = async (imageFile?: File) => {
         let imageSrc;
         if (imageFile) {
-            const fmData = new FormData();
-            fmData.append('file', imageFile);
-            const image = await postImage({ formData: fmData });
-            imageSrc = image;
+            imageSrc = await postImageUpload(imageFile);
         }
         const comment = await Axios.post('/post/comment', {
             postId: data?.id,
@@ -108,10 +106,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
         async (imageFile?: File) => {
             let imageSrc;
             if (imageFile) {
-                const fmData = new FormData();
-                fmData.append('file', imageFile);
-                const image = await postImage({ formData: fmData });
-                imageSrc = image;
+                imageSrc = await postImageUpload(imageFile);
             }
             mutate(
                 { id: getCommentModifyId, comment: commentValue, image: imageSrc },

@@ -7,7 +7,8 @@ import Axios from '@utils/axios';
 import { useRecoilValue } from 'recoil';
 import { replayCommentId } from '@/recoil/atom/user';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getCommentDetail, postImage } from '@/apis/post';
+import { getCommentDetail } from '@/apis/post';
+import { postImageUpload } from '@utils/upload';
 
 const ReplayComment = () => {
     const [reCommentText, setReCommentText] = useState<string>('');
@@ -26,10 +27,7 @@ const ReplayComment = () => {
     const AddReComment = async (imageFile?: File) => {
         let imageSrc;
         if (imageFile) {
-            const fmData = new FormData();
-            fmData.append('file', imageFile);
-            const image = await postImage({ formData: fmData });
-            imageSrc = image;
+            imageSrc = await postImageUpload(imageFile);
         }
 
         const reComment = await Axios.post('/post/comment/sub', {
