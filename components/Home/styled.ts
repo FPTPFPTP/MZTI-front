@@ -271,7 +271,7 @@ export const ItemHeaderStyle = css`
 export const ItemFooterStyle = css`
     display: flex;
     justify-content: space-around;
-    padding: 12px 0 21px;
+    padding: 12px 0;
     border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
     background-color: ${colors.WHITE};
     a,
