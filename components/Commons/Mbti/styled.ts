@@ -5,7 +5,6 @@ export const RadioWrapStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 550px;
 `;
 
 export const RadioTileGroupStyle = css`
@@ -17,11 +16,6 @@ export const RadioTileGroupStyle = css`
 
     .input-container {
         position: relative;
-        min-height: 5rem;
-        min-width: 5rem;
-        max-height: 7rem;
-        max-width: 7rem;
-        margin: 0.5rem;
 
         .radio-button {
             opacity: 0;
@@ -41,18 +35,9 @@ export const RadioTileGroupStyle = css`
             justify-content: center;
             width: 100%;
             height: 100%;
-            border: 2px solid ${colors.PRIMARY};
-            border-radius: 5px;
-            padding: 1rem;
-            transition: transform 300ms ease;
+            border: 2px solid ${colors.BLACK};
+            padding: 25px;
         }
-
-        .icon svg {
-            fill: ${colors.PRIMARY};
-            width: 3rem;
-            height: 3rem;
-        }
-
         .radio-tile-label {
             text-align: center;
             font-size: 2.75rem;
@@ -64,19 +49,23 @@ export const RadioTileGroupStyle = css`
 
         //active tile styles
         .radio-button:checked + .radio-tile {
-            background-color: ${colors.PRIMARY};
-            border: 2px solid ${colors.PRIMARY};
+            background-color: ${colors.BUTTON_MBTI_ACTIVE};
+            border: 2px solid ${colors.BLACK};
             color: white;
-            transform: scale(1.1, 1.1);
+            svg {
+                path {
+                    fill: #fff;
+                }
+            }
 
             .icon svg {
                 fill: white;
-                background-color: ${colors.PRIMARY};
+                background-color: ${colors.BUTTON_MBTI_ACTIVE};
             }
 
             .radio-tile-label {
                 color: white;
-                background-color: ${colors.PRIMARY};
+                background-color: ${colors.BUTTON_MBTI_ACTIVE};
             }
         }
     }

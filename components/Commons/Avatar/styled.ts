@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import colors from '@styles/color';
 
-export const ContainerStyle = ({ size }: { size: number }) => css`
+export const ContainerStyle = ({ size }: { size?: number }) => css`
     overflow: hidden;
     display: flex;
     justify-content: center;

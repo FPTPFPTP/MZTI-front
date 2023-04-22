@@ -3,14 +3,19 @@ import colors from '@styles/color';
 
 export const ProgressLineBarContainer = css`
     width: 100%;
-    height: 10px;
-    background: ${colors.GRAY_BRIGHT_1};
-    border-radius: 10px;
+    height: 5px;
+    background: #fff;
+    border-radius: 31px;
+    display: flex;
+    justify-content: space-between;
 `;
 
-export const ProgressBar = (percent: number) => css`
-    width: ${percent}%;
+export const ProgressBar = css`
+    width: 23%;
     height: 100%;
-    background: ${colors.PRIMARY};
+    background: #d9d9d9;
     border-radius: 10px;
+    &.active {
+        background: #8c939f;
+    }
 `;

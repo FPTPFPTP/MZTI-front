@@ -18,8 +18,7 @@ interface IMbti {
 const Mbti = (props: IMbti) => {
     const { mbti, onUpdateMbti } = props;
 
-    const [mapObj, setMapObj] = useState(new Map<string, string>());
-    // const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
+    const [mapObj, setMapObj] = useState(new Map<any, any>());
 
     useEffect(() => {
         if (mapObj.size === 4) {

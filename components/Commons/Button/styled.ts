@@ -12,20 +12,17 @@ const DefaultStyle = css`
 
 export const BaseButtonStyle = css`
     ${DefaultStyle};
-    background: ${colors.PRIMARY};
-    border-radius: 25px;
+    background: ${colors.BUTTON_NEXT};
     color: ${colors.WHITE};
-    box-shadow: ${colors.BOX_SHADOW};
-    &:hover {
-        transform: scale(1.02);
-        box-shadow: ${colors.BOX_SHADOW};
-    }
+    height: 56px;
+    border-radius: 10px;
+    padding: 13px 20px;
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 17px;
     &:disabled {
-        background: ${colors.GRAY_BRIGHT_1};
-        cursor: not-allowed;
-        &:hover {
-            transform: scale(1);
-        }
+        background: ${colors.BUTTON_DISABLE};
     }
 `;
 
@@ -46,20 +43,12 @@ export const LinkButtonStyle = css`
 
 export const TextButtonStyle = css`
     ${DefaultStyle};
-    background: none;
-    color: ${colors.BLACK};
-    text-decoration: underline;
-    text-underline-position: under;
-    &:hover {
-        transform: scale(1.05);
-    }
-    &:disabled {
-        color: ${colors.GRAY_BRIGHT_1};
-        cursor: not-allowed;
-        &:hover {
-            transform: scale(1);
-        }
-    }
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: ${colors.BUTTON_TEXT};
 `;
 
 export const BottomButtonStyle = css`

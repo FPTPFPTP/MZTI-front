@@ -4,8 +4,10 @@ import colors from '@styles/color';
 export const AvatarWrapStyle = css`
     overflow: hidden;
     position: relative;
-    border: 1px solid ${colors.BLACK};
     border-radius: 50%;
+    box-sizing: border-box;
+    width: 50%;
+    height: 50%;
     input {
         display: none;
     }

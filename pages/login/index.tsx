@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import Image from 'next/image';
 import { Login } from '@styles/pages/loginStyled';
 import axios from 'utils/axios';
 import { useRouter } from 'next/router';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { setToken } from '@/utils/auth';
 import CopyText from '@assets/icons/login/copy_text.svg';
+import Logo from '@assets/icons/login/logo.svg';
 import Kakao from '@assets/icons/login/kakao.svg';
 import Facebook from '@assets/icons/login/facebook.svg';
 import Link from 'next/link';
@@ -50,6 +50,9 @@ const login = () => {
     return (
         <>
             <div css={Login}>
+                <p>
+                    <Logo />
+                </p>
                 <h1 className="login_copyText">
                     <CopyText />
                 </h1>
