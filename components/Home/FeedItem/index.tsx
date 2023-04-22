@@ -40,7 +40,7 @@ const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<
                                             postId={item.id}
                                             like={item.like.count}
                                             command={item.command.count}
-                                            postLink={item.id}
+                                            categoryId={item.categoryId}
                                         />
                                     </div>
                                 </div>

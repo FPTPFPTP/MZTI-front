@@ -21,6 +21,7 @@ import { commentModify, commentText, replayCommentState, commentModifyId } from 
 import ReplayComment from '@/components/Home/FeedComents/ReplayComment';
 import CommentModifyInput from '@/components/Commons/CommentModifyInput';
 import { openToast } from '@utils/toast';
+import { postImageUpload } from '@utils/upload';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
@@ -84,29 +85,42 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     };
 
     // 댓글 추가
-    const AddComment = () => {
-        return Axios.post('/post/comment', {
+    const AddComment = async (imageFile?: File) => {
+        let imageSrc;
+        if (imageFile) {
+            imageSrc = await postImageUpload(imageFile);
+        }
+        const comment = await Axios.post('/post/comment', {
             postId: data?.id,
             comment: commentValue,
-        }).then((res) => {
+            image: imageSrc,
+        });
+        if (comment) {
             onSuccessComment();
             setCommentValue('');
-        });
+        }
     };
 
     // 댓글 수정!!!
-    const PutComment = useCallback(() => {
-        mutate(
-            { id: getCommentModifyId, comment: commentValue, image: '' },
-            {
-                onSuccess: () => {
-                    onSuccessComment();
-                    setCommentValue('');
-                    setCommentModifyState(false);
+    const PutComment = useCallback(
+        async (imageFile?: File) => {
+            let imageSrc;
+            if (imageFile) {
+                imageSrc = await postImageUpload(imageFile);
+            }
+            mutate(
+                { id: getCommentModifyId, comment: commentValue, image: imageSrc },
+                {
+                    onSuccess: () => {
+                        onSuccessComment();
+                        setCommentValue('');
+                        setCommentModifyState(false);
+                    },
                 },
-            },
-        );
-    }, [getCommentModifyId, commentValue]);
+            );
+        },
+        [getCommentModifyId, commentValue],
+    );
 
     // 새로고침
     const handleRefrash = () => {
