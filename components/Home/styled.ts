@@ -428,8 +428,6 @@ export const ReplayCommentStyled = css`
 
     .ReplayCommentWrap {
         background-color: ${colors.WHITE};
-        min-width: 375px;
-        max-width: 600px;
         width: 100%;
         height: 100vh;
         overflow-y: scroll;
