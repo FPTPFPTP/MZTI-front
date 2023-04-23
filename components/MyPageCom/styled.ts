@@ -75,7 +75,7 @@ export const MenuStyle = css`
         a {
             font-weight: 400;
             font-size: 1.3rem;
-            padding: 15px 0;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
         }
