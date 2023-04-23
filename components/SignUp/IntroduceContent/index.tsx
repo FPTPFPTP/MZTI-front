@@ -34,9 +34,7 @@ const IntroduceContent = (props: IIntroduceContent) => {
 
     return (
         <div css={Container}>
-            <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
-                한 줄 소개를 입력해주세요
-            </Typography.Title>
+            <Typography.Title className="title">한 줄 소개를 입력해주세요</Typography.Title>
             <form css={ContentWrap} onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     inputStyle={'borderLess'}

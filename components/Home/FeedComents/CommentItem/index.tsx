@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -26,7 +27,7 @@ import { deleteComment, commentLike, reCommentGet, getComments, getCommentDetail
 import { ILikeModel, ICommentModel, ICommentProps } from '@/types/post';
 import ReplayCommentItem from './ReplayCommentItem';
 
-const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment, like, createAt, writerId, likeCheck }: ICommentProps) => {
+const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment, like, createAt, writerId, likeCheck, image }: ICommentProps) => {
     const myInfo = useRecoilValue(myPageInfo);
     const [isLike, setIsLike] = useState<boolean>(likeCheck);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -125,6 +126,7 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
                     </div>
 
                     <p className="coment">{comment}</p>
+                    {image && <Image src={image} alt={'댓글이미지'} width={100} height={100} />}
                     <div className="commentItemFooter">
                         <p className="time">{timeForToday(createAt)}</p>
                         <button onClick={handleReCommentLike} className="like">
@@ -188,6 +190,7 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
                                 writerId={writerId}
                                 likeCheck={item.like.check}
                                 key={item.id}
+                                image={item.image}
                             />
                         );
                     })}

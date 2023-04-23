@@ -4,7 +4,33 @@ import colors from '@styles/color';
 export const Container = css`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    .title {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 22px;
+        padding: 64px 0 30px 0;
+        text-align: left;
+        color: ${colors.BLACK};
+        margin: 0 !important;
+        width: 100%;
+    }
+    .profile {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+    .css-1eyqtt9 {
+        border-bottom: 0.5px solid rgba(60, 60, 67, 0.29);
+
+        input {
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 22px;
+            &::placeholder {
+                color: rgba(60, 60, 67, 0.3);
+            }
+        }
+    }
 `;
 
 export const ContentWrap = css`
@@ -20,6 +46,15 @@ export const ContainerStyle = css`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    .title {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 22px;
+        padding: 64px 0 30px 0;
+        text-align: left;
+        color: ${colors.BLACK};
+        margin: 0 !important;
+    }
 `;
 
 export const ProgressUl = css`
@@ -65,20 +100,4 @@ export const ProgressUl = css`
             color: white;
         }
     }
-`;
-
-export const FlexStart = css`
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-right: auto;
-    margin-bottom: 0.5rem;
-    gap: 4px;
-    color: ${colors.GRAY_ORIGIN_1};
-`;
-
-export const RuleWrap = css`
-    float: left;
-    width: 100%;
-    padding: 0 25px;
 `;

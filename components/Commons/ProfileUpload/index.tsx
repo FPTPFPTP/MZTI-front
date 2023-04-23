@@ -2,6 +2,8 @@ import React, { ChangeEvent, useRef } from 'react';
 import CameraSvg from '@assets/icons/camera.svg';
 import { Avatar } from '@components/Commons';
 import { AvatarWrapStyle, UploadWrapStyle } from './styled';
+import { useRecoilValue } from 'recoil';
+import { signupState } from '@/recoil/atom/signup';
 
 interface IProfileUpload {
     previewFileSrc: string;
@@ -16,13 +18,14 @@ interface IProfileUpload {
  *  @params handleUpdateProfileImg {function} upload 파일 전달 cb 함수
  * */
 const ProfileUpload = (props: IProfileUpload) => {
-    const { previewFileSrc, size = 200, handleUpdateProfileImg } = props;
+    const { previewFileSrc, handleUpdateProfileImg } = props;
+    const mbtiInfo = useRecoilValue(signupState);
 
     const profileImgInputRef = useRef<HTMLInputElement | null>(null);
 
     return (
         <div css={AvatarWrapStyle}>
-            <Avatar src={previewFileSrc} alt={'프로필'} size={size} />
+            <Avatar src={previewFileSrc} alt={'프로필'} mbti={mbtiInfo.mbti} />
             <div css={UploadWrapStyle} onClick={() => profileImgInputRef.current && profileImgInputRef.current.click()}>
                 <CameraSvg style={{ fontSize: '1.5rem' }} />
             </div>

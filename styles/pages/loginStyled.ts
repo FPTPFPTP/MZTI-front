@@ -11,7 +11,7 @@ export const Login = css`
     box-sizing: border-box;
     .login_copyText {
         margin-bottom: 196px;
-        margin-top: 134px;
+        margin-top: 50px;
     }
     .login_button {
         display: grid;

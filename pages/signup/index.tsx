@@ -149,18 +149,18 @@ const SignUp = () => {
             <div css={Layout}>
                 <Header onClickBackButton={onBackPage} />
                 <div css={BodyWrapper}>
-                    <ProgressLineBar percent={(stepActive / 4) * 100} />
+                    <ProgressLineBar percent={stepActive} />
                     {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
                     {stepActive === 2 && <MbtiContent />}
                     {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
                     {stepActive === 4 && <ProfileContent />}
                 </div>
                 <div css={FooterWrapper}>
-                    {/* <Button buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
-                    이전단계로
-                </Button> */}
+                    <Button className="pre_button" buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
+                        이전단계로
+                    </Button>
                     <Button buttonStyle={'base'} disabled={isError ? true : false} onClick={onNext}>
-                        {stepActive === 4 ? 'MZTI 시작해보기 !' : '다음단계로'}
+                        {stepActive === 4 ? 'MZTI 시작해보기 !' : '다음 단계로'}
                     </Button>
                 </div>
             </div>

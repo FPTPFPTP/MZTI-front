@@ -8,7 +8,12 @@ module.exports = {
     POINT_BG: '#FFFADE',
     POINT_BG_01: '#C5EAFF',
     //-----------------------
-
+    // Button 컬러 모음집
+    BUTTON_NEXT: '#1B1E26',
+    BUTTON_DISABLE: '#8B8F96',
+    BUTTON_TEXT: '#545456',
+    BUTTON_MBTI_ACTIVE: ' #1b1e26',
+    //-----------------------
     PRIMARY: '#45D6C8',
     PURPLE_ORIGIN: '#c79ad6',
     RED_ORIGIN: '#f60303', // Error
@@ -34,7 +39,7 @@ module.exports = {
 
     // Gray Bright
     // Text/Disabled/Placeholder
-    GRAY_BRIGHT_1: '#c4c4c4',
+    GRAY_BRIGHT_1: '#8B8F96',
     GRAY_BRIGHT_2: '#ccc',
     GRAY_BRIGHT_3: '#D9D9D9',
     GRAY_BRIGHT_4: '#F5F5F5',

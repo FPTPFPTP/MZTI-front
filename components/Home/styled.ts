@@ -2,13 +2,13 @@ import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
 export const FeedComentsWrapStyle = css`
-    background-color: #fff;
+    background-color: ${colors.WHITE};
 `;
 
 export const ListTabStyle = css`
     display: flex;
     justify-content: space-around;
-    background-color: #fff;
+    background-color: ${colors.WHITE};
     button {
         font-weight: 500;
         font-size: 1.3rem;
@@ -271,7 +271,7 @@ export const ItemHeaderStyle = css`
 export const ItemFooterStyle = css`
     display: flex;
     justify-content: space-around;
-    padding: 12px 0 21px;
+    padding: 12px 0;
     border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
     background-color: ${colors.WHITE};
     a,
@@ -436,6 +436,7 @@ export const ReplayCommentStyled = css`
         overflow-y: scroll;
     }
     .commentWrap {
+        height: 100%;
         padding-bottom: 80px;
     }
 `;
