@@ -191,7 +191,6 @@ export const ItemHeaderStyle = css`
     .userInfo {
         display: flex;
         align-items: center;
-        justify-content: space-between;
         .userInfo__profile {
             border-radius: 50%;
             overflow: hidden;
