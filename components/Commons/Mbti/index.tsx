@@ -18,19 +18,20 @@ interface IMbti {
 const Mbti = (props: IMbti) => {
     const { mbti, onUpdateMbti } = props;
 
-    const [mapObj, setMapObj] = useState(new Map<any, any>());
+    const [mapObj, setMapObj] = useState(new Map<string, { index: number; value: string }>());
 
     useEffect(() => {
         if (mapObj.size === 4) {
             onUpdateMbti(
-                Array.from(mapObj, ([_, value]) => {
-                    return value;
-                }).join(''),
+                Array.from(mapObj, ([key, value]) => ({ key, value }))
+                    .sort((a, b) => a.value.index - b.value.index)
+                    .map((mbti) => mbti.value.value)
+                    .join(''),
             );
         }
     }, [mapObj]);
 
-    const upsert = (key: string, value: string) => {
+    const upsert = (key: string, value: { index: number; value: string }) => {
         setMapObj((prev) => new Map(prev).set(key, value));
     };
 
@@ -39,13 +40,13 @@ const Mbti = (props: IMbti) => {
         if (mbti.length) {
             for (const chat of mbti) {
                 if (chat === 'E' || chat === 'I') {
-                    upsert('EorI', chat);
+                    upsert('EorI', { index: 1, value: chat });
                 } else if (chat === 'S' || chat === 'N') {
-                    upsert('SorN', chat);
+                    upsert('SorN', { index: 2, value: chat });
                 } else if (chat === 'T' || chat === 'F') {
-                    upsert('TorF', chat);
+                    upsert('TorF', { index: 3, value: chat });
                 } else if (chat === 'J' || chat === 'P') {
-                    upsert('JorP', chat);
+                    upsert('JorP', { index: 4, value: chat });
                 }
             }
         }
@@ -53,10 +54,30 @@ const Mbti = (props: IMbti) => {
 
     return (
         <div css={RadioWrapStyle}>
-            <MbtiRadioGroup defaultValue={mapObj.get('EorI')} firstValue={'E'} secondValue={'I'} onClick={(value) => upsert('EorI', value)} />
-            <MbtiRadioGroup defaultValue={mapObj.get('SorN')} firstValue={'S'} secondValue={'N'} onClick={(value) => upsert('SorN', value)} />
-            <MbtiRadioGroup defaultValue={mapObj.get('TorF')} firstValue={'T'} secondValue={'F'} onClick={(value) => upsert('TorF', value)} />
-            <MbtiRadioGroup defaultValue={mapObj.get('JorP')} firstValue={'J'} secondValue={'P'} onClick={(value) => upsert('JorP', value)} />
+            <MbtiRadioGroup
+                defaultValue={mapObj.get('EorI')?.value}
+                firstValue={'E'}
+                secondValue={'I'}
+                onClick={(value) => upsert('EorI', { index: 1, value })}
+            />
+            <MbtiRadioGroup
+                defaultValue={mapObj.get('SorN')?.value}
+                firstValue={'S'}
+                secondValue={'N'}
+                onClick={(value) => upsert('SorN', { index: 2, value })}
+            />
+            <MbtiRadioGroup
+                defaultValue={mapObj.get('TorF')?.value}
+                firstValue={'T'}
+                secondValue={'F'}
+                onClick={(value) => upsert('TorF', { index: 3, value })}
+            />
+            <MbtiRadioGroup
+                defaultValue={mapObj.get('JorP')?.value}
+                firstValue={'J'}
+                secondValue={'P'}
+                onClick={(value) => upsert('JorP', { index: 4, value })}
+            />
         </div>
     );
 };
