@@ -61,6 +61,7 @@ const FeedComents = ({ isLastPage, commentData, writerId, handleRefrash, handleM
                                 createAt={item.createAt}
                                 writerId={String(writerId)}
                                 subComment={item.subComment.count}
+                                image={item.image}
                             />
                         );
                     })}

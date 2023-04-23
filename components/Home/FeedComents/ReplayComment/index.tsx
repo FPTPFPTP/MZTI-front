@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { replayCommentId } from '@/recoil/atom/user';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getCommentDetail } from '@/apis/post';
+import { postImageUpload } from '@utils/upload';
 
 const ReplayComment = () => {
     const [reCommentText, setReCommentText] = useState<string>('');
@@ -23,14 +24,21 @@ const ReplayComment = () => {
     };
 
     // 대댓글
-    const AddReComment = () => {
-        return Axios.post('/post/comment/sub', {
+    const AddReComment = async (imageFile?: File) => {
+        let imageSrc;
+        if (imageFile) {
+            imageSrc = await postImageUpload(imageFile);
+        }
+
+        const reComment = await Axios.post('/post/comment/sub', {
             commentId: getReplayCommentId,
             comment: reCommentText,
-        }).then((res) => {
+            image: imageSrc,
+        });
+        if (reComment) {
             onSuccessComment();
             setReCommentText('');
-        });
+        }
     };
 
     return (
@@ -51,6 +59,7 @@ const ReplayComment = () => {
                             writerId={''}
                             likeCheck={data.like?.check}
                             subComment={data.subComment?.count}
+                            image={data.image}
                         />
                     )}
                 </div>

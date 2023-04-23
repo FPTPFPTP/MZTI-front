@@ -3,7 +3,7 @@ import { Typography } from 'antd';
 import { useRecoilState } from 'recoil';
 import { signupState } from '@/recoil/atom/signup';
 import { Mbti } from '@components/Commons';
-import { ContainerStyle } from '../styled';
+import { Container } from '../styled';
 
 const MbtiContent = () => {
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
@@ -13,10 +13,8 @@ const MbtiContent = () => {
     };
 
     return (
-        <div css={ContainerStyle}>
-            <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
-                MBTI를 입력해주세요
-            </Typography.Title>
+        <div css={Container}>
+            <Typography.Title className="title">MBTI를 입력해주세요</Typography.Title>
 
             <Mbti mbti={signupStateObj.mbti} onUpdateMbti={onUpdateMbti} />
         </div>

@@ -34,6 +34,6 @@
         },
         "types": ["@emotion/react/types/css-prop"]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "@types"],
+    "include": ["custom.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", "@types"],
     "exclude": ["node_modules"]
 }

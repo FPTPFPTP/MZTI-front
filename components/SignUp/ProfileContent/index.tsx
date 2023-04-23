@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Typography } from 'antd';
-import { useSetRecoilState } from 'recoil';
-import { signupProfileFileState } from '@/recoil/atom/signup';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { signupProfileFileState, signupState } from '@/recoil/atom/signup';
 import { ProfileUpload } from '@components/Commons';
 import { Container } from '../styled';
 
@@ -37,10 +37,10 @@ const ProfileContent = () => {
 
     return (
         <div css={Container}>
-            <Typography.Title level={2} style={{ margin: '2rem', whiteSpace: 'nowrap' }}>
-                프로필 사진을 골라주세요
-            </Typography.Title>
-            <ProfileUpload previewFileSrc={previewFileSrc} handleUpdateProfileImg={updateProfileImg} />
+            <Typography.Title className="title">프로필 사진을 설정해주세요</Typography.Title>
+            <div className="profile">
+                <ProfileUpload previewFileSrc={previewFileSrc} handleUpdateProfileImg={updateProfileImg} />
+            </div>
         </div>
     );
 };

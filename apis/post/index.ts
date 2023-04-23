@@ -365,3 +365,18 @@ export const reCommentGet = async ({ commentId, page, view }: IReCommentParam) =
     });
     return res.data.data;
 };
+
+/**
+ * [API] POST 이미지 업로드
+ * @param param0
+ * @returns
+ */
+export const postImage = async ({ formData }: { formData: FormData }) => {
+    const res = await Axios.post<IResponseBase<string>>(`/post/image`, formData, {
+        headers: {
+            'content-type': 'multipart/form-data',
+        },
+    });
+
+    return res.data.data;
+};
