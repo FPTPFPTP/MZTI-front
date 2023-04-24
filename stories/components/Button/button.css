@@ -1,0 +1,36 @@
+.storybook-button {
+    background: #1b1e26;
+    color: #ffffff;
+    height: 56px;
+    border-radius: 10px;
+    padding: 13px 20px;
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 17px;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: none;
+    border: 0;
+}
+.storybook-button--primary {
+    color: white;
+    background-color: #8b8f96;
+}
+.storybook-button--secondary {
+    color: #333;
+    background-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+}
+.storybook-button--small {
+    font-size: 12px;
+    padding: 10px 16px;
+}
+.storybook-button--medium {
+    font-size: 14px;
+    padding: 11px 20px;
+}
+.storybook-button--large {
+    font-size: 16px;
+    padding: 12px 24px;
+}

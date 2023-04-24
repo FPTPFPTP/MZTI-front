@@ -14,8 +14,7 @@ const Profile = ({ user }: IProfileProps) => {
         <section css={ProfileStyle}>
             <div className="photo">
                 {/* TODO: 나중에 이미지 태그로 변경  */}
-                <Avatar size={120} alt="나의 이미지" src={profileImage ? profileImage : ''} mbti={mbti} />
-                <span>Lv.1</span>
+                <Avatar size={83} alt="나의 이미지" src={profileImage ? profileImage : ''} mbti={mbti} />
             </div>
             <div>
                 <p className="mbti">{mbti}</p>

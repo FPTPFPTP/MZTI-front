@@ -3,9 +3,12 @@ import Banner from '@/components/MyPageCom/Banner';
 import Menu from '@/components/MyPageCom/Menu';
 import Profile from '@/components/MyPageCom/Profile';
 import Write from '@/components/MyPageCom/Write';
-import { Header } from '@components/Commons';
 import { MypageWrap } from '@styles/pages/mypageStyled';
-import EditSvg from '@assets/icons/edit.svg';
+import EditSvg from '@assets/icons/mypage/edit.svg';
+import Etc from '@assets/icons/mypage/etc.svg';
+import Notice from '@assets/icons/mypage/notice.svg';
+import Support from '@assets/icons/mypage/support.svg';
+import Bookmark from '@assets/icons/mypage/bookmark.svg';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
@@ -13,26 +16,31 @@ import NotUser from '@/components/MyPageCom/NotUser';
 import { getMyPageActive } from '@/apis/post';
 import { getAccessToken } from '@utils/auth';
 import { IMyPageActive } from '@/types/post';
+import { BottomMenu } from '@/components/Commons';
 const menuList = [
     {
         title: '내가 북마크 한 글',
         subDesc: '',
         url: '/mypage/bookmark',
-    },
-    {
-        title: '서포트 센터',
-        subDesc: '1:1 문의, 건의 사항 등',
-        url: '/mypage/feedback',
+        icon: <Bookmark />,
     },
     {
         title: '공지사항',
         subDesc: '업데이트 소식, 게시판 추가 등',
         url: '/mypage/notice',
+        icon: <Notice />,
+    },
+    {
+        title: '서포트 센터',
+        subDesc: '1:1 문의, 건의 사항 등',
+        url: '/mypage/feedback',
+        icon: <Support />,
     },
     {
         title: '기타 서비스 정보 및 계정 관리 ',
         subDesc: '이용약관 등',
         url: '/mypage/etc',
+        icon: <Etc />,
     },
 ];
 
@@ -48,29 +56,28 @@ const mypage = () => {
 
     return (
         <>
-            <Header
-                title="마이페이지"
-                rightElement={
-                    myInfo && (
+            <div css={MypageWrap}>
+                <header>
+                    <h1>마이페이지</h1>
+                    {myInfo && (
                         <Link href="/mypage/edit">
                             <EditSvg />
                         </Link>
-                    )
-                }
-            />
-            <div css={MypageWrap}>
+                    )}
+                </header>
                 {myInfo ? (
-                    <>
+                    <div className="profileWrap">
                         <Profile user={myInfo} />
                         {myActive && <Write write={myActive.post} comment={myActive.comment} recommend={myActive.like} />}
-                    </>
+                    </div>
                 ) : (
                     <NotUser />
                 )}
 
                 <Banner />
-                <Menu menuList={menuList} />
             </div>
+            <Menu menuList={menuList} />
+            <BottomMenu />
         </>
     );
 };

@@ -6,25 +6,30 @@ export const WriteStyle = css`
     justify-content: space-around;
     align-items: center;
     text-align: center;
-    margin-bottom: 27px;
-    margin-top: 47px;
+    margin-top: 20px;
     button {
         font-size: 20px;
     }
     .writeTitle {
-        font-size: 1.3rem;
-        font-weight: 400;
+        font-weight: 300;
+        font-size: 14px;
+        letter-spacing: -0.408px;
+        color: #545456;
     }
     .writeNum {
-        font-size: 1.4rem;
-        font-weight: 400;
-        margin-top: 14px;
+        font-weight: 500;
+        font-size: 16px;
+        letter-spacing: -0.408px;
+        color: #000000;
+        margin-top: 1px;
     }
 `;
 
 export const ProfileStyle = css`
     display: flex;
     align-items: center;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 20px;
     .mbti {
         border: 1px solid ${color.BLACK};
         border-radius: 55px;
@@ -35,17 +40,22 @@ export const ProfileStyle = css`
         font-size: 1.1rem;
     }
     .nickname {
-        font-weight: 600;
-        font-size: 1.7rem;
-        margin: 8px 0;
-    }
-    .desc {
-        font-weight: 400;
-        font-size: 1.2rem;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 20px;
         margin-top: 5px;
     }
+    .desc {
+        font-weight: 300;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.408px;
+        color: #545456;
+        margin-top: 8px;
+    }
     .photo {
-        margin-right: 30px;
+        margin-right: 17px;
         text-align: center;
         span {
             font-size: 1.1rem;
@@ -53,7 +63,7 @@ export const ProfileStyle = css`
         & > div {
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid ${color.BLACK};
+            border: none;
         }
         p {
             width: 90px;
@@ -70,14 +80,25 @@ export const ProfileStyle = css`
 `;
 
 export const MenuStyle = css`
-    margin-top: 20px;
+    background: #fff;
+    padding: 0 36px;
     li {
+        border-bottom: 1px solid #ebebeb;
+        &:last-child {
+            border-bottom: none;
+        }
         a {
-            font-weight: 400;
-            font-size: 1.3rem;
-            padding: 15px 20px;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 15px;
             display: flex;
-            justify-content: space-between;
+            letter-spacing: -0.408px;
+            color: #545456;
+            padding: 17px 10px;
+            align-items: center;
+            .icon {
+                margin-right: 20px;
+            }
         }
         strong {
             color: ${color.GRAY_BRIGHT_2};
@@ -162,14 +183,9 @@ export const EmptyStyle = css`
 export const BannerStyle = css`
     box-sizing: border-box;
     overflow: hidden;
-    background-color: ${color.GRAY_LIGHT_6};
-    padding: 20px;
-    h4 {
-        font-size: 20px;
-        font-weight: 400;
-        margin-bottom: 6px;
-    }
-    p {
-        font-size: 16px;
-    }
+    margin-top: 20px;
+    border-radius: 13px;
+    height: 128px;
+    width: 100%;
+    background: #fff;
 `;

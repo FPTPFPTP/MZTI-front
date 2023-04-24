@@ -15,9 +15,21 @@ export const Layout = css`
 `;
 
 export const MypageWrap = css`
-    padding: 0 20px;
-    margin: 50px 0 0 0;
-    background-color: ${color.WHITE};
+    padding: 0 20px 20px 20px;
+    background: #f5f5f5;
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-top: 89px;
+        h1 {
+            color: #545456;
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.408px;
+        }
+    }
     .notUser {
         &__flex {
             display: flex;
@@ -80,6 +92,12 @@ export const MypageWrap = css`
         justify-content: space-between;
         padding: 15px 20px;
         width: 100%;
+    }
+    .profileWrap {
+        background: #ffffff;
+        border-radius: 13px;
+        padding: 25px;
+        margin-top: 37px;
     }
 `;
 

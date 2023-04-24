@@ -11,16 +11,19 @@ const BottomMenu = () => {
                 <li>
                     <Link href="/home">
                         <HomeIcon />
+                        <span>홈</span>
                     </Link>
                 </li>
                 <li>
                     <Link href="/write">
                         <WriteIcon />
+                        <span>글쓰기</span>
                     </Link>
                 </li>
                 <li>
                     <Link href="/board-list">
                         <MoreIcon />
+                        <span>마이페이지</span>
                     </Link>
                 </li>
             </ul>
