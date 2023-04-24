@@ -1,14 +1,13 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import FeedItem from '@/components/Home/FeedItem';
 import { Input, BottomMenu } from '@components/Commons';
-import MyPageIcon from '@assets/icons/header/mypage.svg';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
 import { searchWrap } from '@styles/pages/homeStyled';
 import { getFeedPost } from '@/apis/post';
 import FeedHeader from '@/components/Commons/FeedHeader';
+import { categoryUrlToId } from '@utils/menu';
 
 interface IBoardProps {
     id: number;
@@ -53,7 +52,7 @@ export default board;
 export const getServerSideProps: GetServerSideProps = async ({ req, params }: any) => {
     return {
         props: {
-            id: Number(params.id),
+            id: categoryUrlToId(params.id),
         },
     };
 };

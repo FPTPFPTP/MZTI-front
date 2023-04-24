@@ -7,6 +7,7 @@ import ItemHeader from './ItemHeader';
 import { FeedItemStyle } from '../styled';
 import Link from 'next/link';
 import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
+import { categoryIdToUrl } from '@utils/menu';
 
 const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<IPostModel>>; isLoading: boolean }) => {
     return (
@@ -25,7 +26,7 @@ const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<
                                 <div className="feedLayout" key={item.id}>
                                     <div className="feedLayout__bg">
                                         <ItemHeader writer={item.writer} createAt={item.createAt} writerID={item.id} categoryId={item.categoryId} />
-                                        <Link href={`/board/${item.categoryId}/${item.id}`}>
+                                        <Link href={`/board/${categoryIdToUrl(item.categoryId)}/${item.id}`}>
                                             <ItemContent
                                                 id={item.id}
                                                 title={item.title}
