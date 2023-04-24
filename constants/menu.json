@@ -4,13 +4,11 @@
         "menus": [
             {
                 "id": 1,
-                "title": "자유 게시판",
-                "url": "free"
+                "title": "자유 게시판"
             },
             {
                 "id": 22,
-                "title": "인기 게시판",
-                "url": "popular"
+                "title": "인기 게시판"
             }
         ]
     },
@@ -20,23 +18,19 @@
         "menus": [
             {
                 "id": 2,
-                "title": "E vs I",
-                "url": "EvsI"
+                "title": "E vs I"
             },
             {
                 "id": 3,
-                "title": "S vs N",
-                "url": "SvsN"
+                "title": "S vs N"
             },
             {
                 "id": 4,
-                "title": "T vs F",
-                "url": "TvsF"
+                "title": "T vs F"
             },
             {
                 "id": 5,
-                "title": "J vs P",
-                "url": "JvsP"
+                "title": "J vs P"
             }
         ]
     },
@@ -46,83 +40,67 @@
         "menus": [
             {
                 "id": 6,
-                "title": "ISTJ",
-                "url": "ISTJ"
+                "title": "ISTJ"
             },
             {
                 "id": 7,
-                "title": "ISFJ",
-                "url": "ISFJ"
+                "title": "ISFJ"
             },
             {
                 "id": 8,
-                "title": "INFJ",
-                "url": "INFJ"
+                "title": "INFJ"
             },
             {
                 "id": 9,
-                "title": "INTJ",
-                "url": "INTJ"
+                "title": "INTJ"
             },
             {
                 "id": 10,
-                "title": "ISTP",
-                "url": "ISTP"
+                "title": "ISTP"
             },
             {
                 "id": 11,
-                "title": "ISFP",
-                "url": "ISFP"
+                "title": "ISFP"
             },
             {
                 "id": 12,
-                "title": "INFP",
-                "url": "INFP"
+                "title": "INFP"
             },
             {
                 "id": 13,
-                "title": "INTP",
-                "url": "INTP"
+                "title": "INTP"
             },
             {
                 "id": 14,
-                "title": "ESTP",
-                "url": "ESTP"
+                "title": "ESTP"
             },
             {
                 "id": 15,
-                "title": "ESFP",
-                "url": "ESFP"
+                "title": "ESFP"
             },
             {
                 "id": 16,
-                "title": "ENFP",
-                "url": "ENFP"
+                "title": "ENFP"
             },
             {
                 "id": 17,
-                "title": "ENTP",
-                "url": "ENTP"
+                "title": "ENTP"
             },
             {
                 "id": 18,
-                "title": "ESTJ",
-                "url": "ESTJ"
+                "title": "ESTJ"
             },
             {
                 "id": 19,
-                "title": "ESFJ",
-                "url": "ESFJ"
+                "title": "ESFJ"
             },
             {
                 "id": 20,
-                "title": "ENFJ",
-                "url": "ENFJ"
+                "title": "ENFJ"
             },
             {
                 "id": 21,
-                "title": "ENTJ",
-                "url": "ENTJ"
+                "title": "ENTJ"
             }
         ]
     }

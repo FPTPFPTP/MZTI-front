@@ -14,7 +14,7 @@ const boardMenu = ({ menus }: IBoardMenuProps) => {
                     {menu.menus.map((item) => {
                         return (
                             <li key={item.id}>
-                                <Link href={`/board/${item.url}`}>{item.title}</Link>
+                                <Link href={`/board/${item.id}`}>{item.title}</Link>
                             </li>
                         );
                     })}

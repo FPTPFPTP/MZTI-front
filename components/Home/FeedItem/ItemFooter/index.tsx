@@ -13,8 +13,9 @@ import Link from 'next/link';
 import { ILikeModel } from '@/types/post';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
+import { openToast } from '@/utils/toast';
 import { Modal } from '@components/Commons';
-import { categoryIdToUrl } from '@utils/menu';
+
 interface IItemProps {
     like?: number | string;
     command?: number;
@@ -23,7 +24,7 @@ interface IItemProps {
     postId?: number;
     viewCount: number;
     likeCheck: boolean;
-    categoryId: number;
+    categoryId?: number;
 }
 const ItemFooter = ({ categoryId, postId, likeCheck, like, command, className, viewCount, isFeed = true }: IItemProps) => {
     const [isLike, setIsLike] = useState<boolean>(likeCheck);
@@ -66,13 +67,13 @@ const ItemFooter = ({ categoryId, postId, likeCheck, like, command, className, v
                 <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
             </button>
 
-            <Link href={`/board/${categoryIdToUrl(categoryId)}/${postId}`}>
+            <Link href={`/board/${categoryId}/${postId}`}>
                 <CommentIcon />
                 <span>{command}</span>
             </Link>
 
             {isFeed ? (
-                <Link href={`/board/${categoryIdToUrl(categoryId)}/${postId}`} className="viewIcon">
+                <Link href={`/board/${categoryId}/${postId}`} className="viewIcon">
                     <Views />
                     <span className="count">{viewCount}</span>
                 </Link>
