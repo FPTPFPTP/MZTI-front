@@ -72,7 +72,7 @@ const EditorBox = (props: IEditorBox) => {
 
                     if (data) {
                         openToast({ message: '작성한 글 수정에 성공했어요' });
-                        router.push(`/board/${data.categoryId}/${data.id}`);
+                        router.push(`/boardDetail/${data.id}`);
                     }
                 } catch (error) {
                     console.log(error);
@@ -108,7 +108,7 @@ const EditorBox = (props: IEditorBox) => {
 
                     if (data && data.code === 'SUCCESS') {
                         openToast({ message: '작성한 글 업로드에 성공했어요' });
-                        router.push(`/board/${data.data.categoryId}/${data.data.id}`);
+                        router.push(`/boardDetail/${data.data.id}`);
                     }
                 } catch (error) {
                     console.log(error);

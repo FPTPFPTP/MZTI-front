@@ -25,7 +25,7 @@ const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<
                                 <div className="feedLayout" key={item.id}>
                                     <div className="feedLayout__bg">
                                         <ItemHeader writer={item.writer} createAt={item.createAt} writerID={item.id} categoryId={item.categoryId} />
-                                        <Link href={`/board/${item.categoryId}/${item.id}`}>
+                                        <Link href={`/boardDetail/${item.id}`}>
                                             <ItemContent
                                                 id={item.id}
                                                 title={item.title}
@@ -40,7 +40,6 @@ const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<
                                             postId={item.id}
                                             like={item.like.count}
                                             command={item.command.count}
-                                            categoryId={item.categoryId}
                                         />
                                     </div>
                                 </div>

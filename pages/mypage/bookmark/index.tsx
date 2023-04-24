@@ -63,7 +63,7 @@ const BookMarkList = () => {
                                 }
                             }
 
-                            return <ListItem key={item.id} item={item} url={`/home/${item.id}`} thumbnail={thumbnail} />;
+                            return <ListItem key={item.id} item={item} url={`/boardDetail/${item.id}`} thumbnail={thumbnail} />;
                         })
                     ) : (
                         <Empty title="북마크한 글이 없습니다" subTitle="새로운 게시글을 살펴보러 갈까요?" buttonTitle="메인화면으로 가기" href="/home" />
