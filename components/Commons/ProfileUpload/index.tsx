@@ -25,7 +25,7 @@ const ProfileUpload = (props: IProfileUpload) => {
 
     return (
         <div css={AvatarWrapStyle}>
-            <Avatar src={previewFileSrc} alt={'프로필'} mbti={mbtiInfo.mbti} />
+            <Avatar src={previewFileSrc ? previewFileSrc : ''} alt={'프로필'} mbti={mbtiInfo.mbti} />
             <div css={UploadWrapStyle} onClick={() => profileImgInputRef.current && profileImgInputRef.current.click()}>
                 <CameraSvg style={{ fontSize: '1.5rem' }} />
             </div>

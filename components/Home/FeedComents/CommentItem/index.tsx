@@ -76,6 +76,7 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
      * 대댓글 누르면 대댓글 작성할 수 있는 컴포넌트 열리기
      */
     const handleRePlayComment = (userId: number) => {
+        console.log('dddd', Number(data?.totalCount));
         // 대댓글창
         setReCommentState(true);
         setReplayCommentId(userId);
@@ -112,7 +113,7 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
             <section css={CommentItemSylte} key={userId}>
                 <div className="commentItemWrap">
                     <div className="writer">
-                        <Avatar src={profileImage} alt={`${nickname}님의 프로필입니다.`} size={60} />
+                        <Avatar src={profileImage ? profileImage : ''} alt={`${nickname}님의 프로필입니다.`} size={60} mbti={mbti} />
                         <p className="mbti">{mbti}</p>
                         <p className="nickName">
                             <span>{nickname}</span>

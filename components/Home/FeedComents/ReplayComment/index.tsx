@@ -20,7 +20,7 @@ const ReplayComment = () => {
     const queryClient = useQueryClient();
 
     const onSuccessComment = async () => {
-        queryClient.invalidateQueries(['getReCommentView']);
+        queryClient.invalidateQueries(['getReComment']);
     };
 
     // 대댓글

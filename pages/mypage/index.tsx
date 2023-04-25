@@ -37,7 +37,7 @@ const menuList = [
         icon: <Support />,
     },
     {
-        title: '기타 서비스 정보 및 계정 관리 ',
+        title: '기타 서비스 정보 및 계정관리',
         subDesc: '이용약관 등',
         url: '/mypage/etc',
         icon: <Etc />,

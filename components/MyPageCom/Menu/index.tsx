@@ -19,7 +19,7 @@ const Menu = ({ menuList }: Props) => {
         <ul css={MenuStyle}>
             {menuList.map((item: menuProps, index: number) => {
                 if (!myInfo) {
-                    if (item.title === '서포트 센터') {
+                    if (item.title === '서포트 센터' || item.title === '공지사항' || item.title === '기타 서비스 정보 및 계정관리') {
                         return (
                             <li key={index}>
                                 <Link href={item.url}>

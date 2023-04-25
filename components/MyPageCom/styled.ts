@@ -163,20 +163,26 @@ export const EmptyStyle = css`
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    margin-top: 100px;
+    padding: 0 16px;
     .title {
-        font-size: 1.4rem;
-        font-weight: 400;
-        color: ${color.BLACK};
+        font-weight: 700;
+        font-size: 20px;
+        text-align: center;
+        color: #1b1e26;
     }
     .sub_title {
-        margin-bottom: 24px;
-        font-size: 0.9rem;
-        font-weight: 400;
-        color: ${color.GRAY_ORIGIN_1};
-        margin-top: 10px;
+        font-weight: 500;
+        font-size: 14px;
+        text-align: center;
+        color: #545456;
+        margin-bottom: 90px;
+        margin-top: 20px;
         white-space: pre-line;
         text-align: center;
+    }
+    .icon {
+        margin-bottom: 34px;
+        margin-top: 120px;
     }
 `;
 
@@ -185,7 +191,10 @@ export const BannerStyle = css`
     overflow: hidden;
     margin-top: 20px;
     border-radius: 13px;
-    height: 128px;
+    height: 174px;
     width: 100%;
-    background: #fff;
+    background-image: url('/images/mzti_intro.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 `;

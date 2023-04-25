@@ -9,6 +9,7 @@ interface IEmptyProps {
     buttonTitle: string; // 버튼명
     href?: string; // 링크
     onClick?: () => void;
+    icon?: any;
 }
 
 /**
@@ -17,15 +18,16 @@ interface IEmptyProps {
  * @returns
  */
 const Empty = (props: IEmptyProps) => {
-    const { title, subTitle, buttonTitle, onClick, href } = props;
+    const { title, subTitle, buttonTitle, onClick, href, icon } = props;
     return (
         <div css={EmptyStyle}>
+            <p className="icon">{icon}</p>
             <p className="title">{title}</p>
             <p className="sub_title" style={{ color: colors.GRAY_ORIGIN_1 }}>
                 {subTitle}
             </p>
 
-            <Button buttonStyle={'black'} href={href} onClick={onClick}>
+            <Button buttonStyle={'base'} href={href} onClick={onClick}>
                 {buttonTitle}
             </Button>
         </div>
