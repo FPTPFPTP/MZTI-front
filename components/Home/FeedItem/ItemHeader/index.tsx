@@ -45,7 +45,7 @@ const ItemHeader = ({ writer, createAt, writerID, categoryId }: IItemHeader) => 
             <section css={ItemHeaderStyle}>
                 <div className="userInfo">
                     <div className="userInfo__profile">
-                        <Avatar src={profileImage} alt={nickname} size={90} />
+                        <Avatar src={profileImage ? profileImage : ''} alt={nickname} size={90} mbti={mbti} />
                     </div>
                     <div className="userInfo__Text">
                         <div className="userInfo__Text--layout">

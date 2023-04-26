@@ -1,8 +1,14 @@
-import Link from 'next/link';
 import NotUserMbti from '@assets/icons/notUser_mbti.svg';
 import NotUserIcon from '@assets/icons/notUserIcon.svg';
+import { Button } from '@components/Commons';
+import { useRouter } from 'next/router';
 
 const NotUser = () => {
+    const router = useRouter();
+
+    const handleStart = () => {
+        router.push('/login');
+    };
     return (
         <div className="notUser">
             <div className="notUser__flex">
@@ -10,17 +16,19 @@ const NotUser = () => {
                     <div className="profile">
                         <NotUserIcon />
                     </div>
-                    <p>Lv.0</p>
                 </div>
                 <div className="notUser__right">
-                    <NotUserMbti />
-                    <h3>로그인해주세요</h3>
-                    <p>로그인을 통해 MZTI의 더 많은 기능을 경험해보세요</p>
+                    <div className="notUser__right--flex">
+                        <p className="mbti">MBTI</p>
+                        <p className="lv">Lv.0</p>
+                    </div>
+                    <h3>로그인이 필요해요</h3>
                 </div>
             </div>
-            <Link href="/login" className="loginButton">
+
+            <Button buttonStyle={'base'} onClick={handleStart}>
                 회원가입 / 로그인
-            </Link>
+            </Button>
         </div>
     );
 };

@@ -4,6 +4,7 @@ import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostCommentsMe } from '@/apis/post';
+import EmptyWrite from '@assets/icons/common/empty_write.svg';
 
 const WriteCommentList = () => {
     const observerRef = useRef(null);
@@ -50,9 +51,15 @@ const WriteCommentList = () => {
                 </form>
                 <ListBox>
                     {commentList.length ? (
-                        commentList.map((item, index) => <ListItem key={index} item={item} url={`/home/${item.id}`} />)
+                        commentList.map((item, index) => <ListItem key={index} item={item} url={`/boardDetail/${item.id}`} />)
                     ) : (
-                        <Empty title="작성한 댓글이 없습니다" subTitle="첫 댓글을 남겨보러 갈까요?" buttonTitle="댓글 작성하러 가기" href="/home" />
+                        <Empty
+                            icon={<EmptyWrite />}
+                            title="작성한 댓글이 없어요"
+                            subTitle="첫 댓글을 남겨보러 갈까요?"
+                            buttonTitle="댓글 작성하러 가기"
+                            href="/home"
+                        />
                     )}
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}

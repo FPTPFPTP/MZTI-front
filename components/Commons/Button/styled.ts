@@ -11,7 +11,7 @@ const DefaultStyle = css`
 `;
 
 export const BaseButtonStyle = css`
-    ${DefaultStyle};
+    width: 100%;
     background: ${colors.BUTTON_NEXT};
     color: ${colors.WHITE};
     height: 56px;

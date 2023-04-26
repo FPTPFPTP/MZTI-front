@@ -15,46 +15,74 @@ export const Layout = css`
 `;
 
 export const MypageWrap = css`
-    padding: 0 20px;
-    margin: 50px 0 0 0;
-    background-color: ${color.WHITE};
+    padding: 0 20px 20px 20px;
+    background: #f5f5f5;
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-top: 89px;
+        h1 {
+            color: #545456;
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.408px;
+        }
+    }
     .notUser {
+        background-color: #fff;
+        border-radius: 13px;
+        padding: 25px 15px 13px 15px;
+        margin-top: 37px;
         &__flex {
             display: flex;
             align-items: center;
             justify-content: center;
+            border-bottom: 1px solid #ebebeb;
+            padding-bottom: 20px;
+            margin-bottom: 15px;
+            .mbti {
+                background: #dbdbdb;
+                border-radius: 61px;
+                padding: 4px 8px;
+                margin-right: 5px;
+            }
+            .lv {
+                border: 1px solid #dbdbdb;
+                border-radius: 61px;
+                padding: 4px 8px;
+            }
             .notUser__left {
-                margin-right: 10px;
+                margin-right: 17px;
                 text-align: center;
                 .profile {
-                    border: 2px solid ${colors.BLACK};
                     border-radius: 50%;
                     overflow: hidden;
-                    width: 90px;
-                    height: 90px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding-top: 16px;
                 }
                 p {
-                    margin-top: 5px;
-                    font-size: 13px;
-                    line-height: 16px;
-                    text-align: center;
+                    font-weight: 700;
+                    font-size: 12px;
+                    color: #000000;
                 }
             }
             .notUser__right {
                 h3 {
-                    font-weight: 600;
-                    font-size: 32px;
-                    line-height: 38px;
-                    margin: 8px 0;
+                    font-weight: 500;
+                    font-size: 20px;
+                    display: flex;
+                    align-items: center;
+                    letter-spacing: -0.408px;
+                    color: #1b1e26;
+                    margin-top: 9px;
                 }
                 p {
                     font-weight: 400;
                     font-size: 13px;
                     line-height: 16px;
+                }
+                .notUser__right--flex {
+                    display: flex;
                 }
             }
         }
@@ -80,6 +108,12 @@ export const MypageWrap = css`
         justify-content: space-between;
         padding: 15px 20px;
         width: 100%;
+    }
+    .profileWrap {
+        background: #ffffff;
+        border-radius: 13px;
+        padding: 25px;
+        margin-top: 37px;
     }
 `;
 

@@ -2,28 +2,65 @@ import color from '@/styles/color';
 import { css } from '@emotion/react';
 
 export const BottomButtonStyle = css`
-    height: 65px;
-    flex: 0 0 65px;
+    height: 83px;
+    flex: 0 0 83px;
     ul {
         display: flex;
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
-        height: 58px;
+        height: 83px;
         z-index: 50;
-        background: ${color.GRAY_LIGHT_5};
-        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.15);
+        background: ${color.WHITE};
+        border-top: 0.5px solid rgba(60, 60, 67, 0.36);
         justify-content: space-around;
         align-items: center;
+        padding-bottom: 30px;
+        overflow: hidden;
+        box-sizing: border-box;
     }
     li {
+        width: 100%;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
         svg {
             font-size: 1.6rem;
-            color: ${color.GRAY_DARK_2};
+            path {
+                fill: #8a8a8e;
+            }
         }
         a {
-            color: ${color.BLACK};
+            color: #8a8a8e;
+            display: flex;
+            position: relative;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            span {
+                font-weight: 500;
+                font-size: 10px;
+                line-height: 12px;
+                text-align: center;
+                letter-spacing: -0.24px;
+                margin-top: 6px;
+            }
+        }
+        &.active {
+            svg {
+                path {
+                    fill: #292d32 !important;
+                }
+            }
+            a {
+                color: #292d32 !important;
+            }
         }
     }
 `;

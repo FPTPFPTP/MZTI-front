@@ -191,7 +191,6 @@ export const ItemHeaderStyle = css`
     .userInfo {
         display: flex;
         align-items: center;
-        justify-content: space-between;
         .userInfo__profile {
             border-radius: 50%;
             overflow: hidden;
@@ -429,8 +428,6 @@ export const ReplayCommentStyled = css`
 
     .ReplayCommentWrap {
         background-color: ${colors.WHITE};
-        min-width: 375px;
-        max-width: 600px;
         width: 100%;
         height: 100vh;
         overflow-y: scroll;

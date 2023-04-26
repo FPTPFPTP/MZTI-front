@@ -54,7 +54,7 @@ const Avatar = (props: IAvatar) => {
             case 'ISTP':
                 return (e.target.src = '/mbtiProfile/istp.png');
             default:
-                return null;
+                return;
         }
     };
 

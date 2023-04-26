@@ -5,4 +5,11 @@ export const ToastEditorCss = css`
         overflow: hidden;
         border: none;
     }
+    .toastui-editor-popup {
+        margin-left: auto !important;
+    }
+    .toastui-editor-dropdown-toolbar {
+        flex-wrap: wrap !important;
+        height: auto !important;
+    }
 `;

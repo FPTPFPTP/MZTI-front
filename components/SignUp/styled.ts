@@ -39,6 +39,15 @@ export const ContentWrap = css`
         margin-top: 0.5rem;
         color: ${colors.RED_ORIGIN};
     }
+    .state-message {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 12px;
+    }
 `;
 
 export const ContainerStyle = css`

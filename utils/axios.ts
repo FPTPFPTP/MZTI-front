@@ -1,8 +1,6 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { Modal } from 'antd';
 import { postLoginRefresh } from '@apis/auth';
-import { getAccessToken, getRefreshToken, getCookie, setToken, removeTokenAll } from '@utils/auth';
-import { isWindow } from '@utils/window';
+import { getAccessToken, setToken } from '@utils/auth';
 
 const customAxios = Axios.create({
     baseURL: '/mzti',
@@ -51,12 +49,7 @@ const onResponseError = async (error: AxiosError<any>) => {
     // console.log(`response Error`, error);
     const { config, response } = error;
     const onError = (data: any, response: any) => {
-        isWindow()
-            ? Modal.error({
-                  title: `Error Code: ${response.status}`,
-                  content: data.message,
-              })
-            : console.log({ code: `Error Code: ${response.status}`, message: data.message });
+        console.log({ code: `Error Code: ${response.status}`, message: data.message });
     };
     if (error.response) {
         const { status, data } = error.response;
@@ -93,8 +86,7 @@ const onResponseError = async (error: AxiosError<any>) => {
                 break;
             }
             case status >= 500: {
-                // console.log({ error });
-                // onError(data, response);
+                onError(data, response);
 
                 break;
             }
