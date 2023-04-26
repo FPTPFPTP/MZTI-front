@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 import { Header } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
@@ -198,7 +199,9 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                     <ToastViewer contentHtml={postData.content} />
                     {surveyData.map((survey) => (
                         <>
-                            {survey.self ? (
+                            {dayjs() > dayjs(survey.endDate) ? (
+                                <DefaultModeResult key={survey.id} survey={survey} onSubmit={onPoll} />
+                            ) : survey.self ? (
                                 <DefaultModeResult key={survey.id} survey={survey} onSubmit={onPoll} />
                             ) : (
                                 <DefaultModeViewer key={survey.id} survey={survey} onSubmit={onPoll} />

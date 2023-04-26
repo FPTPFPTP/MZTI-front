@@ -51,7 +51,7 @@ const WriteCommentList = () => {
                 </form>
                 <ListBox>
                     {commentList.length ? (
-                        commentList.map((item, index) => <ListItem key={index} item={item} url={`/home/${item.id}`} />)
+                        commentList.map((item, index) => <ListItem key={index} item={item} url={`/boardDetail/${item.id}`} />)
                     ) : (
                         <Empty
                             icon={<EmptyWrite />}

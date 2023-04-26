@@ -1,33 +1,28 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { message } from 'antd';
-import Filter from 'badwords-ko';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
 import { Button, Header, ProgressLineBar } from '@components/Commons';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
 import { getMeUserInfo, patchNickname, patchMbti, patchIntroduce, patchProfile } from '@apis/user';
-import RegExp, { NICKNAME_REG } from '@utils/regExp';
 import { openToast } from '@/utils/toast';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
 
 const SignUp = () => {
     const [stepActive, setStepActive] = useState<number>(1);
-
+    const [isNickNamePossible, setIsNickNamePossible] = useState<boolean>(false);
     const [signupStateObj, setSignupStateObj] = useRecoilState(signupState);
-    const setMyInfo = useSetRecoilState(myPageInfo);
+    const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
     const signupProfileFile = useRecoilValue(signupProfileFileState);
 
     // 다음단계 버튼 활성화
     const isError = useMemo(() => {
         switch (signupStateObj.step) {
             case 1: {
-                if (signupStateObj.nickname) {
-                    if (signupStateObj.nickname.length === 0 || !RegExp(NICKNAME_REG, signupStateObj.nickname)) {
-                        return true;
-                    }
+                if (signupStateObj.nickname && isNickNamePossible) {
                     return false;
                 }
                 return true;
@@ -48,7 +43,7 @@ const SignUp = () => {
                 return true;
             }
         }
-    }, [signupStateObj]);
+    }, [signupStateObj, isNickNamePossible]);
 
     const router = useRouter();
 
@@ -86,16 +81,8 @@ const SignUp = () => {
         switch (signupStateObj.step) {
             case 1: {
                 // 닉네임 Tab
-                const filter = new Filter();
-                if (!RegExp(NICKNAME_REG, signupStateObj.nickname)) {
-                    message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
-                    return;
-                } else if (filter.clean(signupStateObj.nickname).includes('*')) {
-                    message.error(`올바르지 않은 닉네임이에요. 아래의\n '닉네임 설정 규칙'을 참고해 다시 시도해주세요.`);
-                    return;
-                } else {
-                    await patchNickname({ nickname: signupStateObj.nickname });
-                }
+                await patchNickname({ nickname: signupStateObj.nickname });
+
                 break;
             }
             case 2: {
@@ -139,6 +126,11 @@ const SignUp = () => {
     };
 
     useEffect(() => {
+        if (myInfo) {
+            if (myInfo.nickname && myInfo.mbti) router.back();
+        } else {
+            router.back();
+        }
         if (signupStateObj.step) {
             setStepActive(signupStateObj.step);
         }
@@ -150,7 +142,7 @@ const SignUp = () => {
                 <Header onClickBackButton={onBackPage} />
                 <div css={BodyWrapper}>
                     <ProgressLineBar percent={stepActive} />
-                    {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
+                    {stepActive === 1 && <NicknameContent isPossible={isNickNamePossible} handleIsPossible={setIsNickNamePossible} onSubmit={onSubmit} />}
                     {stepActive === 2 && <MbtiContent />}
                     {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
                     {stepActive === 4 && <ProfileContent />}
