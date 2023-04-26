@@ -7,8 +7,8 @@ import { myPageInfo } from '@/recoil/atom/user';
 import { signupState, signupProfileFileState } from '@/recoil/atom/signup';
 import { Button, Header, ProgressLineBar } from '@components/Commons';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
-import { IntroduceContent, MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
-import { getMeUserInfo, patchNickname, patchMbti, patchIntroduce, patchProfile } from '@apis/user';
+import { MbtiContent, NicknameContent, ProfileContent } from '@components/SignUp';
+import { getMeUserInfo, patchNickname, patchMbti, patchProfile } from '@apis/user';
 import RegExp, { NICKNAME_REG } from '@utils/regExp';
 import { openToast } from '@/utils/toast';
 import { Layout, BodyWrapper, FooterWrapper } from '@styles/pages/signupStyled';
@@ -39,8 +39,7 @@ const SignUp = () => {
 
                 return true;
             }
-            case 3:
-            case 4: {
+            case 3: {
                 return false;
             }
 
@@ -79,7 +78,7 @@ const SignUp = () => {
     };
 
     const onNext = async () => {
-        if (stepActive > 4) {
+        if (stepActive > 3) {
             return;
         }
 
@@ -106,13 +105,6 @@ const SignUp = () => {
                 break;
             }
             case 3: {
-                // 자기소개 Tab
-                if (signupStateObj.introduce.length > 0) {
-                    await patchIntroduce({ intro: signupStateObj.introduce });
-                }
-                break;
-            }
-            case 4: {
                 // Profile Tab
                 if (signupProfileFile !== null) {
                     const fmData = new FormData();
@@ -152,15 +144,14 @@ const SignUp = () => {
                     <ProgressLineBar percent={stepActive} />
                     {stepActive === 1 && <NicknameContent onSubmit={onSubmit} />}
                     {stepActive === 2 && <MbtiContent />}
-                    {stepActive === 3 && <IntroduceContent onSubmit={onSubmit} />}
-                    {stepActive === 4 && <ProfileContent />}
+                    {stepActive === 3 && <ProfileContent />}
                 </div>
                 <div css={FooterWrapper}>
                     <Button className="pre_button" buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
                         이전단계로
                     </Button>
                     <Button buttonStyle={'base'} disabled={isError ? true : false} onClick={onNext}>
-                        {stepActive === 4 ? 'MZTI 시작해보기 !' : '다음 단계로'}
+                        {stepActive === 3 ? 'MZTI 시작해보기 !' : '다음 단계로'}
                     </Button>
                 </div>
             </div>

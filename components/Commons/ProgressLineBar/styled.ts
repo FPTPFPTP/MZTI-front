@@ -11,7 +11,7 @@ export const ProgressLineBarContainer = css`
 `;
 
 export const ProgressBar = css`
-    width: 23%;
+    width: 32%;
     height: 100%;
     background: #d9d9d9;
     border-radius: 10px;
