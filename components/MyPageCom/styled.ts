@@ -179,6 +179,7 @@ export const EmptyStyle = css`
         margin-top: 20px;
         white-space: pre-line;
         text-align: center;
+        line-height: 21px;
     }
     .icon {
         margin-bottom: 34px;
