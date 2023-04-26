@@ -7,6 +7,7 @@ import { Header, Input, Tag } from '@components/Commons';
 import CheckSvg from '@assets/icons/circle_check.svg';
 import PlusSvg from '@assets/icons/plus.svg';
 import VoteSvg from '@assets/icons/vote.svg';
+import YoutubeImg from '@assets/icons/write/youtube.png';
 import ToastEditor from '@/components/Commons/ToastEditor';
 import { ContentWrapStyle, FlexCenterStyle, KeywordWrapStyle, BottomWrapStyle, BottomBtnWrapStyle } from '../styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
@@ -148,6 +149,66 @@ const EditorBox = (props: IEditorBox) => {
 
     useEffect(() => {
         if (editorRef.current) {
+            // editorRef.current?.getInstance().addCommand('markdown', 'addYoutube', (payload, state, dispatch, view) => {
+            //     let url = prompt('추가할 youtube 영상의 주소창 url을 담아주세요!');
+            //     if (!url) return false;
+            //     url = url?.split('=').at(-1) ?? '';
+            //     const str = `
+            //       <div class="video-container">
+            //         <iframe src="https://www.youtube.com/embed/${url}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            //       </div>
+            //     `;
+            //     editorRef.current?.getInstance().insertText(str);
+            //     return true;
+            // });
+
+            // 팝업 바디 생성
+            const container = document.createElement('div');
+            const description = document.createElement('p');
+            description.textContent = 'Youtube 주소를 입력하고 Enter를 누르세요!';
+
+            const urlInput = document.createElement('input');
+            urlInput.style.width = '100%';
+            urlInput.style.height = '30px';
+            urlInput.style.border = '1px solid #000000';
+            urlInput.style.marginTop = '8px';
+
+            // 팝업 input 창에 내용 입력 시 호출됨
+            urlInput.addEventListener('keyup', (e: any) => {
+                // 엔터를 누르면, 입력값이 Youtube 주소인지 정규식으로 검사
+                if (e.key === 'Enter') {
+                    if (/https:\/\/youtu.be\/.{11,}/.test(e.target.value) || /https:\/\/www.youtube.com\/watch\?v=.{11,}/.test(e.target.value)) {
+                        const str =
+                            '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/' +
+                            e.target.value.slice(-11) +
+                            '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+
+                        // 마크다운 모드에서 iframe 태그 삽입 후, 팝업을 닫고 위지윅 모드로 변환
+                        editorRef.current?.getInstance().changeMode('markdown');
+                        editorRef.current?.getInstance().insertText(str);
+                        editorRef.current?.getInstance().eventEmitter.emit('closePopup');
+                        editorRef.current?.getInstance().changeMode('wysiwyg');
+                    }
+                }
+            });
+
+            container.appendChild(description);
+            container.appendChild(urlInput);
+
+            editorRef.current?.getInstance().insertToolbarItem(
+                { groupIndex: 3, itemIndex: 3 },
+                {
+                    name: 'youtube',
+                    tooltip: 'youtube',
+                    className: 'toastui-editor-toolbar-icons',
+                    style: { backgroundImage: `url(/images/youtube.png)`, backgroundSize: '25px', color: 'red' },
+                    popup: {
+                        body: container,
+                        style: { width: 'auto' },
+                    },
+                },
+            );
+
             // 기존 이미지 업로드 기능 제거
             editorRef.current.getInstance().removeHook('addImageBlobHook');
             // 이미지 서버로 데이터를 전달하는 기능 추가
