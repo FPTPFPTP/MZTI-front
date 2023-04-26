@@ -68,7 +68,7 @@ const ReplayCommentItem = ({ nickname, mbti, profileImage, userId, comment, like
             <section css={CommentItemSylte} key={userId}>
                 <div className="commentItemWrap replay">
                     <div className="writer">
-                        <Avatar src={profileImage} alt={`${nickname}님의 프로필입니다.`} size={60} />
+                        <Avatar src={profileImage ? profileImage : ''} alt={`${nickname}님의 프로필입니다.`} size={60} mbti={mbti} />
                         <p className="mbti">{mbti}</p>
                         <p className="nickName">
                             <span>{nickname}</span>

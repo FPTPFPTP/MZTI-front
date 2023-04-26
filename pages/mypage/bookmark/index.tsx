@@ -4,6 +4,7 @@ import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetBookMarkMe } from '@/apis/post';
+import EmptyBookmark from '@assets/icons/common/empty_bookmark.svg';
 
 const BookMarkList = () => {
     const observerRef = useRef(null);
@@ -66,7 +67,13 @@ const BookMarkList = () => {
                             return <ListItem key={item.id} item={item} url={`/home/${item.id}`} thumbnail={thumbnail} />;
                         })
                     ) : (
-                        <Empty title="북마크한 글이 없습니다" subTitle="새로운 게시글을 살펴보러 갈까요?" buttonTitle="메인화면으로 가기" href="/home" />
+                        <Empty
+                            title="북마크한 글이 없어요"
+                            subTitle="새로운 게시글을 살펴보러 갈까요?"
+                            buttonTitle="메인화면으로 가기"
+                            href="/home"
+                            icon={<EmptyBookmark />}
+                        />
                     )}
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}

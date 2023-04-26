@@ -2,7 +2,6 @@ import { myPageInfo } from '@/recoil/atom/user';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { MenuStyle } from '../styled';
-import MyPageArr from '@assets/icons/common/myPageArr.svg';
 
 type Props = {
     menuList: menuProps[];
@@ -10,6 +9,7 @@ type Props = {
 type menuProps = {
     title: string; // 메뉴명
     url: string; // 메뉴 url
+    icon: React.ReactNode;
 };
 
 const Menu = ({ menuList }: Props) => {
@@ -19,15 +19,12 @@ const Menu = ({ menuList }: Props) => {
         <ul css={MenuStyle}>
             {menuList.map((item: menuProps, index: number) => {
                 if (!myInfo) {
-                    if (item.title === '서포트 센터') {
+                    if (item.title === '서포트 센터' || item.title === '공지사항' || item.title === '기타 서비스 정보 및 계정관리') {
                         return (
                             <li key={index}>
                                 <Link href={item.url}>
+                                    <span className="icon">{item.icon}</span>
                                     <span>{item.title}</span>
-
-                                    <span>
-                                        <MyPageArr />
-                                    </span>
                                 </Link>
                             </li>
                         );
@@ -39,11 +36,8 @@ const Menu = ({ menuList }: Props) => {
                         <>
                             <li key={index}>
                                 <Link href={item.url}>
+                                    <span className="icon">{item.icon}</span>
                                     <span>{item.title}</span>
-
-                                    <span>
-                                        <MyPageArr />
-                                    </span>
                                 </Link>
                             </li>
                         </>

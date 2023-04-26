@@ -5,6 +5,7 @@ import { Empty, ListBox, ListItem } from '@components/MyPageCom';
 // import { useObserver } from '@/hooks/useObserver';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostsMe } from '@/apis/post';
+import EmptyWrite from '@assets/icons/common/empty_write.svg';
 
 const WriteList = () => {
     const observerRef = useRef(null);
@@ -92,7 +93,13 @@ const WriteList = () => {
                                     href="/mypage/writeList"
                                 />
                             ) : (
-                                <Empty title="작성한 글이 없습니다" subTitle="첫 글을 남겨보러 갈까요?" buttonTitle="목록으로" href="/home" />
+                                <Empty
+                                    title="작성한 글이 없어요"
+                                    icon={<EmptyWrite />}
+                                    subTitle="첫 글을 남겨보러 갈까요?"
+                                    buttonTitle="글 작성하러 가기"
+                                    href="/home"
+                                />
                             )}
                         </>
                     )}
