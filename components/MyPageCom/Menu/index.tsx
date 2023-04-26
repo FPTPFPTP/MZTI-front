@@ -9,7 +9,7 @@ type Props = {
 type menuProps = {
     title: string; // 메뉴명
     url: string; // 메뉴 url
-    icon: React.ReactNode;
+    icon?: React.ReactNode;
 };
 
 const Menu = ({ menuList }: Props) => {
@@ -23,7 +23,7 @@ const Menu = ({ menuList }: Props) => {
                         return (
                             <li key={index}>
                                 <Link href={item.url}>
-                                    <span className="icon">{item.icon}</span>
+                                    {item.icon && <span className="icon">{item.icon}</span>}
                                     <span>{item.title}</span>
                                 </Link>
                             </li>
@@ -36,7 +36,7 @@ const Menu = ({ menuList }: Props) => {
                         <>
                             <li key={index}>
                                 <Link href={item.url}>
-                                    <span className="icon">{item.icon}</span>
+                                    {item.icon && <span className="icon">{item.icon}</span>}
                                     <span>{item.title}</span>
                                 </Link>
                             </li>
