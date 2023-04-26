@@ -9,7 +9,7 @@ type Props = {
 type menuProps = {
     title: string; // 메뉴명
     url: string; // 메뉴 url
-    icon: any;
+    icon: React.ReactNode;
 };
 
 const Menu = ({ menuList }: Props) => {

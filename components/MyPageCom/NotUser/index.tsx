@@ -7,7 +7,7 @@ const NotUser = () => {
     const router = useRouter();
 
     const handleStart = () => {
-        router.replace('/login');
+        router.push('/login');
     };
     return (
         <div className="notUser">
