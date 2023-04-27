@@ -150,28 +150,5 @@ const globalReset = () => css`
         height: 100%;
         min-height: 100%;
     }
-
-    .ant-modal {
-        width: 100% !important;
-        padding: 0 40px !important;
-        max-width: 100% !important;
-        .ant-modal-title {
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 32px;
-        }
-        .ant-modal-body {
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
-        }
-        .ant-modal-footer {
-            button {
-                font-weight: 500;
-                font-size: 14px;
-                line-height: 20px;
-            }
-        }
-    }
 `;
 export default globalReset;

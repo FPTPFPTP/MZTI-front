@@ -192,7 +192,7 @@ export const BannerStyle = css`
     overflow: hidden;
     margin-top: 20px;
     border-radius: 13px;
-    height: 174px;
+    height: 100px;
     width: 100%;
     background-image: url('/images/mzti_intro.png');
     background-size: cover;
