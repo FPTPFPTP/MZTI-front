@@ -196,7 +196,6 @@ export const ItemHeaderStyle = css`
         .userInfo__profile {
             border-radius: 50%;
             overflow: hidden;
-            margin-right: 0.6rem;
             border-radius: 50%;
             border: 1px solid ${colors.GRAY_STRONG_2};
             width: 60px;
@@ -214,7 +213,8 @@ export const ItemHeaderStyle = css`
             }
         }
         .userInfo__Text {
-            width: 86%;
+            width: 100%;
+            padding-left: 11px;
             .userInfo__Text--layout {
                 display: flex;
                 justify-content: space-between;

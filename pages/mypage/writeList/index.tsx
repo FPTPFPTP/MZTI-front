@@ -6,6 +6,7 @@ import { Empty, ListBox, ListItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostsMe } from '@/apis/post';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
+import SearchIcon from '@assets/icons/common/search_blank.svg';
 
 const WriteList = () => {
     const observerRef = useRef(null);
@@ -87,10 +88,11 @@ const WriteList = () => {
                         <>
                             {search && search.length ? (
                                 <Empty
-                                    title="검색 결과가 없습니다"
-                                    subTitle="정확한 검색어를 입력해주세요"
+                                    title="검색 결과가 없어요"
+                                    subTitle="정확한 검색어를 입력했는지\n다시 한 번 확인해주세요"
                                     buttonTitle="글 작성하러 가기"
                                     href="/mypage/writeList"
+                                    icon={<SearchIcon />}
                                 />
                             ) : (
                                 <Empty

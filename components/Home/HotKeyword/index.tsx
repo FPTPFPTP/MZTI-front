@@ -12,7 +12,7 @@ interface IHotKeywordItem {
 interface IHotKeywordProps {
     title: string;
     more: boolean;
-    content: string;
+    content?: string;
 }
 
 const HotKeyword = ({ title, more, content }: IHotKeywordProps) => {
