@@ -236,6 +236,50 @@ export const ListBoardItemStyle = css`
     }
 `;
 
+export const ListCommnetItemStyle = css`
+    display: block;
+    width: 100%;
+    border-top: 1px solid ${color.GRAY_BRIGHT_5};
+    padding: 22px 20px;
+    &:hover {
+        background: ${color.GRAY_LIGHT_1};
+    }
+    .title {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        width: 100%;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 17px;
+        text-align: left;
+    }
+    .date {
+        margin-top: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        text-align: left;
+        color: #54545680;
+    }
+    .thumbnail {
+        width: 100%;
+        height: 150px;
+        margin-top: 20px;
+        object-fit: fill;
+    }
+    .bottom {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+        color: #54545680;
+        div {
+            display: flex;
+            gap: 10px;
+        }
+    }
+`;
 export const ListBoxStyle = css`
     overflow-y: auto;
     width: 100%;
