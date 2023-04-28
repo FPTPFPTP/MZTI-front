@@ -141,6 +141,100 @@ export const ListItemStyle = css`
         white-space: nowrap;
     }
 `;
+export const ListBoardItemStyle = css`
+    display: block;
+    width: 100%;
+    border-top: 1px solid ${color.GRAY_BRIGHT_5};
+    padding: 22px 20px;
+    &:hover {
+        background: ${color.GRAY_LIGHT_1};
+    }
+    .title {
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 17px;
+        text-align: left;
+    }
+    .date {
+        margin-top: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        text-align: left;
+        color: #54545680;
+    }
+    .content {
+        .line-clamp-5 {
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            width: 100%;
+            & > * {
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 21px;
+                text-align: left;
+                color: #545456;
+                em {
+                    font-style: normal !important;
+                    font-weight: 500;
+                    color: #545456;
+                }
+                img {
+                    display: none;
+                }
+            }
+        }
+        .line-clamp-5:not(:last-child)::after {
+            content: '더보기';
+            display: block;
+            text-align: center;
+            color: #007bff;
+            cursor: pointer;
+        }
+    }
+
+    .vote {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+        padding: 36px 34px;
+        gap: 24px;
+        background: #f9f9f9;
+        font-size: 13px;
+        font-weight: 300;
+        line-height: 16px;
+        div {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            p {
+                width: 55px;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 16px;
+            }
+        }
+    }
+    .thumbnail {
+        width: 100%;
+        height: 150px;
+        margin-top: 20px;
+        object-fit: fill;
+    }
+    .bottom {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+        color: #54545680;
+        div {
+            display: flex;
+            gap: 10px;
+        }
+    }
+`;
 
 export const ListBoxStyle = css`
     overflow-y: auto;
