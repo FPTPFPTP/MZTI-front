@@ -5,6 +5,7 @@ import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetBookMarkMe } from '@/apis/post';
 import EmptyBookmark from '@assets/icons/common/empty_bookmark.svg';
+import SearchIcon from '@assets/icons/common/search_blank.svg';
 
 const BookMarkList = () => {
     const observerRef = useRef(null);
@@ -67,13 +68,25 @@ const BookMarkList = () => {
                             return <ListBoardItem key={item.id} item={item} thumbnail={thumbnail} />;
                         })
                     ) : (
-                        <Empty
-                            title="저장한 글이 없어요"
-                            subTitle="새로운 게시글을 살펴보러 갈까요?"
-                            buttonTitle="메인화면으로 가기"
-                            href="/home"
-                            icon={<EmptyBookmark />}
-                        />
+                        <>
+                            {search && search.length ? (
+                                <Empty
+                                    title="검색 결과가 없어요"
+                                    subTitle="정확한 검색어를 입력했는지\n다시 한 번 확인해주세요"
+                                    buttonTitle="글 작성하러 가기"
+                                    href="/mypage/writeList"
+                                    icon={<SearchIcon />}
+                                />
+                            ) : (
+                                <Empty
+                                    title="저장한 글이 없어요"
+                                    subTitle="새로운 게시글을 살펴보러 갈까요?"
+                                    buttonTitle="메인화면으로 가기"
+                                    href="/home"
+                                    icon={<EmptyBookmark />}
+                                />
+                            )}
+                        </>
                     )}
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}
