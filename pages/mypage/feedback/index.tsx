@@ -8,7 +8,7 @@ import BottomArrow from '@assets/icons/common/bottom_arr.svg';
 import DrawerMenu from '@/components/Commons/Drawer';
 
 const feedback = () => {
-    const [selected, setSelected] = useState<number>(1);
+    const [selected, setSelected] = useState<number>(0);
     const [typeTitle, setTypeTitle] = useState<string>('문의 유형 선택');
     const [style, setStyle] = useState<string>('');
     const [contactText, setContactText] = useState<string>('');
@@ -79,7 +79,6 @@ const feedback = () => {
                         <DrawerMenu
                             close={true}
                             onClose={() => setIsVisible(false)}
-                            listOption={categorys}
                             onClick={handleMoreOpenClose}
                             isVisible={isVisible}
                             title="문의 유형 선택"
@@ -113,7 +112,7 @@ const feedback = () => {
             <div className="buttonWrap">
                 <div className="buttonWrap-center">
                     <p>서비스의 오류 제보, 홍보 의심 사용자 등 운영진에게 전달하고 싶은 내용을 자유롭게 작성해주세요. </p>
-                    <Button buttonStyle={'base'} type="submit" disabled={!contactText} onClick={handleSubmit}>
+                    <Button buttonStyle={'base'} type="submit" disabled={!contactText || selected === 0} onClick={handleSubmit}>
                         문의사항 보내기
                     </Button>
                 </div>

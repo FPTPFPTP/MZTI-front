@@ -6,12 +6,9 @@ interface IDrawerMenuProps {
     isVisible: boolean;
     onClick: () => void;
     title: string;
-    desc?: string;
-    button?: any;
-    listOption?: any[];
-    Children: React.ReactElement;
-    close: boolean;
-    onClose: () => void;
+    Children: React.ReactElement; // 맘대로 꾸미시오
+    close: boolean; // 닫기버튼
+    onClose: () => void; // 닫기 이벤트
 }
 
 const DrawerMenu = ({ onClick, title, isVisible, onClose, Children, close = false }: IDrawerMenuProps) => {
