@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
-import { Empty, ListBox, ListItem } from '@components/MyPageCom';
+import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 // import { useObserver } from '@/hooks/useObserver';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostsMe } from '@/apis/post';
@@ -81,7 +81,7 @@ const WriteList = () => {
                                 }
                             }
 
-                            return <ListItem key={item.id} item={item} url={`/boardDetail/${item.id}`} thumbnail={thumbnail} />;
+                            return <ListBoardItem key={item.id} item={item} thumbnail={thumbnail} />;
                         })
                     ) : (
                         <>

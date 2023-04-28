@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
-import { Empty, ListBox, ListItem } from '@components/MyPageCom';
+import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetBookMarkMe } from '@/apis/post';
 import EmptyBookmark from '@assets/icons/common/empty_bookmark.svg';
@@ -64,7 +64,7 @@ const BookMarkList = () => {
                                 }
                             }
 
-                            return <ListItem key={item.id} item={item} url={`/boardDetail/${item.id}`} thumbnail={thumbnail} />;
+                            return <ListBoardItem key={item.id} item={item} thumbnail={thumbnail} />;
                         })
                     ) : (
                         <Empty
