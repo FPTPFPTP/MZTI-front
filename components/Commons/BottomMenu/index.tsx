@@ -14,7 +14,6 @@ const BottomMenuList = [
 
 const BottomMenu = () => {
     const router = useRouter();
-
     return (
         <nav css={BottomButtonStyle}>
             <ul>
