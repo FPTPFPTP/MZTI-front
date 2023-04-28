@@ -189,6 +189,10 @@ export const EmptyStyle = css`
         margin-bottom: 34px;
         margin-top: 120px;
     }
+    .icon {
+        margin-bottom: 34px;
+        margin-top: 120px;
+    }
 `;
 
 export const BannerStyle = css`
