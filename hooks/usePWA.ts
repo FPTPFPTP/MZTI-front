@@ -1,6 +1,5 @@
 import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { device } from '@utils/window';
-
 interface BeforeInstallPromptEvent extends Event {
     prompt(): Promise<void>;
 }

@@ -19,7 +19,7 @@ import { IMyPageActive } from '@/types/post';
 import { BottomMenu } from '@/components/Commons';
 const menuList = [
     {
-        title: '내가 북마크 한 글',
+        title: '내가 저장한 글',
         subDesc: '',
         url: '/mypage/bookmark',
         icon: <Bookmark />,
@@ -37,7 +37,7 @@ const menuList = [
         icon: <Support />,
     },
     {
-        title: '기타 서비스 정보 및 계정관리',
+        title: '서비스 정보 및 계정관리',
         subDesc: '이용약관 등',
         url: '/mypage/etc',
         icon: <Etc />,

@@ -22,7 +22,7 @@ export const MypageWrap = css`
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding-top: 89px;
+        padding-top: 60px;
         h1 {
             color: #545456;
             font-weight: 700;
@@ -77,9 +77,19 @@ export const MypageWrap = css`
                     margin-top: 9px;
                 }
                 p {
-                    font-weight: 400;
+                    font-weight: 700;
                     font-size: 13px;
-                    line-height: 16px;
+                    display: flex;
+                    align-items: center;
+                }
+                .notUser__right--flex {
+                    display: flex;
+                }
+                .notUser__right--flex {
+                    display: flex;
+                }
+                .notUser__right--flex {
+                    display: flex;
                 }
                 .notUser__right--flex {
                     display: flex;

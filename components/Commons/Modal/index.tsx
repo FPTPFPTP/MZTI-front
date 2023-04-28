@@ -11,10 +11,10 @@ interface IModalProps extends ModalProps {
 }
 
 const Modal: React.FC<IModalProps> = (props) => {
-    const { isModalVisible, closeModal, children, onOk, footer, width } = props;
+    const { isModalVisible, closeModal, children, onOk, footer } = props;
 
     return (
-        <AntdModal css={ModalStyle} visible={isModalVisible} onCancel={closeModal} onOk={onOk} footer={footer} width={width || 312} {...props}>
+        <AntdModal css={ModalStyle} visible={isModalVisible} onCancel={closeModal} onOk={onOk} footer={footer} {...props}>
             {children}
         </AntdModal>
     );

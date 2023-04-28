@@ -8,7 +8,7 @@ interface IProfileProps {
 }
 
 const Profile = ({ user }: IProfileProps) => {
-    const { mbti, nickname, intro, profileImage } = user;
+    const { mbti, nickname, profileImage } = user;
 
     return (
         <section css={ProfileStyle}>
@@ -19,7 +19,6 @@ const Profile = ({ user }: IProfileProps) => {
             <div>
                 <p className="mbti">{mbti}</p>
                 <p className="nickname">{nickname}</p>
-                <p className="desc">{intro}</p>
             </div>
         </section>
     );

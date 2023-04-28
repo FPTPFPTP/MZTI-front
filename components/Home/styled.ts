@@ -35,20 +35,22 @@ export const HotKeywordStyle = css`
         margin-top: 18px;
         li {
             display: inline-block;
+            background-color: ${colors.WHITE};
+            color: ${colors.GRAY_STRONG_3};
+            padding: 6px 12px;
+            margin-right: 10px;
+            border-radius: 21.5px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            font-weight: 400;
+            &.active {
+                background: ${colors.BLACK};
+                color: ${colors.WHITE};
+            }
         }
         .more {
             font-weight: 600;
             margin-left: 10px;
-        }
-        .hotlist {
-            margin-right: 10px;
-            padding: 6px 12px;
-            border-radius: 21.5px;
-            margin-bottom: 8px;
-            background-color: ${colors.WHITE};
-            color: ${colors.GRAY_STRONG_3};
-            font-size: 1rem;
-            font-weight: 400;
         }
     }
 `;
@@ -194,7 +196,6 @@ export const ItemHeaderStyle = css`
         .userInfo__profile {
             border-radius: 50%;
             overflow: hidden;
-            margin-right: 0.6rem;
             border-radius: 50%;
             border: 1px solid ${colors.GRAY_STRONG_2};
             width: 60px;
@@ -212,7 +213,8 @@ export const ItemHeaderStyle = css`
             }
         }
         .userInfo__Text {
-            width: 86%;
+            width: 100%;
+            padding-left: 11px;
             .userInfo__Text--layout {
                 display: flex;
                 justify-content: space-between;

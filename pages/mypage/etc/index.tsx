@@ -15,10 +15,12 @@ const menuList = [
     {
         title: 'MZTI 서비스 약관',
         url: '?',
+        icon: '',
     },
     {
         title: '개인정보 처리방침',
         url: '?',
+        icon: '',
     },
 ];
 
@@ -26,6 +28,7 @@ const accountMng = [
     {
         title: '서비스 탈퇴',
         url: '/mypage/etc/secession',
+        icon: '',
     },
 ];
 
@@ -48,7 +51,7 @@ const etc = () => {
 
     return (
         <>
-            <Header title="기타 서비스 정보 및 계정관리" />
+            <Header title="서비스 정보 및 계정관리" />
             <div css={MypageWrap}>
                 <section>
                     <h3>서비스 정보</h3>
