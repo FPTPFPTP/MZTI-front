@@ -129,22 +129,30 @@ export const MypageWrap = css`
 
 export const NoticeViewStyle = css`
     .header {
-        padding: 10px 32px 16px;
-        border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+        padding: 20px 20px 40px 20px;
+        border-top: 0.5px solid #a7a7a7;
         h3 {
-            font-size: 1.4rem;
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: -0.408px;
+            color: #1b1e26;
+            padding-bottom: 10px;
         }
         p {
-            font-size: 1rem;
-            color: ${colors.GRAY_STRONG};
-            font-weight: 300;
-            text-align: right;
-            margin-top: 35px;
+            font-weight: 500;
+            font-size: 15px;
+            letter-spacing: -0.408px;
+            color: #545456;
         }
     }
     article {
-        padding: 57px 33px;
+        padding: 0 20px;
         font-size: 1.2rem;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 22px;
+        letter-spacing: -0.408px;
+        color: #545456;
     }
 `;
 

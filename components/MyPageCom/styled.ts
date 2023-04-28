@@ -135,10 +135,16 @@ export const ListItemStyle = css`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        font-weight: 500;
+        font-size: 15px;
+        letter-spacing: -0.408px;
+        color: #545456;
     }
     .date {
-        font-size: 1rem;
-        white-space: nowrap;
+        font-weight: 300;
+        font-size: 12px;
+        letter-spacing: -0.408px;
+        color: #545456;
     }
 `;
 
