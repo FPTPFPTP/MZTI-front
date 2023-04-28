@@ -64,7 +64,7 @@ const BookMarkList = () => {
                                 }
                             }
 
-                            return <ListItem key={item.id} item={item} url={`/home/${item.id}`} thumbnail={thumbnail} />;
+                            return <ListItem key={item.id} item={item} url={`/boardDetail/${item.id}`} thumbnail={thumbnail} />;
                         })
                     ) : (
                         <Empty

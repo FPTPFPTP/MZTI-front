@@ -22,37 +22,37 @@ const Avatar = (props: IAvatar) => {
     const handleImgError = (e: any) => {
         switch (mbti) {
             case 'ENFJ':
-                return (e.target.src = '/mbtiProfile/enfj.png');
+                return (e.target.src = '/mbtiProfile/ENFJ.png');
             case 'ENFP':
-                return (e.target.src = '/mbtiProfile/enfp.png');
+                return (e.target.src = '/mbtiProfile/ENFP.png');
             case 'ENTJ':
-                return (e.target.src = '/mbtiProfile/entj.png');
+                return (e.target.src = '/mbtiProfile/ENTJ.png');
             case 'ENTP':
-                return (e.target.src = '/mbtiProfile/entp.png');
+                return (e.target.src = '/mbtiProfile/ENTP.png');
             case 'ESFJ':
-                return (e.target.src = '/mbtiProfile/esfj.png');
+                return (e.target.src = '/mbtiProfile/ESFJ.png');
             case 'ESFP':
-                return (e.target.src = '/mbtiProfile/esfp.png');
+                return (e.target.src = '/mbtiProfile/ESFP.png');
             case 'ESTJ':
-                return (e.target.src = '/mbtiProfile/estj.png');
+                return (e.target.src = '/mbtiProfile/ESTJ.png');
             case 'ESTP':
-                return (e.target.src = '/mbtiProfile/estp.png');
+                return (e.target.src = '/mbtiProfile/ESTP.png');
             case 'INFJ':
-                return (e.target.src = '/mbtiProfile/infj.png');
+                return (e.target.src = '/mbtiProfile/INFJ.png');
             case 'INFP':
-                return (e.target.src = '/mbtiProfile/infp.png');
+                return (e.target.src = '/mbtiProfile/INFP.png');
             case 'INTJ':
-                return (e.target.src = '/mbtiProfile/intj.png');
+                return (e.target.src = '/mbtiProfile/INTJ.png');
             case 'INTP':
-                return (e.target.src = '/mbtiProfile/intp.png');
+                return (e.target.src = '/mbtiProfile/INTP.png');
             case 'ISFJ':
-                return (e.target.src = '/mbtiProfile/isfj.png');
+                return (e.target.src = '/mbtiProfile/ISFJ.png');
             case 'ISFP':
-                return (e.target.src = '/mbtiProfile/isfp.png');
+                return (e.target.src = '/mbtiProfile/ISFP.png');
             case 'ISTJ':
-                return (e.target.src = '/mbtiProfile/istj.png');
+                return (e.target.src = '/mbtiProfile/ISTJ.png');
             case 'ISTP':
-                return (e.target.src = '/mbtiProfile/istp.png');
+                return (e.target.src = '/mbtiProfile/ISTP.png');
             default:
                 return;
         }

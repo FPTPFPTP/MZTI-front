@@ -24,9 +24,8 @@ interface IItemProps {
     postId?: number;
     viewCount: number;
     likeCheck: boolean;
-    categoryId?: number;
 }
-const ItemFooter = ({ categoryId, postId, likeCheck, like, command, className, viewCount, isFeed = true }: IItemProps) => {
+const ItemFooter = ({ postId, likeCheck, like, command, className, viewCount, isFeed = true }: IItemProps) => {
     const [isLike, setIsLike] = useState<boolean>(likeCheck);
     const [likeCount, setLikeCount] = useState<any>(like);
     const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
@@ -67,13 +66,13 @@ const ItemFooter = ({ categoryId, postId, likeCheck, like, command, className, v
                 <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
             </button>
 
-            <Link href={`/board/${categoryId}/${postId}`}>
+            <Link href={`/boardDetail/${postId}`}>
                 <CommentIcon />
                 <span>{command}</span>
             </Link>
 
             {isFeed ? (
-                <Link href={`/board/${categoryId}/${postId}`} className="viewIcon">
+                <Link href={`/boardDetail/${postId}`} className="viewIcon">
                     <Views />
                     <span className="count">{viewCount}</span>
                 </Link>

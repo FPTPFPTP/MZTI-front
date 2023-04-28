@@ -85,6 +85,9 @@ export const MypageWrap = css`
                 .notUser__right--flex {
                     display: flex;
                 }
+                .notUser__right--flex {
+                    display: flex;
+                }
             }
         }
         .loginButton {

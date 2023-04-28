@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useCallback } from 'react';
 
 // Toast 에디터
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -10,6 +10,8 @@ import { Editor } from '@toast-ui/react-editor';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { ToastEditorCss } from './styled';
 
+import YoutubeImg from '@assets/icons/write/youtube.png';
+
 interface IToastEditorProps {
     placaholder?: string;
     // onSurvey: () => void;
@@ -19,16 +21,15 @@ const ToastEditor = forwardRef<Editor, IToastEditorProps>(({ placaholder }, ref)
     // const customPlugin = useCallback(() => {
     //     const button = document.createElement('button');
 
-    //     button.className = 'toastui-editor-toolbar-icons last';
-    //     button.style.backgroundImage = 'none';
+    //     button.className = 'toastui-editor-toolbar-icons';
+    //     button.style.backgroundImage = '/images/youtube.png';
     //     button.style.margin = '0';
-    //     button.innerHTML = `<i>T</i>`;
     //     button.addEventListener('click', () => {
-    //         onSurvey();
+    //         console.log('hihi');
     //     });
 
     //     return button;
-    // }, [onSurvey]);
+    // }, [ref]);
 
     return (
         <div css={ToastEditorCss}>
@@ -48,9 +49,9 @@ const ToastEditor = forwardRef<Editor, IToastEditorProps>(({ placaholder }, ref)
                     // [
                     //     {
                     //         el: customPlugin(),
-                    //         command: 'survey',
-                    //         name: 'survey',
-                    //         tooltip: '투표생성',
+                    //         command: 'addYoutube',
+                    //         name: 'youtube',
+                    //         tooltip: 'youtube',
                     //     },
                     // ],
                 ]}
@@ -58,6 +59,22 @@ const ToastEditor = forwardRef<Editor, IToastEditorProps>(({ placaholder }, ref)
                 useCommandShortcut={false} // 키보드 입력 컨트롤 방지
                 plugins={[colorSyntax]}
                 language="ko-KR"
+                customHTMLRenderer={{
+                    htmlBlock: {
+                        iframe(node) {
+                            return [
+                                { type: 'openTag', tagName: 'iframe', outerNewLine: true, attributes: node.attrs },
+                                { type: 'html', content: node.childrenHTML ?? '' },
+                                { type: 'closeTag', tagName: 'iframe', outerNewLine: true },
+                            ];
+                        },
+                    },
+                    htmlInline: {
+                        big(node, { entering }) {
+                            return entering ? { type: 'openTag', tagName: 'big', attributes: node.attrs } : { type: 'closeTag', tagName: 'big' };
+                        },
+                    },
+                }}
             />
         </div>
     );

@@ -63,6 +63,20 @@ export const patchNickname = async ({ nickname }: { nickname: string }) => {
 };
 
 /**
+ * [API] GET 넥네임 중복체크
+ * @returns
+ */
+export const getNicknameCheck = async ({ nickname }: { nickname: string }) => {
+    try {
+        const res = await Axios.get<IResponseBase<any>>('/user/nickname/check', { params: { nickname } });
+
+        return res.data;
+    } catch (error) {
+        return false;
+    }
+};
+
+/**
  * [API] PATCH Mbti 수정
  * @returns
  */

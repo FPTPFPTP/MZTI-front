@@ -1,5 +1,5 @@
 import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
-
+import { device } from '@utils/window';
 interface BeforeInstallPromptEvent extends Event {
     prompt(): Promise<void>;
 }
@@ -21,7 +21,12 @@ const usePWA = (): IusePWA => {
 
     const handleBeforePromptEvent = useCallback((event: Event) => {
         event.preventDefault();
-        setCanInstall(true);
+        if (!device()) {
+            setCanInstall(false);
+        } else {
+            setCanInstall(true);
+        }
+
         deferredPrompt.current = event as BeforeInstallPromptEvent;
     }, []);
 
