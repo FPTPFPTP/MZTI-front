@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
-import { Empty, ListBox, ListItem } from '@components/MyPageCom';
+import { Empty, ListBox, ListCommentItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostCommentsMe } from '@/apis/post';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
@@ -51,7 +51,7 @@ const WriteCommentList = () => {
                 </form>
                 <ListBox>
                     {commentList.length ? (
-                        commentList.map((item, index) => <ListItem key={index} item={item} url={`/boardDetail/${item.id}`} />)
+                        commentList.map((item, index) => <ListCommentItem key={index} item={item} />)
                     ) : (
                         <Empty
                             icon={<EmptyWrite />}
