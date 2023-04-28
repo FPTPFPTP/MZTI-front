@@ -1,21 +1,39 @@
 import { useState } from 'react';
-import { Header } from '@components/Commons';
+import { Header, Button } from '@components/Commons';
 import { feedbackStyled, feedbackWrapStyled } from '@styles/pages/mypageFeedbackStyled';
-import { BlackButton } from '@/components/Commons/Button';
 import { postSupport, useGetSupportCategory } from '@/apis/support';
 import { Select, message } from 'antd';
 import { openToast } from '@/utils/toast';
+import BottomArrow from '@assets/icons/common/bottom_arr.svg';
+import DrawerMenu from '@/components/Commons/Drawer';
 
 const feedback = () => {
     const [selected, setSelected] = useState<number>(1);
+    const [typeTitle, setTypeTitle] = useState<string>('문의 유형 선택');
+    const [style, setStyle] = useState<string>('');
     const [contactText, setContactText] = useState<string>('');
     const categorys = useGetSupportCategory();
+    const [isVisible, setIsVisible] = useState<boolean>(false);
 
-    const handleSelect = (value: string) => {
-        setSelected(Number(value));
+    const handleMoreOpen = () => {
+        setIsVisible(true);
     };
 
-    const handleContact = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleMoreOpenClose = () => {
+        setIsVisible(false);
+        console.log('false');
+    };
+
+    const handleSelect = (id: number, name: string) => {
+        setSelected(Number(id));
+        setTypeTitle(name);
+
+        if (name !== '문의 유형 선택') {
+            setStyle('active');
+        }
+    };
+
+    const handleContact = (e: React.ChangeEvent<HTMLInputElement>) => {
         setContactText(e.target.value);
     };
 
@@ -49,29 +67,56 @@ const feedback = () => {
             <form css={feedbackStyled}>
                 <div className="type">
                     <h3>문의 유형</h3>
-                    {categorys && categorys.length > 0 && (
-                        <Select defaultValue={categorys[0].name} style={{ width: 170 }} onChange={handleSelect}>
-                            {categorys.map((category) => (
-                                <Select.Option key={category.id} value={category.id} label={category.name} className="selectOption">
-                                    {category.name}
-                                </Select.Option>
-                            ))}
-                        </Select>
+
+                    <button type="button" className="typeSelect" onClick={handleMoreOpen}>
+                        <p className={style}>{typeTitle}</p>
+                        <span>
+                            <BottomArrow />
+                        </span>
+                    </button>
+
+                    {isVisible && (
+                        <DrawerMenu
+                            close={true}
+                            onClose={() => setIsVisible(false)}
+                            listOption={categorys}
+                            onClick={handleMoreOpenClose}
+                            isVisible={isVisible}
+                            title="문의 유형 선택"
+                            Children={
+                                <>
+                                    {categorys && categorys.length > 0 && (
+                                        <ul>
+                                            {categorys.map((category) => {
+                                                return (
+                                                    <li key={category.id} className="optionList">
+                                                        <button onClick={() => handleSelect(category.id, category.name)} type="button">
+                                                            {category.name}
+                                                        </button>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    )}
+                                </>
+                            }
+                        />
                     )}
                 </div>
 
                 <div className="content">
                     <h3>문의 내용</h3>
-                    <textarea placeholder="건의 사항을 작성해주세요" onChange={handleContact} name="contact_content" value={contactText} />
+                    <input type="text" placeholder="문의 내용 직접 입력" onChange={handleContact} value={contactText} />
                 </div>
-
-                <span>오류 제보, 홍보 의심 유저 제보 등 운영진에게 전달하고싶은 내용을 자유롭게 작성해주세요</span>
             </form>
 
             <div className="buttonWrap">
-                <BlackButton onClick={handleSubmit} type="submit" disabled={!contactText}>
-                    문의사항 보내기
-                </BlackButton>
+                <div className="buttonWrap-center">
+                    <p>서비스의 오류 제보, 홍보 의심 사용자 등 운영진에게 전달하고 싶은 내용을 자유롭게 작성해주세요. </p>
+                    <Button buttonStyle={'base'} type="submit" disabled={!contactText} onClick={handleSubmit}>
+                        문의사항 보내기
+                    </Button>
+                </div>
             </div>
         </main>
     );

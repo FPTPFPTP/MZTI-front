@@ -150,7 +150,13 @@ const globalReset = () => css`
         height: 100%;
         min-height: 100%;
     }
-
+    /* Drawer 모달 */
+    .rbd-y5j5tv9v8tb-db {
+        z-index: 100 !important;
+    }
+    .rbd-k89gwu61wl-dr {
+        z-index: 101 !important;
+    }
     .ant-modal {
         width: 100% !important;
         padding: 0 40px !important;

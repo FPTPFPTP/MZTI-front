@@ -1,34 +1,31 @@
 import Drawer from 'react-bottom-drawer';
+import { DrawerMenuStyled } from './styled';
+import Close from '@assets/icons/common/close.svg';
 
 interface IDrawerMenuProps {
     isVisible: boolean;
     onClick: () => void;
     title: string;
-    desc: string;
+    desc?: string;
     button?: any;
-    listOption: string[];
+    listOption?: any[];
+    Children: React.ReactElement;
+    close: boolean;
+    onClose: () => void;
 }
 
-const DrawerMenu = ({ onClick, isVisible, title, listOption, desc, button }: IDrawerMenuProps) => {
+const DrawerMenu = ({ onClick, title, isVisible, onClose, Children, close = false }: IDrawerMenuProps) => {
     return (
-        <Drawer duration={250} hideScrollbars={true} onClose={onClick} isVisible={isVisible} className="postDrawer">
-            {/* 기본 */}
-            <div>
-                <h3>{title}</h3>
-                <p>{desc}</p>
-                {button && <button>{button}</button>}
+        <Drawer duration={250} hideScrollbars={true} onClose={onClick} isVisible={isVisible} className="postDrawer" css={DrawerMenuStyled}>
+            <div className="header">
+                <h5>{title}</h5>
+                {close && (
+                    <button onClick={onClose}>
+                        <Close />
+                    </button>
+                )}
             </div>
-
-            {/* 유형 선택일 경우 */}
-            <ul>
-                {listOption.map((item: string, index: number) => {
-                    return (
-                        <li key={index}>
-                            <button>{item}</button>
-                        </li>
-                    );
-                })}
-            </ul>
+            {Children}
         </Drawer>
     );
 };
