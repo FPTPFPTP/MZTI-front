@@ -1,5 +1,7 @@
+import { useGetKeyword } from '@/apis/keyword';
 import Link from 'next/link';
 import { HotKeywordStyle } from '../styled';
+import classNames from 'classnames';
 
 interface IHotKeywordItem {
     id: number;
@@ -10,74 +12,36 @@ interface IHotKeywordItem {
 interface IHotKeywordProps {
     title: string;
     more: boolean;
+    content?: string;
 }
 
-const keyword = [
-    {
-        id: 1,
-        title: '더 글로리',
-        url: '',
-    },
-    {
-        id: 2,
-        title: '깻잎논쟁',
-        url: '',
-    },
-    {
-        id: 3,
-        title: '블루투스 논쟁',
-        url: '',
-    },
-    {
-        id: 4,
-        title: '저스디스',
-        url: '',
-    },
-    {
-        id: 5,
-        title: '과몰입',
-        url: '',
-    },
-    {
-        id: 6,
-        title: '극T',
-        url: '',
-    },
-    {
-        id: 7,
-        title: '권고사직',
-        url: '',
-    },
-    {
-        id: 8,
-        title: '미세먼지',
-        url: '',
-    },
-    {
-        id: 9,
-        title: '극T',
-        url: '',
-    },
-];
+const HotKeyword = ({ title, more, content }: IHotKeywordProps) => {
+    const keyword = useGetKeyword();
 
-const HotKeyword = ({ title, more }: IHotKeywordProps) => {
     return (
         <section css={HotKeywordStyle}>
             <div className="keyowordBox__content">
                 <h3>{title}</h3>
 
                 <ul className="keyword">
-                    {keyword.map((item: IHotKeywordItem) => {
-                        return (
-                            <li key={item.id} className="hotlist">
-                                <Link href={item.url}>{item.title}</Link>
-                            </li>
-                        );
-                    })}
-                    {more && (
-                        <li className="more">
-                            <Link href="/hot-keyword">→ 더보기</Link>
-                        </li>
+                    {keyword &&
+                        keyword.map((item: string, index: number) => {
+                            return (
+                                <li key={index} className={classNames(content === item && 'active')}>
+                                    <Link href={`hot-keyword/${item}`}>{item}</Link>
+                                </li>
+                            );
+                        })}
+
+                    {/* 키워드 8개 이상이면 더보기 버튼 보이도록 */}
+                    {keyword && keyword.length > 8 && (
+                        <>
+                            {more && (
+                                <li className="more">
+                                    <Link href="/hot-keyword">→ 더보기</Link>
+                                </li>
+                            )}
+                        </>
                     )}
                 </ul>
             </div>

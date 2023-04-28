@@ -5,7 +5,7 @@ import classnames from 'classnames';
 const menus = [
     {
         name: '인기 게시판',
-        path: '/',
+        path: '/board/22',
         isActive: false,
     },
     {

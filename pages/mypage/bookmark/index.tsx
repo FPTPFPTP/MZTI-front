@@ -36,7 +36,7 @@ const BookMarkList = () => {
 
     return (
         <>
-            <Header title={'내가 북마크한 글'} />
+            <Header title={'내가 저장한 글'} />
             <div css={Layout}>
                 <form>
                     <Input
@@ -68,7 +68,7 @@ const BookMarkList = () => {
                         })
                     ) : (
                         <Empty
-                            title="북마크한 글이 없어요"
+                            title="저장한 글이 없어요"
                             subTitle="새로운 게시글을 살펴보러 갈까요?"
                             buttonTitle="메인화면으로 가기"
                             href="/home"
