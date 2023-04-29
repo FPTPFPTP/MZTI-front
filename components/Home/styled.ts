@@ -12,9 +12,9 @@ export const ListTabStyle = css`
     button {
         font-weight: 500;
         font-size: 1.3rem;
-        padding: 15px 0 11px;
+        padding: 20px 0 6px;
         width: 100%;
-        border-bottom: 2px solid ${colors.GRAY_ORIGIN_1};
+        border-bottom: 1px solid ${colors.GRAY_ORIGIN_1};
         &.active {
             border-bottom: 2px solid ${colors.BLACK};
         }

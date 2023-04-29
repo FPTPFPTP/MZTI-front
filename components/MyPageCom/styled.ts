@@ -217,3 +217,59 @@ export const BannerStyle = css`
     background-repeat: no-repeat;
     background-position: center center;
 `;
+
+export const DepthMenuStyle = css`
+    .depthWrap {
+        margin-top: 50px;
+    }
+    .typetitle {
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: -0.408px;
+        color: #1b1e26;
+    }
+    .typetitle {
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: -0.408px;
+        color: #1b1e26;
+        padding-left: 20px;
+        margin-bottom: 50px;
+    }
+    .list {
+        padding: 0 30px;
+        .stitle {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 15px;
+            color: #1b1e26;
+        }
+    }
+    button {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        &.advertisement {
+            padding: 0 30px;
+            .stitle {
+                font-weight: 400;
+                font-size: 15px;
+                line-height: 15px;
+                color: #1b1e26;
+            }
+        }
+    }
+`;
+
+export const LogoutModal = css`
+    height: 24vh;
+    position: relative;
+    button {
+        position: absolute;
+        bottom: 0;
+    }
+`;

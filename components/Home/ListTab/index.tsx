@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ListTabStyle } from '../styled';
 import classnames from 'classnames';
 
@@ -9,18 +8,18 @@ interface IListTabProps {
 const menus = [
     {
         categoryId: 22,
-        name: '인기 게시판',
+        name: '인기',
         isActive: false,
     },
     {
         categoryId: undefined,
-        name: '전체 게시판',
+        name: '전체',
         isActive: false,
     },
 ];
 
 const ListTab = ({ handleCategoryId, categoryId }: IListTabProps) => {
-    const handleOnClick = (idx: number) => {
+    const handleOnClick = (idx: number | undefined) => {
         handleCategoryId(idx);
     };
 
@@ -28,7 +27,7 @@ const ListTab = ({ handleCategoryId, categoryId }: IListTabProps) => {
         <section css={ListTabStyle}>
             {menus.map((item, idx: number) => {
                 return (
-                    <button onClick={() => handleOnClick(idx)} className={classnames(categoryId === idx && 'active')} key={idx}>
+                    <button onClick={() => handleOnClick(item.categoryId)} className={classnames(categoryId === item.categoryId && 'active')} key={idx}>
                         {item.name}
                     </button>
                 );
