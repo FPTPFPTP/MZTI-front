@@ -12,7 +12,13 @@ export const InputWrapCss = css`
 
 export const InputCss = css`
     width: 100%;
-    padding: 8px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    &::placeholder {
+        color: rgba(27, 30, 38, 0.5);
+    }
+
     &:focus {
         outline: none !important;
     }
@@ -35,10 +41,10 @@ export const SeachWrapCss = css`
     display: flex;
     align-items: center;
     width: 100%;
-    gap: 1rem;
-    border: 1px solid ${colors.GRAY_ORIGIN_1};
-    border-radius: 46px;
-    padding: 5px 18px;
+    background: #e8e8ea;
+    border-radius: 10px;
+    padding: 10px 15px;
+    gap: 10px;
     svg {
         path {
             fill: ${colors.GRAY_ORIGIN_1};

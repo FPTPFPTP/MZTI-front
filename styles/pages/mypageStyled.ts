@@ -15,8 +15,24 @@ export const Layout = css`
 `;
 
 export const MypageWrap = css`
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 20px;
     background: #f5f5f5;
+    .mypage_header {
+        h1 {
+            padding-left: 20px;
+        }
+        .edit {
+            padding-right: 20px;
+        }
+    }
+    .first-title {
+        padding-left: 20px;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: -0.408px;
+        margin-bottom: 35px;
+    }
     header {
         display: flex;
         align-items: center;
@@ -116,14 +132,14 @@ export const MypageWrap = css`
         padding: 15px 0;
         display: flex;
         justify-content: space-between;
-        padding: 15px 20px;
+        padding: 15px 30px;
         width: 100%;
     }
     .profileWrap {
         background: #ffffff;
         border-radius: 13px;
         padding: 25px;
-        margin-top: 37px;
+        margin: 37px 0 12px;
     }
 `;
 

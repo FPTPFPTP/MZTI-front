@@ -92,10 +92,9 @@ export const feedbackWrapStyled = css`
     .buttonWrap {
         position: fixed;
         bottom: 30px;
-        padding: 10px;
+        padding: 10px 20px;
         width: 100%;
         &-center {
-            display: grid;
             justify-content: center;
             align-items: center;
             p {

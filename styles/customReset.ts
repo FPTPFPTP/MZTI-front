@@ -159,12 +159,15 @@ const globalReset = () => css`
     }
     .ant-modal {
         width: 100% !important;
-        padding: 0 40px !important;
+        padding: 0 45px !important;
         max-width: 100% !important;
         .ant-modal-title {
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 32px;
+            font-weight: 700;
+            font-size: 17px;
+            line-height: 22px;
+            text-align: center;
+            letter-spacing: -0.408px;
+            color: #1b1e26;
         }
         .ant-modal-body {
             font-weight: 400;
