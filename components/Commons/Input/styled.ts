@@ -35,13 +35,20 @@ export const SeachWrapCss = css`
     display: flex;
     align-items: center;
     width: 100%;
-    gap: 1rem;
-    border: 1px solid ${colors.GRAY_ORIGIN_1};
-    border-radius: 46px;
-    padding: 5px 18px;
+    padding: 10px 20px;
+    gap: 8px;
+    background: #7676801f;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 22px;
+    input {
+        padding: 0px;
+        color: #3c3c4399;
+    }
     svg {
         path {
-            fill: ${colors.GRAY_ORIGIN_1};
+            fill: #848488;
         }
     }
 `;

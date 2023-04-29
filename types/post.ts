@@ -53,13 +53,16 @@ export type CheckProps = {
 };
 export interface ICommentModel {
     id: number;
+    postId: number;
     comment: string;
     createAt: string;
+    updateAt: string;
     writer: IWriterModel;
     like: CheckProps;
     subComment: CheckProps;
     deleted: boolean;
     image: string;
+    sub: boolean;
 }
 
 // 대댓글 타입

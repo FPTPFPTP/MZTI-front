@@ -1,10 +1,11 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Header, Input, Loading } from '@components/Commons';
-import { Empty, ListBox, ListItem } from '@components/MyPageCom';
+import { Header, Input, Loading, BottomMenu } from '@components/Commons';
+import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 // import { useObserver } from '@/hooks/useObserver';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostsMe } from '@/apis/post';
+import { getThumbnail } from '@/utils/postItem';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
 import SearchIcon from '@assets/icons/common/search_blank.svg';
 
@@ -53,20 +54,9 @@ const WriteList = () => {
                 <ListBox>
                     {writeList.length ? (
                         writeList.map((item) => {
-                            // 이미지 있을 때 첫번째 이미지만 가져오기
-                            let thumbnail;
+                            const thumbnail = getThumbnail(item.content);
 
-                            const list = item.content.match(/(<(img[^>]+)>)/g);
-                            if (list && list.length) {
-                                const myRegex = /<img[^>]+src="(https:\/\/[^">]+)"/g;
-
-                                const result = myRegex.exec(list[0]);
-                                if (result !== null) {
-                                    thumbnail = result[1];
-                                }
-                            }
-
-                            return <ListItem key={item.id} item={item} url={`/boardDetail/${item.id}`} thumbnail={thumbnail} />;
+                            return <ListBoardItem key={item.id} item={item} thumbnail={thumbnail} />;
                         })
                     ) : (
                         <>
@@ -93,6 +83,7 @@ const WriteList = () => {
                         {hasNextPage ? <Loading /> : null}
                     </div>
                 </ListBox>
+                <BottomMenu />
             </div>
         </>
     );
