@@ -5,6 +5,7 @@ import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 // import { useObserver } from '@/hooks/useObserver';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostsMe } from '@/apis/post';
+import { getThumbnail } from '@/utils/postItem';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
 import SearchIcon from '@assets/icons/common/search_blank.svg';
 
@@ -54,17 +55,7 @@ const WriteList = () => {
                     {writeList.length ? (
                         writeList.map((item) => {
                             // 이미지 있을 때 첫번째 이미지만 가져오기
-                            let thumbnail;
-
-                            const list = item.content.match(/(<(img[^>]+)>)/g);
-                            if (list && list.length) {
-                                const myRegex = /<img[^>]+src="(https:\/\/[^">]+)"/g;
-
-                                const result = myRegex.exec(list[0]);
-                                if (result !== null) {
-                                    thumbnail = result[1];
-                                }
-                            }
+                            const thumbnail = getThumbnail(item.content);
 
                             return <ListBoardItem key={item.id} item={item} thumbnail={thumbnail} />;
                         })

@@ -4,6 +4,7 @@ import { Header, Input, Loading } from '@components/Commons';
 import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetBookMarkMe } from '@/apis/post';
+import { getThumbnail } from '@/utils/postItem';
 import EmptyBookmark from '@assets/icons/common/empty_bookmark.svg';
 import SearchIcon from '@assets/icons/common/search_blank.svg';
 
@@ -52,18 +53,7 @@ const BookMarkList = () => {
                 <ListBox>
                     {bookMakrList.length ? (
                         bookMakrList.map((item) => {
-                            // 이미지 있을 때 첫번째 이미지만 가져오기
-                            let thumbnail;
-
-                            const list = item.content.match(/(<(img[^>]+)>)/g);
-                            if (list && list.length) {
-                                const myRegex = /<img[^>]+src="(https:\/\/[^">]+)"/g;
-
-                                const result = myRegex.exec(list[0]);
-                                if (result !== null) {
-                                    thumbnail = result[1];
-                                }
-                            }
+                            const thumbnail = getThumbnail(item.content);
 
                             return <ListBoardItem key={item.id} item={item} thumbnail={thumbnail} />;
                         })
