@@ -6,15 +6,22 @@ export const FeedComentsWrapStyle = css`
 `;
 
 export const ListTabStyle = css`
-    display: flex;
-    justify-content: space-around;
+    position: relative;
+    width: 100%;
     background-color: ${colors.WHITE};
+    padding: 0 20px;
+    border-bottom: 2px solid ${colors.GRAY_ORIGIN_1};
+    > div {
+        display: flex;
+        justify-content: space-around;
+        position: relative;
+        top: 1px;
+    }
     button {
         font-weight: 500;
         font-size: 1.3rem;
         padding: 15px 0 11px;
         width: 100%;
-        border-bottom: 2px solid ${colors.GRAY_ORIGIN_1};
         &.active {
             border-bottom: 2px solid ${colors.BLACK};
         }

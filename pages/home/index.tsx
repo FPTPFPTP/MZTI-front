@@ -19,7 +19,7 @@ const home = () => {
     // 데이터 패칭
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(
         ['page', countIndex],
-        ({ pageParam = 0 }) => getFeedPost({ page: pageParam, categoryId: countIndex }),
+        ({ pageParam = 0 }) => getFeedPost({ page: pageParam, categoryId: countIndex, view: 10 }),
         {
             getNextPageParam: (lastPage, allPosts) => {
                 return lastPage.page !== allPosts[0].totalPage ? lastPage.page + 1 : undefined;

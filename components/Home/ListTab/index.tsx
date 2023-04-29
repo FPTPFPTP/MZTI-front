@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ListTabStyle } from '../styled';
 import classnames from 'classnames';
 
@@ -20,19 +19,25 @@ const menus = [
 ];
 
 const ListTab = ({ handleCategoryId, categoryId }: IListTabProps) => {
-    const handleOnClick = (idx: number) => {
-        handleCategoryId(idx);
+    const handleOnClick = (categoryId?: number) => {
+        handleCategoryId(categoryId);
     };
 
     return (
         <section css={ListTabStyle}>
-            {menus.map((item, idx: number) => {
-                return (
-                    <button onClick={() => handleOnClick(idx)} className={classnames(categoryId === idx && 'active')} key={idx}>
-                        {item.name}
-                    </button>
-                );
-            })}
+            <div>
+                {menus.map((item) => {
+                    return (
+                        <button
+                            onClick={() => handleOnClick(item.categoryId)}
+                            className={classnames(categoryId === item.categoryId && 'active')}
+                            key={item.name}
+                        >
+                            {item.name}
+                        </button>
+                    );
+                })}
+            </div>
         </section>
     );
 };
