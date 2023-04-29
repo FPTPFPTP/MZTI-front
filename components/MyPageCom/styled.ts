@@ -283,7 +283,7 @@ export const ListCommnetItemStyle = css`
 export const ListBoxStyle = css`
     overflow-y: auto;
     width: 100%;
-    height: calc(100vh - 168px);
+    height: calc(100vh - 220.5px);
     background: none;
     margin-top: 20px;
     -ms-overflow-style: none; /* IE and Edge */

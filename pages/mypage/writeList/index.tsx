@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Header, Input, Loading } from '@components/Commons';
+import { Header, Input, Loading, BottomMenu } from '@components/Commons';
 import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 // import { useObserver } from '@/hooks/useObserver';
 import { Layout } from '@styles/pages/mypageStyled';
@@ -54,7 +54,6 @@ const WriteList = () => {
                 <ListBox>
                     {writeList.length ? (
                         writeList.map((item) => {
-                            // 이미지 있을 때 첫번째 이미지만 가져오기
                             const thumbnail = getThumbnail(item.content);
 
                             return <ListBoardItem key={item.id} item={item} thumbnail={thumbnail} />;
@@ -84,6 +83,7 @@ const WriteList = () => {
                         {hasNextPage ? <Loading /> : null}
                     </div>
                 </ListBox>
+                <BottomMenu />
             </div>
         </>
     );

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { Header, Input, Loading } from '@components/Commons';
+import { Header, Input, Loading, BottomMenu } from '@components/Commons';
 import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetBookMarkMe } from '@/apis/post';
@@ -82,6 +82,7 @@ const BookMarkList = () => {
                         {hasNextPage ? <Loading /> : null}
                     </div>
                 </ListBox>
+                <BottomMenu />
             </div>
         </>
     );
