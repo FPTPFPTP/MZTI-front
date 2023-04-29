@@ -1,4 +1,4 @@
-import { useLayoutEffect, RefObject } from 'react';
+import { useEffect, RefObject } from 'react';
 
 interface IUseObserverProps {
     target: RefObject<HTMLElement> | null; // 감지할 대상, ref를 넘길 예정
@@ -9,7 +9,7 @@ interface IUseObserverProps {
 }
 
 export const useObserver = ({ target, onIntersect, root = null, rootMargin = '0px', threshold = 1.0 }: IUseObserverProps) => {
-    useLayoutEffect(() => {
+    useEffect(() => {
         let observer: IntersectionObserver | undefined;
         // 넘어오는 element가 있어야 observer를 생성할 수 있도록 한다.
         if (target && target.current) {
