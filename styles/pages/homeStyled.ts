@@ -4,14 +4,14 @@ import colors from '@/styles/color';
 export const BookMarkIconStyle = () => css`
     .notFill {
         svg {
-            fill: #fff;
+            fill: ${colors.WHITE};
         }
     }
 `;
 
 export const PostStyle = () => css`
     padding: 0 20px;
-    background: #fff;
+    background: ${colors.WHITE};
     margin-bottom: 20px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -27,24 +27,14 @@ export const PostStyle = () => css`
     }
 `;
 
-export const FeedContentStyle = () => css`
+export const FeedContentStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop: boolean }) => css`
     padding: 0px 20px;
-`;
-
-export const searchWrap = () => css`
-    padding: 22px 20px 0;
-    .search__box {
-        position: relative;
-        button {
-            position: absolute;
-            right: 30px;
-            top: 25px;
-        }
-    }
-    .search__filter {
-        display: flex;
-        justify-content: space-between;
-        color: ${colors.GRAY_ORIGIN_1};
-        padding: 17px 0;
+    height: calc(100vh - ${isCurrentScrollTop ? '206px' : '143px'});
+    overflow-y: auto;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+        display: none;
+        width: 0 !important;
     }
 `;

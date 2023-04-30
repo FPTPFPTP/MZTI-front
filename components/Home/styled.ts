@@ -349,11 +349,9 @@ export const ItemContentStyle = css`
             em {
                 font-style: normal !important;
             }
-        }
-        img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+            img {
+                display: none;
+            }
         }
     }
     h4 {

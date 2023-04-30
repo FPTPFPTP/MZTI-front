@@ -148,7 +148,6 @@ const globalReset = () => css`
         display: flex;
         flex-direction: column;
         height: 100%;
-        min-height: 100%;
         background: ${colors.GRAY_LIGHT_3};
     }
 
