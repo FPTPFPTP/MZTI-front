@@ -12,3 +12,11 @@ export const categoryUrlToId = (url: string) => {
     }
     return 0;
 };
+
+export const categoryIdToTitle = (id: number) => {
+    const category = categories.find((category) => category.id === id);
+    if (category) {
+        return category.title;
+    }
+    return '';
+};

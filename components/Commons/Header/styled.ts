@@ -19,8 +19,9 @@ export const TitleStyle = css`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.3rem;
-    font-weight: 300;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 22px;
 `;
 
 export const RightWrapStyle = css`

@@ -5,11 +5,12 @@ import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Input } from '@components/Commons';
+import { Header, Input } from '@components/Commons';
 import NonSSRWrapper from '@/components/Layout/NonSSRWrapper';
 import FeedItem from '@/components/Home/FeedItem';
 import { SearchHistoryItem } from '@components/Search';
 import { getFeedPost } from '@/apis/post';
+import { categoryIdToTitle } from '@utils/category';
 import useSearchHistory from '@/hooks/useSearchHistory';
 import { searchWrap, recentSearchWrap } from '@/styles/pages/searchStyled';
 
@@ -49,6 +50,8 @@ const Search = (props: ISearchProps) => {
 
     return (
         <section>
+            <Header title={`${categoryIdToTitle(id)} 검색`} />
+
             <div css={searchWrap}>
                 <div className="search__box">
                     <form onSubmit={handleSubmit((data) => onSearch(data.search))}>
@@ -64,7 +67,7 @@ const Search = (props: ISearchProps) => {
                 </div>
 
                 <div className="search__filter">
-                    <p>필터: '전체'</p>
+                    <p>{`필터: ${categoryIdToTitle(id)}`}</p>
                     <p>최신순</p>
                 </div>
             </div>
@@ -119,7 +122,7 @@ export default Search;
 export const getServerSideProps: GetServerSideProps = async ({ req, params }: any) => {
     return {
         props: {
-            id: params.id,
+            id: Number(params.id),
         },
     };
 };

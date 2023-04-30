@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
 import dayjs from 'dayjs';
-import { Input } from '@components/Commons';
+import { Header, Input } from '@components/Commons';
 import NonSSRWrapper from '@/components/Layout/NonSSRWrapper';
 import FeedItem from '@/components/Home/FeedItem';
 import { SearchHistoryItem } from '@components/Search';
@@ -43,6 +43,8 @@ const Search = () => {
 
     return (
         <section>
+            <Header title={'내가 저장한 글'} />
+
             <div css={searchWrap}>
                 <div className="search__box">
                     <form onSubmit={handleSubmit((data) => onSearch(data.search))}>
