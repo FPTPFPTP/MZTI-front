@@ -4,8 +4,8 @@ import color from '@/styles/color';
 
 export const Layout = css`
     position: relative;
-    height: 100vh;
-    padding: 20px;
+    height: calc(100vh - 163px);
+    padding: 0px 20px;
     background-color: ${color.WHITE};
     .loader {
         display: flex;

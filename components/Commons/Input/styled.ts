@@ -41,13 +41,20 @@ export const SeachWrapCss = css`
     display: flex;
     align-items: center;
     width: 100%;
-    background: #e8e8ea;
+    padding: 10px 20px;
+    gap: 8px;
+    background: #7676801f;
     border-radius: 10px;
-    padding: 10px 15px;
-    gap: 10px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 22px;
+    input {
+        padding: 0px;
+        color: #3c3c4399;
+    }
     svg {
         path {
-            fill: ${colors.GRAY_ORIGIN_1};
+            fill: #848488;
         }
     }
 `;

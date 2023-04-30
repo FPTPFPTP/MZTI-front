@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { Header, Input, Loading } from '@components/Commons';
-import { Empty, ListBox, ListItem } from '@components/MyPageCom';
+import { Header, Input, Loading, BottomMenu } from '@components/Commons';
+import { Empty, ListBox, ListCommentItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetPostCommentsMe } from '@/apis/post';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
+import SearchIcon from '@assets/icons/common/search_blank.svg';
 
 const WriteCommentList = () => {
     const observerRef = useRef(null);
@@ -51,20 +52,33 @@ const WriteCommentList = () => {
                 </form>
                 <ListBox>
                     {commentList.length ? (
-                        commentList.map((item, index) => <ListItem key={index} item={item} url={`/boardDetail/${item.id}`} />)
+                        commentList.map((item, index) => <ListCommentItem key={index} item={item} />)
                     ) : (
-                        <Empty
-                            icon={<EmptyWrite />}
-                            title="작성한 댓글이 없어요"
-                            subTitle="첫 댓글을 남겨보러 갈까요?"
-                            buttonTitle="댓글 작성하러 가기"
-                            href="/home"
-                        />
+                        <>
+                            {search && search.length ? (
+                                <Empty
+                                    title="검색 결과가 없어요"
+                                    subTitle="정확한 검색어를 입력했는지\n다시 한 번 확인해주세요"
+                                    buttonTitle="글 작성하러 가기"
+                                    href="/mypage/writeList"
+                                    icon={<SearchIcon />}
+                                />
+                            ) : (
+                                <Empty
+                                    icon={<EmptyWrite />}
+                                    title="작성한 댓글이 없어요"
+                                    subTitle="첫 댓글을 남겨보러 갈까요?"
+                                    buttonTitle="댓글 작성하러 가기"
+                                    href="/home"
+                                />
+                            )}
+                        </>
                     )}
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}
                     </div>
                 </ListBox>
+                <BottomMenu />
             </div>
         </>
     );

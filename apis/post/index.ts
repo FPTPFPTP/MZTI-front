@@ -91,7 +91,7 @@ export const useGetBoards = () => {
  * @returns
  */
 export const getPostsMe = async ({ page, view, search }: IPageObjReqModel) => {
-    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostMeModel>>>('/post/me', { params: { page, view, search } });
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostModel>>>('/post/me', { params: { page, view, search } });
 
     return res.data.data;
 };
@@ -117,7 +117,7 @@ export const useGetPostsMe = (search: string) => {
  * @returns
  */
 export const getPostCommentsMe = async ({ page, view, search }: IPageObjReqModel) => {
-    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostMeModel>>>('/post/comment/me', { params: { page, view, search } });
+    const res = await Axios.get<IResponseBase<IPaginationResponse<ICommentModel>>>('/post/comment/me', { params: { page, view, search } });
 
     return res.data.data;
 };
@@ -142,7 +142,7 @@ export const useGetPostCommentsMe = (search: string) => {
  * @returns
  */
 export const getBookMarkMe = async ({ page, view, search }: IPageObjReqModel) => {
-    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostMeModel>>>('/post/bookmark/me', { params: { page, view, search } });
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IPostModel>>>('/post/bookmark/me', { params: { page, view, search } });
 
     return res.data.data;
 };

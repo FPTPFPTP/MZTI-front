@@ -43,6 +43,7 @@ module.exports = {
     GRAY_BRIGHT_2: '#ccc',
     GRAY_BRIGHT_3: '#D9D9D9',
     GRAY_BRIGHT_4: '#F5F5F5',
+    GRAY_BRIGHT_5: '#EBEBEB',
 
     // Gray Origin
     GRAY_ORIGIN_1: '#a7a7a7',
