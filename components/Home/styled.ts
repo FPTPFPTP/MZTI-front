@@ -360,8 +360,12 @@ export const ItemContentStyle = css`
         font-weight: 700;
         margin-bottom: 10px;
     }
+
     img {
-        margin-top: 20px;
+        width: 100%;
+        min-width: 280px;
+        min-height: 150px;
+        margin-bottom: 20px;
     }
     .vote {
         display: flex;
