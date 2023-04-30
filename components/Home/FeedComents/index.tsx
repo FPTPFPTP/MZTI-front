@@ -3,16 +3,15 @@ import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
 import CommentItem from './CommentItem';
 import { ICommentModel } from '@/types/post';
 
-interface ICommentProps {
+interface IFeedComentsProps {
     commentData?: ICommentModel[];
-    writerId?: string; // 작성자 명
+    postWriterId?: number; // 작성자 id
     handleRefrash?: () => void; // 새로고침
-    userId: number;
     handleMoreComment: () => void; // 댓글 더보기
     isLastPage?: boolean;
 }
 
-const FeedComents = ({ isLastPage, commentData, writerId, handleRefrash, handleMoreComment }: ICommentProps) => {
+const FeedComents = ({ isLastPage, commentData, postWriterId, handleRefrash, handleMoreComment }: IFeedComentsProps) => {
     return (
         <div css={FeedComentsWrapStyle}>
             <section css={FeedComentsStyle}>
@@ -49,20 +48,7 @@ const FeedComents = ({ isLastPage, commentData, writerId, handleRefrash, handleM
                                 삭제된 댓글입니다.
                             </p>
                         ) : (
-                            <CommentItem
-                                likeCheck={item.like.check}
-                                key={item.id}
-                                nickname={item.writer.nickname}
-                                mbti={item.writer.mbti}
-                                profileImage={item.writer.profileImage}
-                                userId={item.id}
-                                comment={item.comment}
-                                like={item.like.count}
-                                createAt={item.createAt}
-                                writerId={String(writerId)}
-                                subComment={item.subComment.count}
-                                image={item.image}
-                            />
+                            <CommentItem key={item.id} commentItem={item} postWriterId={postWriterId} />
                         );
                     })}
                 </>
