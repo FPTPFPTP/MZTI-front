@@ -28,29 +28,37 @@ export const ListTabStyle = css`
 `;
 
 export const HotKeywordStyle = css`
-    .keyowordBox__content {
-        padding: 18px 20px;
-        background-color: ${colors.GRAY_LIGHT_5};
-        h3 {
-            font-weight: 500;
-            font-size: 1.5rem;
-            color: ${colors.BLACK};
-        }
+    background: ${colors.WHITE};
+    border-radius: 15px;
+    margin: 10px 0;
+    padding: 20px;
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 17px;
+        letter-spacing: 0px;
+        text-align: left;
+        color: ${colors.GRAY_STRONG_6};
     }
     .keyword {
-        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
         li {
             display: inline-block;
-            background-color: ${colors.WHITE};
-            color: ${colors.GRAY_STRONG_3};
-            padding: 6px 12px;
-            margin-right: 10px;
-            border-radius: 21.5px;
-            margin-bottom: 8px;
-            font-size: 1rem;
+            background: #f2f4f6;
+            color: ${colors.GRAY_STRONG_6};
+            padding: 7px 15px;
+            border-radius: 13px;
             font-weight: 400;
+            font-size: 12px;
+            line-height: 12px;
             &.active {
-                background: ${colors.BLACK};
+                background: ${colors.GRAY_STRONG};
                 color: ${colors.WHITE};
             }
         }

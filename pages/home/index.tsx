@@ -42,7 +42,7 @@ const home = () => {
                     <ListTab categoryId={countIndex} handleCategoryId={(id) => setCountIndex(id)} />
 
                     {/* 핫토픽 키워드 */}
-                    <HotKeyword title="🔥실시간 HOT 키워드" more={true} />
+                    <HotKeyword title="🔥 실시간 HOT 키워드" more={true} />
 
                     {/* 피드 게시물 */}
                     {data && data.pages.length && data.pages[0].list.length !== 0 ? (
