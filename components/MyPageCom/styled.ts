@@ -410,4 +410,22 @@ export const LogoutModal = css`
         position: absolute;
         bottom: 0;
     }
+    .desc {
+        font-weight: 500;
+        font-size: 15px;
+        color: #545456;
+        margin-bottom: 20px;
+        padding-left: 20px;
+    }
+    .email {
+        display: flex;
+        font-weight: 500;
+        font-size: 13px;
+        text-align: center;
+        color: #1b1e26;
+        padding-left: 20px;
+        svg {
+            margin-right: 14.6px;
+        }
+    }
 `;

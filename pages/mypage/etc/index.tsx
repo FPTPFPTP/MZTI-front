@@ -6,6 +6,8 @@ import { Button, Header, Modal } from '@components/Commons';
 import { removeTokenAll } from '@utils/auth';
 import { openToast } from '@/utils/toast';
 import MyPageArr from '@assets/icons/common/myPageArr.svg';
+import FacebookIcon from '@assets/icons/mypage/facebook.svg';
+import KakaoIcon from '@assets/icons/mypage/kakao.svg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import DepthMenu from '@/components/MyPageCom/DepthMenu';
 import { DepthMenuStyle, LogoutModal } from '@/components/MyPageCom/styled';
@@ -89,7 +91,11 @@ const etc = () => {
                     close={true}
                     Children={
                         <div css={LogoutModal}>
-                            <p>아래 계정으로 다시 로그인 할 수 있어요.</p>
+                            <p className="desc">아래 계정으로 다시 로그인 할 수 있어요.</p>
+                            <p className="email">
+                                {myInfo?.platform === 'FACEBOOK' ? <FacebookIcon /> : <KakaoIcon />}
+                                {myInfo?.email}
+                            </p>
                             <Button onClick={handleLogout}>로그아웃</Button>
                         </div>
                     }
