@@ -35,3 +35,10 @@ export const getThumbnail = (content: string) => {
     }
     return thumbnail;
 };
+
+export const getStripIframeTags = (content: string) => {
+    const regex = /<iframe.*<\/iframe>/g;
+    content = content.replace(regex, '');
+
+    return content;
+};
