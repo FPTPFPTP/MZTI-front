@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
 export const feedbackStyled = css`
-    padding: 0 35px;
+    border-top: 0.5px solid #ebebeb;
+    padding: 24px 20px;
     .ant-select {
         width: 100% !important;
     }
@@ -18,22 +19,43 @@ export const feedbackStyled = css`
         margin-top: -12px !important;
     }
     h3 {
-        margin-bottom: 7px;
-        font-weight: 400;
-        font-size: 1.3rem;
+        font-weight: 700;
+        font-size: 17px;
+        letter-spacing: -0.408px;
+        color: #1b1e26;
+        margin-bottom: 30px;
     }
     .type {
-        margin-bottom: 18px;
-        margin-top: 40px;
+        margin-bottom: 30px;
+        span {
+            margin-top: 0;
+        }
+        .typeSelect {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 14px 26px;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 22px;
+            text-align: left;
+            color: rgba(60, 60, 67, 0.3);
+            border-bottom: 1px solid rgba(60, 60, 67, 0.29);
+            .active {
+                color: #1b1e26;
+            }
+        }
     }
-    textarea {
-        resize: none;
-        border: 1px solid ${colors.BLACK};
+    input {
+        border-bottom: 1px solid rgba(60, 60, 67, 0.29);
         width: 100%;
-        padding: 17px 13px;
-        height: 379px;
+        padding: 16px 14px;
         &::placeholder {
-            color: ${colors.GRAY_ORIGIN_1};
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 22px;
+            color: rgba(60, 60, 67, 0.3);
         }
     }
     span {
@@ -43,7 +65,13 @@ export const feedbackStyled = css`
         color: ${colors.GRAY_DARK_2};
         margin-top: 14px;
     }
-
+    .optionList {
+        font-weight: 500;
+        font-size: 15px;
+        color: #545456;
+        margin-bottom: 20px;
+        margin-left: 10px;
+    }
     .buttonWrap {
         display: flex;
         justify-content: center;
@@ -62,7 +90,19 @@ export const feedbackStyled = css`
 
 export const feedbackWrapStyled = css`
     .buttonWrap {
-        margin-top: 1rem;
-        text-align: center;
+        position: fixed;
+        bottom: 30px;
+        padding: 10px 20px;
+        width: 100%;
+        &-center {
+            justify-content: center;
+            align-items: center;
+            p {
+                margin-bottom: 17px;
+                font-weight: 300;
+                font-size: 12px;
+                color: #545456;
+            }
+        }
     }
 `;

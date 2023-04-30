@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -97,7 +98,7 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
     };
 
     useEffect(() => {
-        console.log('ddd', reCommentState);
+        // console.log('ddd', reCommentState);
         if (reCommentState === false) {
             // TODO : 대댓글 더보기 컴포넌트 닫으면 reCommentView 다시 5개 전달했는데...
         }
@@ -135,10 +136,12 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
                             <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
                         </button>
 
-                        <button className="reComment" onClick={() => handleRePlayComment(userId)}>
-                            <ReComment />
-                            <span>대댓글 {subComment !== 0 && subComment}</span>
-                        </button>
+                        <Link href={`/commentDetail/${userId}`}>
+                            <button className="reComment">
+                                <ReComment />
+                                <span>대댓글 {subComment !== 0 && subComment}</span>
+                            </button>
+                        </Link>
 
                         <button onClick={openDrawer} className="moreButton">
                             <MoreButton />

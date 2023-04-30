@@ -8,12 +8,12 @@ interface IListTabProps {
 const menus = [
     {
         categoryId: 22,
-        name: '인기 게시판',
+        name: '인기',
         isActive: false,
     },
     {
         categoryId: undefined,
-        name: '전체 게시판',
+        name: '전체',
         isActive: false,
     },
 ];

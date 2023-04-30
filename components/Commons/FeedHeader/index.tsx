@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Alarm from '@assets/icons/header/alarm.svg';
 import MyPageIcon from '@assets/icons/header/mypage.svg';
 import Logo from '@assets/icons/common/logo.svg';
 import { Input } from '@components/Commons';
@@ -27,14 +28,13 @@ const FeedHeader = ({ isCurrentScrollTop }: IFeedHeaderProps) => {
                                     <MyPageIcon />
                                 </Link>
                             )}
-
-                            {/* TODO : 2차 오픈때 개발 예정 */}
-                            {/* <Link href="/alarm" className="alarm">
-                              <AlarmIcon />
-                          </Link> */}
-                            <Link href="/mypage">
+                            <Link href="/mypage" className="mypage">
                                 <MyPageIcon />
                             </Link>
+                            {/* TODO : 2차 오픈때 개발 예정 */}
+                            <button>
+                                <Alarm />
+                            </button>
                         </div>
                     </div>
                 </div>
