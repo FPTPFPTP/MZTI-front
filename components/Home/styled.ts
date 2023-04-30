@@ -17,10 +17,11 @@ export const ListTabStyle = css`
         top: 1px;
     }
     button {
+        font-size: 14px;
         font-weight: 500;
-        font-size: 1.3rem;
-        padding: 20px 0 6px;
+        line-height: 14px;
         width: 100%;
+        padding-bottom: 5px;
         &.active {
             border-bottom: 2px solid ${colors.BLACK};
         }

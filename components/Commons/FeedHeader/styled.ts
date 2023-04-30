@@ -7,7 +7,9 @@ export const HomeMenuStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop: bool
     left: 0;
     width: 100%;
     padding: 20px;
-    box-shadow: ${!isCurrentScrollTop && '0px 2px 4px 0px #00000033'};
+    ${!isCurrentScrollTop &&
+    `
+    border-bottom: 1px solid  #D9D9D9;`}
 
     .header {
         display: flex;
@@ -30,13 +32,7 @@ export const HomeMenuStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop: bool
     .right {
         display: flex;
         align-items: center;
-        .alarm {
-            margin-right: 20px;
-        }
-        a {
-            font-size: 1.6rem;
-            color: ${colors.BLACK};
-        }
+        gap: 15px;
     }
 `;
 

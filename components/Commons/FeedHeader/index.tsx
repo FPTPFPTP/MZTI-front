@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Alarm from '@assets/icons/header/alarm.svg';
+import SearchIcon from '@assets/icons/header/search.svg';
+import AlarmIcon from '@assets/icons/header/alarm.svg';
 import MyPageIcon from '@assets/icons/header/mypage.svg';
 import Logo from '@assets/icons/common/logo.svg';
 import { Input } from '@components/Commons';
@@ -25,7 +26,7 @@ const FeedHeader = ({ isCurrentScrollTop }: IFeedHeaderProps) => {
                         <div className="right">
                             {!isCurrentScrollTop && (
                                 <Link href="/search">
-                                    <MyPageIcon />
+                                    <SearchIcon />
                                 </Link>
                             )}
                             <Link href="/mypage" className="mypage">
@@ -33,7 +34,7 @@ const FeedHeader = ({ isCurrentScrollTop }: IFeedHeaderProps) => {
                             </Link>
                             {/* TODO : 2차 오픈때 개발 예정 */}
                             <button>
-                                <Alarm />
+                                <AlarmIcon />
                             </button>
                         </div>
                     </div>
