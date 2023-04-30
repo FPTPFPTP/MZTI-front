@@ -1,5 +1,5 @@
 import { ItemContentStyle } from '../../styled';
-import VoteIcon from '@assets/icons/vote.svg';
+import VoteIcon from '@assets/icons/feedItem/vote.svg';
 import xss from 'xss';
 import { IPollModel, ITagModel } from '@/types/post';
 
@@ -26,11 +26,8 @@ const ItemContent = ({ id, title, content, pollList, tags }: IItemContentProps) 
             {/* 투표기능이 있을경우 */}
             {pollList?.length ? (
                 <div className="vote">
-                    <div className="vote__top">
-                        <VoteIcon />
-                        <p>투표</p>
-                    </div>
-
+                    <VoteIcon />
+                    <span>투표</span>
                     <h5 className="vote__title">{pollList[0].title}</h5>
                 </div>
             ) : null}

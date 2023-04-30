@@ -8,7 +8,6 @@ export const FeedComentsWrapStyle = css`
 export const ListTabStyle = css`
     position: relative;
     width: 100%;
-    background-color: ${colors.WHITE};
     padding: 0 20px;
     border-bottom: 2px solid ${colors.GRAY_ORIGIN_1};
     > div {
@@ -183,19 +182,18 @@ export const CommentItemSylte = css`
 `;
 
 export const FeedItemStyle = css`
-    background: ${colors.WHITE};
     .feedLayout {
-        border-bottom: 4px solid ${colors.GRAY_BRIGHT_2};
+        margin-bottom: 11px;
         .feedLayout__bg {
             background: ${colors.WHITE};
-            padding: 0 20px;
+            border-radius: 15px;
+            padding: 16px 20px;
         }
     }
 `;
 
 export const ItemHeaderStyle = css`
     width: 100%;
-    padding: 20px 0;
     position: relative;
     .userInfo {
         display: flex;
@@ -230,31 +228,41 @@ export const ItemHeaderStyle = css`
                 display: inline-block;
                 margin-right: 6px;
                 border: 1px solid ${colors.GRAY_ORIGIN_1};
-                padding: 1px 9px;
+                padding: 4px 8px;
                 border-radius: 41px;
-                margin-bottom: 0.4rem;
                 color: ${colors.GRAY_STRONG};
-                font-size: 1.2rem;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 9px;
+                text-align: center;
             }
             .level {
-                font-size: 1.2rem;
-                font-weight: 300;
+                display: inline-block;
+                border: 1px solid ${colors.GRAY_ORIGIN_1};
+                padding: 4px 8px;
+                border-radius: 41px;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 9px;
                 color: ${colors.GRAY_STRONG};
+                text-align: center;
             }
             .nickname_time {
                 display: flex;
-                font-weight: 300;
-                font-size: 1.8rem;
                 color: ${colors.GRAY_STRONG};
                 justify-content: space-between;
                 align-items: center;
+                margin-top: 12px;
                 .nickname {
-                    font-weight: 300;
-                    font-size: 1.3rem;
-                    color: ${colors.GRAY_STRONG};
+                    font-size: 15px;
+                    font-weight: 500;
+                    line-height: 15px;
                 }
                 .time {
-                    font-size: 1rem;
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 15px;
+                    color: #54545680;
                 }
             }
         }
@@ -279,18 +287,20 @@ export const ItemHeaderStyle = css`
 export const ItemFooterStyle = css`
     display: flex;
     justify-content: space-around;
-    padding: 12px 0;
+    padding: 15px 0 0;
     border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
     background-color: ${colors.WHITE};
+    span {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        color: #54545680;
+    }
     a,
     button {
         display: flex;
         align-items: center;
-        span {
-            font-weight: 300;
-            font-size: 1.3rem;
-            margin-left: 15px;
-        }
+        gap: 15px;
     }
     .share {
         margin-left: 13px;
@@ -306,18 +316,15 @@ export const ItemFooterStyle = css`
         svg {
             margin-left: 1rem;
         }
-        .count {
-            font-weight: 300;
-            font-size: 1.3rem;
-            margin-left: 15px;
-        }
     }
 `;
 
 export const ItemContentStyle = css`
+    margin-top: 27px;
     .itemContent__title {
+        font-size: 17px;
         font-weight: 700;
-        font-size: 1.5rem;
+        line-height: 15px;
     }
     .itemContent__content {
         margin-bottom: 20px;
@@ -326,20 +333,13 @@ export const ItemContentStyle = css`
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        font-weight: 300;
-        font-size: 1.2rem;
         & > * {
-            font-weight: 300;
-            font-size: 1.2rem;
-            color: ${colors.GRAY_STRONG_2};
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 21px;
+            color: ${colors.GRAY_STRONG_6};
             em {
                 font-style: normal !important;
-                font-weight: 300;
-            }
-            p {
-                font-size: 1.2rem;
-                font-weight: 300;
-                color: ${colors.GRAY_STRONG_2};
             }
         }
         img {
@@ -357,38 +357,33 @@ export const ItemContentStyle = css`
         margin-top: 20px;
     }
     .vote {
-        background: ${colors.GRAY_LIGHT_4};
-        padding: 20px;
-        margin: 0 0 20px 0;
         display: flex;
         align-items: center;
-        .vote__top {
-            display: flex;
-            align-items: center;
-            font-weight: 400;
-            p {
-                font-weight: 500;
-                font-size: 1.4rem;
-                line-height: 16px;
-                letter-spacing: 0.5px;
-                color: ${colors.BLACK};
-            }
-            svg {
-                width: 23px;
-                height: 23px;
-            }
-        }
-        .vote__title {
-            margin-left: 23px;
-            font-weight: 300;
-            font-size: 1.3rem;
-            letter-spacing: 0.5px;
-            color: ${colors.BLACK};
+        background: #f2f4f6;
+        border-radius: 10px;
+        padding: 23px 30px;
+        margin: 0 0 20px 0;
+        gap: 10px;
+        span {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 21px;
+            color: ${colors.GRAY_STRONG_6};
+            white-space: nowrap;
+            margin-left: 10px;
         }
 
-        svg {
-            font-size: 1.7rem;
-            margin-right: 17px;
+        .vote__title {
+            flex: 2;
+            overflow: hidden;
+            width: 100%;
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            color: ${colors.GRAY_STRONG_6};
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
     .hashTag {

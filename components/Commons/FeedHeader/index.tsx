@@ -51,7 +51,6 @@ const HomeMenu = () => css`
         line-height: normal;
         box-sizing: border-box;
         z-index: 70;
-        background-color: ${colors.WHITE};
 
         .header-contents-inner {
             display: flex;

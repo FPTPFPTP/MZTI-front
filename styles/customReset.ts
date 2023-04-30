@@ -149,6 +149,7 @@ const globalReset = () => css`
         flex-direction: column;
         height: 100%;
         min-height: 100%;
+        background: ${colors.GRAY_LIGHT_3};
     }
 
     .ant-modal {

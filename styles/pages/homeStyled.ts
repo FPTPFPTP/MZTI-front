@@ -27,16 +27,12 @@ export const PostStyle = () => css`
     }
 `;
 
-export const PostContent = () => css`
-    font-weight: 300;
-    font-size: 1.4rem;
-    color: ${colors.BLACK};
-    padding: 57px 33px;
+export const FeedContentStyle = () => css`
+    padding: 0px 20px;
 `;
 
 export const searchWrap = () => css`
     padding: 22px 20px 0;
-    background-color: ${colors.WHITE};
     .search__box {
         position: relative;
         button {
