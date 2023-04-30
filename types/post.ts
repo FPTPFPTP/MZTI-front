@@ -135,7 +135,7 @@ export interface IEditComment {
 export interface IAddReComment {
     commentId: number;
     comment: string;
-    image: string;
+    image?: string;
 }
 
 export interface ICommentParam {

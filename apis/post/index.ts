@@ -320,7 +320,7 @@ export const commentPut = async ({ id, comment, image }: IEditComment) => {
         image: image,
     });
 
-    return res.data.data;
+    return res.data;
 };
 
 /**

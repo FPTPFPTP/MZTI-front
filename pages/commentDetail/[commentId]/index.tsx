@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useQueryClient } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { commentModify, commentModifyId } from '@/recoil/atom/user';
 import { Header } from '@components/Commons';
+import CommentModifyInput from '@/components/Commons/CommentModifyInput';
 import CommentInput from '@/components/Commons/CommentInput';
 import CommentItem from '@/components/Home/FeedComents/CommentItem';
 import { Empty } from '@/components/MyPageCom';
-import { useGetReComments } from '@/apis/post';
+import { useGetReComments, commentPut, reCommentPost } from '@/apis/post';
 import Axios from '@utils/axios';
 import { postImageUpload } from '@utils/upload';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
@@ -20,22 +23,25 @@ interface IPostDetailProps {
 
 const commentDetail = ({ commentId }: IPostDetailProps) => {
     const [commentValue, setCommentValue] = useState<string>('');
-    const { contents: reComments, fetchNextPage, hasNextPage } = useGetReComments({ commentId });
+    //  댓글 호출
+    const [getCommentModifyState, setCommentModifyState] = useRecoilState(commentModify);
+    const getCommentModifyId = useRecoilValue(commentModifyId);
 
+    const { contents: reComments, fetchNextPage, hasNextPage } = useGetReComments({ commentId });
     const queryClient = useQueryClient();
 
     const onSuccessComment = async () => {
         queryClient.invalidateQueries(['getReComments']);
     };
 
-    // 대댓글
+    // 대댓글 추가
     const AddReComment = async (imageFile?: File) => {
         let imageSrc;
         if (imageFile) {
             imageSrc = await postImageUpload(imageFile);
         }
 
-        const reComment = await Axios.post('/post/comment/sub', {
+        const reComment = await reCommentPost({
             commentId: commentId,
             comment: commentValue,
             image: imageSrc,
@@ -46,13 +52,23 @@ const commentDetail = ({ commentId }: IPostDetailProps) => {
         }
     };
 
+    // 댓글 수정!!!
+    const PutComment = async (imageFile?: File) => {
+        let imageSrc;
+        if (imageFile) {
+            imageSrc = await postImageUpload(imageFile);
+        }
+        const reComment = await commentPut({ id: getCommentModifyId, comment: commentValue, image: imageSrc });
+        if (reComment) {
+            onSuccessComment();
+            setCommentValue('');
+        }
+    };
+
     const handleContact = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCommentValue(e.target.value);
     };
 
-    useEffect(() => {
-        console.log(reComments);
-    }, [reComments]);
     return (
         <main className="homeLayout">
             <Header isPrevBtn={true} title={`대댓글 `} />
@@ -69,12 +85,24 @@ const commentDetail = ({ commentId }: IPostDetailProps) => {
                     <Empty icon={<EmptyWrite />} title="작성된 댓글이 없습니다." subTitle={`게시글을 작성해주세요`} />
                 )}
             </div>
-            <CommentInput
-                onSuccess={onSuccessComment}
-                handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
-                AddComment={AddReComment}
-                comment={commentValue}
-            />
+
+            {getCommentModifyState ? (
+                // 댓글 수정용
+                <CommentModifyInput
+                    onSuccess={onSuccessComment}
+                    handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
+                    PutComment={PutComment}
+                    comment={commentValue}
+                />
+            ) : (
+                // 일반 댓글용
+                <CommentInput
+                    onSuccess={onSuccessComment}
+                    handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
+                    AddComment={AddReComment}
+                    comment={commentValue}
+                />
+            )}
         </main>
     );
 };
