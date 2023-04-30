@@ -1,19 +1,6 @@
 import { css } from '@emotion/react';
 import color from '../color';
 
-export const MypageEtcMenu = css`
-    margin-top: 118px;
-    .css-rab0mw-Menu {
-        margin-top: 0;
-    }
-    .logout {
-        font-weight: 400;
-        font-size: 1.3rem;
-        padding: 15px 20px;
-        margin-top: 25px;
-    }
-`;
-
 export const SecessionStyled = css`
     .wrap {
         padding: 33px 20px;

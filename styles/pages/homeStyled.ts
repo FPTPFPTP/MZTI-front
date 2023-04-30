@@ -35,7 +35,7 @@ export const PostContent = () => css`
 `;
 
 export const searchWrap = () => css`
-    padding: 22px 20px 0;
+    padding: 0 20px;
     background-color: ${colors.WHITE};
     .search__box {
         position: relative;

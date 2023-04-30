@@ -12,7 +12,13 @@ export const InputWrapCss = css`
 
 export const InputCss = css`
     width: 100%;
-    padding: 8px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    &::placeholder {
+        color: rgba(27, 30, 38, 0.5);
+    }
+
     &:focus {
         outline: none !important;
     }

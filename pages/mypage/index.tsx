@@ -57,10 +57,10 @@ const mypage = () => {
     return (
         <>
             <div css={MypageWrap}>
-                <header>
+                <header className="mypage_header">
                     <h1>마이페이지</h1>
                     {myInfo && (
-                        <Link href="/mypage/edit">
+                        <Link href="/mypage/edit" className="edit">
                             <EditSvg />
                         </Link>
                     )}
@@ -74,7 +74,9 @@ const mypage = () => {
                     <NotUser />
                 )}
 
-                <Banner />
+                <div className="bannerWrap">
+                    <Banner />
+                </div>
             </div>
             <Menu menuList={menuList} />
             <BottomMenu />

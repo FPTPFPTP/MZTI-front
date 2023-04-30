@@ -135,10 +135,16 @@ export const ListItemStyle = css`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        font-weight: 500;
+        font-size: 15px;
+        letter-spacing: -0.408px;
+        color: #545456;
     }
     .date {
-        font-size: 1rem;
-        white-space: nowrap;
+        font-weight: 300;
+        font-size: 12px;
+        letter-spacing: -0.408px;
+        color: #545456;
     }
 `;
 export const ListBoardItemStyle = css`
@@ -348,4 +354,60 @@ export const BannerStyle = css`
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+`;
+
+export const DepthMenuStyle = css`
+    .depthWrap {
+        margin-top: 50px;
+    }
+    .typetitle {
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: -0.408px;
+        color: #1b1e26;
+    }
+    .typetitle {
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: -0.408px;
+        color: #1b1e26;
+        padding-left: 20px;
+        margin-bottom: 50px;
+    }
+    .list {
+        padding: 0 30px;
+        .stitle {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 15px;
+            color: #1b1e26;
+        }
+    }
+    button {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        &.advertisement {
+            padding: 0 30px;
+            .stitle {
+                font-weight: 400;
+                font-size: 15px;
+                line-height: 15px;
+                color: #1b1e26;
+            }
+        }
+    }
+`;
+
+export const LogoutModal = css`
+    height: 24vh;
+    position: relative;
+    button {
+        position: absolute;
+        bottom: 0;
+    }
 `;

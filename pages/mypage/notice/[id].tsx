@@ -36,11 +36,6 @@ const noticeDetail = () => {
 
                 <article>{contents?.content}</article>
             </div>
-            <nav css={NoticeShare}>
-                <button onClick={LinkCopy}>
-                    <ShareIcon /> <span>공유</span>
-                </button>
-            </nav>
         </>
     );
 };
