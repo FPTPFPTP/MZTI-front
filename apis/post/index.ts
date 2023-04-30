@@ -45,6 +45,26 @@ export const getFeedPost = async ({ page, content, view, tag, categoryId }: IDet
     return res.data.data;
 };
 
+export const useGetPosts = ({ search, categoryId }: { search: string; categoryId?: number }) => {
+    const res = useInfiniteQuery(
+        ['getPosts', search],
+        ({ pageParam = 0 }) => getFeedPost({ page: pageParam, view: 15, content: search, categoryId: categoryId }),
+        {
+            getNextPageParam: (lastPage) => {
+                const nextPage = lastPage.page + 1;
+
+                return lastPage.list.length !== 0 ? nextPage : undefined;
+            },
+            enabled: search.length === 0 ? false : true,
+        },
+    );
+    const { data } = res;
+
+    const contents = data ? data.pages.map((page) => page.list).reduce((mergedList, currentlist) => [...mergedList, ...(currentlist || [])], []) : [];
+
+    return { ...res, contents };
+};
+
 /**
  * [API] GET 마이페이지 내 활동 조회 (작성한 글, 댓글, 받은 추천수)
  * @returns
