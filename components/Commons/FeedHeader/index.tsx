@@ -1,13 +1,22 @@
-import { css } from '@emotion/react';
-import Alarm from '@assets/icons/header/alarm.svg';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import SearchIcon from '@assets/icons/header/search.svg';
+import AlarmIcon from '@assets/icons/header/alarm.svg';
 import MyPageIcon from '@assets/icons/header/mypage.svg';
 import Logo from '@assets/icons/common/logo.svg';
-import Link from 'next/link';
-import colors from '@/styles/color';
+import { Input } from '@components/Commons';
+import { HomeMenuStyle, SearchWrapStyle } from './styled';
 
-const FeedHeader = () => {
+interface IFeedHeaderProps {
+    isCurrentScrollTop?: boolean;
+    categoryId?: number;
+}
+
+const FeedHeader = ({ isCurrentScrollTop, categoryId }: IFeedHeaderProps) => {
+    const router = useRouter();
+    
     return (
-        <header css={HomeMenu}>
+        <header css={HomeMenuStyle({ isCurrentScrollTop })}>
             <div className="header">
                 <div className="header-contents-inner">
                     <div className="header-contents__left">
@@ -16,65 +25,37 @@ const FeedHeader = () => {
                         </h1>
 
                         <div className="right">
+
+                            {isCurrentScrollTop === false && (
+                                <Link href="/search">
+                                    <SearchIcon />
+                                </Link>
+                            )}
+
                             <Link href="/mypage" className="mypage">
                                 <MyPageIcon />
                             </Link>
                             {/* TODO : 2차 오픈때 개발 예정 */}
                             <button>
-                                <Alarm />
+
+                                <AlarmIcon />
+
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
+            {(isCurrentScrollTop || isCurrentScrollTop === undefined) && (
+                <div css={SearchWrapStyle}>
+                    <Input
+                        inputStyle={'search'}
+                        placeholder={'관심있는 MBTI, 키워드, 이슈 검색'}
+                        onClick={() => router.push(`/search${categoryId ? `/${categoryId}` : ''}`)}
+                    />
+                </div>
+            )}
         </header>
     );
 };
 
 export default FeedHeader;
-
-const HomeMenu = () => css`
-    height: 60px;
-    flex: 0 0 60px;
-
-    .header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        height: 60px;
-        border-top: 0;
-        border-bottom: 0;
-        line-height: normal;
-        box-sizing: border-box;
-        z-index: 70;
-        background-color: ${colors.WHITE};
-
-        .header-contents-inner {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            .header-contents__left {
-                display: flex;
-                width: 100%;
-                justify-content: space-between;
-                align-items: center;
-            }
-        }
-    }
-
-    .right {
-        display: flex;
-        align-items: center;
-        .mypage {
-            margin-right: 15px;
-        }
-        a {
-            font-size: 1.6rem;
-            color: ${colors.BLACK};
-        }
-    }
-`;

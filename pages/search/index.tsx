@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
 import dayjs from 'dayjs';
-import { Input } from '@components/Commons';
+import { Header, Input } from '@components/Commons';
 import NonSSRWrapper from '@/components/Layout/NonSSRWrapper';
-import FeedItem from '@/components/Home/FeedItem';
+import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 import { SearchHistoryItem } from '@components/Search';
-import { getFeedPost } from '@/apis/post';
+import { useGetPosts } from '@/apis/post';
+import { getThumbnail } from '@/utils/postItem';
 import useSearchHistory from '@/hooks/useSearchHistory';
 import { searchWrap, recentSearchWrap } from '@/styles/pages/searchStyled';
 
@@ -24,17 +24,7 @@ const Search = () => {
     const { searchHistories, removeSearchHistory, addSearchHistory } = useSearchHistory();
 
     // 데이터 패칭
-    const {
-        data: searchList,
-        fetchNextPage,
-        hasNextPage,
-        isLoading,
-    } = useInfiniteQuery(['page', searchValue], ({ pageParam = 0 }) => getFeedPost({ page: pageParam, content: searchValue }), {
-        getNextPageParam: (lastPage, allPosts) => {
-            return lastPage.page !== allPosts[0].totalPage ? lastPage.page + 1 : undefined;
-        },
-        enabled: searchValue.length === 0 ? false : true,
-    });
+    const { contents: searchList, hasNextPage, fetchNextPage } = useGetPosts({ search: searchValue });
 
     const onSearch = (text: string) => {
         addSearchHistory(text, dayjs().format());
@@ -43,6 +33,8 @@ const Search = () => {
 
     return (
         <section>
+            <Header title={'전체 검색'} />
+
             <div css={searchWrap}>
                 <div className="search__box">
                     <form onSubmit={handleSubmit((data) => onSearch(data.search))}>
@@ -68,9 +60,13 @@ const Search = () => {
 
             {/* 최근 검색 내역 */}
             <div css={recentSearchWrap}>
-                {searchList && searchList.pages.length ? (
+                {searchList.length ? (
                     <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                        <FeedItem data={searchList} isLoading={isLoading} />
+                        {searchList.map((item) => {
+                            const thumbnail = getThumbnail(item.content);
+
+                            return <ListBoardItem key={item.id} item={item} thumbnail={thumbnail} />;
+                        })}{' '}
                     </InfiniteScroll>
                 ) : (
                     <div className="recent__wrap">

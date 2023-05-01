@@ -2,10 +2,10 @@ import Axios from '@utils/axios';
 import { IResponseBase } from '@/types/global';
 import { useQuery } from '@tanstack/react-query';
 
-export const getKeyword = async () => {
-    const res = await Axios.get<IResponseBase<any>>(`/keyword`, {
+export const getKeyword = async (page: number) => {
+    const res = await Axios.get<IResponseBase<string[]>>(`/keyword`, {
         params: {
-            page: 0,
+            page: page,
             view: 8,
         },
     });
@@ -17,9 +17,9 @@ export const getKeyword = async () => {
  * [API] GET 신고 유형
  * @returns
  */
-export const useGetKeyword = () => {
+export const useGetKeyword = (page: number) => {
     const { data } = useQuery(['getKeyword'], async () => {
-        const data = await getKeyword();
+        const data = await getKeyword(page);
 
         return data;
     });

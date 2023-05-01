@@ -25,24 +25,30 @@ import {
 import { EType } from '@/components/Commons/MoreDrawer';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { deleteComment, commentLike, reCommentGet, getComments, getCommentDetail } from '@/apis/post';
-import { ILikeModel, ICommentModel, ICommentProps } from '@/types/post';
+import { ILikeModel, ICommentModel } from '@/types/post';
 import ReplayCommentItem from './ReplayCommentItem';
 
-const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment, like, createAt, writerId, likeCheck, image }: ICommentProps) => {
+export interface ICommentItemProps {
+    commentItem: ICommentModel;
+    postWriterId?: number;
+}
+
+const CommentItem = ({ commentItem, postWriterId }: ICommentItemProps) => {
+    const { id, subComment, writer, postId, comment, like, createAt, image } = commentItem;
     const myInfo = useRecoilValue(myPageInfo);
-    const [isLike, setIsLike] = useState<boolean>(likeCheck);
+    const [isLike, setIsLike] = useState<boolean>(like.check);
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [likeCount, setLikeCount] = useState<any>(like);
-    const setReplayCommentId = useSetRecoilState(replayCommentId);
-    const [reCommentView, setReCommentView] = useRecoilState(replayCommentViewState);
+    const [likeCount, setLikeCount] = useState<any>(like.count);
+    const [reComments, setRecomments] = useState<ICommentModel[]>([]);
+    const [totalReComment, setTotalRecomment] = useState<number>(0);
+
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
-    const [reCommentState, setReCommentState] = useRecoilState(replayCommentState);
     // 댓글 삭제
     const commentDelete = useMutation((id: number) => deleteComment(id));
     // 대댓글 좋아요
     const reCommentLike = useMutation((id: number) => commentLike(id));
-    const { data } = useQuery(['getReCommentView', userId], () => reCommentGet({ commentId: userId, page: 0, view: reCommentView }));
+
     const [commentContentState, setCommentContentState] = useRecoilState(commentContent);
     const setCommentValue = useSetRecoilState(commentText);
     const setCommentModifyState = useSetRecoilState(commentModify);
@@ -51,7 +57,7 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
     // 댓글 삭제
     const handleCommentDelete = () => {
         confirm('댓글을 삭제하시겠습니까?');
-        commentDelete.mutate(userId, {
+        commentDelete.mutate(id, {
             onSuccess: () => {
                 alert('삭제 완료되었습니다.');
             },
@@ -60,7 +66,7 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
 
     // 댓글 좋아요
     const handleReCommentLike = () => {
-        reCommentLike.mutate(userId, {
+        reCommentLike.mutate(id, {
             onSuccess: (data: ILikeModel) => {
                 if (data.check === true) {
                     setLikeCount(data.count);
@@ -73,23 +79,10 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
         });
     };
 
-    /**
-     * 대댓글 누르면 대댓글 작성할 수 있는 컴포넌트 열리기
-     */
-    const handleRePlayComment = (userId: number) => {
-        console.log('dddd', Number(data?.totalCount));
-        // 대댓글창
-        setReCommentState(true);
-        setReplayCommentId(userId);
-        setReCommentView(Number(data?.totalCount));
-    };
-
     // 댓글 수정하기
-    const handleCommentEdit = (userId: number) => {
-        console.log('userId-->', userId);
-        setCommentModifyId(userId);
-        getCommentDetail(userId).then((res) => {
-            console.log('dd', res.comment);
+    const handleCommentEdit = (id: number) => {
+        setCommentModifyId(id);
+        getCommentDetail(id).then((res) => {
             setCommentContentState(res.comment);
         });
 
@@ -98,28 +91,34 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
     };
 
     useEffect(() => {
-        // console.log('ddd', reCommentState);
-        if (reCommentState === false) {
-            // TODO : 대댓글 더보기 컴포넌트 닫으면 reCommentView 다시 5개 전달했는데...
-        }
-    }, [reCommentState, data]);
+        setCommentValue(commentContentState);
+    }, [commentContentState]);
 
     useEffect(() => {
-        setCommentValue(commentContentState);
-        console.log('commentContentState--', commentContentState);
-    }, [commentContentState]);
+        if (subComment && subComment.count > 0) {
+            reCommentGet({ commentId: id, page: 0, view: 5 }).then((res) => {
+                setRecomments(res.list);
+                setTotalRecomment(res.totalCount);
+            });
+        }
+    }, [subComment]);
 
     return (
         <>
-            <section css={CommentItemSylte} key={userId}>
+            <section css={CommentItemSylte}>
                 <div className="commentItemWrap">
                     <div className="writer">
-                        <Avatar src={profileImage ? profileImage : ''} alt={`${nickname}님의 프로필입니다.`} size={60} mbti={mbti} />
-                        <p className="mbti">{mbti}</p>
+                        <Avatar
+                            src={writer.profileImage ? writer.profileImage : ''}
+                            alt={`${writer.nickname}님의 프로필입니다.`}
+                            size={60}
+                            mbti={writer.mbti}
+                        />
+                        <p className="mbti">{writer.mbti}</p>
                         <p className="nickName">
-                            <span>{nickname}</span>
+                            <span>{writer.nickname}</span>
 
-                            {writerId === nickname && (
+                            {writer.id === postWriterId && (
                                 <span>
                                     <WriterMainIcon />
                                 </span>
@@ -136,12 +135,14 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
                             <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
                         </button>
 
-                        <Link href={`/commentDetail/${userId}`}>
-                            <button className="reComment">
-                                <ReComment />
-                                <span>대댓글 {subComment !== 0 && subComment}</span>
-                            </button>
-                        </Link>
+                        {subComment && (
+                            <Link href={`/commentDetail/${id}`}>
+                                <button className="reComment">
+                                    <ReComment />
+                                    <span>{`대댓글 ${subComment.count !== 0 ? subComment.count : ''}`}</span>
+                                </button>
+                            </Link>
+                        )}
 
                         <button onClick={openDrawer} className="moreButton">
                             <MoreButton />
@@ -150,56 +151,39 @@ const CommentItem = ({ subComment, nickname, mbti, profileImage, userId, comment
                 </div>
 
                 <MoreDrawer
-                    type={myInfo?.nickname === nickname ? EType.COMMENT : EType.COMMENT_TIPOFF}
+                    type={myInfo?.nickname === writer.nickname ? EType.COMMENT : EType.COMMENT_TIPOFF}
                     onClick={closeDrawer}
                     isVisible={isVisible}
-                    writerID={userId}
+                    writerID={postId}
                     handleCommentDelete={handleCommentDelete}
-                    commentId={userId}
-                    handleCommentEdit={() => handleCommentEdit(Number(userId))}
+                    commentId={postId}
+                    handleCommentEdit={() => handleCommentEdit(Number(id))}
                 />
             </section>
 
             {/* 대댓글 더보기 */}
-            {!reCommentState && (
-                <>
-                    {data && data?.totalCount > 3 && (
-                        <section css={MoreCommentStyle}>
-                            <button onClick={() => handleRePlayComment(userId)}>
-                                <span>+ 대댓글 더보기</span>
-                            </button>
-                        </section>
-                    )}
-                </>
+            {totalReComment > 5 && (
+                <section css={MoreCommentStyle}>
+                    <Link href={`/commentDetail/${id}`}>
+                        <button>
+                            <span>+ 대댓글 더보기</span>
+                        </button>
+                    </Link>
+                </section>
             )}
 
             {/* 대댓글 */}
-            {data?.list?.length !== 0 ? (
-                <>
-                    {data?.list?.map((item: ICommentModel) => {
-                        return item.deleted === true ? (
-                            <p css={DeletedComment} key={item.id} className="reComment">
-                                <ReCommentBoard />
-                                <span>삭제된 댓글입니다.</span>
-                            </p>
-                        ) : (
-                            <ReplayCommentItem
-                                nickname={item.writer.nickname}
-                                mbti={item.writer.mbti}
-                                profileImage={item.writer.profileImage}
-                                userId={item.id}
-                                comment={item.comment}
-                                like={item.like.count}
-                                createAt={item.createAt}
-                                writerId={writerId}
-                                likeCheck={item.like.check}
-                                key={item.id}
-                                image={item.image}
-                            />
-                        );
-                    })}
-                </>
-            ) : null}
+
+            {reComments.map((item: ICommentModel) => {
+                return item.deleted === true ? (
+                    <p css={DeletedComment} key={item.id} className="reComment">
+                        <ReCommentBoard />
+                        <span>삭제된 댓글입니다.</span>
+                    </p>
+                ) : (
+                    <ReplayCommentItem replayCommentItem={item} key={item.id} postWriterId={postWriterId} />
+                );
+            })}
         </>
     );
 };

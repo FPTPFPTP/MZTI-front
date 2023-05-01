@@ -59,7 +59,7 @@ export interface ICommentModel {
     updateAt: string;
     writer: IWriterModel;
     like: CheckProps;
-    subComment: CheckProps;
+    subComment?: CheckProps;
     deleted: boolean;
     image: string;
     sub: boolean;
@@ -135,15 +135,7 @@ export interface IEditComment {
 export interface IAddReComment {
     commentId: number;
     comment: string;
-    image: string;
-}
-
-export interface IReComment<T> {
-    list: ICommentModel[];
-    page: number;
-    view: number;
-    totalPage: number;
-    totalCount: number;
+    image?: string;
 }
 
 export interface ICommentParam {
@@ -155,18 +147,4 @@ export interface IReCommentParam {
     commentId: number;
     page: number;
     view: number;
-}
-
-export interface ICommentProps {
-    nickname: string;
-    mbti: string;
-    profileImage: string;
-    userId: number;
-    comment: string;
-    like: number;
-    createAt: string;
-    writerId: string;
-    likeCheck: boolean;
-    subComment: number;
-    image: string;
 }

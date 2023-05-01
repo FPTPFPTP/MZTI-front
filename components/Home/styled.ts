@@ -6,15 +6,22 @@ export const FeedComentsWrapStyle = css`
 `;
 
 export const ListTabStyle = css`
-    display: flex;
-    justify-content: space-around;
-    background-color: ${colors.WHITE};
+    position: relative;
+    width: 100%;
+    padding: 0 20px;
+    border-bottom: 2px solid ${colors.GRAY_ORIGIN_1};
+    > div {
+        display: flex;
+        justify-content: space-around;
+        position: relative;
+        top: 1px;
+    }
     button {
+        font-size: 14px;
         font-weight: 500;
-        font-size: 1.3rem;
-        padding: 20px 0 6px;
+        line-height: 14px;
         width: 100%;
-        border-bottom: 1px solid ${colors.GRAY_ORIGIN_1};
+        padding-bottom: 5px;
         &.active {
             border-bottom: 2px solid ${colors.BLACK};
         }
@@ -22,29 +29,37 @@ export const ListTabStyle = css`
 `;
 
 export const HotKeywordStyle = css`
-    .keyowordBox__content {
-        padding: 18px 20px;
-        background-color: ${colors.GRAY_LIGHT_5};
-        h3 {
-            font-weight: 500;
-            font-size: 1.5rem;
-            color: ${colors.BLACK};
-        }
+    background: ${colors.WHITE};
+    border-radius: 15px;
+    margin: 10px 0;
+    padding: 20px;
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 17px;
+        letter-spacing: 0px;
+        text-align: left;
+        color: ${colors.GRAY_STRONG_6};
     }
     .keyword {
-        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
         li {
             display: inline-block;
-            background-color: ${colors.WHITE};
-            color: ${colors.GRAY_STRONG_3};
-            padding: 6px 12px;
-            margin-right: 10px;
-            border-radius: 21.5px;
-            margin-bottom: 8px;
-            font-size: 1rem;
+            background: #f2f4f6;
+            color: ${colors.GRAY_STRONG_6};
+            padding: 7px 15px;
+            border-radius: 13px;
             font-weight: 400;
+            font-size: 12px;
+            line-height: 12px;
             &.active {
-                background: ${colors.BLACK};
+                background: ${colors.GRAY_STRONG};
                 color: ${colors.WHITE};
             }
         }
@@ -176,19 +191,18 @@ export const CommentItemSylte = css`
 `;
 
 export const FeedItemStyle = css`
-    background: ${colors.WHITE};
     .feedLayout {
-        border-bottom: 4px solid ${colors.GRAY_BRIGHT_2};
+        margin-bottom: 11px;
         .feedLayout__bg {
             background: ${colors.WHITE};
-            padding: 0 20px;
+            border-radius: 15px;
+            padding: 16px 20px;
         }
     }
 `;
 
 export const ItemHeaderStyle = css`
     width: 100%;
-    padding: 20px 0;
     position: relative;
     .userInfo {
         display: flex;
@@ -223,31 +237,41 @@ export const ItemHeaderStyle = css`
                 display: inline-block;
                 margin-right: 6px;
                 border: 1px solid ${colors.GRAY_ORIGIN_1};
-                padding: 1px 9px;
+                padding: 4px 8px;
                 border-radius: 41px;
-                margin-bottom: 0.4rem;
                 color: ${colors.GRAY_STRONG};
-                font-size: 1.2rem;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 9px;
+                text-align: center;
             }
             .level {
-                font-size: 1.2rem;
-                font-weight: 300;
+                display: inline-block;
+                border: 1px solid ${colors.GRAY_ORIGIN_1};
+                padding: 4px 8px;
+                border-radius: 41px;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 9px;
                 color: ${colors.GRAY_STRONG};
+                text-align: center;
             }
             .nickname_time {
                 display: flex;
-                font-weight: 300;
-                font-size: 1.8rem;
                 color: ${colors.GRAY_STRONG};
                 justify-content: space-between;
                 align-items: center;
+                margin-top: 12px;
                 .nickname {
-                    font-weight: 300;
-                    font-size: 1.3rem;
-                    color: ${colors.GRAY_STRONG};
+                    font-size: 15px;
+                    font-weight: 500;
+                    line-height: 15px;
                 }
                 .time {
-                    font-size: 1rem;
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 15px;
+                    color: #54545680;
                 }
             }
         }
@@ -272,18 +296,20 @@ export const ItemHeaderStyle = css`
 export const ItemFooterStyle = css`
     display: flex;
     justify-content: space-around;
-    padding: 12px 0;
+    padding: 15px 0 0;
     border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
     background-color: ${colors.WHITE};
+    span {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        color: #54545680;
+    }
     a,
     button {
         display: flex;
         align-items: center;
-        span {
-            font-weight: 300;
-            font-size: 1.3rem;
-            margin-left: 15px;
-        }
+        gap: 15px;
     }
     .share {
         margin-left: 13px;
@@ -299,18 +325,15 @@ export const ItemFooterStyle = css`
         svg {
             margin-left: 1rem;
         }
-        .count {
-            font-weight: 300;
-            font-size: 1.3rem;
-            margin-left: 15px;
-        }
     }
 `;
 
 export const ItemContentStyle = css`
+    margin-top: 27px;
     .itemContent__title {
+        font-size: 17px;
         font-weight: 700;
-        font-size: 1.5rem;
+        line-height: 15px;
     }
     .itemContent__content {
         margin-bottom: 20px;
@@ -319,26 +342,17 @@ export const ItemContentStyle = css`
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        font-weight: 300;
-        font-size: 1.2rem;
         & > * {
-            font-weight: 300;
-            font-size: 1.2rem;
-            color: ${colors.GRAY_STRONG_2};
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 21px;
+            color: ${colors.GRAY_STRONG_6};
             em {
                 font-style: normal !important;
-                font-weight: 300;
             }
-            p {
-                font-size: 1.2rem;
-                font-weight: 300;
-                color: ${colors.GRAY_STRONG_2};
+            img {
+                display: none;
             }
-        }
-        img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
         }
     }
     h4 {
@@ -346,42 +360,41 @@ export const ItemContentStyle = css`
         font-weight: 700;
         margin-bottom: 10px;
     }
+
     img {
-        margin-top: 20px;
+        width: 100%;
+        min-width: 280px;
+        min-height: 150px;
+        margin-bottom: 20px;
     }
     .vote {
-        background: ${colors.GRAY_LIGHT_4};
-        padding: 20px;
-        margin: 0 0 20px 0;
         display: flex;
         align-items: center;
-        .vote__top {
-            display: flex;
-            align-items: center;
-            font-weight: 400;
-            p {
-                font-weight: 500;
-                font-size: 1.4rem;
-                line-height: 16px;
-                letter-spacing: 0.5px;
-                color: ${colors.BLACK};
-            }
-            svg {
-                width: 23px;
-                height: 23px;
-            }
-        }
-        .vote__title {
-            margin-left: 23px;
-            font-weight: 300;
-            font-size: 1.3rem;
-            letter-spacing: 0.5px;
-            color: ${colors.BLACK};
+        background: #f2f4f6;
+        border-radius: 10px;
+        padding: 23px 30px;
+        margin: 0 0 20px 0;
+        gap: 10px;
+        span {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 21px;
+            color: ${colors.GRAY_STRONG_6};
+            white-space: nowrap;
+            margin-left: 10px;
         }
 
-        svg {
-            font-size: 1.7rem;
-            margin-right: 17px;
+        .vote__title {
+            flex: 2;
+            overflow: hidden;
+            width: 100%;
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            color: ${colors.GRAY_STRONG_6};
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
     .hashTag {

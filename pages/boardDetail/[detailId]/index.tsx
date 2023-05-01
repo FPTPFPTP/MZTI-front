@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { Header } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
-import { BookMarkIconStyle, PostStyle } from '@styles/pages/homeStyled';
+import { BookMarkIconStyle, PostStyle, PostContentStyle } from '@styles/pages/boardDetailStyled';
 import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
@@ -18,8 +18,7 @@ import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '
 import CommentInput from '@/components/Commons/CommentInput';
 import classNames from 'classnames';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { commentModify, commentText, replayCommentState, commentModifyId } from '@/recoil/atom/user';
-import ReplayComment from '@/components/Home/FeedComents/ReplayComment';
+import { commentModify, commentText, commentModifyId } from '@/recoil/atom/user';
 import CommentModifyInput from '@/components/Commons/CommentModifyInput';
 import { openToast } from '@utils/toast';
 import { postImageUpload } from '@utils/upload';
@@ -39,12 +38,9 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const [isBookMark, setIsBookMark] = useState<boolean>(false);
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
     const [comment, setComment] = useState<ICommentModel[]>(commentData.list);
-    const [commentCount, setCommentCount] = useState<number>(commentData.totalCount);
-    const replayState = useRecoilValue(replayCommentState);
     const [commentValue, setCommentValue] = useRecoilState(commentText);
     const [pageParam, setPagePagram] = useState<number>(0);
     //  댓글 호출
-    const reRenderComment = getComments({ postId: Number(postData?.id), page: pageParam, view: 15 });
     const [getCommentModifyState, setCommentModifyState] = useRecoilState(commentModify);
     const getCommentModifyId = useRecoilValue(commentModifyId);
     // 댓글 수정
@@ -78,11 +74,11 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     };
 
     const onSuccessComment = async () => {
-        const commentRes = await Axios.get<IResponseBase<any>>('/post/comment', {
-            params: { postId: data?.id },
-        });
-        setComment(commentRes.data.data.list);
-        setCommentCount(commentCount + 1);
+        if (postData) {
+            const view = (pageParam + 1) * 15;
+            const commentRes = await getComments({ postId: postData.id, page: 0, view });
+            setComment(commentRes.list);
+        }
     };
 
     // 댓글 추가
@@ -135,18 +131,16 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     };
 
     useEffect(() => {
-        if (pageParam >= 1) {
-            if (postData) {
-                reRenderComment.then((result: any) => {
-                    const resultList = result.list;
-                    const sortList = [...comment, ...resultList];
-                    const sorted_list = sortList.sort(function (a, b) {
-                        return new Date(a.createAt).getTime() - new Date(b.createAt).getTime();
-                    });
-
-                    setComment(sorted_list);
+        if (postData && pageParam >= 1) {
+            getComments({ postId: Number(postData.id), page: pageParam, view: 15 }).then((result: any) => {
+                const resultList = result.list;
+                const sortList = [...comment, ...resultList];
+                const sorted_list = sortList.sort(function (a, b) {
+                    return new Date(a.createAt).getTime() - new Date(b.createAt).getTime();
                 });
-            }
+
+                setComment(sorted_list);
+            });
         }
     }, [pageParam]);
 
@@ -190,53 +184,50 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                     </div>
                 }
             />
-            {postData && (
-                <div css={PostStyle}>
-                    <div className="postHeaderWrap">
-                        <h3 className="postTitle">{postData.title}</h3>
-                        <ItemHeader writer={postData.writer} createAt={postData.updateAt} writerID={postData.id} categoryId={postData.categoryId} />
+            <div css={PostContentStyle}>
+                {postData && (
+                    <div css={PostStyle}>
+                        <div className="postHeaderWrap">
+                            <h3 className="postTitle">{postData.title}</h3>
+                            <ItemHeader writer={postData.writer} createAt={postData.updateAt} writerID={postData.id} categoryId={postData.categoryId} />
+                        </div>
+                        <ToastViewer contentHtml={postData.content} />
+                        {surveyData.map((survey) => (
+                            <div key={survey.id}>
+                                {dayjs() > dayjs(survey.endDate) ? (
+                                    <DefaultModeResult survey={survey} onSubmit={onPoll} />
+                                ) : survey.self ? (
+                                    <DefaultModeResult survey={survey} onSubmit={onPoll} />
+                                ) : (
+                                    <DefaultModeViewer survey={survey} onSubmit={onPoll} />
+                                )}
+                            </div>
+                        ))}
                     </div>
-                    <ToastViewer contentHtml={postData.content} />
-                    {surveyData.map((survey) => (
-                        <>
-                            {dayjs() > dayjs(survey.endDate) ? (
-                                <DefaultModeResult key={survey.id} survey={survey} onSubmit={onPoll} />
-                            ) : survey.self ? (
-                                <DefaultModeResult key={survey.id} survey={survey} onSubmit={onPoll} />
-                            ) : (
-                                <DefaultModeViewer key={survey.id} survey={survey} onSubmit={onPoll} />
-                            )}
-                        </>
-                    ))}
-                </div>
-            )}
+                )}
 
-            {data && (
-                <ItemFooter
-                    postId={data.id}
-                    className="postFooter"
-                    like={data.like.count === 0 ? '좋아요' : data.like?.count}
-                    command={data.command.count}
-                    isFeed={false}
-                    viewCount={data.viewCount}
-                    likeCheck={data.like.check}
-                />
-            )}
+                {data && (
+                    <ItemFooter
+                        postId={data.id}
+                        className="postFooter"
+                        like={data.like.count === 0 ? '좋아요' : data.like?.count}
+                        command={data.command.count}
+                        isFeed={false}
+                        viewCount={data.viewCount}
+                        likeCheck={data.like.check}
+                    />
+                )}
 
-            {/* 대댓글 */}
-            {replayState && <ReplayComment />}
-
-            {postData && (
-                <FeedComents
-                    isLastPage={commentData.totalPage === pageParam}
-                    commentData={comment}
-                    writerId={postData.writer.nickname}
-                    userId={postData.id}
-                    handleRefrash={handleRefrash}
-                    handleMoreComment={handleMoreComment}
-                />
-            )}
-
+                {postData && (
+                    <FeedComents
+                        isLastPage={commentData.totalPage === pageParam}
+                        commentData={comment}
+                        postWriterId={postData.writer.id}
+                        handleRefrash={handleRefrash}
+                        handleMoreComment={handleMoreComment}
+                    />
+                )}
+            </div>
             {getCommentModifyState ? (
                 // 댓글 수정용
                 <CommentModifyInput
@@ -270,7 +261,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
         Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
         const res = await Axios.get<IResponseBase<IPostModel>>(`/post/${params.detailId}`);
         const commentRes = await Axios.get<IResponseBase<IPaginationResponse<ICommentModel>>>('/post/comment', {
-            params: { postId: params.detailId },
+            params: { postId: params.detailId, page: 0, view: 15 },
         });
         data = res.data.data;
         commentData = commentRes.data.data;

@@ -13,26 +13,19 @@ import { myPageInfo } from '@/recoil/atom/user';
 import { EType } from '@/components/Commons/MoreDrawer';
 import { useMutation } from '@tanstack/react-query';
 import { deleteComment, commentLike } from '@/apis/post';
-import { ILikeModel } from '@/types/post';
+import { ILikeModel, ICommentModel } from '@/types/post';
 
-interface ICommentProps {
-    nickname: string;
-    mbti: string;
-    profileImage: string;
-    userId: number;
-    comment: string;
-    like: number;
-    createAt: string;
-    writerId: string;
-    likeCheck: boolean;
-    image: string;
+interface IReplayCommentItemProps {
+    replayCommentItem: ICommentModel;
+    postWriterId?: number;
 }
 
-const ReplayCommentItem = ({ nickname, mbti, profileImage, userId, comment, like, createAt, writerId, likeCheck, image }: ICommentProps) => {
+const ReplayCommentItem = ({ replayCommentItem, postWriterId }: IReplayCommentItemProps) => {
+    const { id, writer, comment, like, createAt, image } = replayCommentItem;
     const myInfo = useRecoilValue(myPageInfo);
-    const [isLike, setIsLike] = useState<boolean>(likeCheck);
+    const [isLike, setIsLike] = useState<boolean>(like.check);
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [likeCount, setLikeCount] = useState<any>(like);
+    const [likeCount, setLikeCount] = useState<number>(like.count);
     const openDrawer = () => setIsVisible(true);
     const closeDrawer = () => setIsVisible(false);
     // 댓글 삭제
@@ -42,7 +35,7 @@ const ReplayCommentItem = ({ nickname, mbti, profileImage, userId, comment, like
 
     const handleCommentDelete = () => {
         confirm('댓글을 삭제하시겠습니까?');
-        commentDelete.mutate(userId, {
+        commentDelete.mutate(id, {
             onSuccess: () => {
                 alert('삭제 완료되었습니다.');
             },
@@ -50,7 +43,7 @@ const ReplayCommentItem = ({ nickname, mbti, profileImage, userId, comment, like
     };
 
     const handleReCommentLike = () => {
-        reCommentLike.mutate(userId, {
+        reCommentLike.mutate(id, {
             onSuccess: (data: ILikeModel) => {
                 if (data.check === true) {
                     setLikeCount(data.count);
@@ -65,15 +58,20 @@ const ReplayCommentItem = ({ nickname, mbti, profileImage, userId, comment, like
 
     return (
         <>
-            <section css={CommentItemSylte} key={userId}>
+            <section css={CommentItemSylte}>
                 <div className="commentItemWrap replay">
                     <div className="writer">
-                        <Avatar src={profileImage ? profileImage : ''} alt={`${nickname}님의 프로필입니다.`} size={60} mbti={mbti} />
-                        <p className="mbti">{mbti}</p>
+                        <Avatar
+                            src={writer.profileImage ? writer.profileImage : ''}
+                            alt={`${writer.nickname}님의 프로필입니다.`}
+                            size={60}
+                            mbti={writer.mbti}
+                        />
+                        <p className="mbti">{writer.mbti}</p>
                         <p className="nickName">
-                            <span>{nickname}</span>
+                            <span>{writer.nickname}</span>
 
-                            {writerId === nickname && (
+                            {postWriterId === writer.id && (
                                 <span>
                                     <WriterMainIcon />
                                 </span>
@@ -98,10 +96,10 @@ const ReplayCommentItem = ({ nickname, mbti, profileImage, userId, comment, like
                 </div>
 
                 <MoreDrawer
-                    type={myInfo?.nickname === nickname ? EType.COMMENT : EType.COMMENT_TIPOFF}
+                    type={myInfo?.nickname === writer.nickname ? EType.COMMENT : EType.COMMENT_TIPOFF}
                     onClick={closeDrawer}
                     isVisible={isVisible}
-                    writerID={userId}
+                    writerID={writer.id}
                     handleCommentDelete={handleCommentDelete}
                 />
             </section>

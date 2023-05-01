@@ -148,7 +148,7 @@ const globalReset = () => css`
         display: flex;
         flex-direction: column;
         height: 100%;
-        min-height: 100%;
+        background: ${colors.GRAY_BRIGHT_4};
     }
     /* Drawer 모달 */
     .rbd-y5j5tv9v8tb-db {

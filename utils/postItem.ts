@@ -1,3 +1,4 @@
+import colors from '@/styles/color';
 /**
  * 게시글 썸네일 가져오기
  * @param content {string}
@@ -34,4 +35,43 @@ export const getThumbnail = (content: string) => {
         }
     }
     return thumbnail;
+};
+
+export const getStripIframeTags = (content: string) => {
+    const regex = /<iframe.*<\/iframe>/g;
+    content = content.replace(regex, '');
+
+    return content;
+};
+
+export const getMbtiColor = (mbti: string) => {
+    switch (mbti) {
+        case 'INTJ':
+        case 'INTP':
+        case 'ENTJ':
+        case 'ENTP': {
+            return colors.MBTI_COLOR_04;
+        }
+        case 'INFJ':
+        case 'INFP':
+        case 'ENFJ':
+        case 'ENFP': {
+            return colors.MBTI_COLOR_02;
+        }
+        case 'ISTJ':
+        case 'ISFJ':
+        case 'ESTJ':
+        case 'ESFJ': {
+            return colors.MBTI_COLOR_03;
+        }
+        case 'ISTP':
+        case 'ISFP':
+        case 'ESTP':
+        case 'ESFP': {
+            return colors.MBTI_COLOR_01;
+        }
+        default: {
+            return colors.GRAY_STRONG;
+        }
+    }
 };

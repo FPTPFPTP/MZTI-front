@@ -51,7 +51,7 @@ module.exports = {
     GRAY_ORIGIN_3: '#bababa',
 
     // Gray Strong
-    GRAY_STRONG: '#8c8c8c',
+    GRAY_STRONG: '#1B1E26',
     GRAY_STRONG_1: '#666666',
     GRAY_STRONG_2: '#444',
     GRAY_STRONG_3: '#585858',

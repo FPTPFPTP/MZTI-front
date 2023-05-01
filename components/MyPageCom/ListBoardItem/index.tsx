@@ -7,6 +7,7 @@ import VoteIcon from '@assets/icons/vote.svg';
 import HeartSvg from '@assets/icons/mypage/heart.svg';
 import MessageSvg from '@assets/icons/mypage/message.svg';
 import { useObserver } from '@/hooks/useObserver';
+import { getStripIframeTags } from '@/utils/postItem';
 import { ListBoardItemStyle } from '../styled';
 import { IPostModel } from '@/types/post';
 
@@ -21,12 +22,6 @@ const ListBoardItem = ({ item, thumbnail }: IListBoardItemProps) => {
 
     const [visible, setVisible] = useState<boolean>(false); // DOM을 렌더할 조건
 
-    const stripIframeTags = (content: string) => {
-        const regex = /<iframe.*<\/iframe>/g;
-        content = content.replace(regex, '');
-
-        return content;
-    };
 
     // isIntersecting의 경우에 DOM을 마운트 한다.
     const onIntersect = ([entry]: any) => (entry.isIntersecting ? setVisible(true) : setVisible(false));
@@ -46,7 +41,7 @@ const ListBoardItem = ({ item, thumbnail }: IListBoardItemProps) => {
 
                     <div className="content">
                         <div className="line-clamp-5">
-                            <p dangerouslySetInnerHTML={{ __html: xss(stripIframeTags(content)) }}></p>
+                            <p dangerouslySetInnerHTML={{ __html: xss(getStripIframeTags(content)) }}></p>
                         </div>
                         {/* TODO : 더보기 구현 실패해서 추후 구현 예정*/}
                         {/* <button className="show-more">더보기</button> */}
