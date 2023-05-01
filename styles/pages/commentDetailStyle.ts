@@ -1,9 +1,10 @@
 import { css } from '@emotion/react';
 
-export const FeedContentStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop: boolean }) => css`
-    padding: 0px 20px;
-    height: calc(100vh - ${isCurrentScrollTop ? '206px' : '143px'});
+export const ReplayCommentStyled = css`
     overflow-y: auto;
+    width: 100%;
+    height: calc(100vh - 130px);
+    padding: 0px 20px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {

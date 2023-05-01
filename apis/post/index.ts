@@ -10,7 +10,6 @@ import {
     IPostModel,
     IPollModel,
     IAddComment,
-    IReComment,
     ICommentModel,
     IReCommentParam,
     ICommentParam,
@@ -44,6 +43,26 @@ export const getFeedPost = async ({ page, content, view, tag, categoryId }: IDet
         },
     });
     return res.data.data;
+};
+
+export const useGetPosts = ({ search, categoryId }: { search: string; categoryId?: number }) => {
+    const res = useInfiniteQuery(
+        ['getPosts', search],
+        ({ pageParam = 0 }) => getFeedPost({ page: pageParam, view: 15, content: search, categoryId: categoryId }),
+        {
+            getNextPageParam: (lastPage) => {
+                const nextPage = lastPage.page + 1;
+
+                return lastPage.list.length !== 0 ? nextPage : undefined;
+            },
+            enabled: search.length === 0 ? false : true,
+        },
+    );
+    const { data } = res;
+
+    const contents = data ? data.pages.map((page) => page.list).reduce((mergedList, currentlist) => [...mergedList, ...(currentlist || [])], []) : [];
+
+    return { ...res, contents };
 };
 
 /**
@@ -221,7 +240,7 @@ export const getPost = async ({ postId }: { postId: number }) => {
  * @returns
  */
 export const getComments = async ({ postId, page, view }: ICommentParam) => {
-    const res = await Axios.get<IResponseBase<ICommentParam>>(`/post/comment`, {
+    const res = await Axios.get<IResponseBase<IPaginationResponse<ICommentModel>>>(`/post/comment`, {
         params: { postId: postId, page: page, view: view },
     });
 
@@ -321,7 +340,7 @@ export const commentPut = async ({ id, comment, image }: IEditComment) => {
         image: image,
     });
 
-    return res.data.data;
+    return res.data;
 };
 
 /**
@@ -356,7 +375,7 @@ export const reCommentPost = async ({ commentId, comment, image }: IAddReComment
  * @returns
  */
 export const reCommentGet = async ({ commentId, page, view }: IReCommentParam) => {
-    const res = await Axios.get<IResponseBase<IReComment<IReCommentModal>>>(`/post/comment/sub`, {
+    const res = await Axios.get<IResponseBase<IPaginationResponse<ICommentModel>>>(`/post/comment/sub`, {
         params: {
             commentId: commentId,
             page: page,
@@ -366,6 +385,20 @@ export const reCommentGet = async ({ commentId, page, view }: IReCommentParam) =
     return res.data.data;
 };
 
+export const useGetReComments = ({ commentId }: { commentId: number }) => {
+    const res = useInfiniteQuery(['getReComments'], ({ pageParam = 0 }) => reCommentGet({ page: pageParam, view: 15, commentId }), {
+        getNextPageParam: (lastPage) => {
+            const nextPage = lastPage.page + 1;
+
+            return lastPage.list.length !== 0 ? nextPage : undefined;
+        },
+    });
+    const { data } = res;
+
+    const contents = data ? data.pages.map((page) => page.list).reduce((mergedList, currentlist) => [...mergedList, ...(currentlist || [])], []) : [];
+
+    return { ...res, contents };
+};
 /**
  * [API] POST 이미지 업로드
  * @param param0

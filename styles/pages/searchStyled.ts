@@ -21,9 +21,10 @@ export const searchWrap = () => css`
 `;
 
 export const recentSearchWrap = () => css`
+    padding: 0px 20px;
     border-top: 4px solid ${colors.GRAY_BRIGHT_2};
     .recent__wrap {
-        padding: 17px 34px;
+        padding: 17px 0px;
     }
     .recent__search--top {
         display: flex;

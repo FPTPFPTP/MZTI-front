@@ -11,6 +11,7 @@ import { useMutation } from '@tanstack/react-query';
 import { deletePost } from '@/apis/post';
 import { useRouter } from 'next/router';
 import { openToast } from '@utils/toast';
+import { getMbtiColor } from '@utils/postItem';
 
 interface IItemHeader {
     writer: IWriterModel;
@@ -50,7 +51,9 @@ const ItemHeader = ({ writer, createAt, writerID, categoryId }: IItemHeader) => 
                     <div className="userInfo__Text">
                         <div className="userInfo__Text--layout">
                             <div>
-                                <span className="mbti">{mbti}</span>
+                                <span className="mbti" style={{ background: getMbtiColor(mbti) }}>
+                                    {mbti}
+                                </span>
                                 <span className="level">Lv.{level}</span>
                             </div>
 

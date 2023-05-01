@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { ItemFooterStyle } from '../../styled';
 import { useRouter } from 'next/router';
-import Views from '@assets/icons/detailPost/eyes.svg';
-import CommentIcon from '@assets/icons/detailPost/comment.svg';
-import HeartIcon from '@assets/icons/detailPost/heart.svg';
-import FillHeartIcon from '@assets/icons/detailPost/heartFill.svg';
+import Views from '@assets/icons/feedItem/outline_eye.svg';
+import CommentIcon from '@assets/icons/feedItem/outline_message.svg';
+import HeartIcon from '@assets/icons/feedItem/outline_heart.svg';
+import FillHeartIcon from '@assets/icons/feedItem/fill_heart.svg';
 import ShareIcon from '@assets/icons/comment/share.svg';
 import { LinkCopy } from '@/utils/copy';
 import { useMutation } from '@tanstack/react-query';

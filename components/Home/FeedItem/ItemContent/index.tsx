@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import { ItemContentStyle } from '../../styled';
-import VoteIcon from '@assets/icons/vote.svg';
+import VoteIcon from '@assets/icons/feedItem/vote.svg';
 import xss from 'xss';
 import { IPollModel, ITagModel } from '@/types/post';
+import { getThumbnail, getStripIframeTags } from '@/utils/postItem';
 
 interface IItemContentProps {
     id: number;
@@ -12,6 +14,8 @@ interface IItemContentProps {
 }
 
 const ItemContent = ({ id, title, content, pollList, tags }: IItemContentProps) => {
+    const thumbnail = getThumbnail(content);
+
     return (
         <section css={ItemContentStyle} key={id}>
             <h4 className="itemContent__title">{title}</h4>
@@ -19,21 +23,20 @@ const ItemContent = ({ id, title, content, pollList, tags }: IItemContentProps) 
             <div
                 className="itemContent__content"
                 dangerouslySetInnerHTML={{
-                    __html: xss(content),
+                    __html: xss(getStripIframeTags(content)),
                 }}
             />
 
             {/* 투표기능이 있을경우 */}
-            {pollList?.length ? (
+            {pollList.length ? (
                 <div className="vote">
-                    <div className="vote__top">
-                        <VoteIcon />
-                        <p>투표</p>
-                    </div>
-
+                    <VoteIcon />
+                    <span>투표</span>
                     <h5 className="vote__title">{pollList[0].title}</h5>
                 </div>
-            ) : null}
+            ) : (
+                thumbnail && <Image className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} width={280} height={150} />
+            )}
         </section>
     );
 };
