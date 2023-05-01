@@ -14,7 +14,7 @@ interface IFeedHeaderProps {
 
 const FeedHeader = ({ isCurrentScrollTop, categoryId }: IFeedHeaderProps) => {
     const router = useRouter();
-
+    
     return (
         <header css={HomeMenuStyle({ isCurrentScrollTop })}>
             <div className="header">
@@ -25,17 +25,21 @@ const FeedHeader = ({ isCurrentScrollTop, categoryId }: IFeedHeaderProps) => {
                         </h1>
 
                         <div className="right">
+
                             {isCurrentScrollTop === false && (
                                 <Link href="/search">
                                     <SearchIcon />
                                 </Link>
                             )}
+
                             <Link href="/mypage" className="mypage">
                                 <MyPageIcon />
                             </Link>
                             {/* TODO : 2차 오픈때 개발 예정 */}
                             <button>
+
                                 <AlarmIcon />
+
                             </button>
                         </div>
                     </div>

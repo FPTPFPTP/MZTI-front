@@ -19,8 +19,10 @@ const menus = [
 ];
 
 const ListTab = ({ handleCategoryId, categoryId }: IListTabProps) => {
+
     const handleOnClick = (categoryId?: number) => {
         handleCategoryId(categoryId);
+
     };
 
     return (

@@ -111,17 +111,20 @@ export default commentDetail;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, params }: any) => {
     let comment;
+
     try {
         const token = req.cookies['accessToken'];
         Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
         Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
         // const commentRes = await Axios.get<IResponseBase<ICommentModel>>(`/post/comment/${Number(params.commentId)}`);
+
     } catch (err) {
         console.log('error', err);
     }
     return {
         props: {
             commentId: Number(params.commentId),
+
         },
     };
 };
