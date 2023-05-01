@@ -8,10 +8,11 @@ import { Input } from '@components/Commons';
 import { HomeMenuStyle, SearchWrapStyle } from './styled';
 
 interface IFeedHeaderProps {
-    isCurrentScrollTop: boolean;
+    isCurrentScrollTop?: boolean;
+    categoryId?: number;
 }
 
-const FeedHeader = ({ isCurrentScrollTop }: IFeedHeaderProps) => {
+const FeedHeader = ({ isCurrentScrollTop, categoryId }: IFeedHeaderProps) => {
     const router = useRouter();
 
     return (
@@ -24,7 +25,7 @@ const FeedHeader = ({ isCurrentScrollTop }: IFeedHeaderProps) => {
                         </h1>
 
                         <div className="right">
-                            {!isCurrentScrollTop && (
+                            {isCurrentScrollTop === false && (
                                 <Link href="/search">
                                     <SearchIcon />
                                 </Link>
@@ -40,9 +41,13 @@ const FeedHeader = ({ isCurrentScrollTop }: IFeedHeaderProps) => {
                     </div>
                 </div>
             </div>
-            {isCurrentScrollTop && (
+            {(isCurrentScrollTop || isCurrentScrollTop === undefined) && (
                 <div css={SearchWrapStyle}>
-                    <Input inputStyle={'search'} placeholder={'관심있는 MBTI, 키워드, 이슈 검색'} onClick={() => router.push('/search')} />
+                    <Input
+                        inputStyle={'search'}
+                        placeholder={'관심있는 MBTI, 키워드, 이슈 검색'}
+                        onClick={() => router.push(`/search${categoryId ? `/${categoryId}` : ''}`)}
+                    />
                 </div>
             )}
         </header>

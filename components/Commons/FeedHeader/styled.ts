@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
-export const HomeMenuStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop: boolean }) => css`
+export const HomeMenuStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop?: boolean }) => css`
     position: sticky;
     top: 0;
     left: 0;
