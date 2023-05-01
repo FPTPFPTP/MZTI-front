@@ -47,7 +47,7 @@ const EditorBox = (props: IEditorBox) => {
     );
 
     const onBackPage = () => {
-        router.back();
+        router.push('/home');
     };
 
     const handleCategoryChange = (value: string) => {

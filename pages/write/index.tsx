@@ -17,7 +17,7 @@ const Write = () => {
     useEffect(() => {
         // 비회원일때
         if (!myInfo) {
-            router.back();
+            router.push('/mypage');
             openToast({ message: '글쓰기는 로그인 후 진행해주세요' });
         }
     }, [myInfo]);

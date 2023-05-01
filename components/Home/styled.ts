@@ -8,8 +8,7 @@ export const FeedComentsWrapStyle = css`
 export const ListTabStyle = css`
     position: relative;
     width: 100%;
-    padding: 0 20px;
-    border-bottom: 2px solid ${colors.GRAY_ORIGIN_1};
+    border-bottom: 1px solid ${colors.GRAY_ORIGIN_1};
     > div {
         display: flex;
         justify-content: space-around;
@@ -211,7 +210,6 @@ export const ItemHeaderStyle = css`
             border-radius: 50%;
             overflow: hidden;
             border-radius: 50%;
-            border: 1px solid ${colors.GRAY_STRONG_2};
             width: 60px;
             height: 60px;
 
@@ -227,16 +225,15 @@ export const ItemHeaderStyle = css`
             }
         }
         .userInfo__Text {
-            width: 100%;
             padding-left: 11px;
+            display: flex;
             .userInfo__Text--layout {
-                display: flex;
+                display: grid;
                 justify-content: space-between;
             }
             .mbti {
                 display: inline-block;
                 margin-right: 6px;
-                border: 1px solid ${colors.GRAY_ORIGIN_1};
                 padding: 4px 8px;
                 border-radius: 41px;
                 color: ${colors.GRAY_STRONG};
@@ -244,6 +241,9 @@ export const ItemHeaderStyle = css`
                 font-weight: 700;
                 line-height: 9px;
                 text-align: center;
+            }
+            .nickname {
+                margin-top: 8px;
             }
             .level {
                 display: inline-block;
@@ -257,11 +257,18 @@ export const ItemHeaderStyle = css`
                 text-align: center;
             }
             .nickname_time {
-                display: flex;
+                display: grid;
                 color: ${colors.GRAY_STRONG};
                 justify-content: space-between;
                 align-items: center;
                 margin-top: 12px;
+                position: absolute;
+                right: 0;
+                button {
+                    position: absolute;
+                    right: 0;
+                    top: -8px;
+                }
                 .nickname {
                     font-size: 15px;
                     font-weight: 500;
@@ -272,6 +279,7 @@ export const ItemHeaderStyle = css`
                     font-weight: 500;
                     line-height: 15px;
                     color: #54545680;
+                    margin-top: 8px;
                 }
             }
         }

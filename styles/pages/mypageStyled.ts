@@ -17,14 +17,6 @@ export const Layout = css`
 export const MypageWrap = css`
     padding: 0 20px 20px;
     background: #f5f5f5;
-    .mypage_header {
-        h1 {
-            padding-left: 20px;
-        }
-        .edit {
-            padding-right: 20px;
-        }
-    }
     .first-title {
         padding-left: 20px;
         font-weight: 700;
