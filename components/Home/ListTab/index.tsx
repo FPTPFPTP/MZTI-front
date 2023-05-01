@@ -13,7 +13,7 @@ const menus = [
     },
     {
         categoryId: undefined,
-        name: '전체',
+        name: '최신',
         isActive: false,
     },
 ];
