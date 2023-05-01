@@ -57,13 +57,13 @@ const ItemHeader = ({ writer, createAt, writerID, categoryId }: IItemHeader) => 
                                 <span className="level">Lv.{level}</span>
                             </div>
 
-                            <button onClick={openDrawer}>
-                                <MoreButton />
-                            </button>
+                            <p className="nickname">{nickname}</p>
                         </div>
 
                         <div className="nickname_time">
-                            <p className="nickname">{nickname}</p>
+                            <button onClick={openDrawer}>
+                                <MoreButton />
+                            </button>
                             <p className="time">{timeForToday(createAt)}</p>
                         </div>
                     </div>

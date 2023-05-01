@@ -12,6 +12,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import DepthMenu from '@/components/MyPageCom/DepthMenu';
 import { DepthMenuStyle, LogoutModal } from '@/components/MyPageCom/styled';
 import DrawerMenu from '@/components/Commons/Drawer';
+import mem from 'mem';
 
 const etc = () => {
     const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
@@ -54,7 +55,7 @@ const etc = () => {
     ];
 
     const handleAdvertisement = () => {
-        openToast({ message: '✉️ fptp.mz@gmail.com \n 메일주소가 클립보드에 복사되었어요', duration: 3000 });
+        openToast({ message: '✉️ fptp.mz@gmail.com ✉️ \n메일 주소가 복사되었어요.', duration: 2000 });
     };
 
     const handleLogout = () => {
