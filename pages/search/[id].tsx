@@ -66,7 +66,6 @@ const Search = (props: ISearchProps) => {
             <div css={recentSearchWrap}>
                 {searchList.length ? (
                     <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                        {/* <FeedItem data={searchList} isLoading={isLoading} /> */}
                         {searchList.map((item) => {
                             const thumbnail = getThumbnail(item.content);
 

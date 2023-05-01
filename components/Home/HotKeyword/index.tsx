@@ -1,17 +1,23 @@
-import { useGetKeyword } from '@/apis/keyword';
 import Link from 'next/link';
-import { HotKeywordStyle } from '../styled';
 import classNames from 'classnames';
+import { useRecoilState } from 'recoil';
+import { hotKeywordsState } from '@/recoil/atom/hotKeyword';
+import { useGetKeyword } from '@/apis/keyword';
+import { HotKeywordStyle } from '../styled';
 import ArrowRightIcon from '@assets/icons/arrow_right.svg';
 
 interface IHotKeywordProps {
     title: string;
     more: boolean;
-    content?: string;
 }
 
-const HotKeyword = ({ title, more, content }: IHotKeywordProps) => {
-    const keyword = useGetKeyword(0);
+const HotKeyword = ({ title, more }: IHotKeywordProps) => {
+    const [hotKeyword, setHotKeyword] = useRecoilState(hotKeywordsState);
+    const keywords = useGetKeyword(0);
+
+    const onClickKeyword = (keyword: string) => {
+        setHotKeyword(hotKeyword === keyword ? '' : keyword);
+    };
 
     return (
         <section css={HotKeywordStyle}>
@@ -25,11 +31,13 @@ const HotKeyword = ({ title, more, content }: IHotKeywordProps) => {
             </div>
 
             <ul className="keyword">
-                {keyword &&
-                    keyword.map((item: string, index: number) => {
+                {keywords &&
+                    keywords.map((item: string, index: number) => {
                         return (
-                            <li key={index} className={classNames(content === item && 'active')}>
-                                <Link href={`hot-keyword/${item}`}>{item}</Link>
+                            <li key={index} className={classNames(hotKeyword === item && 'active')}>
+                                <Link href={`/hot-keyword`} onClick={() => onClickKeyword(item)}>
+                                    {item}
+                                </Link>
                             </li>
                         );
                     })}
