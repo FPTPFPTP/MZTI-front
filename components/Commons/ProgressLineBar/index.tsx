@@ -13,7 +13,6 @@ const ProgressLineBar = (props: IProgressLineBarProps) => {
             <div css={ProgressBar} className={classNames(percent > 0 && 'active')} />
             <div css={ProgressBar} className={classNames(percent > 1 && 'active')} />
             <div css={ProgressBar} className={classNames(percent > 2 && 'active')} />
-            <div css={ProgressBar} className={classNames(percent > 3 && 'active')} />
         </div>
     );
 };

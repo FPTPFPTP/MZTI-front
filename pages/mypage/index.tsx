@@ -19,7 +19,7 @@ import { IMyPageActive } from '@/types/post';
 import { BottomMenu } from '@/components/Commons';
 const menuList = [
     {
-        title: '내가 북마크 한 글',
+        title: '내가 저장한 글',
         subDesc: '',
         url: '/mypage/bookmark',
         icon: <Bookmark />,
@@ -37,7 +37,7 @@ const menuList = [
         icon: <Support />,
     },
     {
-        title: '기타 서비스 정보 및 계정관리',
+        title: '서비스 정보 및 계정관리',
         subDesc: '이용약관 등',
         url: '/mypage/etc',
         icon: <Etc />,
@@ -57,10 +57,10 @@ const mypage = () => {
     return (
         <>
             <div css={MypageWrap}>
-                <header>
+                <header className="mypage_header">
                     <h1>마이페이지</h1>
                     {myInfo && (
-                        <Link href="/mypage/edit">
+                        <Link href="/mypage/edit" className="edit">
                             <EditSvg />
                         </Link>
                     )}
@@ -74,7 +74,9 @@ const mypage = () => {
                     <NotUser />
                 )}
 
-                <Banner />
+                <div className="bannerWrap">
+                    <Banner />
+                </div>
             </div>
             <Menu menuList={menuList} />
             <BottomMenu />

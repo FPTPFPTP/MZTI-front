@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
-import ArrowLeftOutlined from '@assets/icons/left_arrow.svg';
+import ArrowLeftOutlined from '@assets/icons/header/left_arrow.svg';
 import { HeaderContainerStyle, TitleStyle, RightWrapStyle } from './styled';
 import { useSetRecoilState, useResetRecoilState } from 'recoil';
 import { replayCommentState, replayCommentViewState } from '@/recoil/atom/user';

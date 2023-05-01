@@ -1,13 +1,11 @@
-import { useRouter } from 'next/router';
 import { css } from '@emotion/react';
+import Alarm from '@assets/icons/header/alarm.svg';
 import MyPageIcon from '@assets/icons/header/mypage.svg';
 import Logo from '@assets/icons/common/logo.svg';
 import Link from 'next/link';
 import colors from '@/styles/color';
 
 const FeedHeader = () => {
-    const router = useRouter();
-
     return (
         <header css={HomeMenu}>
             <div className="header">
@@ -18,13 +16,13 @@ const FeedHeader = () => {
                         </h1>
 
                         <div className="right">
-                            {/* TODO : 2차 오픈때 개발 예정 */}
-                            {/* <Link href="/alarm" className="alarm">
-                              <AlarmIcon />
-                          </Link> */}
-                            <Link href="/mypage">
+                            <Link href="/mypage" className="mypage">
                                 <MyPageIcon />
                             </Link>
+                            {/* TODO : 2차 오픈때 개발 예정 */}
+                            <button>
+                                <Alarm />
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -71,8 +69,8 @@ const HomeMenu = () => css`
     .right {
         display: flex;
         align-items: center;
-        .alarm {
-            margin-right: 20px;
+        .mypage {
+            margin-right: 15px;
         }
         a {
             font-size: 1.6rem;

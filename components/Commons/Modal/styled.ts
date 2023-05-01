@@ -2,14 +2,49 @@ import { css } from '@emotion/react';
 import colors from '@styles/color';
 
 export const ModalStyle = css`
+    border-radius: 15px;
+    .ant-modal-header {
+        text-align: center;
+    }
+    .ant-modal-body {
+        text-align: center;
+    }
+    .ant-modal-content {
+        border-radius: 20px !important;
+    }
+
     .ant-modal {
+        width: 100% !important;
+        padding: 0 45px !important;
+        max-width: 100% !important;
+        .ant-modal-title {
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 32px;
+        }
+        .ant-modal-body {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+        }
+        .ant-modal-footer {
+            button {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
         &-header {
             margin: 0px;
             padding: 24px;
         }
         &-title {
-            color: ${colors.BLACK};
-            font-size: 2rem;
+            font-weight: 700;
+            font-size: 17px;
+            line-height: 22px;
+            text-align: center;
+            letter-spacing: -0.408px;
+            color: #1b1e26;
         }
 
         &-content {

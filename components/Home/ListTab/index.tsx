@@ -1,31 +1,33 @@
-import { useState } from 'react';
 import { ListTabStyle } from '../styled';
 import classnames from 'classnames';
 
+interface IListTabProps {
+    handleCategoryId: (id?: number) => void;
+    categoryId?: number;
+}
 const menus = [
     {
-        name: '인기 게시판',
-        path: '/',
+        categoryId: 22,
+        name: '인기',
         isActive: false,
     },
     {
-        name: '전체 게시판',
-        path: '/',
+        categoryId: undefined,
+        name: '전체',
         isActive: false,
     },
 ];
 
-const ListTab = () => {
-    const [countIndex, setCountIndex] = useState<number>(0);
-
-    const handleOnClick = (idx: number) => {
-        setCountIndex(idx);
+const ListTab = ({ handleCategoryId, categoryId }: IListTabProps) => {
+    const handleOnClick = (idx: number | undefined) => {
+        handleCategoryId(idx);
     };
+
     return (
         <section css={ListTabStyle}>
             {menus.map((item, idx: number) => {
                 return (
-                    <button onClick={() => handleOnClick(idx)} className={classnames(countIndex === idx && 'active')} key={idx}>
+                    <button onClick={() => handleOnClick(item.categoryId)} className={classnames(categoryId === item.categoryId && 'active')} key={idx}>
                         {item.name}
                     </button>
                 );

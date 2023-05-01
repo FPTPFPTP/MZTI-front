@@ -6,7 +6,7 @@ import { EmptyStyle } from '../styled';
 interface IEmptyProps {
     title: string; // 제목
     subTitle: string; // desc
-    buttonTitle: string; // 버튼명
+    buttonTitle?: string; // 버튼명
     href?: string; // 링크
     onClick?: () => void;
     icon?: any;
@@ -27,9 +27,11 @@ const Empty = (props: IEmptyProps) => {
                 {subTitle}
             </p>
 
-            <Button buttonStyle={'base'} href={href} onClick={onClick}>
-                {buttonTitle}
-            </Button>
+            {buttonTitle && (
+                <Button buttonStyle={'base'} href={href} onClick={onClick}>
+                    {buttonTitle}
+                </Button>
+            )}
         </div>
     );
 };

@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { Header, Input, Loading } from '@components/Commons';
-import { Empty, ListBox, ListItem } from '@components/MyPageCom';
+import { Header, Input, Loading, BottomMenu } from '@components/Commons';
+import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetBookMarkMe } from '@/apis/post';
+import { getThumbnail } from '@/utils/postItem';
 import EmptyBookmark from '@assets/icons/common/empty_bookmark.svg';
+import SearchIcon from '@assets/icons/common/search_blank.svg';
 
 const BookMarkList = () => {
     const observerRef = useRef(null);
@@ -36,7 +38,7 @@ const BookMarkList = () => {
 
     return (
         <>
-            <Header title={'내가 북마크한 글'} />
+            <Header title={'내가 저장한 글'} />
             <div css={Layout}>
                 <form>
                     <Input
@@ -51,34 +53,36 @@ const BookMarkList = () => {
                 <ListBox>
                     {bookMakrList.length ? (
                         bookMakrList.map((item) => {
-                            // 이미지 있을 때 첫번째 이미지만 가져오기
-                            let thumbnail;
+                            const thumbnail = getThumbnail(item.content);
 
-                            const list = item.content.match(/(<(img[^>]+)>)/g);
-                            if (list && list.length) {
-                                const myRegex = /<img[^>]+src="(https:\/\/[^">]+)"/g;
-
-                                const result = myRegex.exec(list[0]);
-                                if (result !== null) {
-                                    thumbnail = result[1];
-                                }
-                            }
-
-                            return <ListItem key={item.id} item={item} url={`/boardDetail/${item.id}`} thumbnail={thumbnail} />;
+                            return <ListBoardItem key={item.id} item={item} thumbnail={thumbnail} />;
                         })
                     ) : (
-                        <Empty
-                            title="북마크한 글이 없어요"
-                            subTitle="새로운 게시글을 살펴보러 갈까요?"
-                            buttonTitle="메인화면으로 가기"
-                            href="/home"
-                            icon={<EmptyBookmark />}
-                        />
+                        <>
+                            {search && search.length ? (
+                                <Empty
+                                    title="검색 결과가 없어요"
+                                    subTitle="정확한 검색어를 입력했는지\n다시 한 번 확인해주세요"
+                                    buttonTitle="글 작성하러 가기"
+                                    href="/mypage/writeList"
+                                    icon={<SearchIcon />}
+                                />
+                            ) : (
+                                <Empty
+                                    title="저장한 글이 없어요"
+                                    subTitle="새로운 게시글을 살펴보러 갈까요?"
+                                    buttonTitle="메인화면으로 가기"
+                                    href="/home"
+                                    icon={<EmptyBookmark />}
+                                />
+                            )}
+                        </>
                     )}
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}
                     </div>
                 </ListBox>
+                <BottomMenu />
             </div>
         </>
     );

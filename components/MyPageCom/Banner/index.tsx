@@ -1,8 +1,7 @@
 import { BannerStyle } from '../styled';
-import BannerImg from '@assets/icons/mypage/banner.svg';
 
 const Banner = () => {
-    return <section css={BannerStyle}></section>;
+    return <section css={BannerStyle} />;
 };
 
 export default Banner;

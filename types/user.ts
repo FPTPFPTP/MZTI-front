@@ -4,4 +4,6 @@ export interface IUserModel {
     mbti: string;
     intro: string;
     profileImage?: string;
+    platform?: string;
+    email?: string;
 }

@@ -4,8 +4,8 @@ import color from '@/styles/color';
 
 export const Layout = css`
     position: relative;
-    height: 100vh;
-    padding: 20px;
+    height: calc(100vh - 163px);
+    padding: 0px 20px;
     background-color: ${color.WHITE};
     .loader {
         display: flex;
@@ -15,14 +15,30 @@ export const Layout = css`
 `;
 
 export const MypageWrap = css`
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 20px;
     background: #f5f5f5;
+    .mypage_header {
+        h1 {
+            padding-left: 20px;
+        }
+        .edit {
+            padding-right: 20px;
+        }
+    }
+    .first-title {
+        padding-left: 20px;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: -0.408px;
+        margin-bottom: 35px;
+    }
     header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding-top: 89px;
+        padding-top: 60px;
         h1 {
             color: #545456;
             font-weight: 700;
@@ -77,9 +93,19 @@ export const MypageWrap = css`
                     margin-top: 9px;
                 }
                 p {
-                    font-weight: 400;
+                    font-weight: 700;
                     font-size: 13px;
-                    line-height: 16px;
+                    display: flex;
+                    align-items: center;
+                }
+                .notUser__right--flex {
+                    display: flex;
+                }
+                .notUser__right--flex {
+                    display: flex;
+                }
+                .notUser__right--flex {
+                    display: flex;
                 }
                 .notUser__right--flex {
                     display: flex;
@@ -106,35 +132,43 @@ export const MypageWrap = css`
         padding: 15px 0;
         display: flex;
         justify-content: space-between;
-        padding: 15px 20px;
+        padding: 15px 30px;
         width: 100%;
     }
     .profileWrap {
         background: #ffffff;
         border-radius: 13px;
         padding: 25px;
-        margin-top: 37px;
+        margin: 37px 0 12px;
     }
 `;
 
 export const NoticeViewStyle = css`
     .header {
-        padding: 10px 32px 16px;
-        border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+        padding: 20px 20px 40px 20px;
+        border-top: 0.5px solid #a7a7a7;
         h3 {
-            font-size: 1.4rem;
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: -0.408px;
+            color: #1b1e26;
+            padding-bottom: 10px;
         }
         p {
-            font-size: 1rem;
-            color: ${colors.GRAY_STRONG};
-            font-weight: 300;
-            text-align: right;
-            margin-top: 35px;
+            font-weight: 500;
+            font-size: 15px;
+            letter-spacing: -0.408px;
+            color: #545456;
         }
     }
     article {
-        padding: 57px 33px;
+        padding: 0 20px;
         font-size: 1.2rem;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 22px;
+        letter-spacing: -0.408px;
+        color: #545456;
     }
 `;
 
