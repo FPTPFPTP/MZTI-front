@@ -6,6 +6,7 @@ export const FeedComentsWrapStyle = css`
 `;
 
 export const ListTabStyle = css`
+    margin-top: 20px;
     position: relative;
     width: 100%;
     border-bottom: 1px solid ${colors.GRAY_ORIGIN_1};
