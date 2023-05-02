@@ -13,16 +13,16 @@ import { useGetReComments, commentPut, reCommentPost } from '@/apis/post';
 import Axios from '@utils/axios';
 import { postImageUpload } from '@utils/upload';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
-// import { ICommentModel } from '@/types/post';
+import { IResponseBase } from '@/types/global';
+import { ICommentModel } from '@/types/post';
 import { ReplayCommentStyled } from '@/styles/pages/commentDetailStyle';
 
 interface IPostDetailProps {
-    // comment?: ICommentModel;
+    comment?: ICommentModel;
     commentId: number;
 }
 
-const commentDetail = ({ commentId }: IPostDetailProps) => {
-    const [commentValue, setCommentValue] = useState<string>('');
+const commentDetail = ({ comment, commentId }: IPostDetailProps) => {
     //  댓글 호출
     const [getCommentModifyState, setCommentModifyState] = useRecoilState(commentModify);
     const getCommentModifyId = useRecoilValue(commentModifyId);
@@ -35,7 +35,7 @@ const commentDetail = ({ commentId }: IPostDetailProps) => {
     };
 
     // 대댓글 추가
-    const AddReComment = async (imageFile?: File) => {
+    const AddReComment = async (commentValue: string, imageFile?: File) => {
         let imageSrc;
         if (imageFile) {
             imageSrc = await postImageUpload(imageFile);
@@ -48,7 +48,6 @@ const commentDetail = ({ commentId }: IPostDetailProps) => {
         });
         if (reComment) {
             onSuccessComment();
-            setCommentValue('');
         }
     };
 
@@ -58,16 +57,15 @@ const commentDetail = ({ commentId }: IPostDetailProps) => {
         if (imageFile) {
             imageSrc = await postImageUpload(imageFile);
         }
-        const reComment = await commentPut({ id: getCommentModifyId, comment: commentValue, image: imageSrc });
+        const reComment = await commentPut({ id: getCommentModifyId, comment: 'commentValue', image: imageSrc });
         if (reComment) {
             onSuccessComment();
-            setCommentValue('');
         }
     };
 
-    const handleContact = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCommentValue(e.target.value);
-    };
+    useEffect(() => {
+        console.log({ comment });
+    }, [comment]);
 
     return (
         <main className="homeLayout">
@@ -88,20 +86,16 @@ const commentDetail = ({ commentId }: IPostDetailProps) => {
 
             {getCommentModifyState ? (
                 // 댓글 수정용
-                <CommentModifyInput
-                    onSuccess={onSuccessComment}
-                    handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
-                    PutComment={PutComment}
-                    comment={commentValue}
-                />
+                // <CommentModifyInput
+                //     onSuccess={onSuccessComment}
+                //     handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
+                //     PutComment={PutComment}
+                //     comment={commentValue}
+                // />
+                <div>test</div>
             ) : (
                 // 일반 댓글용
-                <CommentInput
-                    onSuccess={onSuccessComment}
-                    handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
-                    AddComment={AddReComment}
-                    comment={commentValue}
-                />
+                <CommentInput onAddComment={AddReComment} />
             )}
         </main>
     );
@@ -116,15 +110,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
         const token = req.cookies['accessToken'];
         Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
         Axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
-        // const commentRes = await Axios.get<IResponseBase<ICommentModel>>(`/post/comment/${Number(params.commentId)}`);
-
+        const commentRes = await Axios.get<IResponseBase<ICommentModel>>(`/post/comment/${Number(params.commentId)}`);
+        comment = commentRes.data.data;
     } catch (err) {
         console.log('error', err);
     }
     return {
         props: {
+            comment: comment,
             commentId: Number(params.commentId),
-
         },
     };
 };

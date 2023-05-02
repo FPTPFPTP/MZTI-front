@@ -1,8 +1,15 @@
+import { useCallback, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
-import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
-import { Header } from '@components/Commons';
+import classNames from 'classnames';
+import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
+import { useMutation } from '@tanstack/react-query';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { commentModify, commentText, commentModifyId, myPageInfo } from '@/recoil/atom/user';
+import { postEditState } from '@/recoil/atom/post';
+import { Header, MoreDrawer } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
 import { BookMarkIconStyle, PostStyle, PostContentStyle } from '@styles/pages/boardDetailStyled';
@@ -10,18 +17,13 @@ import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import Axios from '@utils/axios';
-import { getPost, postBookmark, getComments, commentPut } from '@apis/post';
-import { IResponseBase, IPaginationResponse } from '@/types/global';
-import { ICommentModel, IEditComment, IPostModel } from '@/types/post';
-import { useMutation } from '@tanstack/react-query';
-import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
+import { getPost, postBookmark, getComments, commentPut, deletePost, deleteComment } from '@apis/post';
 import CommentInput from '@/components/Commons/CommentInput';
-import classNames from 'classnames';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { commentModify, commentText, commentModifyId } from '@/recoil/atom/user';
-import CommentModifyInput from '@/components/Commons/CommentModifyInput';
 import { openToast } from '@utils/toast';
 import { postImageUpload } from '@utils/upload';
+import { categoryIdToURL } from '@/utils/category';
+import { IResponseBase, IPaginationResponse } from '@/types/global';
+import { ICommentModel, IEditComment, IPostModel, EActionEditType } from '@/types/post';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
@@ -33,18 +35,31 @@ interface IPostDetailProps {
 }
 
 const postDetail = ({ data, commentData }: IPostDetailProps) => {
+    const myInfo = useRecoilValue(myPageInfo);
+    const [editTarget, setEditTarget] = useRecoilState(postEditState);
+
     const usePostLike = useMutation((id: any) => postBookmark(id));
+    // 상세 게시글
     const [postData, setPostData] = useState<IPostModel | undefined>(data);
+    // 북마크 체크
     const [isBookMark, setIsBookMark] = useState<boolean>(false);
+    // 투표 데이터
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
-    const [comment, setComment] = useState<ICommentModel[]>(commentData.list);
-    const [commentValue, setCommentValue] = useRecoilState(commentText);
+    // 댓글 리스트
+    const [comments, setComments] = useState<ICommentModel[]>(commentData.list);
+    // 댓글 수정, 삭제
+    const [editComment, setEditComment] = useState<ICommentModel>();
+    // 댓글 pageParam
     const [pageParam, setPagePagram] = useState<number>(0);
+    // 댓글 수정 Drawer
+    const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
     //  댓글 호출
     const [getCommentModifyState, setCommentModifyState] = useRecoilState(commentModify);
     const getCommentModifyId = useRecoilValue(commentModifyId);
     // 댓글 수정
     const { mutate } = useMutation(({ id, comment, image }: IEditComment) => commentPut({ id: id, comment: comment, image: image }));
+
+    const router = useRouter();
 
     // 북마크하기
     const handleBookMark = () => {
@@ -69,20 +84,16 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
         });
     };
 
-    const handleContact = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCommentValue(e.target.value);
-    };
-
     const onSuccessComment = async () => {
         if (postData) {
             const view = (pageParam + 1) * 15;
             const commentRes = await getComments({ postId: postData.id, page: 0, view });
-            setComment(commentRes.list);
+            setComments(commentRes.list);
         }
     };
 
     // 댓글 추가
-    const AddComment = async (imageFile?: File) => {
+    const AddComment = async (commentValue: string, imageFile?: File) => {
         let imageSrc;
         if (imageFile) {
             imageSrc = await postImageUpload(imageFile);
@@ -94,30 +105,54 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
         });
         if (comment) {
             onSuccessComment();
-            setCommentValue('');
         }
     };
 
     // 댓글 수정!!!
-    const PutComment = useCallback(
-        async (imageFile?: File) => {
-            let imageSrc;
-            if (imageFile) {
-                imageSrc = await postImageUpload(imageFile);
+    const PutComment = async (id: number, commentValue: string, imageFile?: File, imageUrl?: string) => {
+        let imageSrc;
+        if (imageFile) {
+            imageSrc = await postImageUpload(imageFile);
+        } else {
+            imageSrc = imageUrl;
+        }
+        const res = await commentPut({ id, comment: commentValue, image: imageSrc });
+        if (res.code === 'SUCCESS') {
+            onSuccessComment();
+            setEditComment(undefined);
+        }
+    };
+
+    const onTargetEdit = async (id: number, type: EActionEditType) => {
+        if (type === EActionEditType.COMMENT) {
+            const targetComment = comments.find((comment) => comment.id === id);
+            if (targetComment) {
+                setEditComment(targetComment);
+                closeDrawer();
             }
-            mutate(
-                { id: getCommentModifyId, comment: commentValue, image: imageSrc },
-                {
-                    onSuccess: () => {
-                        onSuccessComment();
-                        setCommentValue('');
-                        setCommentModifyState(false);
-                    },
-                },
-            );
-        },
-        [getCommentModifyId, commentValue],
-    );
+        }
+    };
+
+    const onTargetDelete = async (id: number, type: EActionEditType) => {
+        if (type === EActionEditType.WRITE) {
+            const res = await deletePost(id);
+            if (res.code === 'SUCCESS') {
+                openToast({ message: '삭제 완료되었습니다.' });
+                postData && router.push(`/board/${categoryIdToURL(postData.categoryId)}`);
+            } else {
+                openToast({ message: '삭제 실패했습니다. 다시 시도해주세요.' });
+            }
+        } else if (type === EActionEditType.COMMENT) {
+            const res = await deleteComment(id);
+            if (res.code === 'SUCCESS') {
+                openToast({ message: '삭제 완료되었습니다.' });
+                onSuccessComment();
+                closeDrawer();
+            } else {
+                openToast({ message: '삭제 실패했습니다. 다시 시도해주세요.' });
+            }
+        }
+    };
 
     // 새로고침
     const handleRefrash = () => {
@@ -130,16 +165,25 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
         setPagePagram(pageParam + 1);
     };
 
+    const openDrawer = (id: number, type: EActionEditType) => {
+        setEditTarget({
+            id,
+            editActionType: type,
+        });
+        setIsDrawerVisible(true);
+    };
+    const closeDrawer = () => setIsDrawerVisible(false);
+
     useEffect(() => {
         if (postData && pageParam >= 1) {
             getComments({ postId: Number(postData.id), page: pageParam, view: 15 }).then((result: any) => {
                 const resultList = result.list;
-                const sortList = [...comment, ...resultList];
+                const sortList = [...comments, ...resultList];
                 const sorted_list = sortList.sort(function (a, b) {
                     return new Date(a.createAt).getTime() - new Date(b.createAt).getTime();
                 });
 
-                setComment(sorted_list);
+                setComments(sorted_list);
             });
         }
     }, [pageParam]);
@@ -170,80 +214,81 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
         }
     }, [postData]);
 
+    useEffect(() => {
+        console.log({ comments });
+    }, [comments]);
+
     return (
         <main className="homeLayout">
-            {/* 헤더 */}
-            <Header
-                isPrevBtn={true}
-                title={postData?.categoryName}
-                rightElement={
-                    <div className="right" css={BookMarkIconStyle}>
-                        <button onClick={handleBookMark} className={classNames(isBookMark ? 'fill' : 'notFill')}>
-                            {postData?.bookmark.check === true ? <FillBookMarkIcon /> : <BookMarkIcon />}
-                        </button>
-                    </div>
-                }
-            />
-            <div css={PostContentStyle}>
-                {postData && (
-                    <div css={PostStyle}>
-                        <div className="postHeaderWrap">
-                            <h3 className="postTitle">{postData.title}</h3>
-                            <ItemHeader writer={postData.writer} createAt={postData.updateAt} writerID={postData.id} categoryId={postData.categoryId} />
-                        </div>
-                        <ToastViewer contentHtml={postData.content} />
-                        {surveyData.map((survey) => (
-                            <div key={survey.id}>
-                                {dayjs() > dayjs(survey.endDate) ? (
-                                    <DefaultModeResult survey={survey} onSubmit={onPoll} />
-                                ) : survey.self ? (
-                                    <DefaultModeResult survey={survey} onSubmit={onPoll} />
-                                ) : (
-                                    <DefaultModeViewer survey={survey} onSubmit={onPoll} />
-                                )}
+            {postData && (
+                <>
+                    {/* 헤더 */}
+                    <Header
+                        isPrevBtn={true}
+                        title={postData.categoryName}
+                        rightElement={
+                            <div className="right" css={BookMarkIconStyle}>
+                                <button onClick={handleBookMark} className={classNames(isBookMark ? 'fill' : 'notFill')}>
+                                    {postData?.bookmark.check === true ? <FillBookMarkIcon /> : <BookMarkIcon />}
+                                </button>
                             </div>
-                        ))}
+                        }
+                    />
+                    <div css={PostContentStyle}>
+                        {postData && (
+                            <div css={PostStyle}>
+                                <div className="postHeaderWrap">
+                                    <h3 className="postTitle">{postData.title}</h3>
+                                    <ItemHeader
+                                        writer={postData.writer}
+                                        createAt={postData.updateAt}
+                                        openDrawer={() => {
+                                            openDrawer(
+                                                postData.id,
+                                                myInfo?.id === postData.writer.userId ? EActionEditType.WRITE : EActionEditType.WRITET_TIPOFF,
+                                            );
+                                        }}
+                                    />
+                                </div>
+                                <ToastViewer contentHtml={postData.content} />
+                                {surveyData.map((survey) => (
+                                    <div key={survey.id}>
+                                        {dayjs() > dayjs(survey.endDate) ? (
+                                            <DefaultModeResult survey={survey} onSubmit={onPoll} />
+                                        ) : survey.self ? (
+                                            <DefaultModeResult survey={survey} onSubmit={onPoll} />
+                                        ) : (
+                                            <DefaultModeViewer survey={survey} onSubmit={onPoll} />
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        <ItemFooter
+                            postId={postData.id}
+                            className="postFooter"
+                            like={postData.like.count === 0 ? '좋아요' : postData.like?.count}
+                            command={postData.command.count}
+                            isFeed={false}
+                            viewCount={postData.viewCount}
+                            likeCheck={postData.like.check}
+                        />
+
+                        <FeedComents
+                            isLastPage={commentData.totalPage === pageParam}
+                            commentData={comments}
+                            postWriterId={postData.writer.id}
+                            handleRefrash={handleRefrash}
+                            handleMoreComment={handleMoreComment}
+                            openDrawer={openDrawer}
+                        />
                     </div>
-                )}
 
-                {data && (
-                    <ItemFooter
-                        postId={data.id}
-                        className="postFooter"
-                        like={data.like.count === 0 ? '좋아요' : data.like?.count}
-                        command={data.command.count}
-                        isFeed={false}
-                        viewCount={data.viewCount}
-                        likeCheck={data.like.check}
-                    />
-                )}
+                    <CommentInput editComment={editComment} onAddComment={AddComment} onEditComment={PutComment} />
 
-                {postData && (
-                    <FeedComents
-                        isLastPage={commentData.totalPage === pageParam}
-                        commentData={comment}
-                        postWriterId={postData.writer.id}
-                        handleRefrash={handleRefrash}
-                        handleMoreComment={handleMoreComment}
-                    />
-                )}
-            </div>
-            {getCommentModifyState ? (
-                // 댓글 수정용
-                <CommentModifyInput
-                    onSuccess={onSuccessComment}
-                    handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
-                    PutComment={PutComment}
-                    comment={commentValue}
-                />
-            ) : (
-                // 일반 댓글용
-                <CommentInput
-                    onSuccess={onSuccessComment}
-                    handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
-                    AddComment={AddComment}
-                    comment={commentValue}
-                />
+                    <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
+                </>
             )}
         </main>
     );

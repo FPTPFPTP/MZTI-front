@@ -285,10 +285,10 @@ export const postLike = async (postId: any) => {
  * @param postId
  * @returns
  */
-export const deletePost = async (postId: any) => {
+export const deletePost = async (postId: number) => {
     const res = await Axios.delete<IResponseBase<any>>(`/post/${postId}`);
 
-    return res.data.data;
+    return res.data;
 };
 
 /**
@@ -351,7 +351,7 @@ export const commentPut = async ({ id, comment, image }: IEditComment) => {
 export const deleteComment = async (postId: any) => {
     const res = await Axios.delete<IResponseBase<any>>(`/post/comment/${postId}`);
 
-    return res.data.data;
+    return res.data;
 };
 
 /**

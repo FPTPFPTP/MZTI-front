@@ -9,60 +9,30 @@ import ReComment from '@assets/icons/comment/reComment.svg';
 import ReCommentLike from '@assets/icons/comment/reCommentLike.svg';
 import WriterMainIcon from '@assets/icons/comment/writerMain.svg';
 import ReCommentBoard from '@assets/icons/comment/reCommentBoard.svg';
-import { MoreDrawer } from '@/components/Commons';
 import { CommentItemSylte, DeletedComment, MoreCommentStyle } from '../../styled';
-import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
-import {
-    myPageInfo,
-    replayCommentState,
-    replayCommentId,
-    replayCommentViewState,
-    commentContent,
-    commentText,
-    commentModify,
-    commentModifyId,
-} from '@/recoil/atom/user';
-import { EType } from '@/components/Commons/MoreDrawer';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { deleteComment, commentLike, reCommentGet, getComments, getCommentDetail } from '@/apis/post';
-import { ILikeModel, ICommentModel } from '@/types/post';
+import { useRecoilValue } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
+import { useMutation } from '@tanstack/react-query';
+import { commentLike, reCommentGet } from '@/apis/post';
+import { ILikeModel, ICommentModel, EActionEditType } from '@/types/post';
 import ReplayCommentItem from './ReplayCommentItem';
 
 export interface ICommentItemProps {
     commentItem: ICommentModel;
     postWriterId?: number;
+    openDrawer: (id: number, type: EActionEditType) => void;
 }
 
-const CommentItem = ({ commentItem, postWriterId }: ICommentItemProps) => {
-    const { id, subComment, writer, postId, comment, like, createAt, image } = commentItem;
+const CommentItem = ({ commentItem, postWriterId, openDrawer }: ICommentItemProps) => {
+    const { id, subComment, writer, comment, like, createAt, image } = commentItem;
     const myInfo = useRecoilValue(myPageInfo);
     const [isLike, setIsLike] = useState<boolean>(like.check);
-    const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [likeCount, setLikeCount] = useState<any>(like.count);
+    const [likeCount, setLikeCount] = useState<number>(like.count);
     const [reComments, setRecomments] = useState<ICommentModel[]>([]);
     const [totalReComment, setTotalRecomment] = useState<number>(0);
 
-    const openDrawer = () => setIsVisible(true);
-    const closeDrawer = () => setIsVisible(false);
-    // 댓글 삭제
-    const commentDelete = useMutation((id: number) => deleteComment(id));
     // 대댓글 좋아요
     const reCommentLike = useMutation((id: number) => commentLike(id));
-
-    const [commentContentState, setCommentContentState] = useRecoilState(commentContent);
-    const setCommentValue = useSetRecoilState(commentText);
-    const setCommentModifyState = useSetRecoilState(commentModify);
-    const setCommentModifyId = useSetRecoilState(commentModifyId);
-
-    // 댓글 삭제
-    const handleCommentDelete = () => {
-        confirm('댓글을 삭제하시겠습니까?');
-        commentDelete.mutate(id, {
-            onSuccess: () => {
-                alert('삭제 완료되었습니다.');
-            },
-        });
-    };
 
     // 댓글 좋아요
     const handleReCommentLike = () => {
@@ -78,21 +48,6 @@ const CommentItem = ({ commentItem, postWriterId }: ICommentItemProps) => {
             },
         });
     };
-
-    // 댓글 수정하기
-    const handleCommentEdit = (id: number) => {
-        setCommentModifyId(id);
-        getCommentDetail(id).then((res) => {
-            setCommentContentState(res.comment);
-        });
-
-        setIsVisible(false);
-        setCommentModifyState(true);
-    };
-
-    useEffect(() => {
-        setCommentValue(commentContentState);
-    }, [commentContentState]);
 
     useEffect(() => {
         if (subComment && subComment.count > 0) {
@@ -144,21 +99,14 @@ const CommentItem = ({ commentItem, postWriterId }: ICommentItemProps) => {
                             </Link>
                         )}
 
-                        <button onClick={openDrawer} className="moreButton">
+                        <button
+                            onClick={() => openDrawer(id, myInfo?.id === writer.userId ? EActionEditType.COMMENT : EActionEditType.COMMENT_TIPOFF)}
+                            className="moreButton"
+                        >
                             <MoreButton />
                         </button>
                     </div>
                 </div>
-
-                <MoreDrawer
-                    type={myInfo?.nickname === writer.nickname ? EType.COMMENT : EType.COMMENT_TIPOFF}
-                    onClick={closeDrawer}
-                    isVisible={isVisible}
-                    writerID={postId}
-                    handleCommentDelete={handleCommentDelete}
-                    commentId={postId}
-                    handleCommentEdit={() => handleCommentEdit(Number(id))}
-                />
             </section>
 
             {/* 대댓글 더보기 */}

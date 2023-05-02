@@ -10,7 +10,6 @@ import { MoreDrawer } from '@/components/Commons';
 import { CommentItemSylte } from '../../../styled';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
-import { EType } from '@/components/Commons/MoreDrawer';
 import { useMutation } from '@tanstack/react-query';
 import { deleteComment, commentLike } from '@/apis/post';
 import { ILikeModel, ICommentModel } from '@/types/post';
@@ -94,14 +93,6 @@ const ReplayCommentItem = ({ replayCommentItem, postWriterId }: IReplayCommentIt
                         </button>
                     </div>
                 </div>
-
-                <MoreDrawer
-                    type={myInfo?.nickname === writer.nickname ? EType.COMMENT : EType.COMMENT_TIPOFF}
-                    onClick={closeDrawer}
-                    isVisible={isVisible}
-                    writerID={writer.id}
-                    handleCommentDelete={handleCommentDelete}
-                />
             </section>
         </>
     );
