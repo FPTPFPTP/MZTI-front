@@ -2,6 +2,7 @@ import { myPageInfo } from '@/recoil/atom/user';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { MenuStyle } from '../styled';
+import { v1 } from 'uuid';
 
 type Props = {
     menuList: menuProps[];
@@ -33,14 +34,12 @@ const Menu = ({ menuList }: Props) => {
                     }
                 } else {
                     return (
-                        <>
-                            <li key={index}>
-                                <Link href={item.url}>
-                                    {item.icon && <span className="icon">{item.icon}</span>}
-                                    <span>{item.title}</span>
-                                </Link>
-                            </li>
-                        </>
+                        <li key={v1()}>
+                            <Link href={item.url}>
+                                {item.icon && <span className="icon">{item.icon}</span>}
+                                <span>{item.title}</span>
+                            </Link>
+                        </li>
                     );
                 }
             })}

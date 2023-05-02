@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import colors from '@styles/color';
 
 export const editLayout = css`
-    padding: 0 30px;
+    padding: 0 20px;
     input {
         font-size: 1.2rem;
         margin-top: 20px;
@@ -69,7 +69,13 @@ export const myPageEditStyle = css`
     background-color: ${colors.WHITE};
     padding-bottom: 130px;
     .buttonWrap {
-        text-align: center;
-        margin-top: 48px;
+        display: flex;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 83px;
+        z-index: 50;
+        padding: 0 20px;
     }
 `;

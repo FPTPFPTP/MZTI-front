@@ -140,7 +140,13 @@ const globalReset = () => css`
         width: 100%;
     }
     .toastui-editor-contents p {
-        font-size: 1.2rem;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 22px;
+        letter-spacing: -0.408px;
+        color: #545456;
+        margin-top: 50px;
+        margin-bottom: 0;
     }
 
     /** 반응형 */
@@ -148,7 +154,7 @@ const globalReset = () => css`
         display: flex;
         flex-direction: column;
         height: 100%;
-        background: ${colors.GRAY_BRIGHT_4};
+        background: #f8f8f8;
     }
     /* Drawer 모달 */
     .rbd-y5j5tv9v8tb-db {

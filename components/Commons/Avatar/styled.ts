@@ -10,6 +10,10 @@ export const ContainerStyle = ({ size }: { size?: number }) => css`
     height: ${size}px;
     border-radius: 50%;
     overflow: hidden;
+    .profileSize {
+        width: 250px;
+        height: 250px;
+    }
     img {
         object-fit: cover;
         width: 100%;

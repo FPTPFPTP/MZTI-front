@@ -16,6 +16,7 @@ import { useMutation } from '@tanstack/react-query';
 import { commentLike, reCommentGet } from '@/apis/post';
 import { ILikeModel, ICommentModel, EActionEditType } from '@/types/post';
 import ReplayCommentItem from './ReplayCommentItem';
+import { getMbtiColor } from '@utils/postItem';
 
 export interface ICommentItemProps {
     isTop?: boolean;
@@ -70,16 +71,24 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                             size={60}
                             mbti={writer.mbti}
                         />
-                        <p className="mbti">{writer.mbti}</p>
-                        <p className="nickName">
-                            <span>{writer.nickname}</span>
+                        <div className="writeInfo">
+                            <div className="mbtiNlevel">
+                                <p className="mbti" style={{ background: getMbtiColor(writer.mbti) }}>
+                                    {writer.mbti}
+                                </p>
+                                <p className="level">Lv.{writer.level}</p>
+                            </div>
 
-                            {writer.id === postWriterId && (
-                                <span>
-                                    <WriterMainIcon />
-                                </span>
-                            )}
-                        </p>
+                            <p className="nickName">
+                                <span>{writer.nickname}</span>
+
+                                {writer.id === postWriterId && (
+                                    <span>
+                                        <WriterMainIcon />
+                                    </span>
+                                )}
+                            </p>
+                        </div>
                     </div>
 
                     <p className="coment">{comment}</p>

@@ -13,6 +13,6 @@ const StyledLayout = css`
     background-color: ${color.WHITE};
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     margin: 0 auto;
 `;

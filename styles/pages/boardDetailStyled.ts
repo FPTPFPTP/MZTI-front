@@ -10,7 +10,6 @@ export const BookMarkIconStyle = () => css`
 `;
 
 export const PostContentStyle = () => css`
-    height: calc(100vh - 60px);
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
@@ -24,7 +23,17 @@ export const PostStyle = () => css`
     background: ${colors.WHITE};
 
     .postTitle {
-        font-size: 1.4rem;
-        margin-bottom: 10px;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 20px;
+        color: #1b1e26;
+    }
+    .time {
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.408px;
+        color: #545456;
+        margin-top: 10px;
     }
 `;

@@ -24,6 +24,7 @@ import { postImageUpload } from '@utils/upload';
 import { categoryIdToURL } from '@/utils/category';
 import { IResponseBase, IPaginationResponse } from '@/types/global';
 import { ICommentModel, IPostModel, EActionEditType } from '@/types/post';
+import { timeForToday } from '@/utils/time';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
@@ -32,6 +33,7 @@ const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
 interface IPostDetailProps {
     data?: IPostModel;
     commentData: IPaginationResponse<ICommentModel>;
+    // detailId?: number;
 }
 
 const postDetail = ({ data, commentData }: IPostDetailProps) => {
@@ -211,13 +213,17 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
         }
     }, [postData]);
 
+    const onBackPage = () => {
+        router.push(`/home`);
+    };
+
     return (
         <main className="homeLayout">
             {postData && (
                 <>
                     {/* 헤더 */}
                     <Header
-                        isPrevBtn={true}
+                        onClickBackButton={onBackPage}
                         title={postData.categoryName}
                         rightElement={
                             <div className="right" css={BookMarkIconStyle}>
@@ -232,7 +238,9 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                             <div css={PostStyle}>
                                 <div className="postHeaderWrap">
                                     <h3 className="postTitle">{postData.title}</h3>
+                                    <p className="time">{timeForToday(postData.createAt)}</p>
                                     <ItemHeader
+                                        detailPage={true}
                                         writer={postData.writer}
                                         createAt={postData.updateAt}
                                         openDrawer={() => {

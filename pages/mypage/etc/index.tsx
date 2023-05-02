@@ -78,9 +78,11 @@ const etc = () => {
                     </button>
                 </CopyToClipboard>
 
-                <div className="depthWrap">
-                    <DepthMenu menuList={accountMng} typeTitle="계정 관리" />
-                </div>
+                {myInfo && (
+                    <div className="depthWrap">
+                        <DepthMenu menuList={accountMng} typeTitle="계정 관리" />
+                    </div>
+                )}
             </div>
 
             {isVisible && (

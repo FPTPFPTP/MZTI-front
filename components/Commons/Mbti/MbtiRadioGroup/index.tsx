@@ -7,6 +7,7 @@ interface IMbtiRadioGroup {
     firstValue: string;
     secondValue: string;
     onClick: (value: string) => void;
+    className?: string;
 }
 
 /**
@@ -18,11 +19,11 @@ interface IMbtiRadioGroup {
  * */
 
 const MbtiRadioGroup = (props: IMbtiRadioGroup) => {
-    const { defaultValue, firstValue, secondValue, onClick } = props;
+    const { defaultValue, firstValue, secondValue, onClick, className } = props;
 
     return (
         <div css={RadioTileGroupStyle}>
-            <form>
+            <form className={className}>
                 <MbtiRadioItem defaultValue={defaultValue} value={firstValue} onClick={onClick} />
                 <MbtiRadioItem defaultValue={defaultValue} value={secondValue} onClick={onClick} />
             </form>

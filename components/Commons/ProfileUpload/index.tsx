@@ -25,10 +25,11 @@ const ProfileUpload = (props: IProfileUpload) => {
 
     return (
         <div css={AvatarWrapStyle}>
-            <Avatar src={previewFileSrc ? previewFileSrc : ''} alt={'프로필'} mbti={mbtiInfo.mbti} />
+            <Avatar src={previewFileSrc ? previewFileSrc : ''} alt={'프로필'} mbti={mbtiInfo.mbti} size={250} />
             <div css={UploadWrapStyle} onClick={() => profileImgInputRef.current && profileImgInputRef.current.click()}>
                 <CameraSvg style={{ fontSize: '1.5rem' }} />
             </div>
+
             <input ref={profileImgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} onChange={handleUpdateProfileImg} />
         </div>
     );

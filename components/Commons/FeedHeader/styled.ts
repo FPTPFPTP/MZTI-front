@@ -1,17 +1,14 @@
 import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
-export const HomeMenuStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop?: boolean }) => css`
+export const HomeMenuStyle = () => css`
     position: sticky;
     top: 0;
     left: 0;
     width: 100%;
     padding: 20px;
-    background-color: #fff;
+    background-color: #f8f8f8;
     z-index: 99;
-    ${!isCurrentScrollTop &&
-    `
-    border-bottom: 1px solid  #D9D9D9;`}
 
     .header {
         display: flex;
