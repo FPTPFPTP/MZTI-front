@@ -18,12 +18,13 @@ import { ILikeModel, ICommentModel, EActionEditType } from '@/types/post';
 import ReplayCommentItem from './ReplayCommentItem';
 
 export interface ICommentItemProps {
+    isTop?: boolean;
     commentItem: ICommentModel;
     postWriterId?: number;
     openDrawer: (id: number, type: EActionEditType) => void;
 }
 
-const CommentItem = ({ commentItem, postWriterId, openDrawer }: ICommentItemProps) => {
+const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentItemProps) => {
     const { id, subComment, writer, comment, like, createAt, image } = commentItem;
     const myInfo = useRecoilValue(myPageInfo);
     const [isLike, setIsLike] = useState<boolean>(like.check);
@@ -110,7 +111,7 @@ const CommentItem = ({ commentItem, postWriterId, openDrawer }: ICommentItemProp
             </section>
 
             {/* 대댓글 더보기 */}
-            {totalReComment > 5 && (
+            {!isTop && totalReComment > 5 && (
                 <section css={MoreCommentStyle}>
                     <Link href={`/commentDetail/${id}`}>
                         <button>
@@ -121,17 +122,17 @@ const CommentItem = ({ commentItem, postWriterId, openDrawer }: ICommentItemProp
             )}
 
             {/* 대댓글 */}
-
-            {reComments.map((item: ICommentModel) => {
-                return item.deleted === true ? (
-                    <p css={DeletedComment} key={item.id} className="reComment">
-                        <ReCommentBoard />
-                        <span>삭제된 댓글입니다.</span>
-                    </p>
-                ) : (
-                    <ReplayCommentItem replayCommentItem={item} key={item.id} postWriterId={postWriterId} />
-                );
-            })}
+            {!isTop &&
+                reComments.map((item: ICommentModel) => {
+                    return item.deleted === true ? (
+                        <p css={DeletedComment} key={item.id} className="reComment">
+                            <ReCommentBoard />
+                            <span>삭제된 댓글입니다.</span>
+                        </p>
+                    ) : (
+                        <ReplayCommentItem replayCommentItem={item} key={item.id} postWriterId={postWriterId} openDrawer={openDrawer} />
+                    );
+                })}
         </>
     );
 };

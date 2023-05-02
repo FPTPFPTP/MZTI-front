@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -17,7 +17,7 @@ import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
 import Axios from '@utils/axios';
-import { getPost, postBookmark, getComments, commentPut, deletePost, deleteComment } from '@apis/post';
+import { getPost, postBookmark, getComments, commentPut, deletePost, deleteComment, getCommentDetail } from '@apis/post';
 import CommentInput from '@/components/Commons/CommentInput';
 import { openToast } from '@utils/toast';
 import { postImageUpload } from '@utils/upload';
@@ -51,13 +51,8 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const [editComment, setEditComment] = useState<ICommentModel>();
     // 댓글 pageParam
     const [pageParam, setPagePagram] = useState<number>(0);
-    // 댓글 수정 Drawer
+    // 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
-    //  댓글 호출
-    const [getCommentModifyState, setCommentModifyState] = useRecoilState(commentModify);
-    const getCommentModifyId = useRecoilValue(commentModifyId);
-    // 댓글 수정
-    const { mutate } = useMutation(({ id, comment, image }: IEditComment) => commentPut({ id: id, comment: comment, image: image }));
 
     const router = useRouter();
 
@@ -125,7 +120,8 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
 
     const onTargetEdit = async (id: number, type: EActionEditType) => {
         if (type === EActionEditType.COMMENT) {
-            const targetComment = comments.find((comment) => comment.id === id);
+            const targetComment = await getCommentDetail(id);
+
             if (targetComment) {
                 setEditComment(targetComment);
                 closeDrawer();

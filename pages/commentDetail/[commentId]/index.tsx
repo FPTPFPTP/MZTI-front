@@ -1,33 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useQueryClient } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { commentModify, commentModifyId } from '@/recoil/atom/user';
-import { Header } from '@components/Commons';
-import CommentModifyInput from '@/components/Commons/CommentModifyInput';
+import { useRecoilState } from 'recoil';
+import { postEditState } from '@/recoil/atom/post';
+import { Header, MoreDrawer, Loading } from '@components/Commons';
 import CommentInput from '@/components/Commons/CommentInput';
 import CommentItem from '@/components/Home/FeedComents/CommentItem';
 import { Empty } from '@/components/MyPageCom';
-import { useGetReComments, commentPut, reCommentPost } from '@/apis/post';
+import { useGetReComments, commentPut, reCommentPost, deleteComment } from '@/apis/post';
 import Axios from '@utils/axios';
 import { postImageUpload } from '@utils/upload';
-import EmptyWrite from '@assets/icons/common/empty_write.svg';
+import { openToast } from '@utils/toast';
 import { IResponseBase } from '@/types/global';
-import { ICommentModel } from '@/types/post';
-import { ReplayCommentStyled } from '@/styles/pages/commentDetailStyle';
+import { ICommentModel, EActionEditType } from '@/types/post';
+import { ReplayCommentStyled, DeletedComment } from '@/styles/pages/commentDetailStyle';
+import EmptyWrite from '@assets/icons/common/empty_write.svg';
 
 interface IPostDetailProps {
     comment?: ICommentModel;
-    commentId: number;
 }
 
-const commentDetail = ({ comment, commentId }: IPostDetailProps) => {
-    //  댓글 호출
-    const [getCommentModifyState, setCommentModifyState] = useRecoilState(commentModify);
-    const getCommentModifyId = useRecoilValue(commentModifyId);
+const commentDetail = ({ comment }: IPostDetailProps) => {
+    const [editTarget, setEditTarget] = useRecoilState(postEditState);
+    const observerRef = useRef(null);
 
-    const { contents: reComments, fetchNextPage, hasNextPage } = useGetReComments({ commentId });
+    // 댓글 수정, 삭제
+    const [editComment, setEditComment] = useState<ICommentModel>();
+    // 댓글 수정, 삭제, 신고 Drawer
+    const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
+
+    const { contents: reComments, fetchNextPage, hasNextPage } = useGetReComments({ commentId: (comment && comment.id) || 0 });
     const queryClient = useQueryClient();
 
     const onSuccessComment = async () => {
@@ -42,60 +45,122 @@ const commentDetail = ({ comment, commentId }: IPostDetailProps) => {
         }
 
         const reComment = await reCommentPost({
-            commentId: commentId,
+            commentId: (comment && comment.id) || 0,
             comment: commentValue,
             image: imageSrc,
         });
-        if (reComment) {
+        if (reComment.code === 'SUCCESS') {
             onSuccessComment();
         }
     };
 
-    // 댓글 수정!!!
-    const PutComment = async (imageFile?: File) => {
+    // 대댓글 수정
+    const PutReComment = async (id: number, commentValue: string, imageFile?: File, imageUrl?: string) => {
         let imageSrc;
         if (imageFile) {
             imageSrc = await postImageUpload(imageFile);
+        } else {
+            imageSrc = imageUrl;
         }
-        const reComment = await commentPut({ id: getCommentModifyId, comment: 'commentValue', image: imageSrc });
+
+        const reComment = await commentPut({ id, comment: commentValue, image: imageSrc });
         if (reComment) {
             onSuccessComment();
+            setEditComment(undefined);
         }
     };
 
+    const onTargetEdit = async (id: number, type: EActionEditType) => {
+        if (type === EActionEditType.COMMENT) {
+            const targetComment = reComments.find((comment) => comment.id === id);
+            if (targetComment) {
+                setEditComment(targetComment);
+                closeDrawer();
+            }
+        }
+    };
+
+    const onTargetDelete = async (id: number, type: EActionEditType) => {
+        if (type === EActionEditType.COMMENT) {
+            const res = await deleteComment(id);
+            if (res.code === 'SUCCESS') {
+                openToast({ message: '삭제 완료되었습니다.' });
+                onSuccessComment();
+                closeDrawer();
+            } else {
+                openToast({ message: '삭제 실패했습니다. 다시 시도해주세요.' });
+            }
+        }
+    };
+
+    const openDrawer = (id: number, type: EActionEditType) => {
+        setEditTarget({
+            id,
+            editActionType: type,
+        });
+        setIsDrawerVisible(true);
+    };
+    const closeDrawer = () => setIsDrawerVisible(false);
+
+    const handleObserver = useCallback(
+        (entries: IntersectionObserverEntry[]) => {
+            const [target] = entries;
+            if (target.isIntersecting) {
+                fetchNextPage();
+            }
+        },
+        [fetchNextPage, hasNextPage],
+    );
+
     useEffect(() => {
-        console.log({ comment });
-    }, [comment]);
+        const element = observerRef.current;
+        const option = { threshold: 0 };
+
+        const observer = new IntersectionObserver(handleObserver, option);
+        if (element) {
+            observer.observe(element);
+            return () => observer.unobserve(element);
+        }
+    }, [fetchNextPage, hasNextPage, handleObserver]);
+
+    useEffect(() => {
+        console.log({ reComments });
+    }, [reComments]);
+
+    useEffect(() => {
+        console.log({ hasNextPage });
+    }, [hasNextPage]);
 
     return (
         <main className="homeLayout">
-            <Header isPrevBtn={true} title={`대댓글 `} />
+            {comment && (
+                <>
+                    <Header isPrevBtn={true} title={`대댓글`} />
 
-            <div css={ReplayCommentStyled}>
-                {/* 피드 게시물 */}
-                {reComments.length ? (
-                    <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                        {reComments.map((reComment) => (
-                            <CommentItem key={reComment.id} commentItem={reComment} />
-                        ))}
-                    </InfiniteScroll>
-                ) : (
-                    <Empty icon={<EmptyWrite />} title="작성된 댓글이 없습니다." subTitle={`게시글을 작성해주세요`} />
-                )}
-            </div>
+                    <CommentItem commentItem={comment} openDrawer={openDrawer} isTop={true} />
+                    <div css={ReplayCommentStyled}>
+                        {/* 피드 게시물 */}
+                        {reComments.length ? (
+                            reComments.map((reComment) => {
+                                return reComment.deleted ? (
+                                    <p css={DeletedComment} key={reComment.id}>
+                                        삭제된 댓글입니다.
+                                    </p>
+                                ) : (
+                                    <CommentItem key={reComment.id} commentItem={reComment} openDrawer={openDrawer} />
+                                );
+                            })
+                        ) : (
+                            <Empty icon={<EmptyWrite />} title="작성된 댓글이 없습니다." subTitle={`게시글을 작성해주세요`} />
+                        )}
+                        <div className="loader" ref={observerRef}>
+                            {hasNextPage ? <Loading /> : null}
+                        </div>
+                    </div>
 
-            {getCommentModifyState ? (
-                // 댓글 수정용
-                // <CommentModifyInput
-                //     onSuccess={onSuccessComment}
-                //     handleContact={(e: React.ChangeEvent<HTMLInputElement>) => handleContact(e)}
-                //     PutComment={PutComment}
-                //     comment={commentValue}
-                // />
-                <div>test</div>
-            ) : (
-                // 일반 댓글용
-                <CommentInput onAddComment={AddReComment} />
+                    <CommentInput editComment={editComment} onAddComment={AddReComment} onEditComment={PutReComment} />
+                    <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
+                </>
             )}
         </main>
     );
@@ -118,7 +183,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
     return {
         props: {
             comment: comment,
-            commentId: Number(params.commentId),
         },
     };
 };

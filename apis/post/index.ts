@@ -366,7 +366,7 @@ export const reCommentPost = async ({ commentId, comment, image }: IAddReComment
         image: image,
     });
 
-    return res.data.data;
+    return res.data;
 };
 
 /**
@@ -386,16 +386,19 @@ export const reCommentGet = async ({ commentId, page, view }: IReCommentParam) =
 };
 
 export const useGetReComments = ({ commentId }: { commentId: number }) => {
-    const res = useInfiniteQuery(['getReComments'], ({ pageParam = 0 }) => reCommentGet({ page: pageParam, view: 15, commentId }), {
+    const res = useInfiniteQuery(['getReComments'], ({ pageParam = 0 }) => reCommentGet({ page: pageParam, view: 10, commentId }), {
         getNextPageParam: (lastPage) => {
             const nextPage = lastPage.page + 1;
-
             return lastPage.list.length !== 0 ? nextPage : undefined;
         },
     });
     const { data } = res;
 
     const contents = data ? data.pages.map((page) => page.list).reduce((mergedList, currentlist) => [...mergedList, ...(currentlist || [])], []) : [];
+
+    contents.sort(function (a, b) {
+        return new Date(a.createAt).getTime() - new Date(b.createAt).getTime();
+    });
 
     return { ...res, contents };
 };
