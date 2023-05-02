@@ -7,6 +7,8 @@ export const HomeMenuStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop?: boo
     left: 0;
     width: 100%;
     padding: 20px;
+    background-color: #fff;
+    z-index: 99;
     ${!isCurrentScrollTop &&
     `
     border-bottom: 1px solid  #D9D9D9;`}
