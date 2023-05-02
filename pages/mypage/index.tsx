@@ -17,6 +17,7 @@ import { getMyPageActive } from '@/apis/post';
 import { getAccessToken } from '@utils/auth';
 import { IMyPageActive } from '@/types/post';
 import { BottomMenu } from '@/components/Commons';
+
 const menuList = [
     {
         title: '내가 저장한 글',
