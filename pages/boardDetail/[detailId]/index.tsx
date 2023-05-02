@@ -278,7 +278,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                         />
                     </div>
 
-                    <CommentInput editComment={editComment} onAddComment={AddComment} onEditComment={PutComment} />
+                    <CommentInput editComment={editComment} onAddComment={AddComment} onEditComment={PutComment} onCancle={() => setEditComment(undefined)} />
 
                     <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
                 </>

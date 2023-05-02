@@ -11,10 +11,11 @@ interface ICommentInputProps {
     editComment?: ICommentModel;
     onAddComment?: (value: string, imageFile?: File) => void; // 댓글 추가 api
     onEditComment?: (id: number, value: string, imageFile?: File, imageUrl?: string) => void; // 댓글 수정 api
+    onCancle: () => void;
 }
 
-const CommentInput = ({ editComment, onAddComment, onEditComment }: ICommentInputProps) => {
-    const [commentValue, setCommnetValue] = useState<string>('');
+const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: ICommentInputProps) => {
+    const [commentValue, setCommentValue] = useState<string>('');
     const [previewFileSrc, setPreviewFileSrc] = useState<string>();
     const [imageFile, setImageFile] = useState<File>();
 
@@ -48,18 +49,18 @@ const CommentInput = ({ editComment, onAddComment, onEditComment }: ICommentInpu
 
     const handleCommentAction = () => {
         if (editComment) {
-            onEditComment && onEditComment(editComment.id, commentValue, imageFile, editComment.image);
+            onEditComment && onEditComment(editComment.id, commentValue, previewFileSrc ? imageFile : undefined, previewFileSrc ? editComment.image : '');
         } else {
             onAddComment && onAddComment(commentValue, imageFile);
         }
         revokeImageLink();
-        setCommnetValue('');
+        setCommentValue('');
         setImageFile(undefined);
     };
 
     useEffect(() => {
         if (editComment) {
-            setCommnetValue(editComment.comment);
+            setCommentValue(editComment.comment);
             if (editComment.image) {
                 setPreviewFileSrc(editComment.image);
             }
@@ -92,12 +93,20 @@ const CommentInput = ({ editComment, onAddComment, onEditComment }: ICommentInpu
                 type="text"
                 value={commentValue}
                 placeholder="댓글을 입력해주세요"
-                onChange={(e) => setCommnetValue(e.target.value)}
+                onChange={(e) => setCommentValue(e.target.value)}
                 onKeyPress={handleOnKeyPress}
             />
             {editComment ? (
-                <div>
-                    <button type="submit">취소</button>
+                <div className="edit--input">
+                    <button
+                        type="submit"
+                        onClick={() => {
+                            onCancle();
+                            setCommentValue('');
+                        }}
+                    >
+                        취소
+                    </button>
                     <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
                         변경
                     </button>
