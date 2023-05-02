@@ -1,20 +1,20 @@
 import { ChangeEvent, useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { CommentInputStyle } from './styled';
+import { ICommentModel } from '@/types/post';
 import PhotoIcon from '@assets/icons/comment/photo.svg';
 import SubmitButtonIcon from '@assets/icons/comment/submitButton.svg';
 import FillSubmitButtonIcon from '@assets/icons/comment/fillSubmitButton.svg';
 import CloseButtonIcon from '@assets/icons/comment/close.svg';
 
-interface PostIdProps {
-    onSuccess: () => void; // 성공시 다시 refresh 할 데이터
-    AddComment?: (imageFile?: File) => void; // 댓글 추가 api
-    handleContact?: (e: any) => void; // 댓글 내용 바뀔 때
-    commentId?: number;
-    comment: string; // value 값
+interface ICommentInputProps {
+    editComment?: ICommentModel;
+    onAddComment?: (value: string, imageFile?: File) => void; // 댓글 추가 api
+    onEditComment?: (id: number, value: string, imageFile?: File, imageUrl?: string) => void; // 댓글 수정 api
 }
 
-const CommentInput = ({ comment, AddComment, handleContact }: PostIdProps) => {
+const CommentInput = ({ editComment, onAddComment, onEditComment }: ICommentInputProps) => {
+    const [commentValue, setCommnetValue] = useState<string>('');
     const [previewFileSrc, setPreviewFileSrc] = useState<string>();
     const [imageFile, setImageFile] = useState<File>();
 
@@ -39,6 +39,33 @@ const CommentInput = ({ comment, AddComment, handleContact }: PostIdProps) => {
         }
     };
 
+    // 엔터
+    const handleOnKeyPress = (e: any) => {
+        if (e.key === 'Enter') {
+            handleCommentAction();
+        }
+    };
+
+    const handleCommentAction = () => {
+        if (editComment) {
+            onEditComment && onEditComment(editComment.id, commentValue, imageFile, editComment.image);
+        } else {
+            onAddComment && onAddComment(commentValue, imageFile);
+        }
+        revokeImageLink();
+        setCommnetValue('');
+        setImageFile(undefined);
+    };
+
+    useEffect(() => {
+        if (editComment) {
+            setCommnetValue(editComment.comment);
+            if (editComment.image) {
+                setPreviewFileSrc(editComment.image);
+            }
+        }
+    }, [editComment]);
+
     useEffect(() => {
         return () => {
             revokeImageLink();
@@ -61,18 +88,25 @@ const CommentInput = ({ comment, AddComment, handleContact }: PostIdProps) => {
 
             <input ref={imgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} onChange={handleUpdateProfileImg} />
 
-            <input type="text" value={comment} placeholder="댓글을 입력해주세요" onChange={handleContact} />
-
-            <button
-                type="submit"
-                onClick={() => {
-                    AddComment && AddComment(imageFile);
-                    revokeImageLink();
-                }}
-                disabled={!comment}
-            >
-                {comment ? <FillSubmitButtonIcon /> : <SubmitButtonIcon />}
-            </button>
+            <input
+                type="text"
+                value={commentValue}
+                placeholder="댓글을 입력해주세요"
+                onChange={(e) => setCommnetValue(e.target.value)}
+                onKeyPress={handleOnKeyPress}
+            />
+            {editComment ? (
+                <div>
+                    <button type="submit">취소</button>
+                    <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
+                        변경
+                    </button>
+                </div>
+            ) : (
+                <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
+                    {commentValue ? <FillSubmitButtonIcon /> : <SubmitButtonIcon />}
+                </button>
+            )}
         </div>
     );
 };
