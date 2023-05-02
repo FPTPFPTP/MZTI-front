@@ -23,7 +23,7 @@ import { openToast } from '@utils/toast';
 import { postImageUpload } from '@utils/upload';
 import { categoryIdToURL } from '@/utils/category';
 import { IResponseBase, IPaginationResponse } from '@/types/global';
-import { ICommentModel, IEditComment, IPostModel, EActionEditType } from '@/types/post';
+import { ICommentModel, IPostModel, EActionEditType } from '@/types/post';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
@@ -51,7 +51,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const [editComment, setEditComment] = useState<ICommentModel>();
     // 댓글 pageParam
     const [pageParam, setPagePagram] = useState<number>(0);
-    // 댓글 수정, 삭제, 신고 Drawer
+    // 게시글 & 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
 
     const router = useRouter();
@@ -210,10 +210,6 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
             setSurveyData(survey);
         }
     }, [postData]);
-
-    useEffect(() => {
-        console.log({ comments });
-    }, [comments]);
 
     return (
         <main className="homeLayout">

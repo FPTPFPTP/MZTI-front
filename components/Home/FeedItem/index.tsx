@@ -1,14 +1,24 @@
 import { InfiniteData } from '@tanstack/react-query';
-import { IPaginationResponse } from '@/types/global';
-import { IPostModel } from '@/types/post';
+import { useRecoilValue } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
 import ItemContent from './ItemContent';
 import ItemFooter from './ItemFooter';
 import ItemHeader from './ItemHeader';
 import { FeedItemStyle } from '../styled';
 import Link from 'next/link';
 import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
+import { IPaginationResponse } from '@/types/global';
+import { IPostModel, EActionEditType } from '@/types/post';
 
-const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<IPostModel>>; isLoading: boolean }) => {
+interface IFeedItemProps {
+    data: InfiniteData<IPaginationResponse<IPostModel>>;
+    isLoading: boolean;
+    openDrawer: (id: number, type: EActionEditType) => void;
+}
+
+const FeedItem = ({ data, isLoading, openDrawer }: IFeedItemProps) => {
+    const myInfo = useRecoilValue(myPageInfo);
+
     return (
         <div css={FeedItemStyle}>
             {isLoading ? (
@@ -27,9 +37,9 @@ const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<
                                         <ItemHeader
                                             writer={item.writer}
                                             createAt={item.createAt}
-                                            openDrawer={() => {
-                                                console.log('일단 이거');
-                                            }}
+                                            openDrawer={() =>
+                                                openDrawer(item.id, myInfo?.id === item.writer.userId ? EActionEditType.WRITE : EActionEditType.WRITET_TIPOFF)
+                                            }
                                         />
                                         <Link href={`/boardDetail/${item.id}`}>
                                             <ItemContent
