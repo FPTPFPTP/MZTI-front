@@ -6,8 +6,8 @@ import dayjs from 'dayjs';
 import classNames from 'classnames';
 import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
 import { useMutation } from '@tanstack/react-query';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { commentModify, commentText, commentModifyId, myPageInfo } from '@/recoil/atom/user';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
 import { postEditState } from '@/recoil/atom/post';
 import { Header, MoreDrawer } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
@@ -36,7 +36,7 @@ interface IPostDetailProps {
 
 const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const myInfo = useRecoilValue(myPageInfo);
-    const [editTarget, setEditTarget] = useRecoilState(postEditState);
+    const setEditTarget = useSetRecoilState(postEditState);
 
     const usePostLike = useMutation((id: any) => postBookmark(id));
     // 상세 게시글
@@ -168,6 +168,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
         });
         setIsDrawerVisible(true);
     };
+
     const closeDrawer = () => setIsDrawerVisible(false);
 
     useEffect(() => {

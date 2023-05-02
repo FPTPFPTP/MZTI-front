@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useQueryClient } from '@tanstack/react-query';
-import InfiniteScroll from 'react-infinite-scroller';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { postEditState } from '@/recoil/atom/post';
 import { Header, MoreDrawer, Loading } from '@components/Commons';
 import CommentInput from '@/components/Commons/CommentInput';
@@ -22,7 +21,7 @@ interface IPostDetailProps {
 }
 
 const commentDetail = ({ comment }: IPostDetailProps) => {
-    const [editTarget, setEditTarget] = useRecoilState(postEditState);
+    const setEditTarget = useSetRecoilState(postEditState);
     const observerRef = useRef(null);
 
     // 댓글 수정, 삭제
@@ -122,14 +121,6 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
             return () => observer.unobserve(element);
         }
     }, [fetchNextPage, hasNextPage, handleObserver]);
-
-    useEffect(() => {
-        console.log({ reComments });
-    }, [reComments]);
-
-    useEffect(() => {
-        console.log({ hasNextPage });
-    }, [hasNextPage]);
 
     return (
         <main className="homeLayout">

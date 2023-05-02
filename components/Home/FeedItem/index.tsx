@@ -24,7 +24,13 @@ const FeedItem = ({ data, isLoading }: { data: InfiniteData<IPaginationResponse<
                             return (
                                 <div className="feedLayout" key={item.id}>
                                     <div className="feedLayout__bg">
-                                        <ItemHeader writer={item.writer} createAt={item.createAt} writerID={item.id} categoryId={item.categoryId} />
+                                        <ItemHeader
+                                            writer={item.writer}
+                                            createAt={item.createAt}
+                                            openDrawer={() => {
+                                                console.log('일단 이거');
+                                            }}
+                                        />
                                         <Link href={`/boardDetail/${item.id}`}>
                                             <ItemContent
                                                 id={item.id}
