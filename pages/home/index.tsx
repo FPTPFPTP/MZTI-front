@@ -74,7 +74,7 @@ const home = () => {
             {/* 헤더 */}
             <FeedHeader isCurrentScrollTop={isCurrentScrollTop} />
 
-            <div css={FeedContentStyle({ isCurrentScrollTop })} ref={feedRef}>
+            <div css={FeedContentStyle} ref={feedRef}>
                 <div css={SearchWrapStyle}>
                     <Input inputStyle={'search'} placeholder={'관심있는 MBTI, 키워드, 이슈 검색'} onClick={() => router.push(`/search`)} />
                 </div>
