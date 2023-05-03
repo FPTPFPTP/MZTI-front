@@ -13,7 +13,7 @@ import { IPostModel, EActionEditType } from '@/types/post';
 interface IFeedItemProps {
     data: InfiniteData<IPaginationResponse<IPostModel>>;
     isLoading: boolean;
-    openDrawer: (id: number, type: EActionEditType) => void;
+    openDrawer?: (id: number, type: EActionEditType) => void;
 }
 
 const FeedItem = ({ data, isLoading, openDrawer }: IFeedItemProps) => {
@@ -38,6 +38,7 @@ const FeedItem = ({ data, isLoading, openDrawer }: IFeedItemProps) => {
                                             writer={item.writer}
                                             createAt={item.createAt}
                                             openDrawer={() =>
+                                                openDrawer &&
                                                 openDrawer(item.id, myInfo?.id === item.writer.userId ? EActionEditType.WRITE : EActionEditType.WRITET_TIPOFF)
                                             }
                                         />

@@ -16,11 +16,13 @@ const FeedComents = ({ isLastPage, commentData, postWriterId, handleRefrash, han
     return (
         <div css={FeedComentsWrapStyle}>
             <section css={FeedComentsStyle}>
-                <h4>댓글 목록</h4>
-                <button onClick={handleRefrash}>
-                    <span>새로고침</span>
-                    <CommentRefreshIcon />
-                </button>
+                <div className="wrap">
+                    <h4>댓글 목록</h4>
+                    <button onClick={handleRefrash}>
+                        <span>새로고침</span>
+                        <CommentRefreshIcon />
+                    </button>
+                </div>
             </section>
 
             {commentData.length === 0 ? (

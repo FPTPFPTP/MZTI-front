@@ -6,4 +6,5 @@ export interface IUserModel {
     profileImage?: string;
     platform?: string;
     email?: string;
+    level?: number;
 }

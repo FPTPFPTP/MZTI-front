@@ -7,6 +7,12 @@ module.exports = {
     MBTI_COLOR_04: '#DF8EC6',
     POINT_BG: '#FFFADE',
     POINT_BG_01: '#C5EAFF',
+    // --MZTI 포인트 컬러 (투명도 된 애들)
+    O_POINT_COLOR: '#F56326',
+    O_MBTI_COLOR_01: 'rgb(241, 182, 45,0.8)',
+    O_MBTI_COLOR_02: 'rgb(21, 152, 112,0.8)',
+    O_MBTI_COLOR_03: 'rgb(7, 76, 173, 0.8)',
+    O_MBTI_COLOR_04: '#DF8EC6',
     //-----------------------
     // Button 컬러 모음집
     BUTTON_NEXT: '#1B1E26',

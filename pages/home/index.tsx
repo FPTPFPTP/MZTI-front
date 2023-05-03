@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
 import { useSetRecoilState } from 'recoil';
+import { Input } from '@components/Commons';
 import { postEditState } from '@/recoil/atom/post';
 import { Empty } from '@/components/MyPageCom';
 import FeedItem from '@/components/Home/FeedItem';
@@ -16,6 +17,7 @@ import { openToast } from '@utils/toast';
 import { FeedContentStyle } from '@styles/pages/homeStyled';
 import { EActionEditType } from '@/types/post';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
+import { SearchWrapStyle } from '@/components/Commons/FeedHeader/styled';
 
 const home = () => {
     const feedRef = useRef<HTMLDivElement | null>(null);
@@ -73,6 +75,9 @@ const home = () => {
             <FeedHeader isCurrentScrollTop={isCurrentScrollTop} />
 
             <div css={FeedContentStyle({ isCurrentScrollTop })} ref={feedRef}>
+                <div css={SearchWrapStyle}>
+                    <Input inputStyle={'search'} placeholder={'관심있는 MBTI, 키워드, 이슈 검색'} onClick={() => router.push(`/search`)} />
+                </div>
                 {/* 인기 게시판 & 전체 게시판 */}
                 <ListTab categoryId={countIndex} handleCategoryId={(id) => setCountIndex(id)} />
 

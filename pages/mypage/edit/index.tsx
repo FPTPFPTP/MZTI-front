@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { editLayout, editTitle, myPageEditStyle } from '@styles/pages/mypageEditStyled';
-import { BlackButton } from '@/components/Commons/Button';
+import { BaseButton } from '@/components/Commons/Button';
 import { MbtiStyles, Container, editButton, MbtiFlex } from '@styles/pages/mypageEditStyled';
 import ProfileEdit from '@assets/icons/profile_edit.svg';
 import { IUserModel } from '@/types/user';
@@ -12,26 +12,20 @@ import { Button, Modal } from 'antd';
 import Mbti from '@/components/Commons/Mbti';
 import axios from '@/utils/axios';
 import { useRouter } from 'next/router';
-import { useMutation } from '@tanstack/react-query';
-import { postMyPage } from '@/apis/user';
-import { openToast } from '@/utils/toast';
 
 const edit = () => {
     const myInfo = useRecoilValue(myPageInfo);
 
     const { register, watch, reset, setValue } = useForm<IUserModel>();
-    const { nickname, intro } = watch();
+    const { nickname } = watch();
     // back단 프로필
     const [profileData, setProfileData] = useState<File | null>(null);
     // view단 프로필사진
     const [previewFileSrc, setPreviewFileSrc] = useState<string>('');
-    // mbti
     const [mbti, setMbti] = useState<string>('');
     // mbti 모달 open
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const router = useRouter();
-    // 댓글 삭제
-    const { mutate } = useMutation(({ nickname, mbti, intro }: IUserModel) => postMyPage({ nickname, mbti, intro }));
 
     /**
      * 프로필 사진 업로드
@@ -47,11 +41,22 @@ const edit = () => {
         }
     };
 
-    const handleEdit = () => {
+    const handleEdit = useCallback(() => {
         try {
             const fmData = new FormData();
 
-            // 프로필 사진 변경
+            const nicknameEdit = () => {
+                return axios.patch(`/user/nickname`, {
+                    nickname: nickname,
+                });
+            };
+
+            const mbtiEdit = () => {
+                return axios.patch(`/user/mbti`, {
+                    mbti: mbti,
+                });
+            };
+
             const profileEdit = () => {
                 return axios.patch(`/user/profile`, fmData, {
                     headers: {
@@ -60,23 +65,11 @@ const edit = () => {
                 });
             };
 
-            // string 변경
-            const textEdit = () => {
-                mutate(
-                    { nickname, mbti, intro },
-                    {
-                        onSuccess: () => {
-                            openToast({ message: '프로필 수정을 완료했어요', duration: 2000 });
-                            router.push('/mypage');
-                        },
-                    },
-                );
-            };
-
             if (profileData !== null) {
                 fmData.append('file', profileData);
             }
-            Promise.all([profileEdit(), textEdit()])
+
+            Promise.all([profileEdit(), nicknameEdit(), mbtiEdit()])
                 .then((res: any) => {
                     router.push('/mypage');
                 })
@@ -86,7 +79,7 @@ const edit = () => {
         } catch (error) {
             console.log(error);
         }
-    };
+    }, [nickname, mbti, profileData]);
 
     /**
      * mbti 수정
@@ -111,9 +104,8 @@ const edit = () => {
 
     useEffect(() => {
         if (myInfo) {
-            const { nickname, mbti, intro, profileImage } = myInfo;
+            const { nickname, mbti, profileImage } = myInfo;
             setValue('nickname', nickname);
-            setValue('intro', intro);
             setMbti(mbti);
             if (profileImage) {
                 setPreviewFileSrc(profileImage);
@@ -144,20 +136,6 @@ const edit = () => {
                         handleReset={() => reset()}
                         maxLength={8}
                         {...register('nickname', {
-                            required: true,
-                        })}
-                    />
-                </div>
-
-                <div>
-                    <h4 css={editTitle}>한 줄 소개</h4>
-                    <Input
-                        inputStyle={'borderLess'}
-                        placeholder={'한 줄 소개'}
-                        isResetBtn={!!intro}
-                        handleReset={() => reset()}
-                        maxLength={30}
-                        {...register('intro', {
                             required: true,
                         })}
                     />
@@ -199,9 +177,7 @@ const edit = () => {
                 </div>
             </form>
             <div className="buttonWrap">
-                <BlackButton onClick={handleEdit} type="submit">
-                    수정 완료하기
-                </BlackButton>
+                <BaseButton onClick={handleEdit}>수정 완료하기</BaseButton>
             </div>
         </main>
     );

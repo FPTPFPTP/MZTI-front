@@ -30,15 +30,30 @@ export const ProfileStyle = css`
     align-items: center;
     border-bottom: 1px solid #ebebeb;
     padding-bottom: 20px;
-    .mbti {
-        border: 1px solid ${color.BLACK};
-        border-radius: 55px;
-        display: inline-block;
-        padding: 0.2rem 0.7rem;
-        background: ${color.WHITE};
-        font-weight: 700;
-        font-size: 1.1rem;
+    .mbtiNlevel {
+        display: flex;
+        .mbti {
+            border-radius: 55px;
+            display: inline-block;
+            padding: 4px 8px;
+            font-weight: 700;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+        .level {
+            display: flex;
+            border: 1px solid #a7a7a7;
+            padding: 4px 8px;
+            border-radius: 41px;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 9px;
+            color: #1b1e26;
+            text-align: center;
+            align-items: center;
+        }
     }
+
     .nickname {
         font-weight: 500;
         font-size: 20px;
