@@ -33,29 +33,19 @@ const Search = () => {
 
     return (
         <section>
-            <Header title={'전체 검색'} />
+            <Header />
 
             <div css={searchWrap}>
-                <div className="search__box">
-                    <form onSubmit={handleSubmit((data) => onSearch(data.search))}>
-                        <Input
-                            inputStyle={'search'}
-                            placeholder={'관심있는 MBTI, 키워드, 이슈 검색'}
-                            isResetBtn={true}
-                            handleReset={() => (!!search === false ? router.back() : reset())}
-                            maxLength={8}
-                            {...register('search')}
-                        />
-                        {/* <button>
-                        <SearchCloseIcon />
-                    </button> */}
-                    </form>
-                </div>
-
-                <div className="search__filter">
-                    <p>필터: '전체'</p>
-                    <p>최신순</p>
-                </div>
+                <form className="search__box" onSubmit={handleSubmit((data) => onSearch(data.search))}>
+                    <Input
+                        inputStyle={'search'}
+                        placeholder={'관심있는 MBTI, 키워드, 이슈 검색'}
+                        isResetBtn={true}
+                        handleReset={() => (!!search === false ? router.back() : reset())}
+                        maxLength={8}
+                        {...register('search')}
+                    />
+                </form>
             </div>
 
             {/* 최근 검색 내역 */}
@@ -70,11 +60,6 @@ const Search = () => {
                     </InfiniteScroll>
                 ) : (
                     <div className="recent__wrap">
-                        <div className="recent__search--top">
-                            <p>최근 검색어</p>
-                            <button>내역 전체 삭제</button>
-                        </div>
-
                         <NonSSRWrapper>
                             {searchHistories.length ? (
                                 <>
