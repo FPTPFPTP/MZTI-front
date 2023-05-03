@@ -6,6 +6,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
 import { getFeedPost } from '@/apis/post';
 import FeedHeader from '@/components/Commons/FeedHeader';
+import useScrollDown from '@/hooks/useScrollDown';
 import { categoryUrlToId } from '@utils/category';
 import { Empty } from '@/components/MyPageCom';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
@@ -18,6 +19,8 @@ interface IBoardProps {
 
 const board = ({ id }: IBoardProps) => {
     const router = useRouter();
+
+    const isCurrentScrollTop = useScrollDown();
 
     // 데이터 패칭
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(
@@ -33,7 +36,7 @@ const board = ({ id }: IBoardProps) => {
     return (
         <main className="homeLayout">
             {/* 헤더 */}
-            <FeedHeader categoryId={id} />
+            <FeedHeader categoryId={id} isCurrentScrollTop={isCurrentScrollTop} />
 
             <div css={FeedContentStyle}>
                 <div css={SearchWrapStyle} style={{ margin: '0px 0px 10px' }}>
