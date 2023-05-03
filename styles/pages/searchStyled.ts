@@ -2,6 +2,8 @@ import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
 export const searchWrap = () => css`
+    position: sticky;
+    top: 80px;
     padding: 0px 20px;
     background-color: ${colors.WHITE};
     .search__box {
