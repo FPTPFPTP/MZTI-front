@@ -69,8 +69,9 @@ const edit = () => {
                 fmData.append('file', profileData);
             }
 
-            Promise.all([profileEdit(), nicknameEdit(), mbtiEdit()])
+            Promise.all([nicknameEdit(), mbtiEdit(), profileData && profileEdit()])
                 .then((res: any) => {
+                    console.log({ res });
                     router.push('/mypage');
                 })
                 .catch((error) => {
@@ -148,7 +149,7 @@ const edit = () => {
                     </div>
 
                     <div css={Container}>
-                        <ProfileUpload previewFileSrc={previewFileSrc} handleUpdateProfileImg={updateProfileImg} />
+                        <ProfileUpload previewFileSrc={previewFileSrc} mbti={mbti} handleUpdateProfileImg={updateProfileImg} />
                     </div>
                 </div>
 
