@@ -71,6 +71,7 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                             size={60}
                             mbti={writer.mbti}
                         />
+
                         <div className="writeInfo">
                             <div className="mbtiNlevel">
                                 <p className="mbti" style={{ background: getMbtiColor(writer.mbti) }}>
@@ -88,6 +89,16 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                                     </span>
                                 )}
                             </p>
+                        </div>
+
+                        <div className="nickname_time">
+                            <button
+                                onClick={() => openDrawer(id, myInfo?.id === writer.userId ? EActionEditType.COMMENT : EActionEditType.COMMENT_TIPOFF)}
+                                className="moreButton"
+                            >
+                                <MoreButton />
+                            </button>
+                            <p className="time">{timeForToday(createAt)}</p>
                         </div>
                     </div>
 
@@ -108,13 +119,6 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                                 </button>
                             </Link>
                         )}
-
-                        <button
-                            onClick={() => openDrawer(id, myInfo?.id === writer.userId ? EActionEditType.COMMENT : EActionEditType.COMMENT_TIPOFF)}
-                            className="moreButton"
-                        >
-                            <MoreButton />
-                        </button>
                     </div>
                 </div>
             </section>

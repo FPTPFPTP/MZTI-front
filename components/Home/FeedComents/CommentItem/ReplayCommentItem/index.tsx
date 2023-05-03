@@ -11,6 +11,7 @@ import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { useMutation } from '@tanstack/react-query';
 import { commentLike } from '@/apis/post';
+import { getMbtiColor } from '@utils/postItem';
 import { ILikeModel, ICommentModel, EActionEditType } from '@/types/post';
 
 interface IReplayCommentItemProps {
@@ -53,33 +54,44 @@ const ReplayCommentItem = ({ replayCommentItem, postWriterId, openDrawer }: IRep
                             size={60}
                             mbti={writer.mbti}
                         />
-                        <p className="mbti">{writer.mbti}</p>
-                        <p className="nickName">
-                            <span>{writer.nickname}</span>
 
-                            {postWriterId === writer.id && (
-                                <span>
-                                    <WriterMainIcon />
-                                </span>
-                            )}
-                        </p>
+                        <div className="writeInfo">
+                            <div className="mbtiNlevel">
+                                <p className="mbti" style={{ background: getMbtiColor(writer.mbti) }}>
+                                    {writer.mbti}
+                                </p>
+                                <p className="level">Lv.{writer.level}</p>
+                            </div>
+
+                            <p className="nickName">
+                                <span>{writer.nickname}</span>
+
+                                {writer.id === postWriterId && (
+                                    <span>
+                                        <WriterMainIcon />
+                                    </span>
+                                )}
+                            </p>
+                        </div>
+
+                        <div className="nickname_time">
+                            <button
+                                onClick={() => openDrawer(id, myInfo?.id === writer.userId ? EActionEditType.COMMENT : EActionEditType.COMMENT_TIPOFF)}
+                                className="moreButton"
+                            >
+                                <MoreButton />
+                            </button>
+                            <p className="time">{timeForToday(createAt)}</p>
+                        </div>
                     </div>
 
                     <p className="coment">{comment}</p>
                     {image && <Image src={image} alt={'댓글이미지'} width={100} height={100} />}
 
                     <div className="commentItemFooter">
-                        <p className="time">{timeForToday(createAt)}</p>
                         <button onClick={handleReCommentLike} className="like">
                             {isLike === false ? <ReCommentLike /> : <FillreCommentLike />}
                             <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
-                        </button>
-
-                        <button
-                            onClick={() => openDrawer(id, myInfo?.id === writer.userId ? EActionEditType.COMMENT : EActionEditType.COMMENT_TIPOFF)}
-                            className="moreButton"
-                        >
-                            <MoreButton />
                         </button>
                     </div>
                 </div>
