@@ -44,6 +44,11 @@ export const getStripIframeTags = (content: string) => {
     return content;
 };
 
+/**
+ * 레벨 옆에 따라다니는 용
+ * @param mbti
+ * @returns
+ */
 export const getMbtiColor = (mbti: string) => {
     switch (mbti) {
         case 'INTJ':
@@ -56,19 +61,19 @@ export const getMbtiColor = (mbti: string) => {
         case 'INFP':
         case 'ENFJ':
         case 'ENFP': {
-            return colors.MBTI_COLOR_02;
+            return colors.O_MBTI_COLOR_02;
         }
         case 'ISTJ':
         case 'ISFJ':
         case 'ESTJ':
         case 'ESFJ': {
-            return colors.MBTI_COLOR_03;
+            return colors.O_MBTI_COLOR_03;
         }
         case 'ISTP':
         case 'ISFP':
         case 'ESTP':
         case 'ESFP': {
-            return colors.MBTI_COLOR_01;
+            return colors.O_MBTI_COLOR_01;
         }
         default: {
             return colors.GRAY_STRONG;

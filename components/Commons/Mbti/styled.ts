@@ -5,6 +5,9 @@ export const RadioWrapStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    .borderSolid {
+        border-right: 2px solid #000;
+    }
 `;
 
 export const RadioTileGroupStyle = css`
@@ -13,10 +16,10 @@ export const RadioTileGroupStyle = css`
     flex-wrap: nowrap;
     flex-direction: column;
     justify-content: center;
-
+    border-top: 2px solid black;
     .input-container {
         position: relative;
-
+        height: 100px;
         .radio-button {
             opacity: 0;
             position: absolute;
@@ -35,8 +38,9 @@ export const RadioTileGroupStyle = css`
             justify-content: center;
             width: 100%;
             height: 100%;
-            border: 2px solid ${colors.BLACK};
+            border-left: 2px solid ${colors.BLACK};
             padding: 25px;
+            border-bottom: 2px solid ${colors.BLACK};
         }
         .radio-tile-label {
             text-align: center;

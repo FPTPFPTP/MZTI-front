@@ -5,12 +5,16 @@
             {
                 "id": 1,
                 "title": "자유 게시판",
-                "url": "free"
+                "subTitle": "아무말 대잔치 게시판",
+                "url": "free",
+                "icon": "speech"
             },
             {
                 "id": 22,
                 "title": "인기 게시판",
-                "url": "popular"
+                "subTitle": "실시간 인기글 모음",
+                "url": "popular",
+                "icon": "fire"
             }
         ]
     },
@@ -21,22 +25,30 @@
             {
                 "id": 2,
                 "title": "E vs I",
-                "url": "EvsI"
+                "subTitle": "개관종 vs 방구석찐따",
+                "url": "EvsI",
+                "icon": "boom"
             },
             {
                 "id": 3,
                 "title": "S vs N",
-                "url": "SvsN"
+                "subTitle": "극노잼충 vs 만약에충",
+                "url": "SvsN",
+                "icon": "boom"
             },
             {
                 "id": 4,
                 "title": "T vs F",
-                "url": "TvsF"
+                "subTitle": "이과감성 vs 문과감성",
+                "url": "TvsF",
+                "icon": "boom"
             },
             {
                 "id": 5,
                 "title": "J vs P",
-                "url": "JvsP"
+                "subTitle": "계획충 vs 게으름충",
+                "url": "JvsP",
+                "icon": "boom"
             }
         ]
     },
@@ -45,14 +57,9 @@
         "title": "MBTI별 게시판",
         "menus": [
             {
-                "id": 6,
-                "title": "ISTJ",
-                "url": "ISTJ"
-            },
-            {
-                "id": 7,
-                "title": "ISFJ",
-                "url": "ISFJ"
+                "id": 9,
+                "title": "INTJ",
+                "url": "INFJ"
             },
             {
                 "id": 8,
@@ -60,9 +67,9 @@
                 "url": "INFJ"
             },
             {
-                "id": 9,
-                "title": "INTJ",
-                "url": "INFJ"
+                "id": 6,
+                "title": "ISTJ",
+                "url": "ISTJ"
             },
             {
                 "id": 10,
@@ -70,9 +77,9 @@
                 "url": "ISTP"
             },
             {
-                "id": 11,
-                "title": "ISFP",
-                "url": "ISFP"
+                "id": 13,
+                "title": "INTP",
+                "url": "INTP"
             },
             {
                 "id": 12,
@@ -80,39 +87,19 @@
                 "url": "INFP"
             },
             {
-                "id": 13,
-                "title": "INTP",
-                "url": "INTP"
+                "id": 7,
+                "title": "ISFJ",
+                "url": "ISFJ"
             },
             {
-                "id": 14,
-                "title": "ESTP",
-                "url": "ESTP"
+                "id": 11,
+                "title": "ISFP",
+                "url": "ISFP"
             },
             {
-                "id": 15,
-                "title": "ESFP",
-                "url": "ESFP"
-            },
-            {
-                "id": 16,
-                "title": "ENFP",
-                "url": "ENFP"
-            },
-            {
-                "id": 17,
-                "title": "ENTP",
-                "url": "ENTP"
-            },
-            {
-                "id": 18,
-                "title": "ESTJ",
-                "url": "ESTJ"
-            },
-            {
-                "id": 19,
-                "title": "ESFJ",
-                "url": "ESFJ"
+                "id": 21,
+                "title": "ENTJ",
+                "url": "ENTJ"
             },
             {
                 "id": 20,
@@ -120,9 +107,35 @@
                 "url": "ENFJ"
             },
             {
-                "id": 21,
-                "title": "ENTJ",
-                "url": "ENTJ"
+                "id": 18,
+                "title": "ESTJ",
+                "url": "ESTJ"
+            },
+            {
+                "id": 14,
+                "title": "ESTP",
+                "url": "ESTP"
+            },
+            {
+                "id": 17,
+                "title": "ENTP",
+                "url": "ENTP"
+            },
+            {
+                "id": 16,
+                "title": "ENFP",
+                "url": "ENFP"
+            },
+
+            {
+                "id": 19,
+                "title": "ESFJ",
+                "url": "ESFJ"
+            },
+            {
+                "id": 15,
+                "title": "ESFP",
+                "url": "ESFP"
             }
         ]
     }

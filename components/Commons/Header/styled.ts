@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import colors from '@styles/color';
 
-export const HeaderContainerStyle = css`
+export const HeaderContainerStyle = (isBorderLine?: boolean) => css`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -11,7 +11,8 @@ export const HeaderContainerStyle = css`
     height: 80px;
     padding: 33px 20px;
     z-index: 9;
-    background-color: ${colors.WHITE};
+    background-color: #f8f8f8;
+    ${isBorderLine && 'border-bottom: 1px solid #ebebeb;'}
 `;
 
 export const TitleStyle = css`

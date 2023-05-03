@@ -6,5 +6,7 @@ export interface IBoardMenu {
 export interface IBoardModel {
     id: number;
     title: string;
+    subTitle?: string;
     url: string;
+    icon?: string;
 }

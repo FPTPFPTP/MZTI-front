@@ -10,13 +10,15 @@ import Notice from '@assets/icons/mypage/notice.svg';
 import Support from '@assets/icons/mypage/support.svg';
 import Bookmark from '@assets/icons/mypage/bookmark.svg';
 import Link from 'next/link';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import NotUser from '@/components/MyPageCom/NotUser';
 import { getMyPageActive } from '@/apis/post';
 import { getAccessToken } from '@utils/auth';
 import { IMyPageActive } from '@/types/post';
 import { BottomMenu } from '@/components/Commons';
+import { getMeUserInfo } from '@/apis/user';
+
 const menuList = [
     {
         title: '내가 저장한 글',
@@ -45,12 +47,13 @@ const menuList = [
 ];
 
 const mypage = () => {
-    const myInfo = useRecoilValue(myPageInfo);
+    const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
     const [myActive, setMyactive] = useState<IMyPageActive>();
 
     useEffect(() => {
         if (getAccessToken()) {
             getMyPageActive().then((res) => setMyactive(res));
+            getMeUserInfo().then((res) => setMyInfo(res));
         }
     }, []);
 

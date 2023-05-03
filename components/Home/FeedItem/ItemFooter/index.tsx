@@ -13,7 +13,6 @@ import Link from 'next/link';
 import { ILikeModel } from '@/types/post';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
-import { openToast } from '@/utils/toast';
 import { Modal } from '@components/Commons';
 
 interface IItemProps {

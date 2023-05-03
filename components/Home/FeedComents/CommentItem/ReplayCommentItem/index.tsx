@@ -6,41 +6,27 @@ import MoreButton from '@assets/icons/detailPost/moreButton.svg';
 import FillreCommentLike from '@assets/icons/comment/reCommentLikeFill.svg';
 import ReCommentLike from '@assets/icons/comment/reCommentLike.svg';
 import WriterMainIcon from '@assets/icons/comment/writerMain.svg';
-import { MoreDrawer } from '@/components/Commons';
 import { CommentItemSylte } from '../../../styled';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
-import { EType } from '@/components/Commons/MoreDrawer';
 import { useMutation } from '@tanstack/react-query';
-import { deleteComment, commentLike } from '@/apis/post';
-import { ILikeModel, ICommentModel } from '@/types/post';
+import { commentLike } from '@/apis/post';
+import { ILikeModel, ICommentModel, EActionEditType } from '@/types/post';
 
 interface IReplayCommentItemProps {
     replayCommentItem: ICommentModel;
     postWriterId?: number;
+    openDrawer: (id: number, type: EActionEditType) => void;
 }
 
-const ReplayCommentItem = ({ replayCommentItem, postWriterId }: IReplayCommentItemProps) => {
+const ReplayCommentItem = ({ replayCommentItem, postWriterId, openDrawer }: IReplayCommentItemProps) => {
     const { id, writer, comment, like, createAt, image } = replayCommentItem;
     const myInfo = useRecoilValue(myPageInfo);
     const [isLike, setIsLike] = useState<boolean>(like.check);
-    const [isVisible, setIsVisible] = useState<boolean>(false);
     const [likeCount, setLikeCount] = useState<number>(like.count);
-    const openDrawer = () => setIsVisible(true);
-    const closeDrawer = () => setIsVisible(false);
-    // 댓글 삭제
-    const commentDelete = useMutation((id: number) => deleteComment(id));
+
     // 대댓글 좋아요
     const reCommentLike = useMutation((id: number) => commentLike(id));
-
-    const handleCommentDelete = () => {
-        confirm('댓글을 삭제하시겠습니까?');
-        commentDelete.mutate(id, {
-            onSuccess: () => {
-                alert('삭제 완료되었습니다.');
-            },
-        });
-    };
 
     const handleReCommentLike = () => {
         reCommentLike.mutate(id, {
@@ -89,19 +75,14 @@ const ReplayCommentItem = ({ replayCommentItem, postWriterId }: IReplayCommentIt
                             <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
                         </button>
 
-                        <button onClick={openDrawer} className="moreButton">
+                        <button
+                            onClick={() => openDrawer(id, myInfo?.id === writer.userId ? EActionEditType.COMMENT : EActionEditType.COMMENT_TIPOFF)}
+                            className="moreButton"
+                        >
                             <MoreButton />
                         </button>
                     </div>
                 </div>
-
-                <MoreDrawer
-                    type={myInfo?.nickname === writer.nickname ? EType.COMMENT : EType.COMMENT_TIPOFF}
-                    onClick={closeDrawer}
-                    isVisible={isVisible}
-                    writerID={writer.id}
-                    handleCommentDelete={handleCommentDelete}
-                />
             </section>
         </>
     );

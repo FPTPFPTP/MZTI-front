@@ -6,6 +6,7 @@ export const FeedComentsWrapStyle = css`
 `;
 
 export const ListTabStyle = css`
+    margin-top: 20px;
     position: relative;
     width: 100%;
     border-bottom: 1px solid ${colors.GRAY_ORIGIN_1};
@@ -78,23 +79,30 @@ export const FeedNoComentsStyle = css`
 `;
 
 export const FeedComentsStyle = css`
-    display: flex;
-    padding: 1.6rem 20px 1.4rem 20px;
-    justify-content: space-between;
-    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
-    background-color: ${colors.WHITE};
+    padding-top: 5px;
+    border-bottom: 0.5px solid #ebebeb;
+    background-color: #d9d9d9;
+    .wrap {
+        background-color: ${colors.WHITE};
+        display: flex;
+        justify-content: space-between;
+        padding: 14px 40px;
+        align-items: center;
+    }
     h4 {
         font-weight: 300;
-        font-size: 1.3rem;
-        color: ${colors.GRAY_ORIGIN_3};
+        font-size: 15px;
+        line-height: 15px;
+        color: #545456;
     }
     button {
         display: flex;
         align-items: center;
         span {
             font-weight: 300;
-            font-size: 1.3rem;
-            color: ${colors.GRAY_ORIGIN_1};
+            font-size: 15px;
+            line-height: 15px;
+            color: #545456;
             margin-right: 10px;
         }
     }
@@ -123,67 +131,90 @@ export const MoreCommentStyle = css`
 export const CommentItemSylte = css`
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     .commentItemWrap {
-        padding: 1rem 20px;
+        padding: 15px 40px;
         background-color: ${colors.WHITE};
         &.replay {
-            padding: 1rem 20px 1rem 40px;
+            padding: 15px 40px 15px 80px;
             background-color: ${colors.GRAY_LIGHT_5};
         }
-    }
-    .writer {
-        display: flex;
-        font-size: 1.3rem;
-        align-items: center;
-        .css-3nludd-Avatar {
-            overflow: hidden;
-        }
-    }
-    .mbti {
-        font-size: 1.3rem;
-        border: 1px solid ${colors.GRAY_ORIGIN_1};
-        border-radius: 55px;
-        padding: 1px 9px;
-        margin-left: 11px;
-    }
-    .nickName {
-        font-size: 1.1rem;
-        font-weight: 300;
-        display: flex;
-        align-items: center;
-        & > span {
-            margin-left: 5px;
-        }
-    }
-    .coment {
-        font-size: 1.2rem;
-        font-weight: 400;
-        margin: 0.8rem 0;
-    }
-    .commentItemFooter {
-        display: flex;
-        color: ${colors.GRAY_ORIGIN_1};
-        position: relative;
-        align-items: center;
-        .moreButton {
-            position: absolute;
-            right: 0;
-        }
-        .time {
-            margin-right: 30px;
-        }
-        .like {
-            margin-right: 30px;
+        .mbtiNlevel {
             display: flex;
+            margin-bottom: 8px;
+        }
+        .writeInfo {
+            margin-left: 11px;
+        }
+        .writer {
+            display: flex;
+            font-size: 1.3rem;
             align-items: center;
-            svg {
-                margin-right: 5px;
+            .css-3nludd-Avatar {
+                overflow: hidden;
             }
         }
-        .reComment {
+        .mbti,
+        .level {
+            font-weight: 700;
+            font-size: 11px;
+            line-height: 9px;
             display: flex;
             align-items: center;
-            svg {
-                margin-right: 5px;
+            text-align: center;
+            color: #1b1e26;
+            padding: 4px 8px;
+            border-radius: 61px;
+        }
+
+        .level {
+            border: 1px solid #dbdbdb;
+            margin-left: 5px;
+        }
+        .nickName {
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 15px;
+            display: flex;
+            align-items: center;
+
+            color: #1b1e26;
+            & > span {
+                margin-left: 5px;
+            }
+        }
+        .coment {
+            margin-top: 15px;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 20px;
+            color: #545456;
+        }
+        .commentItemFooter {
+            display: flex;
+            color: ${colors.GRAY_ORIGIN_1};
+            position: relative;
+            align-items: center;
+            padding-top: 15px;
+            .moreButton {
+                position: absolute;
+                right: 0;
+            }
+            .time {
+                margin-right: 30px;
+            }
+            .like {
+                margin-right: 30px;
+                display: flex;
+                align-items: center;
+                svg {
+                    margin-right: 5px;
+                }
+            }
+            .reComment {
+                display: flex;
+                align-items: center;
+                svg {
+                    margin-right: 5px;
+                }
             }
         }
     }
@@ -301,12 +332,99 @@ export const ItemHeaderStyle = css`
     }
 `;
 
+export const DetailItemHeaderStyle = css`
+    width: 100%;
+    position: relative;
+    background: #f8f8f8;
+    border-radius: 15px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    .userInfo {
+        display: flex;
+        align-items: center;
+        .userInfo__profile {
+            border-radius: 50%;
+            overflow: hidden;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            & > div {
+                width: 100%;
+                height: 100%;
+                img {
+                    object-fit: cover;
+                }
+            }
+        }
+        .userInfo__Text {
+            padding-left: 11px;
+            display: flex;
+            .userInfo__Text--layout {
+                display: grid;
+                justify-content: space-between;
+            }
+            .mbti {
+                display: inline-block;
+                margin-right: 6px;
+                padding: 4px 8px;
+                border-radius: 41px;
+                color: ${colors.GRAY_STRONG};
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 9px;
+                text-align: center;
+            }
+            .nickname {
+                margin-top: 8px;
+                font-weight: 500;
+                font-size: 13px;
+                line-height: 15px;
+                color: #1b1e26;
+            }
+            .level {
+                display: inline-block;
+                border: 1px solid ${colors.GRAY_ORIGIN_1};
+                padding: 4px 8px;
+                border-radius: 41px;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 9px;
+                color: ${colors.GRAY_STRONG};
+                text-align: center;
+            }
+            .nickname_time {
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+    .moreButton {
+        .moreButton__box {
+            position: absolute;
+            background-color: ${colors.WHITE};
+            color: ${colors.BLACK};
+            font-size: 1.3rem;
+            right: 0;
+            button {
+                border: 1px solid ${colors.GRAY_BRIGHT_2};
+                padding: 0.2rem 0.6rem;
+                font-size: 1rem;
+                border-radius: 15px;
+            }
+        }
+    }
+`;
+
 export const ItemFooterStyle = css`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     padding: 15px 0 0;
-    border-top: 0.5px solid ${colors.GRAY_ORIGIN_1};
-    background-color: ${colors.WHITE};
     span {
         font-size: 12px;
         font-weight: 500;
@@ -323,9 +441,9 @@ export const ItemFooterStyle = css`
         margin-left: 13px;
     }
     &.postFooter {
-        background: ${colors.GRAY_LIGHT_3};
+        background: ${colors.WHITE};
         border-top: none;
-        padding: 21px 0 23px;
+        padding: 82px 0 30px;
     }
     .viewIcon {
         display: flex;

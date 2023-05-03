@@ -73,6 +73,7 @@ const Mbti = (props: IMbti) => {
                 onClick={(value) => upsert('TorF', { index: 3, value })}
             />
             <MbtiRadioGroup
+                className="borderSolid"
                 defaultValue={mapObj.get('JorP')?.value}
                 firstValue={'J'}
                 secondValue={'P'}

@@ -20,3 +20,11 @@ export const categoryIdToTitle = (id: number) => {
     }
     return '';
 };
+
+export const categoryIdToURL = (id: number) => {
+    const category = categories.find((category) => category.id === id);
+    if (category) {
+        return category.url;
+    }
+    return '';
+};

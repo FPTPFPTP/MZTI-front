@@ -6,8 +6,8 @@ export const AvatarWrapStyle = css`
     position: relative;
     border-radius: 50%;
     box-sizing: border-box;
-    width: 50%;
-    height: 50%;
+    /* width: 50%;
+    height: 50%; */
     input {
         display: none;
     }

@@ -131,7 +131,6 @@ const SignUp = () => {
     return (
         <NonSSRWrapper>
             <div css={Layout}>
-                <Header onClickBackButton={onBackPage} />
                 <div css={BodyWrapper}>
                     <ProgressLineBar percent={stepActive} />
                     {stepActive === 1 && <NicknameContent isPossible={isNickNamePossible} handleIsPossible={setIsNickNamePossible} onSubmit={onSubmit} />}

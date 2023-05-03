@@ -148,3 +148,10 @@ export interface IReCommentParam {
     page: number;
     view: number;
 }
+
+export enum EActionEditType {
+    WRITE = 'write', // 게시글 수정, 삭제
+    COMMENT = 'comment', // 댓글 수정, 삭제
+    WRITET_TIPOFF = 'write_tipoff', // 게시글 신고하기
+    COMMENT_TIPOFF = 'comment_tipoff', // 댓글 신고하기
+}

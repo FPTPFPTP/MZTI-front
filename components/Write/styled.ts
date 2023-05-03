@@ -49,7 +49,6 @@ export const TagSearchDropdownItemStyle = css`
 `;
 
 export const ContentWrapStyle = css`
-    overflow-y: auto;
     position: relative;
     width: 100%;
     height: calc(100vh - 190px);
