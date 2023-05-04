@@ -36,7 +36,7 @@ const secession = () => {
 
     return (
         <main css={SecessionStyled}>
-            <Header title="서비스 탈퇴" />
+            <Header title="서비스 탈퇴" isBgWhite={true} isBorderLine={true} />
 
             <div className="wrap">
                 <h3>
