@@ -24,6 +24,10 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
     const setEditTarget = useSetRecoilState(postEditState);
     const observerRef = useRef(null);
 
+    // 스크롤
+    const scrollRef = useRef<HTMLDivElement | null>(null);
+    const [isScrolldown, setIsScrolldown] = useState<boolean>(false);
+
     // 댓글 수정, 삭제
     const [editComment, setEditComment] = useState<ICommentModel>();
     // 댓글 수정, 삭제, 신고 Drawer
@@ -33,7 +37,7 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
     const queryClient = useQueryClient();
 
     const onSuccessComment = async () => {
-        queryClient.invalidateQueries(['getReComments']);
+        queryClient.invalidateQueries(['getReComments', (comment && comment.id) || 0]);
     };
 
     // 대댓글 추가
@@ -49,7 +53,8 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
             image: imageSrc,
         });
         if (reComment.code === 'SUCCESS') {
-            onSuccessComment();
+            await onSuccessComment();
+            await setIsScrolldown(true);
         }
     };
 
@@ -111,6 +116,21 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
         [fetchNextPage, hasNextPage],
     );
 
+    // 스크롤 내리기
+    const scrollToBottom = useCallback(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+            setIsScrolldown(false);
+        }
+    }, [isScrolldown]);
+
+    useEffect(() => {
+        // AddComment로 댓글 추가하면 데이터 갱신, 스크롤 이동 순차적으로 적용하기위해 구성
+        if (isScrolldown) {
+            scrollToBottom();
+        }
+    }, [isScrolldown]);
+
     useEffect(() => {
         const element = observerRef.current;
         const option = { threshold: 0 };
@@ -129,7 +149,7 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
                     <Header isPrevBtn={true} title={`대댓글`} />
 
                     <CommentItem commentItem={comment} openDrawer={openDrawer} isTop={true} />
-                    <div css={ReplayCommentStyled}>
+                    <div css={ReplayCommentStyled} ref={scrollRef}>
                         {/* 피드 게시물 */}
                         {reComments.length ? (
                             reComments.map((reComment) => {

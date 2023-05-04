@@ -1,28 +1,24 @@
 import { useEffect, useState } from 'react';
-import debounce from 'lodash/debounce';
+import { throttle } from 'lodash';
 
-export function useScrollDown(ref: React.MutableRefObject<HTMLDivElement | null>) {
+export function useScrollDown() {
     const [isCurrentScrollTop, setIsCurrentScrollTop] = useState<boolean>(true);
 
-    const delay = 15;
+    const delay = 300;
 
     const listener = () => {
-        if (ref.current) {
-            const currentScrollPos = ref.current.scrollTop;
+        const scrollTop = window.scrollY;
 
-            if (currentScrollPos === 0) {
-                setIsCurrentScrollTop(true);
-            } else {
-                setIsCurrentScrollTop(false);
-            }
+        if (scrollTop === 0) {
+            setIsCurrentScrollTop(true);
+        } else {
+            setIsCurrentScrollTop(false);
         }
     };
 
     useEffect(() => {
-        if (ref.current) {
-            ref.current.addEventListener('scroll', debounce(listener, delay));
-            return () => (ref.current ? ref.current.removeEventListener('scroll', debounce(listener, delay)) : console.log(''));
-        }
+        window.addEventListener('scroll', throttle(listener, delay));
+        return () => window.removeEventListener('scroll', throttle(listener, delay));
     }, []);
 
     return isCurrentScrollTop;

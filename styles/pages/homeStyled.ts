@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export const FeedContentStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop: boolean }) => css`
+export const FeedContentStyle = () => css`
     padding: 0px 20px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */

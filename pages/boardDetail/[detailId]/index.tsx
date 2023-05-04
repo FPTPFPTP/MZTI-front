@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -40,6 +40,10 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const myInfo = useRecoilValue(myPageInfo);
     const setEditTarget = useSetRecoilState(postEditState);
 
+    // 스크롤
+    const scrollRef = useRef<HTMLDivElement | null>(null);
+    const [isScrolldown, setIsScrolldown] = useState<boolean>(false);
+
     const usePostLike = useMutation((id: any) => postBookmark(id));
     // 상세 게시글
     const [postData, setPostData] = useState<IPostModel | undefined>(data);
@@ -74,7 +78,6 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
 
             if (postData) {
                 getPost({ postId: postData.id }).then((result) => {
-                    console.log({ result });
                     setPostData(result);
                 });
             }
@@ -101,7 +104,8 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
             image: imageSrc,
         });
         if (comment) {
-            onSuccessComment();
+            await onSuccessComment();
+            await setIsScrolldown(true);
         }
     };
 
@@ -173,6 +177,22 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
 
     const closeDrawer = () => setIsDrawerVisible(false);
 
+    // 스크롤 내리기
+    const scrollToBottom = useCallback(() => {
+        if (scrollRef.current) {
+            window.scrollTo({ top: scrollRef.current.scrollHeight });
+
+            setIsScrolldown(false);
+        }
+    }, [isScrolldown]);
+
+    useEffect(() => {
+        // AddComment로 댓글 추가하면 데이터 갱신, 스크롤 이동 순차적으로 적용하기위해 구성
+        if (isScrolldown) {
+            scrollToBottom();
+        }
+    }, [isScrolldown]);
+
     useEffect(() => {
         if (postData && pageParam >= 1) {
             getComments({ postId: Number(postData.id), page: pageParam, view: 15 }).then((result: any) => {
@@ -218,7 +238,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     };
 
     return (
-        <main className="homeLayout">
+        <main className="homeLayout" ref={scrollRef}>
             {postData && (
                 <>
                     {/* 헤더 */}

@@ -386,7 +386,7 @@ export const reCommentGet = async ({ commentId, page, view }: IReCommentParam) =
 };
 
 export const useGetReComments = ({ commentId }: { commentId: number }) => {
-    const res = useInfiniteQuery(['getReComments'], ({ pageParam = 0 }) => reCommentGet({ page: pageParam, view: 10, commentId }), {
+    const res = useInfiniteQuery(['getReComments', commentId], ({ pageParam = 0 }) => reCommentGet({ page: pageParam, view: 10, commentId }), {
         getNextPageParam: (lastPage) => {
             const nextPage = lastPage.page + 1;
             return lastPage.list.length !== 0 ? nextPage : undefined;

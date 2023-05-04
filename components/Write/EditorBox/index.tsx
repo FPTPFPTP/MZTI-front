@@ -195,19 +195,19 @@ const EditorBox = (props: IEditorBox) => {
             container.appendChild(description);
             container.appendChild(urlInput);
 
-            editorRef.current?.getInstance().insertToolbarItem(
-                { groupIndex: 3, itemIndex: 3 },
-                {
-                    name: 'youtube',
-                    tooltip: 'youtube',
-                    className: 'toastui-editor-toolbar-icons',
-                    style: { backgroundImage: `url(/images/youtube.png)`, backgroundSize: '25px', color: 'red' },
-                    popup: {
-                        body: container,
-                        style: { width: 'auto' },
-                    },
-                },
-            );
+            // editorRef.current?.getInstance().insertToolbarItem(
+            //     { groupIndex: 3, itemIndex: 3 },
+            //     {
+            //         name: 'youtube',
+            //         tooltip: 'youtube',
+            //         className: 'toastui-editor-toolbar-icons',
+            //         style: { backgroundImage: `url(/images/youtube.png)`, backgroundSize: '25px', color: 'red' },
+            //         popup: {
+            //             body: container,
+            //             style: { width: 'auto' },
+            //         },
+            //     },
+            // );
 
             // 기존 이미지 업로드 기능 제거
             editorRef.current.getInstance().removeHook('addImageBlobHook');

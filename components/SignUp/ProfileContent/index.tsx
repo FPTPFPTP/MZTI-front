@@ -12,7 +12,7 @@ import { Container } from '../styled';
 const ProfileContent = () => {
     // 이미지 링크
     const [previewFileSrc, setPreviewFileSrc] = useState<string>('');
-
+    const signupStateObj = useRecoilValue(signupState);
     const setSignupProfileFile = useSetRecoilState(signupProfileFileState);
 
     const updateProfileImg = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ const ProfileContent = () => {
         <div css={Container}>
             <Typography.Title className="title">프로필 사진을 설정해주세요</Typography.Title>
             <div className="profile">
-                <ProfileUpload previewFileSrc={previewFileSrc} handleUpdateProfileImg={updateProfileImg} />
+                <ProfileUpload previewFileSrc={previewFileSrc} mbti={signupStateObj.mbti} handleUpdateProfileImg={updateProfileImg} />
             </div>
         </div>
     );

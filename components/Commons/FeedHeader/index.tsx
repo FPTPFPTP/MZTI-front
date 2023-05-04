@@ -10,7 +10,7 @@ interface IFeedHeaderProps {
     categoryId?: number;
 }
 
-const FeedHeader = ({ isCurrentScrollTop }: IFeedHeaderProps) => {
+const FeedHeader = ({ isCurrentScrollTop, categoryId }: IFeedHeaderProps) => {
     return (
         <header css={HomeMenuStyle}>
             <div className="header">
@@ -22,7 +22,7 @@ const FeedHeader = ({ isCurrentScrollTop }: IFeedHeaderProps) => {
 
                         <div className="right">
                             {isCurrentScrollTop === false && (
-                                <Link href="/search">
+                                <Link href={`/search${categoryId ? `/${categoryId}` : ''}`}>
                                     <SearchIcon />
                                 </Link>
                             )}

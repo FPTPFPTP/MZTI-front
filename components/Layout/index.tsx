@@ -4,7 +4,11 @@ import color from '@/styles/color';
 
 const Layout: React.FC<any> = (props) => {
     const { children } = props;
-    return <div css={StyledLayout}>{children}</div>;
+    return (
+        <div css={StyledLayout} id={'layout'}>
+            {children}
+        </div>
+    );
 };
 
 export default Layout;
