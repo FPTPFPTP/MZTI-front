@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import debounce from 'lodash/debounce';
+import { throttle } from 'lodash';
 
 export function useScrollDown() {
     const [isCurrentScrollTop, setIsCurrentScrollTop] = useState<boolean>(true);
 
-    const delay = 15;
+    const delay = 300;
 
     const listener = () => {
         const scrollTop = window.scrollY;
+
         if (scrollTop === 0) {
             setIsCurrentScrollTop(true);
         } else {
@@ -16,8 +17,8 @@ export function useScrollDown() {
     };
 
     useEffect(() => {
-        window.addEventListener('scroll', debounce(listener, delay));
-        return () => window.removeEventListener('scroll', debounce(listener, delay));
+        window.addEventListener('scroll', throttle(listener, delay));
+        return () => window.removeEventListener('scroll', throttle(listener, delay));
     }, []);
 
     return isCurrentScrollTop;
