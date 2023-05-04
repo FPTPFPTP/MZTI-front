@@ -21,7 +21,7 @@ const Profile = ({ user }: IProfileProps) => {
                     <p className="mbti" style={{ background: getMbtiColor(mbti) }}>
                         {mbti}
                     </p>
-                    <p className="level">Lv.1</p>
+                    <p className="level">Lv.{level}</p>
                 </div>
 
                 <p className="nickname">{nickname}</p>
