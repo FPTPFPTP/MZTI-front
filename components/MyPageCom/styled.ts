@@ -444,3 +444,7 @@ export const LogoutModal = css`
         }
     }
 `;
+
+export const EtcStyle = css`
+    height: 100vh;
+`;

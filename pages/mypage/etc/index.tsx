@@ -10,7 +10,7 @@ import FacebookIcon from '@assets/icons/mypage/facebook.svg';
 import KakaoIcon from '@assets/icons/mypage/kakao.svg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import DepthMenu from '@/components/MyPageCom/DepthMenu';
-import { DepthMenuStyle, LogoutModal } from '@/components/MyPageCom/styled';
+import { DepthMenuStyle, LogoutModal, EtcStyle } from '@/components/MyPageCom/styled';
 import DrawerMenu from '@/components/Commons/Drawer';
 import mem from 'mem';
 
@@ -64,8 +64,8 @@ const etc = () => {
         router.replace('/mypage');
     };
     return (
-        <>
-            <Header />
+        <div css={EtcStyle}>
+            <Header isBgWhite={true} />
             <div css={DepthMenuStyle}>
                 <DepthMenu menuList={menuLists} typeTitle="서비스 정보" />
 
@@ -113,7 +113,7 @@ const etc = () => {
                     </>
                 </Modal>
             )}
-        </>
+        </div>
     );
 };
 export default etc;

@@ -134,8 +134,8 @@ export const CommentItemSylte = css`
         padding: 15px 40px;
         background-color: ${colors.WHITE};
         &.replay {
-            padding: 15px 40px 15px 80px;
-            background-color: ${colors.GRAY_LIGHT_5};
+            padding: 15px 30px 15px 60px;
+            background-color: rgba(219, 219, 219, 0.2);
         }
         .mbtiNlevel {
             display: flex;
@@ -148,8 +148,22 @@ export const CommentItemSylte = css`
             display: flex;
             font-size: 1.3rem;
             align-items: center;
+            position: relative;
             .css-3nludd-Avatar {
                 overflow: hidden;
+            }
+            .nickname_time {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            .time {
+                font-weight: 300;
+                font-size: 10px;
+                line-height: 10px;
+                color: #a7a7a7;
+                margin-top: 14px;
             }
         }
         .mbti,

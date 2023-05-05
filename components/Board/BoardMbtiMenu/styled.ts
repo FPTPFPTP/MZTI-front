@@ -21,4 +21,8 @@ export const MbtiMenuStyle = (mbtiColor: string) => css`
         width: 100%;
         height: 100%;
     }
+    @media (max-width: 380px) {
+        width: 76px;
+        height: 76x;
+    }
 `;

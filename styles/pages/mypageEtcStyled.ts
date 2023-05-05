@@ -4,6 +4,7 @@ import color from '../color';
 export const SecessionStyled = css`
     .wrap {
         padding: 33px 20px;
+        height: 100vh;
         h3 {
             font-weight: 400;
             font-size: 1.4rem;

@@ -39,7 +39,6 @@ export const RadioTileGroupStyle = css`
             width: 100%;
             height: 100%;
             border-left: 2px solid ${colors.BLACK};
-            padding: 25px;
             border-bottom: 2px solid ${colors.BLACK};
         }
         .radio-tile-label {

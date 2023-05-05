@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -20,13 +20,11 @@ import EmptyWrite from '@assets/icons/common/empty_write.svg';
 import { SearchWrapStyle } from '@/components/Commons/FeedHeader/styled';
 
 const home = () => {
-    const feedRef = useRef<HTMLDivElement | null>(null);
-
     const [countIndex, setCountIndex] = useState<number | undefined>(22);
     // 게시글 & 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
 
-    const isCurrentScrollTop = useScrollDown(feedRef);
+    const isCurrentScrollTop = useScrollDown();
 
     const setEditTarget = useSetRecoilState(postEditState);
 
@@ -74,7 +72,7 @@ const home = () => {
             {/* 헤더 */}
             <FeedHeader isCurrentScrollTop={isCurrentScrollTop} />
 
-            <div css={FeedContentStyle({ isCurrentScrollTop })} ref={feedRef}>
+            <div css={FeedContentStyle} id={'feedContent'}>
                 <div css={SearchWrapStyle}>
                     <Input inputStyle={'search'} placeholder={'관심있는 MBTI, 키워드, 이슈 검색'} onClick={() => router.push(`/search`)} />
                 </div>
