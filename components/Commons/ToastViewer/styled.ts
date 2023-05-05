@@ -14,8 +14,6 @@ export const ToastViewerStyle = css`
         font-size: 15px;
         font-weight: 500;
         line-height: 23px;
-        letter-spacing: -0.40799999237060547px;
-        text-align: left;
         margin-top: 0px;
     }
 `;
