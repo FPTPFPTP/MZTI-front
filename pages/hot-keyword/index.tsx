@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { useRecoilState } from 'recoil';
 import { hotKeywordsState } from '@/recoil/atom/hotKeyword';
 import { BottomMenu, Header } from '@components/Commons';
-import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
+import { Empty, ListBoardItem } from '@components/MyPageCom';
 import HotKeyword from '@/components/Home/HotKeyword';
 import { useGetPosts } from '@/apis/post';
 import { getThumbnail } from '@/utils/postItem';
@@ -13,12 +13,11 @@ import SearchIcon from '@assets/icons/common/search_blank.svg';
 import ArrowDownIcon from '@assets/icons/arrow_down.svg';
 
 const keywordBoard = () => {
-    const feedRef = useRef<HTMLDivElement | null>(null);
     const [hotKeyword, setHotKeyword] = useRecoilState(hotKeywordsState);
     // 데이터 패칭
     const { contents: searchList, hasNextPage, fetchNextPage } = useGetPosts({ search: hotKeyword });
 
-    const isCurrentScrollTop = useScrollDown(feedRef);
+    const isCurrentScrollTop = useScrollDown();
 
     useEffect(() => {
         return () => setHotKeyword('');
@@ -40,7 +39,7 @@ const keywordBoard = () => {
                 </section>
             </div>
 
-            <section ref={feedRef} css={FeedContentStyle({ isCurrentScrollTop })}>
+            <section css={FeedContentStyle({ isCurrentScrollTop })}>
                 {/* 피드 게시물 */}
                 {searchList.length ? (
                     <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
