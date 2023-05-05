@@ -15,6 +15,7 @@ export const MbtiMenuGroupStyle = css`
     align-items: center;
     padding: 0px 20px 20px;
     gap: 21px;
+    white-space: nowrap;
     h3 {
         font-size: 17px;
         font-weight: 700;
