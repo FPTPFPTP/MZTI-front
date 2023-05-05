@@ -63,7 +63,7 @@ const feedback = () => {
 
     return (
         <main css={feedbackWrapStyled}>
-            <Header title="서포트 센터" />
+            <Header title="서포트 센터" isBgWhite={true} isBorderLine={true} />
             <form css={feedbackStyled}>
                 <div className="type">
                     <h3>문의 유형</h3>

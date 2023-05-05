@@ -9,6 +9,7 @@ interface IHeaderBaseProps {
     isPrevBtn?: boolean;
     isReplayComment?: boolean;
     isBorderLine?: boolean;
+    isBgWhite?: boolean;
 }
 
 interface IHeaderCallBackProps extends IHeaderBaseProps {
@@ -18,7 +19,7 @@ interface IHeaderCallBackProps extends IHeaderBaseProps {
 type THeaderProps = IHeaderBaseProps | IHeaderCallBackProps;
 
 const Header = (props: THeaderProps) => {
-    const { title, rightElement, isPrevBtn = true, isBorderLine } = props;
+    const { title, rightElement, isPrevBtn = true, isBorderLine, isBgWhite } = props;
     const { onClickBackButton } = props as IHeaderCallBackProps;
     const router = useRouter();
 
@@ -32,7 +33,7 @@ const Header = (props: THeaderProps) => {
     };
 
     return (
-        <header css={HeaderContainerStyle(isBorderLine)}>
+        <header css={HeaderContainerStyle(isBorderLine, isBgWhite)}>
             {isPrevBtn && (
                 <button onClick={onBackPage}>
                     <ArrowLeftOutlined style={{ fontSize: 30 }} />

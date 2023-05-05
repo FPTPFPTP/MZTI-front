@@ -252,6 +252,8 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                                 </button>
                             </div>
                         }
+                        isBgWhite={true}
+                        isBorderLine={true}
                     />
                     <div css={PostContentStyle}>
                         {postData && (
