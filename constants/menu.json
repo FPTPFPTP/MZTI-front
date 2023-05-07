@@ -25,28 +25,28 @@
             {
                 "id": 2,
                 "title": "E vs I",
-                "subTitle": "개관종 vs 방구석찐따",
+                "subTitle": " 외향형 vs 내향형",
                 "url": "EvsI",
                 "icon": "boom"
             },
             {
                 "id": 3,
                 "title": "S vs N",
-                "subTitle": "극노잼충 vs 만약에충",
+                "subTitle": "감각형 vs 직관형",
                 "url": "SvsN",
                 "icon": "boom"
             },
             {
                 "id": 4,
                 "title": "T vs F",
-                "subTitle": "이과감성 vs 문과감성",
+                "subTitle": "사고형 vs 감정형",
                 "url": "TvsF",
                 "icon": "boom"
             },
             {
                 "id": 5,
                 "title": "J vs P",
-                "subTitle": "계획충 vs 게으름충",
+                "subTitle": "판단형 vs 인식형",
                 "url": "JvsP",
                 "icon": "boom"
             }
