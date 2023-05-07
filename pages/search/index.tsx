@@ -31,7 +31,7 @@ const Search = () => {
 
     return (
         <section>
-            <Header />
+            <Header isBgWhite={true} />
 
             <div css={searchWrap}>
                 <form className="search__box" onSubmit={handleSubmit((data) => onSearch(data.search))}>
