@@ -94,7 +94,7 @@ const Search = () => {
                                 ) : (
                                     <Empty
                                         title="최근 검색어 내역이 없어요"
-                                        subTitle="정확한 검색어를 입력했는지 <br/> 다시 한 번 확인해주세요"
+                                        subTitle="정확한 검색어를 입력했는지 \n 다시 한 번 확인해주세요"
                                         icon={<SearchIcon />}
                                     />
                                 )}
