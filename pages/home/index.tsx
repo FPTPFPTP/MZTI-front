@@ -24,7 +24,7 @@ const home = () => {
     // 게시글 & 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
 
-    const isCurrentScrollTop = useScrollDown();
+    const isCurrentScrollTop = useScrollDown(65);
 
     const setEditTarget = useSetRecoilState(postEditState);
 

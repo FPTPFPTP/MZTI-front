@@ -23,7 +23,7 @@
         "@emotion/styled": "^11.10.5",
         "@faker-js/faker": "^7.6.0",
         "@greatsumini/react-facebook-login": "^3.3.2",
-        "@khunjeong/basic-survey-template": "^0.0.52",
+        "@khunjeong/basic-survey-template": "^0.0.55",
         "@next/font": "13.1.6",
         "@storybook/react": "^6.5.16",
         "@storybook/testing-library": "^0.0.13",
