@@ -19,13 +19,24 @@ interface IEmptyProps {
  */
 const Empty = (props: IEmptyProps) => {
     const { title, subTitle, buttonTitle, onClick, href, icon } = props;
+
+    const SubTitle = ({ subTitle }: { subTitle: string }) => {
+        return (
+            <div className="sub_title">
+                {subTitle.split('\\n').map((title, index) => (
+                    <p key={index} style={{ color: colors.GRAY_ORIGIN_1 }}>
+                        {title}
+                    </p>
+                ))}
+            </div>
+        );
+    };
+
     return (
         <div css={EmptyStyle}>
             <p className="icon">{icon}</p>
             <p className="title">{title}</p>
-            <p className="sub_title" style={{ color: colors.GRAY_ORIGIN_1 }}>
-                {subTitle}
-            </p>
+            <SubTitle subTitle={subTitle} />
 
             {buttonTitle && (
                 <Button buttonStyle={'base'} href={href} onClick={onClick}>

@@ -12,7 +12,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import DepthMenu from '@/components/MyPageCom/DepthMenu';
 import { DepthMenuStyle, LogoutModal, EtcStyle } from '@/components/MyPageCom/styled';
 import DrawerMenu from '@/components/Commons/Drawer';
-import mem from 'mem';
+import { ModalStyle } from '@/components/Commons/Modal/styled';
 
 const etc = () => {
     const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
@@ -107,10 +107,16 @@ const etc = () => {
 
             {isModal && (
                 <Modal title="준비중인 기능입니다" open={isModal} onCancel={() => setIsModal(false)} footer={null} isModalVisible={false} centered={true}>
-                    <>
-                        <p>새로운 기능을 준비하고 있어요! 다음 업데이트를 기다려주세요</p>
-                        <button onClick={() => setIsModal(false)}>확인</button>
-                    </>
+                    <div css={ModalStyle}>
+                        <p>
+                            새로운 기능을 준비하고 있어요!
+                            <br />
+                            다음 업데이트를 기다려주세요
+                        </p>
+                        <button onClick={() => setIsModal(false)} className="button">
+                            확인
+                        </button>
+                    </div>
                 </Modal>
             )}
         </div>
