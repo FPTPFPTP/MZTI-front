@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react';
 import { throttle } from 'lodash';
 
-export function useScrollDown() {
+export function useScrollDown(scrollPointer?: number) {
     const [isCurrentScrollTop, setIsCurrentScrollTop] = useState<boolean>(true);
 
     const delay = 300;
 
     const listener = () => {
         const scrollTop = window.scrollY;
-
-        if (scrollTop === 0) {
-            setIsCurrentScrollTop(true);
+        if (scrollPointer !== undefined) {
+            if (scrollTop <= scrollPointer) {
+                setIsCurrentScrollTop(true);
+            } else {
+                setIsCurrentScrollTop(false);
+            }
         } else {
-            setIsCurrentScrollTop(false);
+            if (scrollTop === 0) {
+                setIsCurrentScrollTop(true);
+            } else {
+                setIsCurrentScrollTop(false);
+            }
         }
     };
 
