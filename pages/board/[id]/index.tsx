@@ -20,7 +20,7 @@ interface IBoardProps {
 const board = ({ id }: IBoardProps) => {
     const router = useRouter();
 
-    const isCurrentScrollTop = useScrollDown();
+    const isCurrentScrollTop = useScrollDown(40);
 
     // 데이터 패칭
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(
