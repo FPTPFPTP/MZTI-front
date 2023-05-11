@@ -89,6 +89,7 @@ export const feedbackStyled = css`
 `;
 
 export const feedbackWrapStyled = css`
+    height: 100vh;
     .buttonWrap {
         position: fixed;
         bottom: 30px;

@@ -9,10 +9,15 @@ export const HeaderContainerStyle = (isBorderLine?: boolean, isBgWhite?: boolean
     top: 0;
     width: 100%;
     height: 80px;
-    padding: 33px 20px;
+    padding-right: 20px;
     z-index: 9;
     background-color: ${isBgWhite ? colors.WHITE : '#f8f8f8'};
     ${isBorderLine && 'border-bottom: 1px solid #ebebeb;'}
+
+    .preButton {
+        padding: 0 20px;
+        height: 100%;
+    }
 `;
 
 export const TitleStyle = css`

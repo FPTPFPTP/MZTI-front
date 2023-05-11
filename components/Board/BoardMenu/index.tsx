@@ -4,6 +4,7 @@ import ArrowRightIcon from '@assets/icons/boardList/arrow_right.svg';
 import BoomIcon from '@assets/icons/boardList/boom.svg';
 import FireIcon from '@assets/icons/boardList/fire.svg';
 import SpeechIcon from '@assets/icons/boardList/speech.svg';
+import FistIcon from '@assets/icons/boardList/fist.svg';
 import { MenuContainerStyle } from './styled';
 
 interface IBoardMenuProps {
@@ -19,6 +20,8 @@ const boardMenu = ({ menu }: IBoardMenuProps) => {
                 return <BoomIcon />;
             case 'speech':
                 return <SpeechIcon />;
+            case 'fist':
+                return <FistIcon />;
             default:
                 return null;
         }

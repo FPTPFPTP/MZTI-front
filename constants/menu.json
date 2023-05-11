@@ -15,6 +15,13 @@
                 "subTitle": "실시간 인기글 모음",
                 "url": "popular",
                 "icon": "fire"
+            },
+            {
+                "id": 23,
+                "title": "내가 느낀 MBTI 별 팩폭",
+                "subTitle": "작성하면 레벨업! MZ모임 글쓰기 가능",
+                "url": "fact",
+                "icon": "fist"
             }
         ]
     },
