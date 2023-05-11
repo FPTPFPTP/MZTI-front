@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect } from 'react';
 
@@ -31,26 +31,12 @@ const gaScript = `function gtag(){dataLayer.push(arguments)}window.dataLayer=win
 
 export default function GoogleAnalytics() {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
         if (!window.gtag || !pathname) return;
-
         pageview(pathname);
-    }, [pathname]);
-
-    // Next.js 13 에서 아직 미지원
-    // const router = useRouter()
-    // useEffect(() => {
-    //   const handleRouteChange = (url) => {
-    //     pageview(url)
-    //   }
-    //   router.events.on('routeChangeComplete', handleRouteChange)
-    //   router.events.on('hashChangeComplete', handleRouteChange)
-    //   return () => {
-    //     router.events.off('routeChangeComplete', handleRouteChange)
-    //     router.events.off('hashChangeComplete', handleRouteChange)
-    //   }
-    // }, [router.events])
+    }, [pathname, searchParams]);
 
     return (
         // https://nextjs.org/docs/messages/next-script-for-ga
