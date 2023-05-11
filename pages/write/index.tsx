@@ -22,11 +22,7 @@ const Write = () => {
         }
     }, [myInfo]);
 
-    return (
-        <>
-            <EditorBox />
-        </>
-    );
+    return <EditorBox />;
 };
 
 export default Write;

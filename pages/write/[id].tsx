@@ -12,6 +12,7 @@ interface IWriteProps {
     data?: IPostModel;
 }
 
+// 수정용
 const Write = ({ data }: IWriteProps) => {
     return <>{data && <EditorBox postItem={data} />}</>;
 };
