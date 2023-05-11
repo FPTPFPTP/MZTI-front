@@ -18,6 +18,7 @@ import { FeedContentStyle } from '@styles/pages/homeStyled';
 import { EActionEditType } from '@/types/post';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
 import { SearchWrapStyle } from '@/components/Commons/FeedHeader/styled';
+import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
 
 const home = () => {
     const [countIndex, setCountIndex] = useState<number | undefined>(22);
@@ -83,12 +84,22 @@ const home = () => {
                 <HotKeyword title="🔥 실시간 HOT 키워드" more={true} />
 
                 {/* 피드 게시물 */}
-                {data && data.pages.length && data.pages[0].list.length !== 0 ? (
-                    <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                        <FeedItem data={data} isLoading={isLoading} openDrawer={openDrawer} />
-                    </InfiniteScroll>
+                {isLoading ? (
+                    <>
+                        <FeedSkeleton />
+                        <FeedSkeleton />
+                        <FeedSkeleton />
+                    </>
                 ) : (
-                    <Empty icon={<EmptyWrite />} title="작성된 글이 없습니다." subTitle={`게시글을 작성해주세요`} />
+                    <>
+                        {data && data.pages.length && data.pages[0].list.length !== 0 ? (
+                            <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
+                                <FeedItem data={data} openDrawer={openDrawer} />
+                            </InfiniteScroll>
+                        ) : (
+                            <Empty icon={<EmptyWrite />} title="작성된 글이 없습니다." subTitle={`게시글을 작성해주세요`} />
+                        )}
+                    </>
                 )}
             </div>
             {/* 메뉴 */}
