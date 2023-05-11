@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Header, Button } from '@components/Commons';
 import { feedbackStyled, feedbackWrapStyled } from '@styles/pages/mypageFeedbackStyled';
 import { postSupport, useGetSupportCategory } from '@/apis/support';
-import { Select, message } from 'antd';
+import { message } from 'antd';
 import { openToast } from '@/utils/toast';
 import BottomArrow from '@assets/icons/common/bottom_arr.svg';
 import DrawerMenu from '@/components/Commons/Drawer';

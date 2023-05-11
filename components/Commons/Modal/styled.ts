@@ -9,10 +9,35 @@ export const ModalStyle = css`
     .ant-modal-body {
         text-align: center;
     }
+    .buttons {
+        display: flex;
+        justify-content: space-evenly;
+        font-weight: 400;
+        font-size: 17px;
+        line-height: 22px;
+        text-align: center;
+        letter-spacing: -0.408px;
+        .cancel {
+            border-right: 0.5px solid rgba(0, 0, 0, 0.3);
+            color: rgba(27, 30, 38, 0.5);
+        }
+        p {
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 18px;
+            text-align: center;
+            letter-spacing: -0.078px;
+            color: #545456;
+        }
+    }
     .ant-modal-content {
         border-radius: 20px !important;
     }
-
+    .confirmButton {
+        display: flex;
+        width: 100%;
+        border-top: 0.5px solid rgba(0, 0, 0, 0.3);
+    }
     .button {
         margin-top: 17px;
         width: 100%;
@@ -50,7 +75,7 @@ export const ModalStyle = css`
         }
         &-header {
             margin: 0px;
-            padding: 24px;
+            padding: 24px 24px 2px 24px;
         }
         &-title {
             font-weight: 700;

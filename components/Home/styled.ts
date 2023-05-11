@@ -439,6 +439,7 @@ export const ItemFooterStyle = css`
     display: flex;
     justify-content: space-evenly;
     padding: 15px 0 0;
+
     span {
         font-size: 12px;
         font-weight: 500;
@@ -446,7 +447,8 @@ export const ItemFooterStyle = css`
         color: #54545680;
     }
     a,
-    button {
+    button,
+    .comment {
         display: flex;
         align-items: center;
         gap: 15px;
