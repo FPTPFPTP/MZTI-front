@@ -147,7 +147,7 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
         <main className="homeLayout">
             {comment && (
                 <>
-                    <Header isPrevBtn={true} title={`대댓글`} />
+                    <Header isPrevBtn={true} title={`대댓글`} isBgWhite={true} isBorderLine={true} />
 
                     <CommentItem commentItem={comment} openDrawer={openDrawer} isTop={true} />
                     <div css={ReplayCommentStyled} ref={scrollRef}>

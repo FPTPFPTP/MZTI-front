@@ -27,7 +27,7 @@ const noticeDetail = () => {
 
     return (
         <>
-            <Header title={'공지사항'} />
+            <Header title={'공지사항'} isBgWhite={true} />
             <div css={NoticeViewStyle}>
                 <div className="header">
                     <h3>{contents?.title}</h3>
