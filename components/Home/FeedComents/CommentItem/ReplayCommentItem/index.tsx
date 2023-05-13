@@ -86,7 +86,7 @@ const ReplayCommentItem = ({ replayCommentItem, postWriterId, openDrawer }: IRep
                     </div>
 
                     <p className="coment">{comment}</p>
-                    {image && <Image src={image} alt={'댓글이미지'} width={100} height={100} />}
+                    {image && <Image className={'image'} src={image} alt={'댓글이미지'} width={100} height={100} />}
 
                     <div className="commentItemFooter">
                         <button onClick={handleReCommentLike} className="like">

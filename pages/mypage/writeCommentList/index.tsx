@@ -38,7 +38,7 @@ const WriteCommentList = () => {
 
     return (
         <>
-            <Header title={'내가 작성한 댓글'} />
+            <Header title={'내가 작성한 댓글'} isBgWhite={true} />
             <div css={Layout}>
                 <form>
                     <Input

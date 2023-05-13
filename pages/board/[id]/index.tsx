@@ -12,6 +12,7 @@ import { Empty } from '@/components/MyPageCom';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
 import { FeedContentStyle } from '@styles/pages/homeStyled';
 import { SearchWrapStyle } from '@/components/Commons/FeedHeader/styled';
+import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
 
 interface IBoardProps {
     id: number;
@@ -43,12 +44,22 @@ const board = ({ id }: IBoardProps) => {
                     <Input inputStyle={'search'} placeholder={'관심있는 MBTI, 키워드, 이슈 검색'} onClick={() => router.push(`/search/${id}`)} />
                 </div>
                 {/* 피드 게시물 */}
-                {data && data.pages.length && data.pages[0].list.length !== 0 ? (
-                    <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                        <FeedItem data={data} isLoading={isLoading} />
-                    </InfiniteScroll>
+                {isLoading ? (
+                    <>
+                        <FeedSkeleton />
+                        <FeedSkeleton />
+                        <FeedSkeleton />
+                    </>
                 ) : (
-                    <Empty icon={<EmptyWrite />} title="작성된 글이 없습니다." subTitle={`게시글을 작성해주세요`} />
+                    <>
+                        {data && data.pages.length && data.pages[0].list.length !== 0 ? (
+                            <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
+                                <FeedItem data={data} />
+                            </InfiniteScroll>
+                        ) : (
+                            <Empty icon={<EmptyWrite />} title="작성된 글이 없습니다." subTitle={`게시글을 작성해주세요`} />
+                        )}
+                    </>
                 )}
             </div>
 

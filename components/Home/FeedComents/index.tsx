@@ -1,5 +1,6 @@
 import { DeletedComment, FeedComentsStyle, FeedNoComentsStyle, MoreCommentStyle, FeedComentsWrapStyle } from '../styled';
 import CommentRefreshIcon from '@assets/icons/comment/refresh.svg';
+import CirclePlus from '@assets/icons/comment/circle_plus.svg';
 import CommentItem from './CommentItem';
 import { ICommentModel, EActionEditType } from '@/types/post';
 
@@ -38,7 +39,8 @@ const FeedComents = ({ isLastPage, commentData, postWriterId, handleRefrash, han
                             {!isLastPage && (
                                 <section css={MoreCommentStyle}>
                                     <button onClick={handleMoreComment}>
-                                        <span>+ 댓글 더보기</span>
+                                        <CirclePlus />
+                                        <span>댓글 더보기</span>
                                     </button>
                                 </section>
                             )}
