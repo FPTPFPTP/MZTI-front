@@ -5,7 +5,7 @@ export const InputWrapCss = css`
     display: flex;
     align-items: center;
     width: 100%;
-    border: 1px solid ${colors.BLACK};
+    border: none;
     padding: 4px 8px;
     gap: 0.5rem;
 `;
@@ -16,7 +16,7 @@ export const InputCss = css`
     font-size: 12px;
     line-height: 12px;
     &::placeholder {
-        color: rgba(27, 30, 38, 0.5);
+        color: #54545680;
     }
 
     &:focus {
