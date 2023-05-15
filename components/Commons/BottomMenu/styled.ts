@@ -55,7 +55,7 @@ export const BottomButtonStyle = css`
         &.active {
             svg {
                 path {
-                    fill: #292d32 !important;
+                    fill: ${color.POINT_COLOR} !important;
                 }
             }
             a {

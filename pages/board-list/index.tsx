@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from '@/components/Commons';
+import { Header, BottomMenu } from '@/components/Commons';
 import { BoardMenu, BoardMbtiMenu } from '@/components/Board';
 import { BoardListStyle, BoardListSection, MbtiMenuGroupStyle } from '@/styles/pages/boardListStyled';
 import MenuJson from '@/constants/menu.json';
@@ -29,6 +29,8 @@ const BoardList = () => {
                 </div>
                 <BoardMenu menu={MenuJson[1]} />
             </div>
+            {/* Footer 메뉴 */}
+            <BottomMenu />
         </main>
     );
 };
