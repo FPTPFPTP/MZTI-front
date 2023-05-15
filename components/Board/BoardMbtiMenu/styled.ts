@@ -8,10 +8,10 @@ export const MbtiMenuContainerStyle = css`
     gap: 5px;
 `;
 
-export const MbtiMenuStyle = (mbtiColor: string) => css`
+export const MbtiMenuStyle = css`
     padding: 28px 18px;
     background: ${colors.WHITE};
-    border: 2px solid ${mbtiColor};
+    border: 2px solid ${colors.GRAY_BRIGHT_5};
     border-radius: 15px;
     font-size: 17px;
     font-weight: 700;

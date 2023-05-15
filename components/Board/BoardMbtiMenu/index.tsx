@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { getMbtiColor } from '@utils/postItem';
 import { MbtiMenuContainerStyle, MbtiMenuStyle } from './styled';
 import { IBoardMenu } from '@/types/board';
 
@@ -14,7 +13,7 @@ const boardMbtiMenu = ({ menu }: IBoardMenuProps) => {
         <ul css={MbtiMenuContainerStyle}>
             {menu.menus.map((menu) => {
                 return (
-                    <li key={menu.id} css={MbtiMenuStyle(getMbtiColor(menu.title))} onClick={() => router.push(`/board/${menu.url}`)}>
+                    <li key={menu.id} css={MbtiMenuStyle} onClick={() => router.push(`/board/${menu.url}`)}>
                         {menu.title}
                     </li>
                 );
