@@ -98,6 +98,7 @@ export const feedbackWrapStyled = css`
         bottom: 30px;
         padding: 10px 20px;
         width: 100%;
+        max-width: 1000px;
         &-center {
             justify-content: center;
             align-items: center;
