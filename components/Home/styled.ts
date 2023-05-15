@@ -115,15 +115,16 @@ export const MoreCommentStyle = css`
     background-color: ${colors.GRAY_BRIGHT_4};
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     button {
-        padding: 14px 0;
+        padding: 14px 40px;
         width: 100%;
         text-align: center;
         display: flex;
         align-items: center;
-        justify-content: center;
         span {
-            margin-left: 7px;
-            font-size: 1.1rem;
+            margin-left: 16px;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 15px;
             color: ${colors.GRAY_STRONG_6};
         }
     }
@@ -131,7 +132,7 @@ export const MoreCommentStyle = css`
 export const CommentItemSylte = css`
     border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
     .commentItemWrap {
-        padding: 15px 40px;
+        padding: 15px 40px 20px;
         background-color: ${colors.WHITE};
         &.replay {
             padding: 15px 30px 15px 60px;
@@ -201,6 +202,12 @@ export const CommentItemSylte = css`
             font-size: 13px;
             line-height: 20px;
             color: #545456;
+        }
+        .image {
+            margin-top: 15px;
+            max-width: 280px;
+            width: 100%;
+            height: auto;
         }
         .commentItemFooter {
             display: flex;
@@ -439,6 +446,7 @@ export const ItemFooterStyle = css`
     display: flex;
     justify-content: space-evenly;
     padding: 15px 0 0;
+
     span {
         font-size: 12px;
         font-weight: 500;
@@ -446,7 +454,8 @@ export const ItemFooterStyle = css`
         color: #54545680;
     }
     a,
-    button {
+    button,
+    .comment {
         display: flex;
         align-items: center;
         gap: 15px;

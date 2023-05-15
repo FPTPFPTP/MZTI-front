@@ -6,6 +6,7 @@ import { postEditState } from '@/recoil/atom/post';
 import { Header, MoreDrawer, Loading } from '@components/Commons';
 import CommentInput from '@/components/Commons/CommentInput';
 import CommentItem from '@/components/Home/FeedComents/CommentItem';
+import ReplayCommentItem from '@/components/Home/FeedComents/CommentItem/ReplayCommentItem';
 import { Empty } from '@/components/MyPageCom';
 import { useGetReComments, commentPut, reCommentPost, deleteComment } from '@/apis/post';
 import Axios from '@utils/axios';
@@ -146,7 +147,7 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
         <main className="homeLayout">
             {comment && (
                 <>
-                    <Header isPrevBtn={true} title={`대댓글`} />
+                    <Header isPrevBtn={true} title={`대댓글`} isBgWhite={true} isBorderLine={true} />
 
                     <CommentItem commentItem={comment} openDrawer={openDrawer} isTop={true} />
                     <div css={ReplayCommentStyled} ref={scrollRef}>
@@ -158,7 +159,7 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
                                         삭제된 댓글입니다.
                                     </p>
                                 ) : (
-                                    <CommentItem key={reComment.id} commentItem={reComment} openDrawer={openDrawer} />
+                                    <ReplayCommentItem replayCommentItem={reComment} key={reComment.id} openDrawer={openDrawer} />
                                 );
                             })
                         ) : (

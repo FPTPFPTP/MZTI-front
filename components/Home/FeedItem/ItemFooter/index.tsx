@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ItemFooterStyle } from '../../styled';
 import { useRouter } from 'next/router';
 import Views from '@assets/icons/feedItem/outline_eye.svg';
@@ -14,6 +14,7 @@ import { ILikeModel } from '@/types/post';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { Modal } from '@components/Commons';
+import { ModalStyle } from '@/components/Commons/Modal/styled';
 
 interface IItemProps {
     like?: number | string;
@@ -65,10 +66,17 @@ const ItemFooter = ({ postId, likeCheck, like, command, className, viewCount, is
                 <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
             </button>
 
-            <Link href={`/boardDetail/${postId}`}>
-                <CommentIcon />
-                <span>{command}</span>
-            </Link>
+            {router.asPath.indexOf('boardDetail') === 1 ? (
+                <div className="comment">
+                    <CommentIcon />
+                    <span>{command}</span>
+                </div>
+            ) : (
+                <Link href={`/boardDetail/${postId}`}>
+                    <CommentIcon />
+                    <span>{command}</span>
+                </Link>
+            )}
 
             {isFeed ? (
                 <Link href={`/boardDetail/${postId}`} className="viewIcon">
@@ -82,17 +90,19 @@ const ItemFooter = ({ postId, likeCheck, like, command, className, viewCount, is
                 </button>
             )}
 
-            <Modal
-                title={'로그인이 필요합니다 어쩌구'}
-                isModalVisible={isLogoutModal}
-                closable={false}
-                footer={
-                    <>
-                        <button onClick={() => setIsLogoutModal(false)}>취소</button>
-                        <button onClick={handleLogin}>로그인하러가기</button>
-                    </>
-                }
-            ></Modal>
+            <Modal title={'로그인이 필요한 기능입니다'} isModalVisible={isLogoutModal} closable={false} footer={null} centered={true}>
+                <div css={ModalStyle}>
+                    <p>회원가입이나 로그인을 해주세요.</p>
+                    <div className="buttons">
+                        <button onClick={() => setIsLogoutModal(false)} className="button cancel">
+                            취소
+                        </button>
+                        <button onClick={handleLogin} className="button">
+                            확인
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </section>
     );
 };

@@ -6,6 +6,7 @@ import { ISupportModel } from '@/types/support';
 interface ISupportProps {
     type: number;
     content: string;
+    email: string;
 }
 
 const getSupportCategory = async () => {

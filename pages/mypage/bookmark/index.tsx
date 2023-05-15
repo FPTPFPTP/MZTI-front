@@ -38,7 +38,7 @@ const BookMarkList = () => {
 
     return (
         <>
-            <Header title={'내가 저장한 글'} />
+            <Header title={'내가 저장한 글'} isBgWhite={true} />
             <div css={Layout}>
                 <form>
                     <Input

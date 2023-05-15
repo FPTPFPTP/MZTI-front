@@ -89,6 +89,10 @@ export const feedbackStyled = css`
 `;
 
 export const feedbackWrapStyled = css`
+    height: 100vh;
+    .email {
+        margin-top: 30px;
+    }
     .buttonWrap {
         position: fixed;
         bottom: 30px;

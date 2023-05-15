@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
+import GoogleAnalytics from '@components/Commons/GoogleAnalytics';
+
 import color from '@/styles/color';
 
 const Layout: React.FC<any> = (props) => {
     const { children } = props;
     return (
         <div css={StyledLayout} id={'layout'}>
+            <GoogleAnalytics />
+
             {children}
         </div>
     );

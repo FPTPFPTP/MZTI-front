@@ -35,7 +35,7 @@ const Header = (props: THeaderProps) => {
     return (
         <header css={HeaderContainerStyle(isBorderLine, isBgWhite)}>
             {isPrevBtn && (
-                <button onClick={onBackPage}>
+                <button onClick={onBackPage} className="preButton">
                     <ArrowLeftOutlined style={{ fontSize: 30 }} />
                 </button>
             )}
