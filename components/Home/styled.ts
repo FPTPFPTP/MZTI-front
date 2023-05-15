@@ -514,6 +514,7 @@ export const ItemContentStyle = css`
         width: 100%;
         min-width: 280px;
         min-height: 150px;
+        max-height: 400px;
         margin-bottom: 20px;
     }
     .vote {
