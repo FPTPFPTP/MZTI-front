@@ -17,9 +17,11 @@ const Layout: React.FC<any> = (props) => {
 export default Layout;
 
 const StyledLayout = css`
-    background-color: ${color.WHITE};
     position: relative;
     width: 100%;
+    max-width: 1000px;
     height: 100%;
     margin: 0 auto;
+    background-color: ${color.WHITE};
+    border: 1px solid ${color.GRAY_BRIGHT_5};
 `;
