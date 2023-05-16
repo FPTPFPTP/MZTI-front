@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ItemFooterStyle } from '../../styled';
 import { useRouter } from 'next/router';
 import Views from '@assets/icons/feedItem/outline_eye.svg';
