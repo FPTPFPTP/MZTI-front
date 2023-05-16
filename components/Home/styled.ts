@@ -158,6 +158,10 @@ export const CommentItemSylte = css`
                 right: 0;
                 top: 50%;
                 transform: translateY(-50%);
+                .moreButton {
+                    position: absolute;
+                    right: 0;
+                }
             }
             .time {
                 font-weight: 300;

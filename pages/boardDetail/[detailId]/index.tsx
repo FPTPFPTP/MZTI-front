@@ -3,7 +3,9 @@ import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
+import { ModalStyle } from '@/components/Commons/Modal/styled';
 import classNames from 'classnames';
+import { Modal } from '@components/Commons';
 import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
 import { useMutation } from '@tanstack/react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -59,13 +61,18 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const [pageParam, setPagePagram] = useState<number>(0);
     // 게시글 & 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
+    const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
 
     const router = useRouter();
 
     // 북마크하기
     const handleBookMark = () => {
-        setIsBookMark((isBookMark) => !isBookMark);
-        usePostLike.mutate(postData?.id);
+        if (myInfo) {
+            setIsBookMark((isBookMark) => !isBookMark);
+            usePostLike.mutate(postData?.id);
+        } else {
+            setIsLogoutModal(true);
+        }
     };
 
     // 투표
@@ -237,6 +244,9 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
         router.push(`/home`);
     };
 
+    const handleLogin = () => {
+        router.replace('/login');
+    };
     return (
         <main className="homeLayout" ref={scrollRef}>
             {postData && (
@@ -311,6 +321,20 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                     <CommentInput editComment={editComment} onAddComment={AddComment} onEditComment={PutComment} onCancle={() => setEditComment(undefined)} />
 
                     <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
+
+                    <Modal title={'로그인이 필요한 기능입니다'} isModalVisible={isLogoutModal} closable={false} footer={null} centered={true}>
+                        <div css={ModalStyle}>
+                            <p>회원가입이나 로그인을 해주세요.</p>
+                            <div className="buttons">
+                                <button onClick={() => setIsLogoutModal(false)} className="button cancel">
+                                    취소
+                                </button>
+                                <button onClick={handleLogin} className="button">
+                                    확인
+                                </button>
+                            </div>
+                        </div>
+                    </Modal>
                 </>
             )}
         </main>
