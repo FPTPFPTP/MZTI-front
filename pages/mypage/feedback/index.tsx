@@ -31,6 +31,7 @@ const feedback = () => {
     const handleSelect = (id: number, name: string) => {
         setSelected(Number(id));
         setTypeTitle(name);
+        setIsVisible(false);
 
         if (name !== '문의 유형 선택') {
             setStyle('active');
