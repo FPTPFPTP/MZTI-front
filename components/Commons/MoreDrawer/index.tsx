@@ -44,9 +44,6 @@ const MoreDrawer = ({ isVisible, onClose, handleTargetDelete, handleTargetEdit }
                     <li>
                         <Link href={`/report/write-${postEdit.id}`}>게시글 신고하기</Link>
                     </li>
-                    <li className="none">
-                        <button>글쓴이 차단 (추후 오픈 예정)</button>
-                    </li>
                 </ul>
             );
         } else if (type === EActionEditType.COMMENT_TIPOFF) {
@@ -54,9 +51,6 @@ const MoreDrawer = ({ isVisible, onClose, handleTargetDelete, handleTargetEdit }
                 <ul>
                     <li>
                         <Link href={`/report/comment-${postEdit.id}`}>댓글 신고하기</Link>
-                    </li>
-                    <li className="none">
-                        <button>글쓴이 차단 (추후 오픈 예정)</button>
                     </li>
                 </ul>
             );
