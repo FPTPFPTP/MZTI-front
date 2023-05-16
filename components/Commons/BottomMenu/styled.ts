@@ -2,17 +2,12 @@ import color from '@/styles/color';
 import { css } from '@emotion/react';
 
 export const BottomButtonStyle = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    left: 0;
-    bottom: 0;
     height: 83px;
     width: 100%;
-    flex: 0 0 83px;
     ul {
         display: flex;
+        position: fixed;
+        bottom: 0;
         width: 100%;
         max-width: 1000px;
         height: 83px;
