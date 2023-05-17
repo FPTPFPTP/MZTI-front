@@ -48,6 +48,7 @@
         "env-cmd": "^10.1.0",
         "eslint": "^8.33.0",
         "eslint-config-next": "13.1.6",
+        "firebase": "^9.22.0",
         "mem": "^9.0.2",
         "next": "13.1.6",
         "next-cookies": "^2.0.3",
