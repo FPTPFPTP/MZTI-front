@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getMessaging, onMessage, getToken } from 'firebase/messaging';
+import { postUserPushToken } from '@/apis/appPush';
 
 export default function Firebase() {
     const onMessageFCM = async () => {
@@ -25,8 +26,8 @@ export default function Firebase() {
         })
             .then((currentToken) => {
                 if (currentToken) {
-                    // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
-                    console.log({ currentToken });
+                    console.log('푸시 토큰 : ', currentToken);
+                    postUserPushToken({ token: currentToken }).then((res) => console.log('APP PUSH 토큰 서버에 전송', res && res.code));
                 } else {
                     console.log('No registration token available. Request permission to generate one.');
                 }
