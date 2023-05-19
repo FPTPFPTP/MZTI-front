@@ -241,7 +241,7 @@ export const ListBoardItemStyle = css`
     }
     .thumbnail {
         width: 100%;
-        height: 150px;
+        max-height: 400px;
         margin-top: 20px;
         object-fit: fill;
     }
@@ -286,7 +286,8 @@ export const ListCommnetItemStyle = css`
     }
     .thumbnail {
         width: 100%;
-        height: 150px;
+        height: auto;
+        max-height: 400px;
         margin-top: 20px;
         object-fit: fill;
     }

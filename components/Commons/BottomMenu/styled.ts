@@ -3,13 +3,13 @@ import { css } from '@emotion/react';
 
 export const BottomButtonStyle = css`
     height: 83px;
-    flex: 0 0 83px;
+    width: 100%;
     ul {
         display: flex;
         position: fixed;
-        left: 0;
         bottom: 0;
         width: 100%;
+        max-width: 1000px;
         height: 83px;
         z-index: 50;
         background: ${color.WHITE};
@@ -55,7 +55,7 @@ export const BottomButtonStyle = css`
         &.active {
             svg {
                 path {
-                    fill: #292d32 !important;
+                    fill: ${color.POINT_COLOR} !important;
                 }
             }
             a {

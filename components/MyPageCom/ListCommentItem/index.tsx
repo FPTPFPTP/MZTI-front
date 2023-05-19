@@ -16,7 +16,7 @@ const ListCommentItem = ({ item }: IListCommentItemProps) => {
     return (
         <Link href={`/boardDetail/${postId}`} css={ListCommnetItemStyle}>
             <p className="title">{comment}</p>
-            {image && <Image className={'thumbnail'} src={image} alt={'댓글 이미지'} width={300} height={250} />}
+            {image && <Image className={'thumbnail'} src={image} alt={'댓글 이미지'} layout={'responsive'} width={300} height={250} />}
             <p className="date">{dayjs(updateAt).format('YYYY.MM.DD')}</p>
             <div className="bottom">
                 <div>

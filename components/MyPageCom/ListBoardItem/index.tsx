@@ -40,7 +40,7 @@ const ListBoardItem = ({ item, thumbnail }: IListBoardItemProps) => {
                     <p>{pollList[0].title}</p>
                 </div>
             ) : (
-                thumbnail && <Image className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} width={300} height={250} />
+                thumbnail && <Image className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} layout={'responsive'} width={300} height={250} />
             )}
             <div className="bottom">
                 <div>

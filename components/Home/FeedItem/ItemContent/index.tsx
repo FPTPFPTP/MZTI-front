@@ -35,7 +35,7 @@ const ItemContent = ({ id, title, content, pollList, tags }: IItemContentProps) 
                     <h5 className="vote__title">{pollList[0].title}</h5>
                 </div>
             ) : (
-                thumbnail && <Image className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} width={280} height={150} />
+                thumbnail && <Image className={'thumbnail'} src={thumbnail} alt={'게시글 이미지'} layout={'responsive'} width={280} height={150} />
             )}
         </section>
     );
