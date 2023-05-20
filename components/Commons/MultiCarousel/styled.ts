@@ -6,7 +6,7 @@ export const MultiCarouselStyle = css`
         margin-bottom: 10px;
         .react-multi-carousel-dot {
             button {
-                border: 1px solid ${colors.BLACK};
+                border: 1px solid ${colors.BUTTON_TEXT};
                 background: ${colors.WHITE};
             }
         }
