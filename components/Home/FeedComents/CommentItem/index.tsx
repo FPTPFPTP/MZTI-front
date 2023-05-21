@@ -103,7 +103,11 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                         </div>
                     </div>
 
-                    <p className="coment">{comment}</p>
+                    <div className="coment">
+                        {comment.split('\n').map((title, index) => (
+                            <p key={index}>{title}</p>
+                        ))}
+                    </div>
                     {image && <Image className={'image'} src={image} alt={'댓글이미지'} width={100} height={100} />}
                     <div className="commentItemFooter">
                         <button onClick={handleReCommentLike} className="like">
