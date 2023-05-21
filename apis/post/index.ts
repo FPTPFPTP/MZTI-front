@@ -19,12 +19,12 @@ import {
 } from '@/types/post';
 
 export interface IPostWriteReq extends Pick<IPostModel, 'title' | 'categoryId' | 'content'> {
-    tagList: number[];
-    pollList: Pick<IPollModel, 'title' | 'startDate' | 'endDate' | 'checkCount'>[];
+    tagList?: number[];
+    pollList?: Pick<IPollModel, 'title' | 'startDate' | 'endDate' | 'checkCount'>[];
 }
 
 interface IPutPostReq extends Pick<IPostModel, 'id' | 'title' | 'categoryId' | 'content'> {
-    tagList: number[];
+    tagList?: number[];
 }
 
 /**
