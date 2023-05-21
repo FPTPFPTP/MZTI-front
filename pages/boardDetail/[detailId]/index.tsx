@@ -101,6 +101,10 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
 
     // 댓글 추가
     const AddComment = async (commentValue: string, imageFile?: File) => {
+        if (!myInfo) {
+            setIsLogoutModal(true);
+            return;
+        }
         let imageSrc;
         if (imageFile) {
             imageSrc = await postImageUpload(imageFile);
