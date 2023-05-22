@@ -28,6 +28,7 @@ export const BottomButtonStyle = css`
         justify-content: center;
         align-items: center;
         height: 100%;
+        cursor: pointer;
         svg {
             font-size: 1.6rem;
             path {
