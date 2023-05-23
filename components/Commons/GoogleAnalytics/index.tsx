@@ -7,9 +7,11 @@ export default function GoogleAnalytics() {
     const router = useRouter();
 
     useEffect(() => {
-        ReactGA.initialize(process.env.NEXT_PUBLIC_GA_ID || '');
-        ReactGA.set({ page: window.location.pathname });
-        ReactGA.pageview(window.location.pathname);
+        if (process.env.NODE_ENV === 'production') {
+            ReactGA.initialize(process.env.NEXT_PUBLIC_GA_ID || '');
+            ReactGA.set({ page: window.location.pathname });
+            ReactGA.pageview(window.location.pathname);
+        }
     }, [router]);
 
     return <></>;
