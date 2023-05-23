@@ -8,6 +8,7 @@ import BottomArrow from '@assets/icons/common/bottom_arr.svg';
 import DrawerMenu from '@/components/Commons/Drawer';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
+import { useRouter } from 'next/router';
 
 const feedback = () => {
     const [selected, setSelected] = useState<number>(0);
@@ -18,6 +19,7 @@ const feedback = () => {
     const categorys = useGetSupportCategory();
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const myInfo = useRecoilValue(myPageInfo);
+    const router = useRouter();
 
     const handleMoreOpen = () => {
         setIsVisible(true);
@@ -62,6 +64,7 @@ const feedback = () => {
                 if (data && data.code === 'SUCCESS') {
                     openToast({ message: '문의사항이 정상적으로 전달되었어요', duration: 2000 });
                     setContactText('');
+                    router.push('/mypage');
                 }
             } catch (error) {
                 console.log(error);
@@ -128,7 +131,12 @@ const feedback = () => {
             <div className="buttonWrap">
                 <div className="buttonWrap-center">
                     <p>서비스의 오류 제보, 홍보 의심 사용자 등 운영진에게 전달하고 싶은 내용을 자유롭게 작성해주세요. </p>
-                    <Button buttonStyle={'base'} type="submit" disabled={!contactText || selected === 0 || !email} onClick={handleSubmit}>
+                    <Button
+                        buttonStyle={'base'}
+                        type="submit"
+                        disabled={email ? !contactText || selected === 0 || !email : !contactText || selected === 0}
+                        onClick={handleSubmit}
+                    >
                         문의사항 보내기
                     </Button>
                 </div>

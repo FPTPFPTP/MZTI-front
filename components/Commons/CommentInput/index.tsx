@@ -2,10 +2,8 @@ import { ChangeEvent, useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { CommentInputStyle } from './styled';
 import { ICommentModel } from '@/types/post';
-import PhotoIcon from '@assets/icons/comment/photo.svg';
-import SubmitButtonIcon from '@assets/icons/comment/submitButton.svg';
-import FillSubmitButtonIcon from '@assets/icons/comment/fillSubmitButton.svg';
-import CloseButtonIcon from '@assets/icons/comment/close.svg';
+import PictureIcon from '@assets/icons/comment/picture.svg';
+import CheckIcon from '@assets/icons/write/check.svg';
 
 interface ICommentInputProps {
     editComment?: ICommentModel;
@@ -20,6 +18,7 @@ const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: IC
     const [imageFile, setImageFile] = useState<File>();
 
     const imgInputRef = useRef<HTMLInputElement | null>(null);
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     // 이미지 로컬 링크 해제
     const revokeImageLink = () => {
@@ -41,11 +40,11 @@ const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: IC
     };
 
     // 엔터
-    const handleOnKeyPress = (e: any) => {
-        if (e.key === 'Enter') {
-            handleCommentAction();
-        }
-    };
+    // const handleOnKeyPress = (e: any) => {
+    //     if (e.key === 'Enter') {
+    //         handleCommentAction();
+    //     }
+    // };
 
     const handleCommentAction = () => {
         if (editComment) {
@@ -57,6 +56,15 @@ const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: IC
         setCommentValue('');
         setImageFile(undefined);
     };
+
+    const resizeTextArea = () => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+        }
+    };
+
+    useEffect(resizeTextArea, [commentValue]);
 
     useEffect(() => {
         if (editComment) {
@@ -75,27 +83,13 @@ const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: IC
 
     return (
         <div css={CommentInputStyle}>
-            {previewFileSrc && (
-                <div className="image_box">
-                    <button onClick={revokeImageLink}>
-                        <CloseButtonIcon />
-                    </button>
-                    <Image src={previewFileSrc} alt={'댓글이미지'} width={100} height={100} />
-                </div>
-            )}
-            <button onClick={() => imgInputRef.current && imgInputRef.current.click()}>
-                <PhotoIcon />
+            <button className="image_box" onClick={() => imgInputRef.current && imgInputRef.current.click()}>
+                {previewFileSrc ? <Image src={previewFileSrc} alt={'댓글이미지'} fill={true} /> : <PictureIcon />}
             </button>
 
             <input ref={imgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} onChange={handleUpdateProfileImg} />
 
-            <input
-                type="text"
-                value={commentValue}
-                placeholder="댓글을 입력해주세요"
-                onChange={(e) => setCommentValue(e.target.value)}
-                onKeyPress={handleOnKeyPress}
-            />
+            <textarea ref={textareaRef} placeholder={'댓글을 입력해주세요'} value={commentValue} onChange={(e) => setCommentValue(e.target.value)} />
             {editComment ? (
                 <div className="edit--input">
                     <button
@@ -113,7 +107,7 @@ const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: IC
                 </div>
             ) : (
                 <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
-                    {commentValue ? <FillSubmitButtonIcon /> : <SubmitButtonIcon />}
+                    <CheckIcon fill={commentValue ? '#000000' : '#949699'} />
                 </button>
             )}
         </div>

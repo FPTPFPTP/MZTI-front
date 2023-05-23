@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useQueryClient } from '@tanstack/react-query';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { postEditState } from '@/recoil/atom/post';
-import { Header, MoreDrawer, Loading } from '@components/Commons';
+import { myPageInfo } from '@/recoil/atom/user';
+import { Header, MoreDrawer, Loading, Modal } from '@components/Commons';
 import CommentInput from '@/components/Commons/CommentInput';
 import CommentItem from '@/components/Home/FeedComents/CommentItem';
 import ReplayCommentItem from '@/components/Home/FeedComents/CommentItem/ReplayCommentItem';
@@ -15,6 +17,7 @@ import { openToast } from '@utils/toast';
 import { IResponseBase } from '@/types/global';
 import { ICommentModel, EActionEditType } from '@/types/post';
 import { ReplayCommentStyled, DeletedComment } from '@/styles/pages/commentDetailStyle';
+import { ModalStyle } from '@/components/Commons/Modal/styled';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
 
 interface IPostDetailProps {
@@ -22,6 +25,7 @@ interface IPostDetailProps {
 }
 
 const commentDetail = ({ comment }: IPostDetailProps) => {
+    const myInfo = useRecoilValue(myPageInfo);
     const setEditTarget = useSetRecoilState(postEditState);
     const observerRef = useRef(null);
 
@@ -34,8 +38,12 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
     // 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
 
+    const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
+
     const { contents: reComments, fetchNextPage, hasNextPage } = useGetReComments({ commentId: (comment && comment.id) || 0 });
     const queryClient = useQueryClient();
+
+    const router = useRouter();
 
     const onSuccessComment = async () => {
         queryClient.invalidateQueries(['getReComments', (comment && comment.id) || 0]);
@@ -43,6 +51,10 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
 
     // 대댓글 추가
     const AddReComment = async (commentValue: string, imageFile?: File) => {
+        if (!myInfo) {
+            setIsLogoutModal(true);
+            return;
+        }
         let imageSrc;
         if (imageFile) {
             imageSrc = await postImageUpload(imageFile);
@@ -125,6 +137,10 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
         }
     }, [isScrolldown]);
 
+    const handleLogin = () => {
+        router.replace('/login');
+    };
+
     useEffect(() => {
         // AddComment로 댓글 추가하면 데이터 갱신, 스크롤 이동 순차적으로 적용하기위해 구성
         if (isScrolldown) {
@@ -177,6 +193,20 @@ const commentDetail = ({ comment }: IPostDetailProps) => {
                         onCancle={() => setEditComment(undefined)}
                     />
                     <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
+
+                    <Modal title={'로그인이 필요한 기능입니다'} isModalVisible={isLogoutModal} closable={false} footer={null} centered={true}>
+                        <div css={ModalStyle}>
+                            <p>회원가입이나 로그인을 해주세요.</p>
+                            <div className="buttons">
+                                <button onClick={() => setIsLogoutModal(false)} className="button cancel">
+                                    취소
+                                </button>
+                                <button onClick={handleLogin} className="button">
+                                    확인
+                                </button>
+                            </div>
+                        </div>
+                    </Modal>
                 </>
             )}
         </main>
