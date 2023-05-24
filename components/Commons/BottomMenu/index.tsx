@@ -14,7 +14,7 @@ import { ModalStyle } from '@/components/Commons/Modal/styled';
 
 const BottomMenuList = [
     { id: 1, title: '홈', link: '/home', icon: <HomeIcon /> },
-    { id: 2, title: '글쓰기', link: '/write', icon: <WriteIcon width={35} height={35} /> },
+    { id: 2, title: '글쓰기', link: '/write', icon: <WriteIcon /> },
     { id: 3, title: '게시판', link: '/board-list', icon: <MoreIcon /> },
 ];
 
@@ -42,6 +42,7 @@ const BottomMenu = () => {
                                     onClick={() => (myInfo ? setIsWriteDrawer((isWriteDrawer) => !isWriteDrawer) : setIsLogoutModal(true))}
                                 >
                                     {item.icon}
+                                    <span>{item.title}</span>
                                 </li>
                             ) : (
                                 <li className={classNames(item.link === router.asPath && 'active')}>
