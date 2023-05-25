@@ -9,6 +9,7 @@ import Link from 'next/link';
 import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
 import { IPaginationResponse } from '@/types/global';
 import { IPostModel, EActionEditType } from '@/types/post';
+import FactItemContent from './FactItemContent';
 
 interface IFeedItemProps {
     data: InfiniteData<IPaginationResponse<IPostModel>>;
@@ -43,13 +44,17 @@ const FeedItem = ({ data, isLoading, openDrawer }: IFeedItemProps) => {
                                             }
                                         />
                                         <Link href={`/boardDetail/${item.id}`}>
-                                            <ItemContent
-                                                id={item.id}
-                                                title={item.title}
-                                                content={item.content}
-                                                pollList={item.pollList}
-                                                tags={item.tags && item.tags}
-                                            />
+                                            {item.categoryId === 23 ? (
+                                                <FactItemContent title={item.title} id={item.id} mbti={item.writer.mbti} />
+                                            ) : (
+                                                <ItemContent
+                                                    id={item.id}
+                                                    title={item.title}
+                                                    content={item.content}
+                                                    pollList={item.pollList}
+                                                    tags={item.tags && item.tags}
+                                                />
+                                            )}
                                         </Link>
                                         <ItemFooter
                                             likeCheck={item.like.check}

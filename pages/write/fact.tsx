@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { openToast } from '@/utils/toast';
-import Fact from '@/components/Fact';
 import { useForm } from 'react-hook-form';
 import { postWrite } from '@apis/post';
+import MbtiJson from '@/constants/mbti.json';
 import CheckSvg from '@assets/icons/circle_check.svg';
 import { Header, Input } from '@components/Commons';
-import { factWrap } from '@/styles/pages/writeStyled';
+import { FactWrapStyle, FactStyle } from '@/components/Write/styled';
+import { getMbtiColor } from '@/utils/postItem';
 
 const FactWrite = () => {
-    const { register, watch, reset, setValue } = useForm();
+    const { register, watch, reset, handleSubmit } = useForm();
     const myInfo = useRecoilValue(myPageInfo);
-    const { title } = watch();
+    const { title, ISFJ, ISFP, INFJ, INFP, ISTJ, ISTP, INTJ, INTP, ESFJ, ESFP, ENFJ, ENFP, ESTJ, ESTP, ENTJ, ENTP } = watch();
     const router = useRouter();
-    const [content, setContent] = useState('');
+    const mbtis = MbtiJson;
 
     useEffect(() => {
         // 비회원일때
@@ -39,7 +40,7 @@ const FactWrite = () => {
             const data = await postWrite({
                 title,
                 categoryId: 23,
-                content: content,
+                content: JSON.stringify({ ISFJ, ISFP, INFJ, INFP, ISTJ, ISTP, INTJ, INTP, ESFJ, ESFP, ENFJ, ENFP, ESTJ, ESTP, ENTJ, ENTP }),
             });
 
             if (data && data.code === 'SUCCESS') {
@@ -52,32 +53,57 @@ const FactWrite = () => {
         }
     };
 
+    // 제출버튼
+    const onSubmit = () => {
+        handleRegisterButton();
+    };
+
     return (
-        <main>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <Header
                 onClickBackButton={onBackPage}
-                title={'내가 느낀 MBTI 별 팩폭 글쓰기'}
+                title={'내가 느낀 MBTI별 팩폭 글쓰기'}
                 rightElement={
-                    <button onClick={handleRegisterButton}>
+                    <button type="submit">
                         <CheckSvg />
                     </button>
                 }
             />
             {/* 제목 */}
-            <form css={factWrap}>
-                <Input
-                    inputStyle={'borderLess'}
-                    placeholder={'제목을 입력하세요'}
-                    isResetBtn={!!title}
-                    handleReset={() => reset()}
-                    maxLength={30}
-                    {...register('title')}
-                />
-                <button type="submit" />
+            <div css={FactWrapStyle}>
+                <p className="notice">
+                    내가 느낀 16가지 MBTI를 문답형식으로 작성해보세요~ <br />
+                    작성 시 자동 등업이 됩니다 🔥 <br />
+                    Lv.2 부터 MZ 모임의 모임장이 될 수 있어요!
+                </p>
 
-                <Fact />
-            </form>
-        </main>
+                <div className="title">
+                    <Input
+                        inputStyle={'borderLess'}
+                        placeholder={'제목을 입력하세요'}
+                        isResetBtn={!!title}
+                        handleReset={() => reset()}
+                        maxLength={30}
+                        {...register('title')}
+                    />
+                    <button type="submit" />
+                </div>
+
+                {mbtis.map((mbti) => {
+                    return (
+                        <div css={FactStyle} key={mbti.title}>
+                            <h3 style={{ background: getMbtiColor(mbti.title) }}>{mbti.title}</h3>
+                            <Input
+                                inputStyle={'borderLess'}
+                                placeholder={`내가 본 ${mbti.title}는 이렇더라~`}
+                                handleReset={() => reset()}
+                                {...register(mbti.title)}
+                            />
+                        </div>
+                    );
+                })}
+            </div>
+        </form>
     );
 };
 

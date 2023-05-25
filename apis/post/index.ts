@@ -186,7 +186,13 @@ export const useGetBookMarkMe = (search: string) => {
  * @returns
  */
 export const postWrite = async (form: IPostWriteReq) => {
-    const res = await Axios.post<IResponseBase<IPostModel>>('/post', { ...form });
+    const res = await Axios.post<IResponseBase<IPostModel>>(
+        '/post',
+        { ...form },
+        {
+            headers: { 'Content-Type': 'application/json' },
+        },
+    );
 
     return res.data;
 };

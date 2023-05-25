@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Divider, Select } from 'antd';
+import { Select } from 'antd';
 import { useForm } from 'react-hook-form';
 import { Editor } from '@toast-ui/react-editor';
 import { Header, Input, Tag } from '@components/Commons';
@@ -19,7 +19,6 @@ import SurveyModal from '../SurveyModal';
 import KeywordDrawer from '../KeywordDrawer';
 import { ITagModel, IPostModel } from '@/types/post';
 import { IBoardModel, IBoardMenu } from '@/types/board';
-import Fact from '@/components/Fact';
 
 interface IEditorBox {
     postItem?: IPostModel;
@@ -41,7 +40,8 @@ const EditorBox = (props: IEditorBox) => {
     const categorys = useMemo(
         () =>
             MenuJson.reduce((prev: IBoardModel[], cur: IBoardMenu) => {
-                const menus = cur.menus.filter((menu) => menu.id !== 22);
+                const menus = cur.menus.filter((menu) => menu.id !== 22 && menu.id !== 23);
+
                 return prev.concat(menus);
             }, []),
         [],
@@ -232,9 +232,6 @@ const EditorBox = (props: IEditorBox) => {
         }
     }, []);
 
-    useEffect(() => {
-        console.log('selectCategory', selectCategory);
-    }, [selectCategory]);
     return (
         <>
             <Header
@@ -260,87 +257,60 @@ const EditorBox = (props: IEditorBox) => {
                     )}
                 </div>
             </div>
+            {/* 제목 */}
+            <form>
+                <Input
+                    inputStyle={'borderLess'}
+                    placeholder={'제목을 입력하세요'}
+                    isResetBtn={!!title}
+                    handleReset={() => reset()}
+                    maxLength={30}
+                    {...register('title')}
+                />
+                <button type="submit" />
+            </form>
+            <ToastEditor ref={editorRef} />
+            {surveyData.map((survey) => (
+                <DefaultModeViewer key={survey.id} survey={survey} onSubmit={(result) => console.log({ result })} onRemove={onSurveyRemove} />
+            ))}
+            <div css={BottomWrapStyle}>
+                <ul css={KeywordWrapStyle}>
+                    <button onClick={() => setIsKeywordDrawer(true)}>
+                        <PlusSvg />
+                        {!selectKeyword.length && '키워드 입력(최대 10개)'}
+                    </button>
+                    {selectKeyword.length > 0 &&
+                        selectKeyword.map((keyword) => (
+                            <Tag
+                                key={keyword.id}
+                                title={keyword.tag}
+                                onClick={() => {
+                                    console.log(`${keyword.tag} 클릭`);
+                                }}
+                                onDelete={() => setSelectKeyword(selectKeyword.filter((tag) => tag.id !== keyword.id))}
+                            />
+                        ))}
+                </ul>
+                {/* 투표 */}
+                {!postItem && (
+                    <ul css={BottomBtnWrapStyle}>
+                        <button onClick={onSurveyModalOpen}>
+                            <VoteSvg />
+                        </button>
+                    </ul>
+                )}
+            </div>
+            {!postItem && <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />}
 
-            {/* 
-            글쓰기 폼
-            내가 느낀 MBTI별 팩폭일 때는 다른 입력 폼
-            */}
-            {selectCategory !== 23 ? (
-                <>
-                    {/* 제목 */}
-                    <form>
-                        <Input
-                            inputStyle={'borderLess'}
-                            placeholder={'제목을 입력하세요'}
-                            isResetBtn={!!title}
-                            handleReset={() => reset()}
-                            maxLength={30}
-                            {...register('title')}
-                        />
-                        <button type="submit" />
-                    </form>
-                    <ToastEditor ref={editorRef} />
-                    {surveyData.map((survey) => (
-                        <DefaultModeViewer key={survey.id} survey={survey} onSubmit={(result) => console.log({ result })} onRemove={onSurveyRemove} />
-                    ))}
-                    <div css={BottomWrapStyle}>
-                        <ul css={KeywordWrapStyle}>
-                            <button onClick={() => setIsKeywordDrawer(true)}>
-                                <PlusSvg />
-                                {!selectKeyword.length && '키워드 입력(최대 10개)'}
-                            </button>
-                            {selectKeyword.length > 0 &&
-                                selectKeyword.map((keyword) => (
-                                    <Tag
-                                        key={keyword.id}
-                                        title={keyword.tag}
-                                        onClick={() => {
-                                            console.log(`${keyword.tag} 클릭`);
-                                        }}
-                                        onDelete={() => setSelectKeyword(selectKeyword.filter((tag) => tag.id !== keyword.id))}
-                                    />
-                                ))}
-                        </ul>
-                        {/* 투표 */}
-                        {!postItem && (
-                            <ul css={BottomBtnWrapStyle}>
-                                <button onClick={onSurveyModalOpen}>
-                                    <VoteSvg />
-                                </button>
-                            </ul>
-                        )}
-                    </div>
-                    {!postItem && <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />}
-
-                    {/*  키워드 입력 모달 */}
-                    <KeywordDrawer
-                        isDrawer={isKeywordDrawer}
-                        selectKeywords={selectKeyword}
-                        onAddKeyword={setSelectKeyword}
-                        onClose={() => {
-                            setIsKeywordDrawer(false);
-                        }}
-                    />
-                </>
-            ) : (
-                // 내가 느낀 MBTI 별 팩폭 글쓰기
-                <form css={FactWrapStyle}>
-                    <p className="notice">✌️ Lv.2 부터 MZ 모임의 모임장이 될 수 있어요!</p>
-                    <div className="title">
-                        <Input
-                            inputStyle={'borderLess'}
-                            placeholder={'제목을 입력하세요'}
-                            isResetBtn={!!title}
-                            handleReset={() => reset()}
-                            maxLength={30}
-                            {...register('title')}
-                        />
-                        <button type="submit" />
-                    </div>
-
-                    <Fact />
-                </form>
-            )}
+            {/*  키워드 입력 모달 */}
+            <KeywordDrawer
+                isDrawer={isKeywordDrawer}
+                selectKeywords={selectKeyword}
+                onAddKeyword={setSelectKeyword}
+                onClose={() => {
+                    setIsKeywordDrawer(false);
+                }}
+            />
         </>
     );
 };
