@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Divider, Select } from 'antd';
+import { Select } from 'antd';
 import { useForm } from 'react-hook-form';
 import { Editor } from '@toast-ui/react-editor';
 import { Header, Input, Tag } from '@components/Commons';
@@ -9,7 +9,7 @@ import PlusSvg from '@assets/icons/plus.svg';
 import VoteSvg from '@assets/icons/vote.svg';
 import YoutubeImg from '@assets/icons/write/youtube.png';
 import ToastEditor from '@/components/Commons/ToastEditor';
-import { ContentWrapStyle, FlexCenterStyle, KeywordWrapStyle, BottomWrapStyle, BottomBtnWrapStyle } from '../styled';
+import { ContentWrapStyle, FlexCenterStyle, KeywordWrapStyle, BottomWrapStyle, BottomBtnWrapStyle, FactWrapStyle } from '../styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite, putPost } from '@apis/post';
 import Axios from '@utils/axios';
@@ -40,7 +40,8 @@ const EditorBox = (props: IEditorBox) => {
     const categorys = useMemo(
         () =>
             MenuJson.reduce((prev: IBoardModel[], cur: IBoardMenu) => {
-                const menus = cur.menus.filter((menu) => menu.id !== 22);
+                const menus = cur.menus.filter((menu) => menu.id !== 22 && menu.id !== 23);
+
                 return prev.concat(menus);
             }, []),
         [],
@@ -243,6 +244,7 @@ const EditorBox = (props: IEditorBox) => {
                 }
             />
             <div css={ContentWrapStyle}>
+                {/* 카테고리 */}
                 <div css={FlexCenterStyle}>
                     {categorys && categorys.length > 0 && (
                         <Select defaultValue={categorys[0].title} style={{ width: 170 }} onChange={handleCategoryChange} bordered={false}>
@@ -254,23 +256,23 @@ const EditorBox = (props: IEditorBox) => {
                         </Select>
                     )}
                 </div>
-                <Divider />
-                <form>
-                    <Input
-                        inputStyle={'borderLess'}
-                        placeholder={'제목을 입력하세요'}
-                        isResetBtn={!!title}
-                        handleReset={() => reset()}
-                        maxLength={30}
-                        {...register('title')}
-                    />
-                    <button type="submit" />
-                </form>
-                <ToastEditor ref={editorRef} />
-                {surveyData.map((survey) => (
-                    <DefaultModeViewer key={survey.id} survey={survey} onSubmit={(result) => console.log({ result })} onRemove={onSurveyRemove} />
-                ))}
             </div>
+            {/* 제목 */}
+            <form>
+                <Input
+                    inputStyle={'borderLess'}
+                    placeholder={'제목을 입력하세요'}
+                    isResetBtn={!!title}
+                    handleReset={() => reset()}
+                    maxLength={30}
+                    {...register('title')}
+                />
+                <button type="submit" />
+            </form>
+            <ToastEditor ref={editorRef} />
+            {surveyData.map((survey) => (
+                <DefaultModeViewer key={survey.id} survey={survey} onSubmit={(result) => console.log({ result })} onRemove={onSurveyRemove} />
+            ))}
             <div css={BottomWrapStyle}>
                 <ul css={KeywordWrapStyle}>
                     <button onClick={() => setIsKeywordDrawer(true)}>
@@ -289,6 +291,7 @@ const EditorBox = (props: IEditorBox) => {
                             />
                         ))}
                 </ul>
+                {/* 투표 */}
                 {!postItem && (
                     <ul css={BottomBtnWrapStyle}>
                         <button onClick={onSurveyModalOpen}>
@@ -298,6 +301,8 @@ const EditorBox = (props: IEditorBox) => {
                 )}
             </div>
             {!postItem && <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />}
+
+            {/*  키워드 입력 모달 */}
             <KeywordDrawer
                 isDrawer={isKeywordDrawer}
                 selectKeywords={selectKeyword}

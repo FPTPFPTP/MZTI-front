@@ -109,9 +109,9 @@ const etc = () => {
                 <Modal
                     title="준비중인 기능입니다"
                     open={isModal}
+                    closable={false}
                     onCancel={() => setIsModal(false)}
                     footer={null}
-                    closable={false}
                     isModalVisible={false}
                     centered={true}
                 >

@@ -19,12 +19,12 @@ import {
 } from '@/types/post';
 
 export interface IPostWriteReq extends Pick<IPostModel, 'title' | 'categoryId' | 'content'> {
-    tagList: number[];
-    pollList: Pick<IPollModel, 'title' | 'startDate' | 'endDate' | 'checkCount'>[];
+    tagList?: number[];
+    pollList?: Pick<IPollModel, 'title' | 'startDate' | 'endDate' | 'checkCount'>[];
 }
 
 interface IPutPostReq extends Pick<IPostModel, 'id' | 'title' | 'categoryId' | 'content'> {
-    tagList: number[];
+    tagList?: number[];
 }
 
 /**
@@ -186,7 +186,13 @@ export const useGetBookMarkMe = (search: string) => {
  * @returns
  */
 export const postWrite = async (form: IPostWriteReq) => {
-    const res = await Axios.post<IResponseBase<IPostModel>>('/post', { ...form });
+    const res = await Axios.post<IResponseBase<IPostModel>>(
+        '/post',
+        { ...form },
+        {
+            headers: { 'Content-Type': 'application/json' },
+        },
+    );
 
     return res.data;
 };
