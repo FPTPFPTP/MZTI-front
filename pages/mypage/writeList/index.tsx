@@ -39,7 +39,7 @@ const WriteList = () => {
 
     return (
         <>
-            <Header title={'내가 작성한 글'} />
+            <Header title={'내가 작성한 글'} isBgWhite={true} />
             <div css={Layout}>
                 <form>
                     <Input

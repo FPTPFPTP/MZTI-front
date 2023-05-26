@@ -9,6 +9,7 @@ import ReComment from '@assets/icons/comment/reComment.svg';
 import ReCommentLike from '@assets/icons/comment/reCommentLike.svg';
 import WriterMainIcon from '@assets/icons/comment/writerMain.svg';
 import ReCommentBoard from '@assets/icons/comment/reCommentBoard.svg';
+import CirclePlus from '@assets/icons/comment/circle_plus.svg';
 import { CommentItemSylte, DeletedComment, MoreCommentStyle } from '../../styled';
 import { useRecoilValue } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
@@ -102,10 +103,13 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                         </div>
                     </div>
 
-                    <p className="coment">{comment}</p>
-                    {image && <Image src={image} alt={'댓글이미지'} width={100} height={100} />}
+                    <div className="coment">
+                        {comment.split('\n').map((title, index) => (
+                            <p key={index}>{title}</p>
+                        ))}
+                    </div>
+                    {image && <Image className={'image'} src={image} alt={'댓글이미지'} width={100} height={100} />}
                     <div className="commentItemFooter">
-                        <p className="time">{timeForToday(createAt)}</p>
                         <button onClick={handleReCommentLike} className="like">
                             {isLike === false ? <ReCommentLike /> : <FillreCommentLike />}
                             <span>{likeCount === 0 ? '좋아요' : likeCount}</span>
@@ -128,7 +132,8 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                 <section css={MoreCommentStyle}>
                     <Link href={`/commentDetail/${id}`}>
                         <button>
-                            <span>+ 대댓글 더보기</span>
+                            <CirclePlus />
+                            <span>대댓글 더보기</span>
                         </button>
                     </Link>
                 </section>

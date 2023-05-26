@@ -241,7 +241,7 @@ export const ListBoardItemStyle = css`
     }
     .thumbnail {
         width: 100%;
-        height: 150px;
+        max-height: 400px;
         margin-top: 20px;
         object-fit: fill;
     }
@@ -286,7 +286,8 @@ export const ListCommnetItemStyle = css`
     }
     .thumbnail {
         width: 100%;
-        height: 150px;
+        height: auto;
+        max-height: 400px;
         margin-top: 20px;
         object-fit: fill;
     }
@@ -359,16 +360,12 @@ export const EmptyStyle = css`
 `;
 
 export const BannerStyle = css`
-    box-sizing: border-box;
-    overflow: hidden;
-    margin-top: 20px;
-    border-radius: 13px;
+    display: inline-block;
+    position: relative;
     height: 100px;
     width: 100%;
-    background-image: url('/images/mzti_intro.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    border-radius: 13px;
+    overflow: hidden;
 `;
 
 export const DepthMenuStyle = css`

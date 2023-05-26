@@ -16,7 +16,7 @@ import NotUser from '@/components/MyPageCom/NotUser';
 import { getMyPageActive } from '@/apis/post';
 import { getAccessToken } from '@utils/auth';
 import { IMyPageActive } from '@/types/post';
-import { BottomMenu } from '@/components/Commons';
+import { BottomMenu, MultiCarousel } from '@/components/Commons';
 import { getMeUserInfo } from '@/apis/user';
 
 const menuList = [
@@ -84,7 +84,10 @@ const mypage = () => {
                 )}
 
                 <div className="bannerWrap">
-                    <Banner />
+                    <MultiCarousel>
+                        <Banner link={'https://www.mzti.kr'} imageSrc={'/images/mzti_promote.png'} imageAlt={'mzti'} />
+                        <Banner link={'https://www.mzti.kr'} imageSrc={'/images/mzti_promote_v2.png'} imageAlt={'mzti'} />
+                    </MultiCarousel>
                 </div>
             </div>
             <Menu menuList={menuList} />

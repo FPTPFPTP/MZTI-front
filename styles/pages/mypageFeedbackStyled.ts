@@ -90,11 +90,15 @@ export const feedbackStyled = css`
 
 export const feedbackWrapStyled = css`
     height: 100vh;
+    .email {
+        margin-top: 30px;
+    }
     .buttonWrap {
         position: fixed;
         bottom: 30px;
         padding: 10px 20px;
         width: 100%;
+        max-width: 1000px;
         &-center {
             justify-content: center;
             align-items: center;

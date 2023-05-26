@@ -10,7 +10,7 @@ import { RecoilRoot, MutableSnapshot } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { Global } from '@emotion/react';
 import Layout from '@components/Layout';
-import { Modal } from '@components/Commons';
+import { Modal, FCM } from '@components/Commons';
 import globalReset from '@/styles/customReset';
 import axios from '@/utils/axios';
 import { removeTokenAll, setCookie } from '@utils/auth';
@@ -127,6 +127,7 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
                     copyTitle={'홈 화면에 추가' || undefined}
                     debug={process.env.NODE_ENV === 'development' && false}
                 />
+                {userInfo && <FCM />}
             </QueryClientProvider>
         </>
     );

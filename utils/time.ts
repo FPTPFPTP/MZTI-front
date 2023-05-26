@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 /**
  * 게시글 작성글 시간 계산해주는 함수
  * @param value {string}
@@ -19,9 +20,9 @@ export const timeForToday = (value: string) => {
     }
 
     const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
+    if (betweenTimeDay < 8) {
         return `${betweenTimeDay}일 전`;
     }
 
-    return `${Math.floor(betweenTimeDay / 365)}년 전`;
+    return dayjs(value).format('YYYY.MM.DD');
 };

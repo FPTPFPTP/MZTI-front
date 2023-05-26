@@ -36,7 +36,7 @@ const notice = () => {
 
     return (
         <>
-            <Header title={'공지사항'} />
+            <Header title={'공지사항'} isBgWhite={true} />
             <div css={Layout}>
                 <form>
                     <Input
