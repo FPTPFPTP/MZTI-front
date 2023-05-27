@@ -6,8 +6,7 @@ export const RelationTestStyle = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    min-height: 100vh;
+    height: 100vh;
     .intro {
         font-size: 15px;
         font-weight: 400;
@@ -32,4 +31,24 @@ export const RelationTestStyle = css`
         gap: 10px;
         margin-bottom: 90px;
     }
+`;
+
+export const RelationTestWrapStyle = css`
+    position: relative;
+    height: 100vh;
+`;
+
+export const RelationTestBodyStyle = css`
+    padding: 42px 20px;
+    height: calc(100% - 250px);
+`;
+
+export const RelationTestFooterStyle = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    gap: 0.5rem;
 `;
