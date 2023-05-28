@@ -40,6 +40,17 @@ export const RelationTestWrapStyle = css`
     position: relative;
     height: 100vh;
 `;
+export const RelationTestLodingStyle = css`
+    ${RelationBaseStyle}
+    h1 {
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 36px;
+        letter-spacing: 0em;
+        text-align: center;
+        margin-bottom: 120px;
+    }
+`;
 
 export const RelationTestBodyStyle = css`
     padding: 42px 20px;

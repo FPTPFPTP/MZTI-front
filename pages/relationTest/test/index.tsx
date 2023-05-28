@@ -1,15 +1,16 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { relationTestState } from '@/recoil/atom/relationTest';
 import { Button, ProgressLineBar } from '@/components/Commons';
 import { Relation, RelationMbti } from '@/components/RelationTest';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
-import { LinkCopy } from '@/utils/copy';
-import { RelationTestWrapStyle, RelationTestBodyStyle, RelationTestFooterStyle } from '@styles/pages/relationTestStyled';
+import { RelationTestWrapStyle, RelationTestLodingStyle, RelationTestBodyStyle, RelationTestFooterStyle } from '@styles/pages/relationTestStyled';
 
 const Test = () => {
     const [stepActive, setStepActive] = useState<number>(1);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const relationTestStateObj = useRecoilValue(relationTestState);
 
     const router = useRouter();
@@ -57,28 +58,46 @@ const Test = () => {
             return;
         }
         if (stepActive === 3) {
-            router.push('/relationTest/result');
+            setIsLoading(true);
         }
         setStepActive((prev) => prev + 1);
     };
 
+    useEffect(() => {
+        if (isLoading) {
+            setTimeout(() => router.push('/relationTest/result'), 3000);
+        }
+    }, [isLoading]);
     return (
         <NonSSRWrapper>
             <div css={RelationTestWrapStyle}>
-                <div css={RelationTestBodyStyle}>
-                    <ProgressLineBar percent={stepActive} />
-                    {stepActive === 1 && <Relation />}
-                    {stepActive === 2 && <RelationMbti step={stepActive} />}
-                    {stepActive === 3 && <RelationMbti step={stepActive} />}
-                </div>
-                <div css={RelationTestFooterStyle}>
-                    <Button className="pre_button" buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
-                        이전단계로
-                    </Button>
-                    <Button buttonStyle={'base'} disabled={isError} onClick={onNext}>
-                        {stepActive === 3 ? 'MBTI 궁합 확인하기' : '다음 단계로'}
-                    </Button>
-                </div>
+                {isLoading ? (
+                    <div css={RelationTestLodingStyle}>
+                        <h1>
+                            MBTI 궁합
+                            <br />
+                            확인하는 중
+                        </h1>
+                        <Image className={'logo'} src="/images/mzti_logo.png" alt={'logo'} width={90} height={45} />
+                    </div>
+                ) : (
+                    <>
+                        <div css={RelationTestBodyStyle}>
+                            <ProgressLineBar percent={stepActive} />
+                            {stepActive === 1 && <Relation />}
+                            {stepActive === 2 && <RelationMbti step={stepActive} />}
+                            {stepActive === 3 && <RelationMbti step={stepActive} />}
+                        </div>
+                        <div css={RelationTestFooterStyle}>
+                            <Button className="pre_button" buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
+                                이전단계로
+                            </Button>
+                            <Button buttonStyle={'base'} disabled={isError} onClick={onNext}>
+                                {stepActive === 3 ? 'MBTI 궁합 확인하기' : '다음 단계로'}
+                            </Button>
+                        </div>
+                    </>
+                )}
             </div>
         </NonSSRWrapper>
     );
