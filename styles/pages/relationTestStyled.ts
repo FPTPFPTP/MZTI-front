@@ -1,12 +1,15 @@
 import { css } from '@emotion/react';
 import colors from '@/styles/color';
 
-export const RelationTestStyle = css`
+export const RelationBaseStyle = css`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+`;
+export const RelationTestStyle = css`
+    ${RelationBaseStyle}
     .intro {
         font-size: 15px;
         font-weight: 400;
@@ -51,4 +54,56 @@ export const RelationTestFooterStyle = css`
     width: 100%;
     padding: 20px;
     gap: 0.5rem;
+`;
+
+export const RelationResultStyle = css`
+    ${RelationBaseStyle}
+    .logo {
+        margin-bottom: 20px;
+    }
+    .result_relation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 47px;
+    }
+    .result_title {
+        margin-bottom: 47px;
+        h3 {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0em;
+            text-align: center;
+        }
+        h1 {
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 48px;
+            letter-spacing: 0em;
+            text-align: center;
+        }
+    }
+    .result_submit {
+        margin-top: 34px;
+        margin-bottom: 34px;
+        h3 {
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 18px;
+            letter-spacing: 0em;
+            text-align: center;
+        }
+        p {
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 16px;
+            letter-spacing: 0em;
+            text-align: center;
+        }
+    }
+    .result_btn {
+        margin-bottom: 65px;
+    }
 `;

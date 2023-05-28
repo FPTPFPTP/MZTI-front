@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { relationTestState } from '@/recoil/atom/relationTest';
 import { Button, ProgressLineBar } from '@/components/Commons';
@@ -11,6 +11,8 @@ import { RelationTestWrapStyle, RelationTestBodyStyle, RelationTestFooterStyle }
 const Test = () => {
     const [stepActive, setStepActive] = useState<number>(1);
     const relationTestStateObj = useRecoilValue(relationTestState);
+
+    const router = useRouter();
 
     // 다음단계 버튼 활성화
     const isError = useMemo(() => {
@@ -53,6 +55,9 @@ const Test = () => {
     const onNext = async () => {
         if (stepActive > 3) {
             return;
+        }
+        if (stepActive === 3) {
+            router.push('/relationTest/result');
         }
         setStepActive((prev) => prev + 1);
     };
