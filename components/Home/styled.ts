@@ -80,7 +80,7 @@ export const FeedNoComentsStyle = css`
 
 export const FeedComentsStyle = css`
     padding-top: 5px;
-    border-bottom: 0.5px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
     background-color: #d9d9d9;
     .wrap {
         background-color: ${colors.WHITE};
@@ -107,13 +107,13 @@ export const FeedComentsStyle = css`
         }
     }
     .moreComment {
-        border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+        border-bottom: 1px solid #ebebeb;
     }
 `;
 
 export const MoreCommentStyle = css`
     background-color: ${colors.GRAY_BRIGHT_4};
-    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    border-bottom: 1px solid #ebebeb;
     button {
         padding: 14px 40px;
         width: 100%;
@@ -130,7 +130,7 @@ export const MoreCommentStyle = css`
     }
 `;
 export const CommentItemSylte = css`
-    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    border-bottom: 1px solid #ebebeb;
     .commentItemWrap {
         padding: 15px 40px 20px;
         background-color: ${colors.WHITE};
