@@ -6,7 +6,7 @@ export const RelationBaseStyle = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 `;
 export const RelationTestStyle = css`
     ${RelationBaseStyle}
@@ -58,6 +58,7 @@ export const RelationTestFooterStyle = css`
 
 export const RelationResultStyle = css`
     ${RelationBaseStyle}
+    padding: 20px 0;
     .logo {
         margin-bottom: 20px;
     }
@@ -67,6 +68,13 @@ export const RelationResultStyle = css`
         align-items: center;
         gap: 20px;
         margin-bottom: 47px;
+        h3 {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0em;
+            text-align: center;
+        }
     }
     .result_title {
         margin-bottom: 47px;
@@ -86,6 +94,7 @@ export const RelationResultStyle = css`
         }
     }
     .result_submit {
+        width: 250px;
         margin-top: 34px;
         margin-bottom: 34px;
         h3 {
@@ -94,6 +103,7 @@ export const RelationResultStyle = css`
             line-height: 18px;
             letter-spacing: 0em;
             text-align: center;
+            margin-bottom: 20px;
         }
         p {
             font-size: 13px;
@@ -105,5 +115,27 @@ export const RelationResultStyle = css`
     }
     .result_btn {
         margin-bottom: 65px;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: center;
+    }
+    .result_other {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        p {
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 18px;
+            letter-spacing: 0em;
+            text-align: center;
+            margin: 20px 0 10px;
+        }
+    }
+    .banner_wrap {
+        width: 307px;
     }
 `;
