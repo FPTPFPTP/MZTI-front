@@ -272,8 +272,8 @@ export const ItemHeaderStyle = css`
             border-radius: 50%;
             overflow: hidden;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
 
             display: flex;
             justify-content: center;
@@ -377,8 +377,8 @@ export const DetailItemHeaderStyle = css`
             border-radius: 50%;
             overflow: hidden;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
 
             display: flex;
             justify-content: center;
