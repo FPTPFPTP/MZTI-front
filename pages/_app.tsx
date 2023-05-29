@@ -11,12 +11,14 @@ import { myPageInfo } from '@/recoil/atom/user';
 import { Global } from '@emotion/react';
 import Layout from '@components/Layout';
 import { Modal, FCM } from '@components/Commons';
+import { ModalStyle } from '@/components/Commons/Modal/styled';
 import globalReset from '@/styles/customReset';
 import axios from '@/utils/axios';
 import { removeTokenAll, setCookie } from '@utils/auth';
 import { getMeUserInfo } from '@apis/user';
 import { IUserModel } from '@/types/user';
 import usePWA from '@hooks/usePWA';
+import Image from 'next/image';
 
 type PWAPromptProps = Partial<{
     copyAddHomeButtonLabel: string;
@@ -105,18 +107,22 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
                 </RecoilRoot>
                 <ReactQueryDevtools />
                 {isInstallPopup && (
-                    <Modal
-                        title={'MZTI를 설치하고 싶은가요?'}
-                        isModalVisible={isInstallPopup}
-                        closable={false}
-                        footer={
-                            <>
-                                <button onClick={onCloseModal}>취소</button>
-                                <button onClick={onClickInstallPWA}>설치하기</button>
-                            </>
-                        }
-                    >
-                        <p>아래 계정으로 다시 로그인할 수 있습니다.</p>
+                    <Modal title={'MZTI 앱에서 쉽고 편리하게!'} isModalVisible={isInstallPopup} closable={false} footer={null} centered={true}>
+                        <div css={ModalStyle}>
+                            <p>
+                                알림, 투표 등 MZTI앱에서 <br />더 많은 기능을 이용해보세요.
+                            </p>
+                            <Image className="icon" src={'/icons/icon-192x192.png'} alt={'icon'} width={72} height={72} />
+
+                            <div className="buttons">
+                                <button onClick={onCloseModal} className="button cancel">
+                                    취소
+                                </button>
+                                <button onClick={onClickInstallPWA} className="button">
+                                    앱에서 보기
+                                </button>
+                            </div>
+                        </div>
                     </Modal>
                 )}
                 <PWAPrompt

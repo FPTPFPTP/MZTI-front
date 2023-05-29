@@ -19,7 +19,7 @@ const ItemHeader = ({ writer, createAt, openDrawer, detailPage }: IItemHeader) =
         <section css={!detailPage ? ItemHeaderStyle : DetailItemHeaderStyle}>
             <div className="userInfo">
                 <div className="userInfo__profile">
-                    <Avatar src={profileImage ? profileImage : ''} alt={nickname} size={90} mbti={mbti} />
+                    <Avatar src={profileImage ? profileImage : ''} alt={nickname} size={50} mbti={mbti} />
                 </div>
 
                 <div className="userInfo__Text">

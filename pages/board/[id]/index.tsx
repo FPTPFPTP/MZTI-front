@@ -1,18 +1,17 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import FeedItem from '@/components/Home/FeedItem';
-import { Input, BottomMenu } from '@components/Commons';
+import { Header, Input, BottomMenu } from '@components/Commons';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
 import { getFeedPost } from '@/apis/post';
-import FeedHeader from '@/components/Commons/FeedHeader';
-import useScrollDown from '@/hooks/useScrollDown';
-import { categoryUrlToId } from '@utils/category';
+import { categoryUrlToId, categoryIdToTitle } from '@utils/category';
 import { Empty } from '@/components/MyPageCom';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
 import { FeedContentStyle } from '@styles/pages/homeStyled';
 import { SearchWrapStyle } from '@/components/Commons/FeedHeader/styled';
 import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
+import { useMemo } from 'react';
 
 interface IBoardProps {
     id: number;
@@ -21,7 +20,15 @@ interface IBoardProps {
 const board = ({ id }: IBoardProps) => {
     const router = useRouter();
 
-    const isCurrentScrollTop = useScrollDown(40);
+    const categoryTitle = useMemo(() => {
+        if (id === 1) {
+            return '자유';
+        } else if (id === 22) {
+            return '인기';
+        } else {
+            return categoryIdToTitle(id);
+        }
+    }, [id]);
 
     // 데이터 패칭
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(
@@ -37,7 +44,7 @@ const board = ({ id }: IBoardProps) => {
     return (
         <main className="homeLayout">
             {/* 헤더 */}
-            <FeedHeader categoryId={id} isCurrentScrollTop={isCurrentScrollTop} />
+            <Header isPrevBtn={true} title={`${categoryTitle} 게시판`} isBorderLine={false} />
 
             <div css={FeedContentStyle}>
                 <div css={SearchWrapStyle} style={{ margin: '0px 0px 10px' }}>

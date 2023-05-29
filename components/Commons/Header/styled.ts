@@ -32,8 +32,6 @@ export const TitleStyle = css`
 
 export const RightWrapStyle = css`
     svg {
-        width: 32px;
-        height: 32px;
         fill: ${colors.BLACK};
     }
 `;
