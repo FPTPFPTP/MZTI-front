@@ -135,7 +135,7 @@ export const CommentItemSylte = css`
         padding: 15px 40px 20px;
         background-color: ${colors.WHITE};
         &.replay {
-            padding: 15px 30px 15px 60px;
+            padding: 15px 30px 20px 60px;
             background-color: rgba(219, 219, 219, 0.2);
         }
         .mbtiNlevel {
@@ -219,6 +219,12 @@ export const CommentItemSylte = css`
             position: relative;
             align-items: center;
             padding-top: 15px;
+            font-size: 10px;
+            font-weight: 300;
+            line-height: 10px;
+            letter-spacing: 0em;
+            text-align: left;
+
             .moreButton {
                 position: absolute;
                 right: 0;

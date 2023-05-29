@@ -51,7 +51,7 @@ const ReplayCommentItem = ({ replayCommentItem, postWriterId, openDrawer }: IRep
                         <Avatar
                             src={writer.profileImage ? writer.profileImage : ''}
                             alt={`${writer.nickname}님의 프로필입니다.`}
-                            size={60}
+                            size={50}
                             mbti={writer.mbti}
                         />
 
