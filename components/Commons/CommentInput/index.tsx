@@ -89,27 +89,31 @@ const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: IC
 
             <input ref={imgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} onChange={handleUpdateProfileImg} />
 
-            <textarea ref={textareaRef} placeholder={'댓글을 입력해주세요'} value={commentValue} onChange={(e) => setCommentValue(e.target.value)} />
-            {editComment ? (
-                <div className="edit--input">
-                    <button
-                        type="submit"
-                        onClick={() => {
-                            onCancle();
-                            setCommentValue('');
-                        }}
-                    >
-                        취소
-                    </button>
+            <div className={'text_wrap'}>
+                <textarea ref={textareaRef} placeholder={'댓글을 입력해주세요'} value={commentValue} onChange={(e) => setCommentValue(e.target.value)} />
+            </div>
+            <div className="comment_btn">
+                {editComment ? (
+                    <div className="edit--input">
+                        <button
+                            type="submit"
+                            onClick={() => {
+                                onCancle();
+                                setCommentValue('');
+                            }}
+                        >
+                            취소
+                        </button>
+                        <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
+                            변경
+                        </button>
+                    </div>
+                ) : (
                     <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
-                        변경
+                        <CheckIcon fill={commentValue ? '#000000' : '#949699'} />
                     </button>
-                </div>
-            ) : (
-                <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
-                    <CheckIcon fill={commentValue ? '#000000' : '#949699'} />
-                </button>
-            )}
+                )}
+            </div>
         </div>
     );
 };
