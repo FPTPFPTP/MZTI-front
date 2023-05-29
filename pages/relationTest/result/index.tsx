@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
@@ -11,10 +10,6 @@ import { RelationResultStyle } from '@styles/pages/relationTestStyled';
 
 const Result = () => {
     const relationTestStateObj = useRecoilValue(relationTestState);
-
-    useEffect(() => {
-        console.log({ relationTestStateObj });
-    }, [relationTestStateObj]);
 
     return (
         <NonSSRWrapper>
