@@ -40,7 +40,7 @@ export default function GoogleAnalytics() {
 
     return (
         // https://nextjs.org/docs/messages/next-script-for-ga
-        process.env.NEXT_PUBLIC_API_BASE_URL ? (
+        process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_API_BASE_URL ? (
             <>
                 <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_API_BASE_URL}`} strategy="afterInteractive" />
                 <Script id="google-analytics" strategy="afterInteractive">

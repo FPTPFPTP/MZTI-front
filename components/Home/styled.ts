@@ -80,7 +80,7 @@ export const FeedNoComentsStyle = css`
 
 export const FeedComentsStyle = css`
     padding-top: 5px;
-    border-bottom: 0.5px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
     background-color: #d9d9d9;
     .wrap {
         background-color: ${colors.WHITE};
@@ -107,13 +107,13 @@ export const FeedComentsStyle = css`
         }
     }
     .moreComment {
-        border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+        border-bottom: 1px solid #ebebeb;
     }
 `;
 
 export const MoreCommentStyle = css`
     background-color: ${colors.GRAY_BRIGHT_4};
-    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    border-bottom: 1px solid #ebebeb;
     button {
         padding: 14px 40px;
         width: 100%;
@@ -130,12 +130,12 @@ export const MoreCommentStyle = css`
     }
 `;
 export const CommentItemSylte = css`
-    border-bottom: 0.5px solid ${colors.GRAY_ORIGIN_1};
+    border-bottom: 1px solid #ebebeb;
     .commentItemWrap {
         padding: 15px 40px 20px;
         background-color: ${colors.WHITE};
         &.replay {
-            padding: 15px 30px 15px 60px;
+            padding: 15px 30px 20px 60px;
             background-color: rgba(219, 219, 219, 0.2);
         }
         .mbtiNlevel {
@@ -219,6 +219,12 @@ export const CommentItemSylte = css`
             position: relative;
             align-items: center;
             padding-top: 15px;
+            font-size: 10px;
+            font-weight: 300;
+            line-height: 10px;
+            letter-spacing: 0em;
+            text-align: left;
+
             .moreButton {
                 position: absolute;
                 right: 0;
@@ -266,8 +272,8 @@ export const ItemHeaderStyle = css`
             border-radius: 50%;
             overflow: hidden;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
 
             display: flex;
             justify-content: center;
@@ -371,8 +377,8 @@ export const DetailItemHeaderStyle = css`
             border-radius: 50%;
             overflow: hidden;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
 
             display: flex;
             justify-content: center;

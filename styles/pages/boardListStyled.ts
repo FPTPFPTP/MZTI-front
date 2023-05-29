@@ -13,7 +13,7 @@ export const BoardListSection = () => css`
 export const MbtiMenuGroupStyle = css`
     display: flex;
     align-items: center;
-    padding: 0px 20px 20px;
+    padding: 0px 0px 20px;
     gap: 21px;
     white-space: nowrap;
     h3 {
