@@ -33,10 +33,33 @@ const FactWrite = () => {
     // 등록 버튼 핸들러
     const handleRegisterButton = async () => {
         try {
+            const mbtiObj = {
+                ISFJ,
+                ISFP,
+                INFJ,
+                INFP,
+                ISTJ,
+                ISTP,
+                INTJ,
+                INTP,
+                ESFJ,
+                ESFP,
+                ENFJ,
+                ENFP,
+                ESTJ,
+                ESTP,
+                ENTJ,
+                ENTP,
+            };
+
             if (!title.length) {
                 openToast({ message: '게시글 타이틀을 작성해주세요' });
                 return;
+            } else if (Object.keys(mbtiObj).filter((mbti: string) => mbtiObj[mbti] !== '').length < 5) {
+                openToast({ message: '최소 5개 이상 작성해주세요' });
+                return;
             }
+
             const data = await postWrite({
                 title,
                 categoryId: 23,
@@ -71,11 +94,7 @@ const FactWrite = () => {
             />
             {/* 제목 */}
             <div css={FactWrapStyle}>
-                <p className="notice">
-                    내가 느낀 16가지 MBTI를 문답형식으로 작성해보세요~ <br />
-                    작성 시 자동 등업이 됩니다 🔥 <br />
-                    Lv.2 부터 MZ 모임의 모임장이 될 수 있어요!
-                </p>
+                <p className="notice">내가 느낀 16가지 MBTI를 문답형식으로 작성해보세요~</p>
 
                 <div className="title">
                     <Input

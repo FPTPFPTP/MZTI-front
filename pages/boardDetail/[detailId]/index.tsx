@@ -295,14 +295,16 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
 
                                 {postData.categoryId === 23 ? (
                                     <ul css={MbtiContent}>
-                                        {mbtis.map((item) => {
-                                            return (
-                                                <li key={item.title}>
-                                                    <h4 style={{ background: getMbtiColor(item.title) }}>{item.title}</h4>
-                                                    <p>{factContent[item.title]}</p>
-                                                </li>
-                                            );
-                                        })}
+                                        {mbtis
+                                            .filter((item) => factContent[item.title] !== '')
+                                            .map((item) => {
+                                                return (
+                                                    <li key={item.title}>
+                                                        <h4 style={{ background: getMbtiColor(item.title) }}>{item.title}</h4>
+                                                        <p>{factContent[item.title]}</p>
+                                                    </li>
+                                                );
+                                            })}
                                     </ul>
                                 ) : (
                                     <ToastViewer contentHtml={postData.content} />
