@@ -117,7 +117,6 @@ const report = () => {
                                     {categorys && categorys.length > 0 && (
                                         <ul>
                                             {categorys.map((category) => {
-                                                console.log('dd', category.name);
                                                 return (
                                                     <li key={category.id} className="optionList">
                                                         <button onClick={() => handleSelect(category.id, category.name)} type="button">
