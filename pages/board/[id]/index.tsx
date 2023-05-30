@@ -44,12 +44,6 @@ const board = ({ id }: IBoardProps) => {
         },
     );
 
-    useEffect(() => {
-        if (noticeApi !== null) {
-            console.log('noticeApi', noticeApi);
-        }
-    }, [noticeApi]);
-
     return (
         <main className="homeLayout">
             {/* 헤더 */}
