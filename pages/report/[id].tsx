@@ -147,7 +147,7 @@ const report = () => {
                         <br />- 허위 신고의 경우, 신고자의 활동이 제한될 수 있습니다.
                     </p>
                     <Button onClick={handleSubmit} type="submit" disabled={!contactText || !selected} buttonStyle={'base'}>
-                        확인
+                        문의사항 보내기
                     </Button>
                 </div>
             </div>
