@@ -10,6 +10,7 @@ import CheckSvg from '@assets/icons/circle_check.svg';
 import { Header, Input } from '@components/Commons';
 import { FactWrapStyle, FactStyle } from '@/components/Write/styled';
 import { getMbtiColor } from '@/utils/postItem';
+import { StringKeyObject } from '@/types/global';
 
 const FactWrite = () => {
     const { register, watch, reset, handleSubmit } = useForm();
@@ -33,7 +34,7 @@ const FactWrite = () => {
     // 등록 버튼 핸들러
     const handleRegisterButton = async () => {
         try {
-            const mbtiObj = {
+            const mbtiObj: StringKeyObject<string> = {
                 ISFJ,
                 ISFP,
                 INFJ,
@@ -55,7 +56,7 @@ const FactWrite = () => {
             if (!title.length) {
                 openToast({ message: '게시글 타이틀을 작성해주세요' });
                 return;
-            } else if (Object.keys(mbtiObj).filter((mbti: string) => mbtiObj[mbti] !== '').length < 5) {
+            } else if (Object.keys(mbtiObj).filter((mbti) => mbtiObj[mbti] !== '').length < 5) {
                 openToast({ message: '최소 5개 이상 작성해주세요' });
                 return;
             }
