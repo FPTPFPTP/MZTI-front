@@ -11,7 +11,7 @@ const NotFound = () => {
     };
     return (
         <main>
-            <Header />
+            <Header isBorderLine={false} isBgWhite={true} />
 
             <div css={ErrorWrap}>
                 <Empty
