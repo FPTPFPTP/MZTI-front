@@ -6,6 +6,9 @@ export const MbtiMenuContainerStyle = css`
     grid-template-columns: repeat(4, 1fr);
     width: 100%;
     gap: 5px;
+    li {
+        cursor: pointer;
+    }
 `;
 
 export const MbtiMenuStyle = css`

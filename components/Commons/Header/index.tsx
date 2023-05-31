@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import ArrowLeftOutlined from '@assets/icons/header/left_arrow.svg';
-import { HeaderContainerStyle, TitleStyle, RightWrapStyle } from './styled';
+import { HeaderContainerStyle, TitleStyle } from './styled';
 
 interface IHeaderBaseProps {
     title?: string;
@@ -41,7 +41,7 @@ const Header = (props: THeaderProps) => {
             )}
 
             {title && <h1 css={TitleStyle}>{title}</h1>}
-            {rightElement && <div css={RightWrapStyle}>{rightElement}</div>}
+            {rightElement && <div>{rightElement}</div>}
         </header>
     );
 };
