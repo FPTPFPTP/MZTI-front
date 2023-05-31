@@ -29,9 +29,3 @@ export const TitleStyle = css`
     font-weight: 600;
     line-height: 22px;
 `;
-
-export const RightWrapStyle = css`
-    svg {
-        fill: ${colors.BLACK};
-    }
-`;

@@ -4,7 +4,7 @@ import { Divider, Select } from 'antd';
 import { useForm } from 'react-hook-form';
 import { Editor } from '@toast-ui/react-editor';
 import { Header, Input, Tag } from '@components/Commons';
-import CheckSvg from '@assets/icons/circle_check.svg';
+import CheckSvg from '@assets/icons/header/check.svg';
 import PlusSvg from '@assets/icons/plus.svg';
 import VoteSvg from '@assets/icons/vote.svg';
 import YoutubeImg from '@assets/icons/write/youtube.png';
