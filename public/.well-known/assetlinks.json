@@ -6,5 +6,13 @@
             "package_name": "kr.mzti.www.twa",
             "sha256_cert_fingerprints": ["B4:22:3A:1C:3F:53:87:60:C0:1F:87:3E:26:A9:CC:52:6C:C2:21:CF:E3:CB:FD:71:06:C4:B6:62:A6:4F:73:1A"]
         }
+    },
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "kr.mzti.www.twa",
+            "sha256_cert_fingerprints": ["7A:47:5D:97:D1:B0:D9:7A:53:FB:2A:F3:67:43:01:00:DF:9A:7A:7B:67:8E:95:E2:D7:03:D7:35:10:0C:2E:F8"]
+        }
     }
 ]
