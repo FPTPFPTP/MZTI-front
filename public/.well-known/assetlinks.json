@@ -1,0 +1,10 @@
+[
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "kr.mzti.www.twa",
+            "sha256_cert_fingerprints": ["B4:22:3A:1C:3F:53:87:60:C0:1F:87:3E:26:A9:CC:52:6C:C2:21:CF:E3:CB:FD:71:06:C4:B6:62:A6:4F:73:1A"]
+        }
+    }
+]
