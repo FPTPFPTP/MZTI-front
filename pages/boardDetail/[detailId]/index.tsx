@@ -251,6 +251,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const handleLogin = () => {
         router.replace('/login');
     };
+
     return (
         <main className="homeLayout" ref={scrollRef}>
             {postData && (
@@ -315,7 +316,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                         <FeedComents
                             isLastPage={commentData.totalPage === pageParam}
                             commentData={comments}
-                            postWriterId={postData.writer.id}
+                            postWriterId={postData?.writer.nickname}
                             handleRefrash={handleRefrash}
                             handleMoreComment={handleMoreComment}
                             openDrawer={openDrawer}

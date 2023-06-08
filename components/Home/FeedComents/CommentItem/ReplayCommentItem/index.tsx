@@ -16,7 +16,7 @@ import { ILikeModel, ICommentModel, EActionEditType } from '@/types/post';
 
 interface IReplayCommentItemProps {
     replayCommentItem: ICommentModel;
-    postWriterId?: number;
+    postWriterId?: number | string;
     openDrawer: (id: number, type: EActionEditType) => void;
 }
 
@@ -66,7 +66,7 @@ const ReplayCommentItem = ({ replayCommentItem, postWriterId, openDrawer }: IRep
                             <p className="nickName">
                                 <span>{writer.nickname}</span>
 
-                                {writer.id === postWriterId && (
+                                {writer.nickname === postWriterId && (
                                     <span>
                                         <WriterMainIcon />
                                     </span>
