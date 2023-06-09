@@ -1,13 +1,12 @@
 import { css } from '@emotion/react';
-import colors from '@styles/color';
 
 export const TagWrapStyle = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid ${colors.BLACK};
+    background: #f2f4f6;
     border-radius: 15px;
-    padding: 6px 8px;
+    padding: 7px 15px;
     gap: 8px;
     overflow: hidden;
     text-overflow: ellipsis;
