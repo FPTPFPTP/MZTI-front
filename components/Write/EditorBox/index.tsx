@@ -15,10 +15,11 @@ import { postWrite, putPost } from '@apis/post';
 import Axios from '@utils/axios';
 import { openToast } from '@utils/toast';
 import MenuJson from '@/constants/menu.json';
+import CategoryDrawer from '../CategoryDrawer';
 import SurveyModal from '../SurveyModal';
 import KeywordDrawer from '../KeywordDrawer';
 import { ITagModel, IPostModel } from '@/types/post';
-import { IBoardModel, IBoardMenu } from '@/types/board';
+import { ICategoryModel } from '@/types/category';
 
 interface IEditorBox {
     postItem?: IPostModel;
@@ -27,31 +28,23 @@ interface IEditorBox {
 const EditorBox = (props: IEditorBox) => {
     const { postItem } = props;
     const router = useRouter();
+    const [isCategoryModal, setIsCategoryModal] = useState<boolean>(false);
     const [isSurveyModal, setIsSurveyModal] = useState<boolean>(false);
     const [isKeywordDrawer, setIsKeywordDrawer] = useState<boolean>(false);
-    const [selectCategory, setSelectCategory] = useState<number>(1);
+    const [selectCategory, setSelectCategory] = useState<ICategoryModel>();
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
     const [selectKeyword, setSelectKeyword] = useState<ITagModel[]>([]);
     const editorRef = useRef<Editor>(null);
     const { register, watch, reset, setValue } = useForm();
     const { title } = watch();
 
-    // 게시판 메뉴
-    const categorys = useMemo(
-        () =>
-            MenuJson.reduce((prev: IBoardModel[], cur: IBoardMenu) => {
-                const menus = cur.menus.filter((menu) => menu.id !== 22);
-                return prev.concat(menus);
-            }, []),
-        [],
-    );
-
     const onBackPage = () => {
         router.push('/home');
     };
 
-    const handleCategoryChange = (value: string) => {
-        setSelectCategory(Number(value));
+    const handleCategoryChange = (catery: ICategoryModel) => {
+        setSelectCategory(catery);
+        setIsCategoryModal(false);
     };
 
     // 등록 버튼 핸들러
@@ -66,7 +59,7 @@ const EditorBox = (props: IEditorBox) => {
                     const data = await putPost({
                         id: postItem.id,
                         title,
-                        categoryId: selectCategory,
+                        categoryId: selectCategory?.id || 1,
                         content: editorRef.current?.getInstance().getHTML(),
                         tagList: selectKeyword.map((keyword) => keyword.id),
                     });
@@ -101,7 +94,7 @@ const EditorBox = (props: IEditorBox) => {
                     }
                     const data = await postWrite({
                         title,
-                        categoryId: selectCategory,
+                        categoryId: selectCategory?.id || 1,
                         content: editorRef.current?.getInstance().getHTML(),
                         tagList: selectKeyword.map((keyword) => keyword.id),
                         pollList,
@@ -142,7 +135,7 @@ const EditorBox = (props: IEditorBox) => {
         if (editorRef.current && postItem) {
             editorRef.current.getInstance().setHTML(postItem.content);
             setValue('title', postItem.title);
-            setSelectCategory(postItem.categoryId);
+            // setSelectCategory(postItem.categoryId);
             setSelectKeyword(postItem.tags);
         }
     }, [postItem]);
@@ -244,15 +237,7 @@ const EditorBox = (props: IEditorBox) => {
             />
             <div css={ContentWrapStyle}>
                 <div css={FlexCenterStyle}>
-                    {categorys && categorys.length > 0 && (
-                        <Select defaultValue={categorys[0].title} style={{ width: 170 }} onChange={handleCategoryChange} bordered={false}>
-                            {categorys.map((category) => (
-                                <Select.Option key={category.id} value={category.id} label={category.title}>
-                                    {category.title}
-                                </Select.Option>
-                            ))}
-                        </Select>
-                    )}
+                    <button onClick={() => setIsCategoryModal(true)}>게시판 카테고리 선택</button>
                 </div>
                 <Divider />
                 <form>
@@ -305,6 +290,13 @@ const EditorBox = (props: IEditorBox) => {
                 onClose={() => {
                     setIsKeywordDrawer(false);
                 }}
+            />
+            <CategoryDrawer
+                isVisible={isCategoryModal}
+                onClose={() => {
+                    setIsCategoryModal(false);
+                }}
+                onCategory={handleCategoryChange}
             />
         </>
     );

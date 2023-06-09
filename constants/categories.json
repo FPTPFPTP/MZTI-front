@@ -1,0 +1,98 @@
+[
+    {
+        "id": 1,
+        "title": "자유 게시판"
+    },
+    {
+        "id": 2,
+        "title": "대결 게시판",
+        "categories": [
+            {
+                "id": 2,
+                "title": "E vs I"
+            },
+            {
+                "id": 3,
+                "title": "S vs N"
+            },
+            {
+                "id": 4,
+                "title": "T vs F"
+            },
+            {
+                "id": 5,
+                "title": "J vs P"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "MBTI별 게시판",
+        "categories": [
+            {
+                "id": 9,
+                "title": "INTJ"
+            },
+            {
+                "id": 13,
+                "title": "INTP"
+            },
+            {
+                "id": 21,
+                "title": "ENTJ"
+            },
+            {
+                "id": 17,
+                "title": "ENTP"
+            },
+            {
+                "id": 8,
+                "title": "INFJ"
+            },
+            {
+                "id": 12,
+                "title": "INFP"
+            },
+            {
+                "id": 20,
+                "title": "ENFJ"
+            },
+            {
+                "id": 16,
+                "title": "ENFP"
+            },
+            {
+                "id": 6,
+                "title": "ISTJ"
+            },
+            {
+                "id": 7,
+                "title": "ISFJ"
+            },
+            {
+                "id": 18,
+                "title": "ESTJ"
+            },
+            {
+                "id": 19,
+                "title": "ESFJ"
+            },
+            {
+                "id": 10,
+                "title": "ISTP"
+            },
+            {
+                "id": 11,
+                "title": "ISFP"
+            },
+            {
+                "id": 14,
+                "title": "ESTP"
+            },
+            {
+                "id": 15,
+                "title": "ESFP"
+            }
+        ]
+    }
+]

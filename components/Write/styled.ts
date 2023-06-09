@@ -124,3 +124,61 @@ export const BottomBtnWrapStyle = css`
         }
     }
 `;
+
+export const CategoryDrawerWrapStyle = css`
+    .postDrawer__backdrop {
+        z-index: 101;
+    }
+    .postDrawer {
+        z-index: 105;
+        height: 40vh;
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 26px 30px 30px;
+            .prev {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                button {
+                    width: 9px;
+                }
+            }
+            h3 {
+                font-size: 20px;
+                font-weight: 500;
+                line-height: 20px;
+            }
+            button {
+                width: 50px;
+                height: 20px;
+                display: flex;
+                justify-content: right;
+                align-items: center;
+            }
+        }
+        .body {
+            overflow-y: auto;
+            height: 250px;
+            margin: 20px 30px;
+        }
+    }
+`;
+
+export const CategoryMenuStyle = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #545456;
+    cursor: pointer;
+    &:hover {
+        background: ${colors.GRAY_LIGHT_1};
+    }
+`;
