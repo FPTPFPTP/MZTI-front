@@ -133,7 +133,6 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
                     copyTitle={'홈 화면에 추가' || undefined}
                     debug={process.env.NODE_ENV === 'development' && false}
                 />
-                {userInfo && <FCM />}
             </QueryClientProvider>
         </>
     );

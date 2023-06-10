@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { Login } from '@styles/pages/loginStyled';
 import axios from 'utils/axios';
 import { useRouter } from 'next/router';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { setToken } from '@/utils/auth';
+import { FCM } from '@components/Commons';
 import CopyText from '@assets/icons/login/copy_text.svg';
 import Logo from '@assets/icons/login/logo.svg';
 import Kakao from '@assets/icons/login/kakao.svg';
@@ -16,6 +17,7 @@ const login = () => {
     const REDIRECT_URI = process.env.NEXT_PUBLIC_REDIRECT_URL;
     const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     const router = useRouter();
+    const [isLogin, setIsLogin] = useState<boolean>(false);
 
     // 코드값 추출
     const codeValue = useMemo(() => {
@@ -38,6 +40,7 @@ const login = () => {
                 .then((res) => {
                     setToken('accessToken', res.data.data.accessToken);
                     setToken('refreshToken', res.data.data.refreshToken);
+                    setIsLogin(true);
                     router.replace('/');
                     router.reload();
                 })
@@ -72,7 +75,8 @@ const login = () => {
                                 .then((res) => {
                                     setToken('accessToken', res.data.data.accessToken);
                                     setToken('refreshToken', res.data.data.refreshToken);
-                                    // router.replace('/');
+                                    setIsLogin(true);
+                                    router.replace('/');
                                     router.reload();
                                 });
                             console.log('Login Success!', response);
@@ -97,6 +101,7 @@ const login = () => {
                     </p>
                 </div>
             </div>
+            {isLogin && <FCM />}
         </>
     );
 };
