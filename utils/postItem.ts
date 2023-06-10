@@ -44,6 +44,27 @@ export const getStripIframeTags = (content: string) => {
     return content;
 };
 
+export const setConvertToHTML = (contents: string, imgSrcs: string[]) => {
+    let html = '';
+
+    html += '<div>';
+
+    const paragraphs = contents.split('\n');
+    for (const paragraph of paragraphs) {
+        html +=
+            '<p style="font-family: Pretendard; font-size: 15px; font-weight: 500; line-height: 23px; letter-spacing: 0px; text-align: left; color: #545456;">' +
+            paragraph +
+            '</p>';
+    }
+
+    for (const src of imgSrcs) {
+        html += '<img src="' + src + '">';
+    }
+
+    html += '</div>';
+
+    return html;
+};
 /**
  * 레벨 옆에 따라다니는 용
  * @param mbti
