@@ -9,6 +9,7 @@ import ArrowDownSvg from '@assets/icons/write/arrow_down.svg';
 import { ContentWrapStyle, CategoryWrapStyle, TitleWrapStyle, BodyWrapStyle, BottomWrapStyle } from '../styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite, putPost, postTag, getTags } from '@apis/post';
+import { categoryIdToTitle } from '@/utils/category';
 import { openToast } from '@utils/toast';
 import { setConvertToHTML, setConvertToPost } from '@utils/postItem';
 import { postImageUpload } from '@utils/upload';
@@ -18,6 +19,7 @@ import KeywordBox from '..//KeywordBox';
 import SurveyModal from '../SurveyModal';
 import { ITagModel, IPostModel } from '@/types/post';
 import { ICategoryModel } from '@/types/category';
+import CategriesJson from '@/constants/categories.json';
 
 interface IEditorBox {
     postItem?: IPostModel;
@@ -172,7 +174,10 @@ const EditorBox = (props: IEditorBox) => {
             setContentValue(postContent.content);
             setPreviewFileSrc(postContent.imgSrcs);
             setValue('title', postItem.title);
-            // setSelectCategory(postItem.categoryId);
+            setSelectCategory({
+                id: postItem.categoryId,
+                title: categoryIdToTitle(postItem.categoryId),
+            });
             setKeywords(postItem.tags);
         }
     }, [postItem]);

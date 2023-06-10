@@ -81,14 +81,19 @@ export const CategoryWrapStyle = css`
 `;
 export const TitleWrapStyle = css`
     margin-top: 60px;
-
-    color: #1b1e2680;
+    color: #1b1e26;
+    div {
+        padding: 0px;
+    }
     input {
         font-size: 20px;
         font-weight: 500;
         line-height: 20px;
         letter-spacing: 0px;
         text-align: left;
+        &::placeholder {
+            color: #1b1e2680;
+        }
     }
 `;
 
