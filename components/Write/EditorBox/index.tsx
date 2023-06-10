@@ -10,7 +10,7 @@ import { ContentWrapStyle, CategoryWrapStyle, TitleWrapStyle, BodyWrapStyle, Key
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite, putPost, postTag, getTags } from '@apis/post';
 import { openToast } from '@utils/toast';
-import { setConvertToHTML } from '@utils/postItem';
+import { setConvertToHTML, setConvertToPost } from '@utils/postItem';
 import { postImageUpload } from '@utils/upload';
 import AddFeatureBox from '../AddFeatureBox';
 import CategoryDrawer from '../CategoryDrawer';
@@ -51,28 +51,26 @@ const EditorBox = (props: IEditorBox) => {
     // 등록 버튼 핸들러
     const handleRegisterButton = async () => {
         if (postItem) {
-            if (editorRef.current) {
-                try {
-                    if (!title.length) {
-                        openToast({ message: '게시글 타이틀을 작성해주세요' });
-                        return;
-                    }
-                    const data = await putPost({
-                        id: postItem.id,
-                        title,
-                        categoryId: selectCategory?.id || 1,
-                        content: editorRef.current?.getInstance().getHTML(),
-                        tagList: keywords.map((keyword) => keyword.id),
-                    });
-
-                    if (data) {
-                        openToast({ message: '작성한 글 수정에 성공했어요' });
-                        router.push(`/boardDetail/${data.id}`);
-                    }
-                } catch (error) {
-                    console.log(error);
+            try {
+                if (!title.length) {
+                    openToast({ message: '게시글 타이틀을 작성해주세요' });
                     return;
                 }
+                const data = await putPost({
+                    id: postItem.id,
+                    title,
+                    categoryId: selectCategory?.id || 1,
+                    content: setConvertToHTML(contentValue, previewFileSrc),
+                    tagList: keywords.map((keyword) => keyword.id),
+                });
+
+                if (data) {
+                    openToast({ message: '작성한 글 수정에 성공했어요' });
+                    router.push(`/boardDetail/${data.id}`);
+                }
+            } catch (error) {
+                console.log(error);
+                return;
             }
         } else {
             try {
@@ -170,8 +168,10 @@ const EditorBox = (props: IEditorBox) => {
 
     useEffect(() => {
         // 전달받은 html값으로 초기화
-        if (editorRef.current && postItem) {
-            editorRef.current.getInstance().setHTML(postItem.content);
+        if (postItem) {
+            const postContent = setConvertToPost(postItem.content);
+            setContentValue(postContent.content);
+            setPreviewFileSrc(postContent.imgSrcs);
             setValue('title', postItem.title);
             // setSelectCategory(postItem.categoryId);
             setKeywords(postItem.tags);

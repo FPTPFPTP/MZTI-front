@@ -62,6 +62,29 @@ export const setConvertToHTML = (contents: string, imgSrcs: string[]) => {
 
     return html;
 };
+
+export const setConvertToPost = (html: string) => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+
+    const paragraphs = tempDiv.querySelectorAll('p');
+    let content = '';
+    for (const paragraph of Array.from(paragraphs)) {
+        content += paragraph.textContent + '\n';
+    }
+
+    const images = tempDiv.querySelectorAll('img');
+    const imgSrcs: string[] = [];
+    for (const image of Array.from(images)) {
+        imgSrcs.push(image.getAttribute('src') || '');
+    }
+
+    return {
+        content: content.trim(),
+        imgSrcs: imgSrcs,
+    };
+};
+
 /**
  * 레벨 옆에 따라다니는 용
  * @param mbti
