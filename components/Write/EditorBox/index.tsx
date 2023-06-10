@@ -8,7 +8,7 @@ import CheckSvg from '@assets/icons/header/check.svg';
 import ArrowDownSvg from '@assets/icons/write/arrow_down.svg';
 import { ContentWrapStyle, CategoryWrapStyle, TitleWrapStyle, BodyWrapStyle, KeywordWrapStyle, BottomWrapStyle, BottomBtnWrapStyle } from '../styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
-import { postWrite, putPost } from '@apis/post';
+import { postWrite, putPost, postTag, getTags } from '@apis/post';
 import { openToast } from '@utils/toast';
 import { setConvertToHTML } from '@utils/postItem';
 import { postImageUpload } from '@utils/upload';
@@ -141,10 +141,20 @@ const EditorBox = (props: IEditorBox) => {
         setIsSurveyModal(false);
     };
 
-    const onKeywordSubmit = (value: string) => {
-        setKeywords([...keywords, { id: keywords.length + 1, tag: value }]);
+    // 키워드 생성
+    const onKeywordSubmit = async (value: string) => {
+        const tags = await getTags({ tag: value });
+        if (tags.length) {
+            setKeywords([...keywords, tags[0]]);
+        } else {
+            const tagRes = await postTag(value);
+            if (tagRes) {
+                setKeywords([...keywords, tagRes]);
+            }
+        }
     };
 
+    // 키워드 삭제
     const onKeywordDelete = (id: number) => {
         setKeywords(keywords.filter((keyword) => keyword.id !== id));
     };

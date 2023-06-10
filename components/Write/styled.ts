@@ -49,9 +49,10 @@ export const TagSearchDropdownItemStyle = css`
 `;
 
 export const ContentWrapStyle = css`
+    overflow-y: auto;
     position: relative;
     width: 100%;
-    height: calc(100vh - 190px);
+    height: calc(100vh - 208px);
     padding: 0px 20px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -139,6 +140,9 @@ export const KeywordWrapStyle = css`
         line-height: 12px;
         letter-spacing: 0em;
         text-align: center;
+        input {
+            width: 100px;
+        }
     }
     .keyword_add_btn {
         padding: 7px 15px;
