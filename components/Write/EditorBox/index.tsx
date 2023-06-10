@@ -1,12 +1,12 @@
-import React, { ChangeEvent, useEffect, useRef, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import { Editor } from '@toast-ui/react-editor';
 import { Header, Input } from '@components/Commons';
-import CheckSvg from '@assets/icons/header/check.svg';
+import CheckSvg from '@assets/icons/write/circle_check.svg';
+import CheckFillSvg from '@assets/icons/write/circle_fill_check.svg';
 import ArrowDownSvg from '@assets/icons/write/arrow_down.svg';
-import { ContentWrapStyle, CategoryWrapStyle, TitleWrapStyle, BodyWrapStyle, KeywordWrapStyle, BottomWrapStyle, BottomBtnWrapStyle } from '../styled';
+import { ContentWrapStyle, CategoryWrapStyle, TitleWrapStyle, BodyWrapStyle, BottomWrapStyle } from '../styled';
 import { DefaultModeViewer, SurveyType } from '@khunjeong/basic-survey-template';
 import { postWrite, putPost, postTag, getTags } from '@apis/post';
 import { openToast } from '@utils/toast';
@@ -33,7 +33,6 @@ const EditorBox = (props: IEditorBox) => {
     const [contentValue, setContentValue] = useState<string>('');
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
     const [keywords, setKeywords] = useState<ITagModel[]>([]);
-    const editorRef = useRef<Editor>(null);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const { register, watch, reset, setValue } = useForm();
@@ -184,9 +183,15 @@ const EditorBox = (props: IEditorBox) => {
                 onClickBackButton={onBackPage}
                 title={postItem ? '일반 글쓰기 수정' : '일반 글쓰기'}
                 rightElement={
-                    <button onClick={handleRegisterButton}>
-                        <CheckSvg />
-                    </button>
+                    title && title.length && contentValue.length ? (
+                        <button onClick={handleRegisterButton}>
+                            <CheckFillSvg />
+                        </button>
+                    ) : (
+                        <button>
+                            <CheckSvg />
+                        </button>
+                    )
                 }
                 isBgWhite
                 isBorderLine
