@@ -54,6 +54,7 @@ export const ContentWrapStyle = css`
     width: 100%;
     height: calc(100vh - 208px);
     padding: 0px 20px;
+
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import { Header, Input } from '@components/Commons';
+import { Header, Input, CustomImage } from '@components/Commons';
 import CheckSvg from '@assets/icons/write/circle_check.svg';
 import CheckFillSvg from '@assets/icons/write/circle_fill_check.svg';
 import ArrowDownSvg from '@assets/icons/write/arrow_down.svg';
@@ -19,7 +19,6 @@ import KeywordBox from '..//KeywordBox';
 import SurveyModal from '../SurveyModal';
 import { ITagModel, IPostModel } from '@/types/post';
 import { ICategoryModel } from '@/types/category';
-import CategriesJson from '@/constants/categories.json';
 
 interface IEditorBox {
     postItem?: IPostModel;
@@ -31,6 +30,10 @@ const EditorBox = (props: IEditorBox) => {
     const [isCategoryModal, setIsCategoryModal] = useState<boolean>(false);
     const [isSurveyModal, setIsSurveyModal] = useState<boolean>(false);
     const [previewFileSrc, setPreviewFileSrc] = useState<string[]>([]);
+    const [imgSize, setImgSize] = useState<{ width: number; height: number }>({
+        width: 0,
+        height: 0,
+    });
     const [selectCategory, setSelectCategory] = useState<ICategoryModel>();
     const [contentValue, setContentValue] = useState<string>('');
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
@@ -228,16 +231,7 @@ const EditorBox = (props: IEditorBox) => {
                     />
                 </div>
                 {previewFileSrc.map((src) => (
-                    <div key={src} className={'image'}>
-                        <Image
-                            src={src}
-                            alt={'게시글 이미지'}
-                            width={320}
-                            height={200}
-                            sizes="(max-width: 768px) 320px,
-                            768px"
-                        />
-                    </div>
+                    <CustomImage key={src} src={src} alt={'게시글 이미지'} />
                 ))}
                 {surveyData.map((survey) => (
                     <DefaultModeViewer key={survey.id} survey={survey} onSubmit={(result) => console.log({ result })} onRemove={onSurveyRemove} />
