@@ -19,6 +19,7 @@ import { getMeUserInfo } from '@apis/user';
 import { IUserModel } from '@/types/user';
 import usePWA from '@hooks/usePWA';
 import Image from 'next/image';
+import { openToast } from '@utils/toast';
 
 type PWAPromptProps = Partial<{
     copyAddHomeButtonLabel: string;
@@ -161,6 +162,8 @@ MyCustomApp.getInitialProps = async (appContext: AppContext) => {
 
             const data = await getMeUserInfo();
             if (!data) {
+                openToast({ message: '유저 정보가 없어요' });
+
                 removeAllCookies();
             } else {
                 userInfo = data;
@@ -170,6 +173,8 @@ MyCustomApp.getInitialProps = async (appContext: AppContext) => {
         } finally {
             axios.defaults.baseURL = '/mzti';
         }
+    } else {
+        openToast({ message: '인증 토큰을 보관하고 있지 않아요' });
     }
 
     return { ...appProps, userInfo };
