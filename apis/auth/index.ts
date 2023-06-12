@@ -3,7 +3,6 @@ import Axios from '@utils/axios';
 import { removeTokenAll, getCookie, getRefreshToken } from '@/utils/auth';
 import { IResponseBase } from '@/types/global';
 import { ITokenModel } from '@/types/auth';
-import { openToast } from '@utils/toast';
 
 /**
  * [API] POST 토큰 재발급
@@ -16,10 +15,10 @@ export const postLoginRefresh = mem(
                 userId: getCookie('userId'),
                 refresh: getRefreshToken(),
             });
-            openToast({ message: '로그인 재요청에 성공했어요' });
+            console.log('로그인 재요청에 성공했어요');
             return res.data.data;
         } catch (error: any) {
-            openToast({ message: '로그인 재요청에 실패했어요' });
+            console.log('로그인 재요청에 실패했어요');
             removeTokenAll();
             return false;
         }
