@@ -117,6 +117,10 @@ export interface IMyPageActive {
     like: number;
 }
 
+export interface IMbtiNotice {
+    categoryId: number;
+}
+
 // 댓글 추가 시 param에 넘겨줄 타입
 export interface IAddComment {
     postId: number;

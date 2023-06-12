@@ -45,5 +45,21 @@ export const WriteDrawerWrapStyle = css`
                 margin-bottom: 30px;
             }
         }
+        .warning {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 15px;
+            text-align: left;
+            color: #54545680;
+            white-space: nowrap;
+        }
+        .simple_write {
+            div {
+                padding: 4px 0px !important;
+            }
+        }
     }
 `;

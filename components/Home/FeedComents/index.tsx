@@ -6,7 +6,7 @@ import { ICommentModel, EActionEditType } from '@/types/post';
 
 interface IFeedComentsProps {
     commentData: ICommentModel[];
-    postWriterId: number; // 작성자 id
+    postWriterId: number | string; // 작성자 id
     handleRefrash?: () => void; // 새로고침
     handleMoreComment: () => void; // 댓글 더보기
     openDrawer: (id: number, type: EActionEditType) => void;

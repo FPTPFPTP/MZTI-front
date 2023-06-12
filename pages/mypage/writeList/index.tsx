@@ -83,8 +83,8 @@ const WriteList = () => {
                         {hasNextPage ? <Loading /> : null}
                     </div>
                 </ListBox>
-                <BottomMenu />
             </div>
+            <BottomMenu />
         </>
     );
 };

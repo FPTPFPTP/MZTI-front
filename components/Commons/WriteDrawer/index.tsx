@@ -9,6 +9,7 @@ import { openToast } from '@/utils/toast';
 import { Input, TextArea } from '@components/Commons';
 import CheckIcon from '@assets/icons/write/check.svg';
 import CloseIcon from '@assets/icons/write/close.svg';
+import WarningIcon from '@assets/icons/write/warningIcon.svg';
 import { WriteDrawerWrapStyle } from './styled';
 
 interface IWriteDrawerProps {
@@ -66,7 +67,7 @@ const WriteDrawer = ({ isVisible, onClose }: IWriteDrawerProps) => {
 
     return (
         <nav css={WriteDrawerWrapStyle}>
-            <Drawer duration={250} hideScrollbars={true} onClose={onClose} isVisible={isVisible} className="postDrawer">
+            <Drawer className="postDrawer" duration={250} hideScrollbars={true} onClose={onClose} isVisible={isVisible}>
                 <div className="title">
                     <h3>{step === 0 ? '글쓰기' : '간편 글쓰기'}</h3>
                     <button onClick={() => (step === 0 ? onClose() : onPostPush())} disabled={step === 1 && !isPossible}>
@@ -94,7 +95,6 @@ const WriteDrawer = ({ isVisible, onClose }: IWriteDrawerProps) => {
                                 <Input
                                     inputStyle={'base'}
                                     placeholder={'게시글 제목 입력'}
-                                    maxLength={22}
                                     {...register('title', {
                                         required: true,
                                     })}
@@ -102,14 +102,19 @@ const WriteDrawer = ({ isVisible, onClose }: IWriteDrawerProps) => {
                                 />
                                 <TextArea
                                     placeholder={'게시글 본문 입력(300자 이하)'}
-                                    maxLength={300}
                                     {...register('content', {
                                         required: true,
                                     })}
-                                    style={{ fontSize: 12, fontWeight: 500, marginTop: 22 }}
+                                    style={{ fontSize: 14, fontWeight: 500, marginTop: 22 }}
                                 />
                                 <button type="submit" />
                             </form>
+                            {!isPossible && (
+                                <div className={'warning'}>
+                                    <WarningIcon />
+                                    <span>간편글쓰기로 작성한 글은 자유게시판에만 등록할 수 있어요</span>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>

@@ -115,12 +115,6 @@ const globalReset = () => css`
         -ms-overflow-style: none;
     }
 
-    @media (min-width: 768px) {
-        html {
-            font-size: 20.477px;
-        }
-    }
-
     body {
         -ms-overflow-style: none;
         ::-webkit-scrollbar {

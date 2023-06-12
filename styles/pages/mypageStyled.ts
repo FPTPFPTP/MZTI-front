@@ -136,31 +136,36 @@ export const MypageWrap = css`
 `;
 
 export const NoticeViewStyle = css`
+    height: 100vh;
     .header {
         padding: 20px 20px 40px 20px;
         border-top: 0.5px solid #a7a7a7;
         h3 {
-            font-weight: 500;
             font-size: 20px;
-            letter-spacing: -0.408px;
+            font-weight: 500;
+            line-height: 23px;
+            letter-spacing: -0.4px;
+            text-align: left;
             color: #1b1e26;
-            padding-bottom: 10px;
         }
         p {
-            font-weight: 500;
-            font-size: 15px;
-            letter-spacing: -0.408px;
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 12px;
+            letter-spacing: -0.4px;
+            text-align: left;
             color: #545456;
+            margin-top: 10px;
         }
     }
     article {
-        padding: 0 20px;
-        font-size: 1.2rem;
-        font-weight: 500;
         font-size: 15px;
-        line-height: 22px;
-        letter-spacing: -0.408px;
+        font-weight: 500;
+        line-height: 23px;
+        letter-spacing: -0.4px;
+        text-align: left;
         color: #545456;
+        padding: 0 20px 20px;
     }
 `;
 

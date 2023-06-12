@@ -10,7 +10,7 @@ export const HeaderContainerStyle = (isBorderLine?: boolean, isBgWhite?: boolean
     width: 100%;
     height: 80px;
     padding-right: 20px;
-    z-index: 9;
+    z-index: 10;
     background-color: ${isBgWhite ? colors.WHITE : '#f8f8f8'};
     ${isBorderLine && 'border-bottom: 1px solid #ebebeb;'}
 
@@ -28,12 +28,4 @@ export const TitleStyle = css`
     font-size: 17px;
     font-weight: 600;
     line-height: 22px;
-`;
-
-export const RightWrapStyle = css`
-    svg {
-        width: 32px;
-        height: 32px;
-        fill: ${colors.BLACK};
-    }
 `;
