@@ -41,7 +41,6 @@ const login = () => {
                     setToken('accessToken', res.data.data.accessToken);
                     setToken('refreshToken', res.data.data.refreshToken);
                     setIsLogin(true);
-                    router.replace('/');
                     router.reload();
                 })
                 .catch((error) => {
@@ -76,7 +75,6 @@ const login = () => {
                                     setToken('accessToken', res.data.data.accessToken);
                                     setToken('refreshToken', res.data.data.refreshToken);
                                     setIsLogin(true);
-                                    router.replace('/');
                                     router.reload();
                                 });
                             console.log('Login Success!', response);
