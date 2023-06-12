@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { ModalStyle } from '@/components/Commons/Modal/styled';
 import classNames from 'classnames';
-import { Modal } from '@components/Commons';
+import { Modal, Tag } from '@components/Commons';
 import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
 import { useMutation } from '@tanstack/react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -299,6 +299,17 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                                         )}
                                     </div>
                                 ))}
+                                <div className="postTags">
+                                    {postData.tags.map((tag) => (
+                                        <Tag
+                                            key={tag.id}
+                                            title={tag.tag}
+                                            onClick={() => {
+                                                console.log({ tag });
+                                            }}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         )}
 
