@@ -6,7 +6,7 @@ import { IResponseBase } from '@/types/global';
  */
 export const postUserPushToken = async ({ token }: { token: string }) => {
     try {
-        const res = await Axios.post<IResponseBase<any>>(`/user/push`, null, {
+        const res = await Axios.post<IResponseBase<any>>(`/alarm/token`, null, {
             params: { token },
         });
 
