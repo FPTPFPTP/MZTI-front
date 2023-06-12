@@ -10,7 +10,7 @@ export const HeaderContainerStyle = (isBorderLine?: boolean, isBgWhite?: boolean
     width: 100%;
     height: 80px;
     padding-right: 20px;
-    z-index: 9;
+    z-index: 10;
     background-color: ${isBgWhite ? colors.WHITE : '#f8f8f8'};
     ${isBorderLine && 'border-bottom: 1px solid #ebebeb;'}
 

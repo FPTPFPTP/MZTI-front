@@ -10,7 +10,6 @@ export const ToastViewerStyle = css`
         max-height: 500px;
     }
     .toastui-editor-contents p {
-        font-family: Pretendard;
         font-size: 15px;
         font-weight: 500;
         line-height: 23px;

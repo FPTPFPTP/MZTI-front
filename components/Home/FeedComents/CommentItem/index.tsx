@@ -25,7 +25,7 @@ import { getMbtiColor } from '@utils/postItem';
 export interface ICommentItemProps {
     isTop?: boolean;
     commentItem: ICommentModel;
-    postWriterId?: number;
+    postWriterId?: number | string;
     openDrawer: (id: number, type: EActionEditType) => void;
 }
 
@@ -97,7 +97,7 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                             <p className="nickName">
                                 <span>{writer.nickname}</span>
 
-                                {writer.id === postWriterId && (
+                                {writer.nickname === postWriterId && (
                                     <span>
                                         <WriterMainIcon />
                                     </span>

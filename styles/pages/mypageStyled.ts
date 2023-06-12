@@ -155,6 +155,7 @@ export const NoticeViewStyle = css`
             letter-spacing: -0.4px;
             text-align: left;
             color: #545456;
+            margin-top: 10px;
         }
     }
     article {

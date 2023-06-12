@@ -19,6 +19,7 @@ import { getMeUserInfo } from '@apis/user';
 import { IUserModel } from '@/types/user';
 import usePWA from '@hooks/usePWA';
 import Image from 'next/image';
+import { openToast } from '@utils/toast';
 
 type PWAPromptProps = Partial<{
     copyAddHomeButtonLabel: string;
@@ -133,7 +134,6 @@ function MyCustomApp({ Component, pageProps, userInfo }: IMyCustomApp) {
                     copyTitle={'홈 화면에 추가' || undefined}
                     debug={process.env.NODE_ENV === 'development' && false}
                 />
-                {userInfo && <FCM />}
             </QueryClientProvider>
         </>
     );
@@ -162,6 +162,7 @@ MyCustomApp.getInitialProps = async (appContext: AppContext) => {
 
             const data = await getMeUserInfo();
             if (!data) {
+                console.log('유저 정보가 없어요');
                 removeAllCookies();
             } else {
                 userInfo = data;
@@ -171,6 +172,8 @@ MyCustomApp.getInitialProps = async (appContext: AppContext) => {
         } finally {
             axios.defaults.baseURL = '/mzti';
         }
+    } else {
+        console.log('인증 토큰을 보관하고 있지 않아요');
     }
 
     return { ...appProps, userInfo };
