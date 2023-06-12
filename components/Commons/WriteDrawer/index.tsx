@@ -95,7 +95,6 @@ const WriteDrawer = ({ isVisible, onClose }: IWriteDrawerProps) => {
                                 <Input
                                     inputStyle={'base'}
                                     placeholder={'게시글 제목 입력'}
-                                    maxLength={22}
                                     {...register('title', {
                                         required: true,
                                     })}
@@ -103,11 +102,10 @@ const WriteDrawer = ({ isVisible, onClose }: IWriteDrawerProps) => {
                                 />
                                 <TextArea
                                     placeholder={'게시글 본문 입력(300자 이하)'}
-                                    maxLength={300}
                                     {...register('content', {
                                         required: true,
                                     })}
-                                    style={{ fontSize: 12, fontWeight: 500, marginTop: 22 }}
+                                    style={{ fontSize: 14, fontWeight: 500, marginTop: 22 }}
                                 />
                                 <button type="submit" />
                             </form>
