@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import josa from 'josa-js';
 import { useRecoilValue } from 'recoil';
 import { relationTestState } from '@/recoil/atom/relationTest';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
@@ -28,7 +29,11 @@ const Result = () => {
                 <div className={'result_submit'}>
                     <h3>궁합 요약</h3>
                     <p>
-                        {`${relationTestStateObj.myName}와 ${relationTestStateObj.partnerName}은 이미 완벽한 커플! MBTI학에서도 최고의 궁합을 자랑하는 ${relationTestStateObj.myMbti}-${relationTestStateObj.partnerMbti} 조합이지! 더 이상 완벽할 게 없어보이는 우리 커플이 앞으로도
+                        {`${relationTestStateObj.myName}${josa.c(relationTestStateObj.myName, '이') === '이' ? '이' : ''}랑 ${
+                            relationTestStateObj.partnerName
+                        }${josa.c(relationTestStateObj.partnerName, '은/는')} 이미 완벽한 커플! MBTI학에서도 최고의 궁합을 자랑하는 ${
+                            relationTestStateObj.myMbti
+                        }-${relationTestStateObj.partnerMbti} 조합이지! 더 이상 완벽할 게 없어보이는 우리 커플이 앞으로도
                     연애를 잘 하려면 어떤 노력을 하면 좋을까? 바로 바로 바로 아 이런글 쓰는것도 시간 정말 오래 걸린다 아무튼 이렇게 테스트결과 요약본`}
                     </p>
                 </div>
