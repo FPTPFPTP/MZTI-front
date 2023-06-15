@@ -6,11 +6,13 @@ import { relationTestState } from '@/recoil/atom/relationTest';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { Button, MultiCarousel } from '@/components/Commons';
 import Banner from '@/components/MyPageCom/Banner';
+import useWindowSize from '@/hooks/useWindowSize';
 import { LinkCopy } from '@/utils/copy';
 import { RelationResultStyle } from '@styles/pages/relationTestStyled';
 
 const Result = () => {
     const relationTestStateObj = useRecoilValue(relationTestState);
+    const { width } = useWindowSize();
 
     return (
         <NonSSRWrapper>
@@ -67,8 +69,20 @@ const Result = () => {
 
                 <div className="banner_wrap">
                     <MultiCarousel>
-                        <Banner link={'https://www.mzti.kr'} imageSrc={'/images/mzti_promote.png'} imageAlt={'mzti'} />
-                        <Banner link={'https://www.mzti.kr'} imageSrc={'/images/mzti_promote_v2.png'} imageAlt={'mzti'} />
+                        <Banner
+                            isMobile={width < 768}
+                            link={'https://www.mzti.kr'}
+                            imageSrc={'/images/mzti_promote.png'}
+                            bigImageSrc={'/images/mzti_banner_relation1000x200.png'}
+                            imageAlt={'mzti'}
+                        />
+                        <Banner
+                            isMobile={width < 768}
+                            link={'https://www.mzti.kr'}
+                            imageSrc={'/images/mzti_banner_relation360x100.png'}
+                            bigImageSrc={'/images/mzti_banner_relation1000x200.png'}
+                            imageAlt={'mzti'}
+                        />
                     </MultiCarousel>
                 </div>
             </div>
