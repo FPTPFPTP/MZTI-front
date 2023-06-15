@@ -36,6 +36,8 @@ export const ModalStyle = css`
     }
     .ant-modal-content {
         border-radius: 20px !important;
+        max-width: 940px;
+        margin: auto;
     }
     .confirmButton {
         display: flex;
