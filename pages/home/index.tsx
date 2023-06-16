@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -6,6 +6,7 @@ import { useSetRecoilState, useRecoilState } from 'recoil';
 import { Input } from '@components/Commons';
 import { postEditState } from '@/recoil/atom/post';
 import { homeListTabState } from '@/recoil/atom/homeListTab';
+import { prevScrollState } from '@/recoil/atom/scroll';
 import { Empty } from '@/components/MyPageCom';
 import FeedItem from '@/components/Home/FeedItem';
 import HotKeyword from '@/components/Home/HotKeyword';
@@ -25,10 +26,11 @@ const home = () => {
     // 게시글 & 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
 
-    const isCurrentScrollTop = useScrollDown(65);
+    const { isCurrentScrollTop } = useScrollDown(65);
 
     const setEditTarget = useSetRecoilState(postEditState);
     const [countIndex, setCountIndex] = useRecoilState(homeListTabState);
+    const [prevScroll, setPrevScroll] = useRecoilState(prevScrollState);
 
     // 데이터 패칭
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(
@@ -68,6 +70,12 @@ const home = () => {
             }
         }
     };
+
+    useEffect(() => {
+        if (prevScroll > 0) {
+            window.scrollTo(0, prevScroll);
+        }
+    }, [router.pathname]);
 
     return (
         <main className="homeLayout">
