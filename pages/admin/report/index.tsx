@@ -7,7 +7,7 @@ const report = () => {
         <main css={AdminStyled}>
             <AdminMenu />
 
-            <section>
+            <section className="content">
                 <h1>신고관리</h1>
                 <AdminContent />
             </section>

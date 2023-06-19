@@ -15,10 +15,25 @@ export const postAdminSupport = async (supportId: number) => {
     return res.data.data;
 };
 
+// 서포트 목록
 export const getAdminSupport = async () => {
     const res = await Axios.get<IResponseBase<IAdminUser>>(`/admin/support`);
 
     return res.data.data;
+};
+
+/**
+ * [API] 어드민 페이지 USER
+ * @returns
+ */
+export const useGetAdminSupport = () => {
+    const { data } = useQuery(['getAdminSupport'], async () => {
+        const data = await getAdminSupport();
+
+        return data;
+    });
+
+    return data;
 };
 
 // 어드민 페이지 신고

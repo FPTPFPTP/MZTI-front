@@ -18,7 +18,6 @@ export default function AdminMenu() {
                     관리자모드
                 </h1>
             </MenuItem>
-
             <MenuList>
                 <MenuItem>
                     <Link href="/home">
@@ -30,7 +29,7 @@ export default function AdminMenu() {
                 </MenuItem>
                 <MenuItem>
                     <Link href="/mypage">
-                        <ListItemText secondary>
+                        <ListItemText>
                             <Person2Icon />
                             마이페이지
                         </ListItemText>
@@ -53,8 +52,13 @@ export default function AdminMenu() {
                     </Link>
                 </MenuItem>
                 <MenuItem>
+                    <Link href="/admin/notice">
+                        <ListItemText>공지사항</ListItemText>
+                    </Link>
+                </MenuItem>
+                <MenuItem>
                     <Link href="/admin/reservation">
-                        <ListItemText>예약 발행</ListItemText>
+                        <ListItemText>예약발행</ListItemText>
                     </Link>
                 </MenuItem>
             </MenuList>

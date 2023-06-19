@@ -7,4 +7,5 @@ export interface IUserModel {
     platform?: string;
     email?: string;
     level?: number;
+    role?: string;
 }
