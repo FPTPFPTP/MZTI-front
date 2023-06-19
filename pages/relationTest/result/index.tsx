@@ -78,7 +78,7 @@ const Result = () => {
                         />
                         <Banner
                             isMobile={width < 768}
-                            link={'https://www.mzti.kr'}
+                            link={'https://www.mzti.kr/write/fact'}
                             imageSrc={'/images/mzti_banner_relation360x100.png'}
                             bigImageSrc={'/images/mzti_banner_relation1000x200.png'}
                             imageAlt={'mzti'}
