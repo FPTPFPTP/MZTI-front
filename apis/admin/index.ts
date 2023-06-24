@@ -1,23 +1,23 @@
 import Axios from '@utils/axios';
-import { IAdminUser, IAdminUserList, IResponseBase } from '@/types/global';
+import { IPaginationResponse, IResponseBase, IAdminList } from '@/types/global';
 import { useQuery } from '@tanstack/react-query';
 
 // 어드민 페이지 서포트
 export const getAdminSupportId = async (supportId: number) => {
-    const res = await Axios.get<IResponseBase<IAdminUser>>(`/admin/support/${supportId}`);
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/support/${supportId}`);
 
     return res.data.data;
 };
 
 export const postAdminSupport = async (supportId: number) => {
-    const res = await Axios.post<IResponseBase<IAdminUser>>(`/admin/support/${supportId}`);
+    const res = await Axios.post<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/support/${supportId}`);
 
     return res.data.data;
 };
 
 // 서포트 목록
 export const getAdminSupport = async () => {
-    const res = await Axios.get<IResponseBase<IAdminUser>>(`/admin/support`);
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/support`);
 
     return res.data.data;
 };
@@ -27,50 +27,70 @@ export const getAdminSupport = async () => {
  * @returns
  */
 export const useGetAdminSupport = () => {
-    const { data } = useQuery(['getAdminSupport'], async () => {
+    return useQuery(['getAdminSupport'], async () => {
         const data = await getAdminSupport();
 
         return data;
     });
-
-    return data;
 };
 
 // 어드민 페이지 신고
 export const getAdminReport = async () => {
-    const res = await Axios.get<IResponseBase<IAdminUser>>(`/admin/report`);
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/report`);
 
     return res.data.data;
 };
 
+export const useGetAdminReport = () => {
+    return useQuery(['getAdminReport'], async () => {
+        const data = await getAdminReport();
+
+        return data;
+    });
+};
+
 export const postAdminReport = async (id: number) => {
-    const res = await Axios.post<IResponseBase<IAdminUser>>(`/admin/report/check/${id}`);
+    const res = await Axios.post<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/report/check/${id}`);
 
     return res.data.data;
 };
 
 // 어드민 알림
 export const postAdminAlarm = async (userId: number) => {
-    const res = await Axios.post<IResponseBase<IAdminUser>>(`/admin/report/user/${userId}`);
+    const res = await Axios.post<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/report/user/${userId}`);
 
     return res.data.data;
 };
 
-// 어드민 공지사항 신고
+// 어드민 공지사항
 export const getAdminNotice = async () => {
-    const res = await Axios.get<IResponseBase<IAdminUser>>(`/admin/notice`);
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IAdminList>>>(`/notice`);
 
     return res.data.data;
 };
 
-export const getAdminUser = async (page: number, view: number, email: string) => {
-    const res = await Axios.get<IResponseBase<IAdminUser>>(`/admin/user`, {
+export const useGetAdminNotice = () => {
+    return useQuery(['getNotice'], async () => {
+        const data = await getAdminNotice();
+
+        return data;
+    });
+};
+
+// 어드민 공지사항 작성하기
+export const postAdminNotice = async ({ title, content }: { title: string; content: string }) => {
+    const res = await Axios.post<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/notice`, {
         params: {
-            page: page,
-            view: view,
-            email: email,
+            title: title,
+            content: content,
         },
     });
+
+    return res.data.data;
+};
+
+export const getAdminUser = async () => {
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/user`);
 
     return res.data.data;
 };
@@ -79,20 +99,12 @@ export const getAdminUser = async (page: number, view: number, email: string) =>
  * [API] 어드민 페이지 USER
  * @returns
  */
-export const useGetAdminUser = (page: number, view: number, email: string) => {
-    const { data } = useQuery(['getKeyword'], async () => {
-        const data = await getAdminUser(page, view, email);
+export const useGetAdminUser = () => {
+    return useQuery(['getKeyword'], async () => {
+        const data = await getAdminUser();
 
         return data;
     });
-
-    return data;
-};
-
-export const getAdminUserId = async (id: number) => {
-    const res = await Axios.get<IResponseBase<IAdminUser>>(`/admin/user/${id}`);
-
-    return res.data.data;
 };
 
 export const deleteAdminPost = async (postId: number) => {

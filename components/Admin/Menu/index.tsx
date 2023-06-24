@@ -12,11 +12,13 @@ export default function AdminMenu() {
     return (
         <Paper sx={{ width: 320 }}>
             <MenuItem>
-                <h1>
-                    MZTI
-                    <br />
-                    관리자모드
-                </h1>
+                <Link href="/admin">
+                    <h1>
+                        MZTI
+                        <br />
+                        관리자모드
+                    </h1>
+                </Link>
             </MenuItem>
             <MenuList>
                 <MenuItem>
@@ -56,11 +58,13 @@ export default function AdminMenu() {
                         <ListItemText>공지사항</ListItemText>
                     </Link>
                 </MenuItem>
+                {/*
+                🔥서비스 준비중🔥
                 <MenuItem>
                     <Link href="/admin/reservation">
                         <ListItemText>예약발행</ListItemText>
                     </Link>
-                </MenuItem>
+                </MenuItem> */}
             </MenuList>
         </Paper>
     );

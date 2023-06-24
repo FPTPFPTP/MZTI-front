@@ -14,6 +14,11 @@ export const Layout = css`
     }
 `;
 
+export const noticeText = css`
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+`;
 export const MypageWrap = css`
     padding: 0 20px 20px;
     background: #f5f5f5;

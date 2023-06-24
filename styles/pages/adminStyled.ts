@@ -51,4 +51,33 @@ export const AdminStyled = () => css`
             font-size: 2rem;
         }
     }
+    .ButtonWrap {
+        display: flex;
+        justify-content: flex-end;
+        padding-bottom: 1rem;
+        .firstButton {
+            margin-right: 10px;
+        }
+    }
+    .contentHeaderWrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .noticeForm {
+        display: flex;
+        flex-direction: column;
+        input {
+            border: 1px solid #444;
+            margin-bottom: 15px;
+            padding: 15px;
+            font-size: 14px;
+        }
+        textarea {
+            height: 500px;
+            border: 1px solid #444;
+            padding: 15px;
+            font-size: 14px;
+        }
+    }
 `;

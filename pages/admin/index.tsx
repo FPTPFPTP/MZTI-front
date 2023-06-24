@@ -13,8 +13,10 @@ const admin = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (myInfo?.role !== 'ADMIN_ROLE') {
+        if (myInfo?.role === 'USER_ROLE') {
             setIsModal(true);
+        } else {
+            setIsModal(false);
         }
     }, []);
 

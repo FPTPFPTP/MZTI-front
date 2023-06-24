@@ -32,10 +32,13 @@ export interface IPaginationResponse<T> {
     totalCount: number;
 }
 
-export interface IAdminUser {
-    page: number;
-    view: number;
+export interface IAdminList {
+    id: number;
     email: string;
+    supportType: string;
+    content: string;
+    checkAdmin: boolean;
+    createAt: string;
 }
 
 export interface IAdminUserList {
