@@ -32,7 +32,7 @@ const etc = () => {
             id: 2,
             title: '개인정보 처리방침',
             onClick: () => {
-                setIsModal(true);
+                router.push('/mypage/privacy');
             },
         },
     ];
