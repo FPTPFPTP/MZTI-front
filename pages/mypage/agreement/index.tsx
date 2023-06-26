@@ -1,58 +1,31 @@
-import React from 'react';
-import xss from 'xss';
+import { NotionRenderer } from 'react-notion';
+
+import 'react-notion/src/styles.css';
+
 import { Header } from '@components/Commons';
-import { Client } from '@notionhq/client/build/src';
+import { PrivacyStyled } from '@styles/pages/mypagePrivacy';
 
 interface IAgreementProps {
-    content?: string;
+    content?: any;
 }
 
 const Agreement = ({ content }: IAgreementProps) => {
     return (
         <>
-            <Header title={'MZTI 서비스 이용약관'} isBgWhite={true} />
-            {content && (
-                <div
-                    className="itemContent__content"
-                    dangerouslySetInnerHTML={{
-                        __html: xss(content),
-                    }}
-                />
-            )}
+            <Header title={'MZTI 서비스 이용약관'} isBgWhite={true} isBorderLine={true} />
+            <div css={PrivacyStyled}>{Object.keys(content).length ? <NotionRenderer blockMap={content} fullPage={true} hideHeader={true} /> : null}</div>
         </>
     );
 };
 
 export default Agreement;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     try {
-        const notion = new Client({
-            auth: process.env.NOTION_API_KEY,
-        });
-        const getDatabase = async (databaseId: string) => {
-            const response = await notion.databases.query({
-                database_id: databaseId,
-            });
-
-            return response;
-        };
-        const databaseId = 'b3a1487c30d84363964956e944a23c79';
-
-        const notionDatabase = await getDatabase(databaseId);
-
-        const agreementContent = notionDatabase.results.reduce((result, cur: any) => {
-            return (
-                '\n' +
-                cur.properties.title.title.map((title: any) => title.plain_text).join('') +
-                '\n' +
-                cur.properties.content.rich_text.map((content: any) => content.plain_text).join('') +
-                result
-            );
-        }, '');
+        const notionBlockMap = await (await fetch('https://notion-api.splitbee.io/v1/page/cff7f02aed7d4513a533967f3fa3e64f')).json();
         return {
             props: {
-                content: agreementContent,
+                content: notionBlockMap,
             },
         };
     } catch (error) {
