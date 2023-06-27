@@ -58,6 +58,7 @@ export const HotKeywordStyle = css`
             font-weight: 400;
             font-size: 12px;
             line-height: 12px;
+            white-space: nowrap;
             &.active {
                 background: ${colors.GRAY_STRONG};
                 color: ${colors.WHITE};
