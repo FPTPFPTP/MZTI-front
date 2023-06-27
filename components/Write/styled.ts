@@ -52,7 +52,7 @@ export const ContentWrapStyle = css`
     overflow-y: auto;
     position: relative;
     width: 100%;
-    height: calc(100vh - 208px);
+    height: calc(100vh - 243px);
     padding: 0px 20px;
 
     -ms-overflow-style: none; /* IE and Edge */
@@ -255,7 +255,7 @@ export const AddFeatureBoxStyle = css`
     background: #f8f8f8;
     gap: 20px;
     margin-top: 23px;
-    padding: 15px 20px;
+    padding: 15px 20px 50px;
     font-size: 15px;
     font-weight: 500;
     line-height: 15px;
