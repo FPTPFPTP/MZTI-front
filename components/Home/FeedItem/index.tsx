@@ -1,13 +1,15 @@
 import { InfiniteData } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
+import { prevScrollState } from '@/recoil/atom/scroll';
 import ItemContent from './ItemContent';
 import ItemFooter from './ItemFooter';
 import ItemHeader from './ItemHeader';
 import { FeedItemStyle } from '../styled';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { IPaginationResponse } from '@/types/global';
 import { IPostModel, EActionEditType } from '@/types/post';
+import useScrollDown from '@/hooks/useScrollDown';
 
 interface IFeedItemProps {
     data: InfiniteData<IPaginationResponse<IPostModel>>;
@@ -16,6 +18,16 @@ interface IFeedItemProps {
 
 const FeedItem = ({ data, openDrawer }: IFeedItemProps) => {
     const myInfo = useRecoilValue(myPageInfo);
+    const setPrevScroll = useSetRecoilState(prevScrollState);
+
+    const router = useRouter();
+
+    const { currentScrollY } = useScrollDown();
+
+    const onClickItem = (id: number) => {
+        setPrevScroll(currentScrollY);
+        router.push(`/boardDetail/${id}`);
+    };
 
     return (
         <div css={FeedItemStyle}>
@@ -32,7 +44,7 @@ const FeedItem = ({ data, openDrawer }: IFeedItemProps) => {
                                         openDrawer(item.id, myInfo?.id === item.writer.userId ? EActionEditType.WRITE : EActionEditType.WRITET_TIPOFF)
                                     }
                                 />
-                                <Link href={`/boardDetail/${item.id}`}>
+                                <div onClick={() => onClickItem(item.id)}>
                                     <ItemContent
                                         id={item.id}
                                         title={item.title}
@@ -40,7 +52,7 @@ const FeedItem = ({ data, openDrawer }: IFeedItemProps) => {
                                         pollList={item.pollList}
                                         tags={item.tags && item.tags}
                                     />
-                                </Link>
+                                </div>
                                 <ItemFooter
                                     likeCheck={item.like.check}
                                     viewCount={item.viewCount}

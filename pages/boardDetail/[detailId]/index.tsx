@@ -49,8 +49,6 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const usePostLike = useMutation((id: any) => postBookmark(id));
     // 상세 게시글
     const [postData, setPostData] = useState<IPostModel | undefined>(data);
-    // 북마크 체크
-    const [isBookMark, setIsBookMark] = useState<boolean>(false);
     // 투표 데이터
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
     // 댓글 리스트
@@ -66,10 +64,12 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const router = useRouter();
 
     // 북마크하기
-    const handleBookMark = () => {
-        if (myInfo) {
-            setIsBookMark((isBookMark) => !isBookMark);
-            usePostLike.mutate(postData?.id);
+    const handleBookMark = async () => {
+        if (myInfo && postData) {
+            await usePostLike.mutate(postData?.id);
+            await getPost({ postId: postData.id }).then((result) => {
+                setPostData(result);
+            });
         } else {
             setIsLogoutModal(true);
         }
@@ -262,8 +262,8 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                         title={postData.categoryName}
                         rightElement={
                             <div className="right" css={BookMarkIconStyle}>
-                                <button onClick={handleBookMark} className={classNames(isBookMark ? 'fill' : 'notFill')}>
-                                    {postData?.bookmark.check === true ? <FillBookMarkIcon /> : <BookMarkIcon />}
+                                <button onClick={handleBookMark} className={classNames(postData?.bookmark.check ? 'fill' : 'notFill')}>
+                                    {postData?.bookmark.check ? <FillBookMarkIcon /> : <BookMarkIcon />}
                                 </button>
                             </div>
                         }
