@@ -44,7 +44,7 @@ export const getStripIframeTags = (content: string) => {
     return content;
 };
 
-export const setConvertToHTML = (contents: string, imgSrcs: string[]) => {
+export const setConvertToHTML = (contents: string, imgSrcs: string[], youtubeUrl: string[]) => {
     let html = '';
 
     html += '<div>';
@@ -56,6 +56,11 @@ export const setConvertToHTML = (contents: string, imgSrcs: string[]) => {
 
     for (const src of imgSrcs) {
         html += '<img src="' + src + '">';
+    }
+
+    for (const url of youtubeUrl) {
+        const videoId = getYouTubeVideoId(url);
+        html += `<div><iframe width="300" height="300" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`;
     }
 
     html += '</div>';
@@ -120,4 +125,9 @@ export const getMbtiColor = (mbti: string) => {
             return colors.GRAY_STRONG;
         }
     }
+};
+
+const getYouTubeVideoId = (url: string) => {
+    const match = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|u\/\w\/|shorts\/)?([^#\&\?]*).*/i);
+    return match && match[1];
 };
