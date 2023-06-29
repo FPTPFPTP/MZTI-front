@@ -10,3 +10,5 @@ export const NICKNAME_REG = /^[a-zA-Z0-9ㄱ-ㅎ가-힣]{2,8}$/;
 export const WORD_CHECK_REG = /^[\w가-힣]{2,8}$/;
 
 export const SPECIAL_WORD_CHECK_REG = /^[a-zA-Z0-9ㄱ-ㅎ가-힣]*$/;
+
+export const YOUTUBE_URL_REG = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|u\/\w\/|shorts\/)?([^#\&\?]*).*/i;

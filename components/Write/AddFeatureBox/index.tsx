@@ -7,9 +7,10 @@ interface IAddFeatureBoxProps {
     isEdit: boolean;
     handleUpdateImg: (target: ChangeEvent<HTMLInputElement>) => void;
     onSurveyModalOpen: () => void;
+    onYoutubeModalOpen: () => void;
 }
 
-const AddFeatureBox = ({ isEdit, handleUpdateImg, onSurveyModalOpen }: IAddFeatureBoxProps) => {
+const AddFeatureBox = ({ isEdit, handleUpdateImg, onSurveyModalOpen, onYoutubeModalOpen }: IAddFeatureBoxProps) => {
     const profileImgInputRef = useRef<HTMLInputElement | null>(null);
 
     return (
@@ -28,6 +29,12 @@ const AddFeatureBox = ({ isEdit, handleUpdateImg, onSurveyModalOpen }: IAddFeatu
                     투표
                 </button>
             )}
+
+            <button onClick={onYoutubeModalOpen}>
+                +
+                <ImageSvg />
+                유튜브
+            </button>
         </div>
     );
 };
