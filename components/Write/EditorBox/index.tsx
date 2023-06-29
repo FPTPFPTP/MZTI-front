@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { Header, Input, CustomImage, YouTubePlayer } from '@components/Commons';
 import CheckSvg from '@assets/icons/write/circle_check.svg';
@@ -32,10 +31,6 @@ const EditorBox = (props: IEditorBox) => {
     const [isSurveyModal, setIsSurveyModal] = useState<boolean>(false);
     const [isYouTubeModal, setIsYouTubeModal] = useState<boolean>(false);
     const [previewFileSrc, setPreviewFileSrc] = useState<string[]>([]);
-    const [imgSize, setImgSize] = useState<{ width: number; height: number }>({
-        width: 0,
-        height: 0,
-    });
     const [selectCategory, setSelectCategory] = useState<ICategoryModel>();
     const [contentValue, setContentValue] = useState<string>('');
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
@@ -118,14 +113,18 @@ const EditorBox = (props: IEditorBox) => {
     };
 
     const onUpdateImg = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
-        if (files) {
-            const file = files[0];
+        if (files && files.length) {
+            const imageUrls: string[] = [];
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
 
-            const imageRes = await postImageUpload(file);
-            if (imageRes) {
-                // 이미지 파일 저장
-                setPreviewFileSrc([...previewFileSrc, imageRes]);
+                const imageRes = await postImageUpload(file);
+                if (imageRes) {
+                    // 이미지 파일 저장
+                    imageUrls.push(imageRes);
+                }
             }
+            setPreviewFileSrc([...previewFileSrc, ...imageUrls]);
         }
     };
 

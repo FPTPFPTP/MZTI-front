@@ -20,7 +20,7 @@ const AddFeatureBox = ({ isEdit, handleUpdateImg, onSurveyModalOpen, onYoutubeMo
                 <ImageSvg />
                 이미지
             </button>
-            <input ref={profileImgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} onChange={handleUpdateImg} />
+            <input ref={profileImgInputRef} type="file" name="file" accept="image/*" style={{ display: 'none' }} multiple onChange={handleUpdateImg} />
 
             {isEdit && (
                 <button onClick={onSurveyModalOpen}>
