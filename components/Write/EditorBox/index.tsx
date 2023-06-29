@@ -207,7 +207,7 @@ const EditorBox = (props: IEditorBox) => {
                 onClickBackButton={onBackPage}
                 title={postItem ? '일반 글쓰기 수정' : '일반 글쓰기'}
                 rightElement={
-                    title && title.length && contentValue.length ? (
+                    title && title.length && (contentValue.length || previewFileSrc.length || youtubeUrls.length || surveyData.length) ? (
                         <button onClick={handleRegisterButton}>
                             <CheckFillSvg />
                         </button>

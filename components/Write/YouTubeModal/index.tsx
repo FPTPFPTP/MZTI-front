@@ -16,13 +16,14 @@ const YouTubeModal = (props: IYouTubeModalProps) => {
     const { isModal, handleOk, handleCancel } = props;
     const [isPossible, setIsPossible] = useState<boolean>(false);
 
-    const { register, watch, handleSubmit, reset } = useForm();
+    const { register, watch, handleSubmit, reset, setValue } = useForm();
     const { youtubeUrl } = watch();
 
     const onSubmit = () => {
         if (isPossible) {
             handleOk(youtubeUrl);
             handleCancel();
+            setValue('youtubeUrl', '');
         } else {
             setIsPossible(false);
         }
