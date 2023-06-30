@@ -37,6 +37,8 @@ const EditorBox = (props: IEditorBox) => {
     const [keywords, setKeywords] = useState<ITagModel[]>([]);
     const [youtubeUrls, setYoutubeUrls] = useState<string[]>([]);
 
+    const [deleteStacks, setDeleteStacks] = useState<string[]>([]);
+
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const { register, watch, reset, setValue } = useForm();
@@ -189,8 +191,13 @@ const EditorBox = (props: IEditorBox) => {
         // 전달받은 html값으로 초기화
         if (postItem) {
             const postContent = setConvertToPost(postItem.content);
-            setContentValue(postContent.content);
-            setPreviewFileSrc(postContent.imgSrcs);
+            if (postContent.content.length) {
+                setContentValue(postContent.content);
+                setPreviewFileSrc(postContent.imgSrcs);
+            } else {
+                setContentValue(postItem.content);
+            }
+
             setValue('title', postItem.title);
             setSelectCategory({
                 id: postItem.categoryId,
