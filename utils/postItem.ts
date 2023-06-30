@@ -1,4 +1,5 @@
 import colors from '@/styles/color';
+import regExp, { HTTP_LINK_URL_REG } from '@/utils/regExp';
 /**
  * 게시글 썸네일 가져오기
  * @param content {string}
@@ -51,7 +52,11 @@ export const setConvertToHTML = (contents: string, imgSrcs: string[], youtubeUrl
 
     const paragraphs = contents.split('\n');
     for (const paragraph of paragraphs) {
-        html += '<p>' + paragraph + '</p>';
+        if (regExp(HTTP_LINK_URL_REG, paragraph)) {
+            html += `<a href=${paragraph} target="_blank">` + paragraph + '</a>';
+        } else {
+            html += '<p>' + paragraph + '</p>';
+        }
     }
 
     for (const src of imgSrcs) {

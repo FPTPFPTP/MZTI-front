@@ -37,8 +37,6 @@ const EditorBox = (props: IEditorBox) => {
     const [keywords, setKeywords] = useState<ITagModel[]>([]);
     const [youtubeUrls, setYoutubeUrls] = useState<string[]>([]);
 
-    const [deleteStacks, setDeleteStacks] = useState<string[]>([]);
-
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const { register, watch, reset, setValue } = useForm();
