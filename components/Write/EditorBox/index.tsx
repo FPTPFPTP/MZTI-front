@@ -37,6 +37,8 @@ const EditorBox = (props: IEditorBox) => {
     const [keywords, setKeywords] = useState<ITagModel[]>([]);
     const [youtubeUrls, setYoutubeUrls] = useState<string[]>([]);
 
+    const [contentSelect, setContentSelect] = useState<string>();
+
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const { register, watch, reset, setValue } = useForm();
@@ -254,7 +256,13 @@ const EditorBox = (props: IEditorBox) => {
                     <CustomImage key={src} src={src} alt={'게시글 이미지'} />
                 ))}
                 {youtubeUrls.map((url, index) => (
-                    <YouTubePlayer key={index} url={url} />
+                    <YouTubePlayer
+                        key={index}
+                        url={url}
+                        isSelect={contentSelect === url}
+                        onClick={() => setContentSelect(url)}
+                        onDelete={() => setYoutubeUrls(youtubeUrls.filter((youtubeUrl) => youtubeUrl !== url))}
+                    />
                 ))}
                 {surveyData.map((survey) => (
                     <DefaultModeViewer key={survey.id} survey={survey} onSubmit={(result) => console.log({ result })} onRemove={onSurveyRemove} />
