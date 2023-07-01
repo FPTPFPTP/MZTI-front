@@ -25,3 +25,9 @@ messaging.onBackgroundMessage((payload) => {
 
     return self.registration.showNotification(notificationTitle, notificationOptions);
 });
+
+messaging.addEventListener('notificationclick', function (event) {
+    event.notification.close();
+
+    event.waitUntil(clients.openWindow('http://www.mzti.kr'));
+});
