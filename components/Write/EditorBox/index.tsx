@@ -253,7 +253,14 @@ const EditorBox = (props: IEditorBox) => {
                     />
                 </div>
                 {previewFileSrc.map((src) => (
-                    <CustomImage key={src} src={src} alt={'게시글 이미지'} />
+                    <CustomImage
+                        key={src}
+                        src={src}
+                        alt={'게시글 이미지'}
+                        isSelect={contentSelect === src}
+                        onClick={() => setContentSelect(src)}
+                        onDelete={() => setPreviewFileSrc(previewFileSrc.filter((previewSrc) => previewSrc !== src))}
+                    />
                 ))}
                 {youtubeUrls.map((url, index) => (
                     <YouTubePlayer
