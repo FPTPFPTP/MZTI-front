@@ -4,6 +4,7 @@ import { CommentInputStyle } from './styled';
 import { ICommentModel } from '@/types/post';
 import PictureIcon from '@assets/icons/comment/picture.svg';
 import CheckIcon from '@assets/icons/write/check.svg';
+import useClickOutside from '@/hooks/useClickOutside';
 
 interface ICommentInputProps {
     editComment?: ICommentModel;
@@ -19,6 +20,17 @@ const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: IC
 
     const imgInputRef = useRef<HTMLInputElement | null>(null);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+    const CommentRef = useRef(null);
+
+    useClickOutside(CommentRef, () => {
+        if (editComment) {
+            onCancle();
+            revokeImageLink();
+            setCommentValue('');
+            setImageFile(undefined);
+        }
+    });
 
     // 이미지 로컬 링크 해제
     const revokeImageLink = () => {
@@ -82,7 +94,7 @@ const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: IC
     }, []);
 
     return (
-        <div css={CommentInputStyle}>
+        <div css={CommentInputStyle} ref={CommentRef}>
             <button className="image_box" onClick={() => imgInputRef.current && imgInputRef.current.click()}>
                 {previewFileSrc ? <Image src={previewFileSrc} alt={'댓글이미지'} fill={true} /> : <PictureIcon />}
             </button>
@@ -93,26 +105,9 @@ const CommentInput = ({ editComment, onAddComment, onEditComment, onCancle }: IC
                 <textarea ref={textareaRef} placeholder={'댓글을 입력해주세요'} value={commentValue} onChange={(e) => setCommentValue(e.target.value)} />
             </div>
             <div className="comment_btn">
-                {editComment ? (
-                    <div className="edit--input">
-                        <button
-                            type="submit"
-                            onClick={() => {
-                                onCancle();
-                                setCommentValue('');
-                            }}
-                        >
-                            취소
-                        </button>
-                        <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
-                            변경
-                        </button>
-                    </div>
-                ) : (
-                    <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
-                        <CheckIcon fill={commentValue ? '#000000' : '#949699'} />
-                    </button>
-                )}
+                <button type="submit" onClick={handleCommentAction} disabled={!commentValue}>
+                    <CheckIcon fill={commentValue ? '#000000' : '#949699'} />
+                </button>
             </div>
         </div>
     );
