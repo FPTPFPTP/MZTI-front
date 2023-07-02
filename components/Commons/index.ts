@@ -14,3 +14,4 @@ export { default as MoreDrawer } from './MoreDrawer';
 export { default as FCM } from './FCM';
 export { default as MultiCarousel } from './MultiCarousel';
 export { default as CustomImage } from './CustomImage';
+export { default as YouTubePlayer } from './YouTubePlayer';

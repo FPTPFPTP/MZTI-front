@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export const CustomImageWrapStyle = (isSelect?: boolean) => css`
+export const YoutubeStyle = (isSelect?: boolean) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,16 +9,16 @@ export const CustomImageWrapStyle = (isSelect?: boolean) => css`
     margin: 15px 0px;
     padding: 15px;
     border: 2px solid ${isSelect ? '#000000' : '#cccccc'};
-    .image {
+    .youtube {
         position: relative;
         width: 100%;
-        height: 100%;
-        img {
+        iframe {
             width: 100%;
             height: 100%;
+            min-height: 300px;
         }
     }
-    .image_delete {
+    .youtube_delete {
         position: absolute;
         top: 0px;
         right: -2px;
