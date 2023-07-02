@@ -1,8 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import { Header, Input, CustomImage } from '@components/Commons';
+import { Header, Input, CustomImage, YouTubePlayer } from '@components/Commons';
 import CheckSvg from '@assets/icons/write/circle_check.svg';
 import CheckFillSvg from '@assets/icons/write/circle_fill_check.svg';
 import ArrowDownSvg from '@assets/icons/write/arrow_down.svg';
@@ -17,6 +16,7 @@ import AddFeatureBox from '../AddFeatureBox';
 import CategoryDrawer from '../CategoryDrawer';
 import KeywordBox from '..//KeywordBox';
 import SurveyModal from '../SurveyModal';
+import YouTubeModal from '../YouTubeModal';
 import { ITagModel, IPostModel } from '@/types/post';
 import { ICategoryModel } from '@/types/category';
 
@@ -29,15 +29,16 @@ const EditorBox = (props: IEditorBox) => {
     const router = useRouter();
     const [isCategoryModal, setIsCategoryModal] = useState<boolean>(false);
     const [isSurveyModal, setIsSurveyModal] = useState<boolean>(false);
+    const [isYouTubeModal, setIsYouTubeModal] = useState<boolean>(false);
     const [previewFileSrc, setPreviewFileSrc] = useState<string[]>([]);
-    const [imgSize, setImgSize] = useState<{ width: number; height: number }>({
-        width: 0,
-        height: 0,
-    });
     const [selectCategory, setSelectCategory] = useState<ICategoryModel>();
     const [contentValue, setContentValue] = useState<string>('');
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
     const [keywords, setKeywords] = useState<ITagModel[]>([]);
+    const [youtubeUrls, setYoutubeUrls] = useState<string[]>([]);
+
+    const [contentSelect, setContentSelect] = useState<string>();
+
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const { register, watch, reset, setValue } = useForm();
@@ -64,7 +65,7 @@ const EditorBox = (props: IEditorBox) => {
                     id: postItem.id,
                     title,
                     categoryId: selectCategory?.id || 1,
-                    content: setConvertToHTML(contentValue, previewFileSrc),
+                    content: setConvertToHTML(contentValue, previewFileSrc, youtubeUrls),
                     tagList: keywords.map((keyword) => keyword.id),
                 });
 
@@ -97,7 +98,7 @@ const EditorBox = (props: IEditorBox) => {
                 const data = await postWrite({
                     title,
                     categoryId: selectCategory?.id || 1,
-                    content: setConvertToHTML(contentValue, previewFileSrc),
+                    content: setConvertToHTML(contentValue, previewFileSrc, youtubeUrls),
                     tagList: keywords.map((keyword) => keyword.id),
                     pollList,
                 });
@@ -114,14 +115,18 @@ const EditorBox = (props: IEditorBox) => {
     };
 
     const onUpdateImg = async ({ target: { files } }: ChangeEvent<HTMLInputElement>) => {
-        if (files) {
-            const file = files[0];
+        if (files && files.length) {
+            const imageUrls: string[] = [];
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
 
-            const imageRes = await postImageUpload(file);
-            if (imageRes) {
-                // 이미지 파일 저장
-                setPreviewFileSrc([...previewFileSrc, imageRes]);
+                const imageRes = await postImageUpload(file);
+                if (imageRes) {
+                    // 이미지 파일 저장
+                    imageUrls.push(imageRes);
+                }
             }
+            setPreviewFileSrc([...previewFileSrc, ...imageUrls]);
         }
     };
 
@@ -141,6 +146,18 @@ const EditorBox = (props: IEditorBox) => {
     // surveyModal 닫기
     const onSurveyClose = () => {
         setIsSurveyModal(false);
+    };
+
+    const onYoutubeModalOpen = () => {
+        setIsYouTubeModal(true);
+    };
+
+    const onYoutubeModalClose = () => {
+        setIsYouTubeModal(false);
+    };
+
+    const onYoutubeURLAdd = (youtubeURL: string) => {
+        setYoutubeUrls([...youtubeUrls, youtubeURL]);
     };
 
     // 키워드 생성
@@ -174,8 +191,13 @@ const EditorBox = (props: IEditorBox) => {
         // 전달받은 html값으로 초기화
         if (postItem) {
             const postContent = setConvertToPost(postItem.content);
-            setContentValue(postContent.content);
-            setPreviewFileSrc(postContent.imgSrcs);
+            if (postContent.content.length) {
+                setContentValue(postContent.content);
+                setPreviewFileSrc(postContent.imgSrcs);
+            } else {
+                setContentValue(postItem.content);
+            }
+
             setValue('title', postItem.title);
             setSelectCategory({
                 id: postItem.categoryId,
@@ -191,7 +213,7 @@ const EditorBox = (props: IEditorBox) => {
                 onClickBackButton={onBackPage}
                 title={postItem ? '일반 글쓰기 수정' : '일반 글쓰기'}
                 rightElement={
-                    title && title.length && contentValue.length ? (
+                    title && title.length && (contentValue.length || previewFileSrc.length || youtubeUrls.length || surveyData.length) ? (
                         <button onClick={handleRegisterButton}>
                             <CheckFillSvg />
                         </button>
@@ -231,7 +253,23 @@ const EditorBox = (props: IEditorBox) => {
                     />
                 </div>
                 {previewFileSrc.map((src) => (
-                    <CustomImage key={src} src={src} alt={'게시글 이미지'} />
+                    <CustomImage
+                        key={src}
+                        src={src}
+                        alt={'게시글 이미지'}
+                        isSelect={contentSelect === src}
+                        onClick={() => setContentSelect(src)}
+                        onDelete={() => setPreviewFileSrc(previewFileSrc.filter((previewSrc) => previewSrc !== src))}
+                    />
+                ))}
+                {youtubeUrls.map((url, index) => (
+                    <YouTubePlayer
+                        key={index}
+                        url={url}
+                        isSelect={contentSelect === url}
+                        onClick={() => setContentSelect(url)}
+                        onDelete={() => setYoutubeUrls(youtubeUrls.filter((youtubeUrl) => youtubeUrl !== url))}
+                    />
                 ))}
                 {surveyData.map((survey) => (
                     <DefaultModeViewer key={survey.id} survey={survey} onSubmit={(result) => console.log({ result })} onRemove={onSurveyRemove} />
@@ -239,10 +277,10 @@ const EditorBox = (props: IEditorBox) => {
             </div>
             <div css={BottomWrapStyle}>
                 <KeywordBox keywords={keywords} onKeywordDelete={onKeywordDelete} onKeywordSubmit={onKeywordSubmit} />
-                <AddFeatureBox isEdit={!postItem} handleUpdateImg={onUpdateImg} onSurveyModalOpen={onSurveyModalOpen} />
+                <AddFeatureBox isEdit={!postItem} handleUpdateImg={onUpdateImg} onSurveyModalOpen={onSurveyModalOpen} onYoutubeModalOpen={onYoutubeModalOpen} />
             </div>
             {!postItem && <SurveyModal isModal={isSurveyModal} handleOk={onSurveyAdd} handleCancel={onSurveyClose} />}
-
+            <YouTubeModal isModal={isYouTubeModal} handleOk={onYoutubeURLAdd} handleCancel={onYoutubeModalClose} />
             <CategoryDrawer
                 isVisible={isCategoryModal}
                 onClose={() => {

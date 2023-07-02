@@ -268,3 +268,36 @@ export const AddFeatureBoxStyle = css`
         gap: 5px;
     }
 `;
+
+export const YouTubeModalStyle = css`
+    padding: 20px 20px;
+    .state-message {
+        text-align: left;
+        color: ${colors.RED_ORIGIN};
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 12px;
+        margin: 8px 8px 8px;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-evenly;
+        font-weight: 400;
+        font-size: 17px;
+        line-height: 22px;
+        text-align: center;
+        letter-spacing: -0.408px;
+        .cancel {
+            border-right: 0.5px solid rgba(0, 0, 0, 0.3);
+            color: rgba(27, 30, 38, 0.5);
+        }
+        p {
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 18px;
+            text-align: center;
+            letter-spacing: -0.078px;
+            color: #545456;
+        }
+    }
+`;
