@@ -10,6 +10,8 @@ export const BookMarkIconStyle = () => css`
 `;
 
 export const PostContentStyle = () => css`
+    overflow-y: auto;
+    height: calc(100vh - 165px);
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
