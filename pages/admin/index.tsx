@@ -13,12 +13,14 @@ const admin = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (myInfo?.role === 'USER_ROLE') {
-            setIsModal(true);
-        } else {
+        if (myInfo?.role === 'SUPER_ADMIN_ROLE') {
             setIsModal(false);
+        } else if (myInfo?.role === 'ADMIN_ROLE') {
+            setIsModal(false);
+        } else {
+            setIsModal(true);
         }
-    }, []);
+    }, [myInfo]);
 
     return (
         <main css={AdminStyled}>
