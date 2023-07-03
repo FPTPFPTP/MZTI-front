@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Avatar } from '@/components/Commons';
 import { timeForToday } from '@/utils/time';
 import MoreButton from '@assets/icons/detailPost/moreButton.svg';
@@ -17,12 +18,14 @@ import { useMutation } from '@tanstack/react-query';
 import { commentLike, reCommentGet } from '@/apis/post';
 import { ILikeModel, ICommentModel, EActionEditType } from '@/types/post';
 import ReplayCommentItem from './ReplayCommentItem';
+import { Modal } from '@components/Commons';
+import { ModalStyle } from '@/components/Commons/Modal/styled';
 import { getMbtiColor } from '@utils/postItem';
 
 export interface ICommentItemProps {
     isTop?: boolean;
     commentItem: ICommentModel;
-    postWriterId?: number;
+    postWriterId?: number | string;
     openDrawer: (id: number, type: EActionEditType) => void;
 }
 
@@ -33,23 +36,33 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
     const [likeCount, setLikeCount] = useState<number>(like.count);
     const [reComments, setRecomments] = useState<ICommentModel[]>([]);
     const [totalReComment, setTotalRecomment] = useState<number>(0);
+    const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
+    const router = useRouter();
 
     // 대댓글 좋아요
     const reCommentLike = useMutation((id: number) => commentLike(id));
 
     // 댓글 좋아요
     const handleReCommentLike = () => {
-        reCommentLike.mutate(id, {
-            onSuccess: (data: ILikeModel) => {
-                if (data.check === true) {
-                    setLikeCount(data.count);
-                } else {
-                    setLikeCount(data.count);
-                }
+        if (myInfo) {
+            reCommentLike.mutate(id, {
+                onSuccess: (data: ILikeModel) => {
+                    if (data.check === true) {
+                        setLikeCount(data.count);
+                    } else {
+                        setLikeCount(data.count);
+                    }
 
-                setIsLike((isLike) => !isLike);
-            },
-        });
+                    setIsLike((isLike) => !isLike);
+                },
+            });
+        } else {
+            setIsLogoutModal(true);
+        }
+    };
+
+    const handleLogin = () => {
+        router.replace('/login');
     };
 
     useEffect(() => {
@@ -69,7 +82,7 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                         <Avatar
                             src={writer.profileImage ? writer.profileImage : ''}
                             alt={`${writer.nickname}님의 프로필입니다.`}
-                            size={60}
+                            size={50}
                             mbti={writer.mbti}
                         />
 
@@ -84,7 +97,7 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                             <p className="nickName">
                                 <span>{writer.nickname}</span>
 
-                                {writer.id === postWriterId && (
+                                {writer.nickname === postWriterId && (
                                     <span>
                                         <WriterMainIcon />
                                     </span>
@@ -151,6 +164,20 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                         <ReplayCommentItem replayCommentItem={item} key={item.id} postWriterId={postWriterId} openDrawer={openDrawer} />
                     );
                 })}
+
+            <Modal title={'로그인이 필요한 기능입니다'} isModalVisible={isLogoutModal} closable={false} footer={null} centered={true}>
+                <div css={ModalStyle}>
+                    <p>회원가입이나 로그인을 해주세요.</p>
+                    <div className="buttons">
+                        <button onClick={() => setIsLogoutModal(false)} className="button cancel">
+                            취소
+                        </button>
+                        <button onClick={handleLogin} className="button">
+                            확인
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </>
     );
 };

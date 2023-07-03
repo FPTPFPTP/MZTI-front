@@ -54,6 +54,12 @@ export const WriteDrawerWrapStyle = css`
             line-height: 15px;
             text-align: left;
             color: #54545680;
+            white-space: nowrap;
+        }
+        .simple_write {
+            div {
+                padding: 4px 0px !important;
+            }
         }
     }
 `;

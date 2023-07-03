@@ -9,6 +9,10 @@ export const ModalStyle = css`
     .ant-modal-body {
         text-align: center;
     }
+    .icon {
+        margin: 20px auto 10px;
+        border-radius: 20px;
+    }
     .buttons {
         display: flex;
         justify-content: space-evenly;
@@ -32,6 +36,8 @@ export const ModalStyle = css`
     }
     .ant-modal-content {
         border-radius: 20px !important;
+        max-width: 940px;
+        margin: auto;
     }
     .confirmButton {
         display: flex;

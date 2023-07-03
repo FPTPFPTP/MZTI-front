@@ -14,6 +14,7 @@ import { useRecoilState } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import NotUser from '@/components/MyPageCom/NotUser';
 import { getMyPageActive } from '@/apis/post';
+import useWindowSize from '@/hooks/useWindowSize';
 import { getAccessToken } from '@utils/auth';
 import { IMyPageActive } from '@/types/post';
 import { BottomMenu, MultiCarousel } from '@/components/Commons';
@@ -56,6 +57,8 @@ const mypage = () => {
     const [myInfo, setMyInfo] = useRecoilState(myPageInfo);
     const [myActive, setMyactive] = useState<IMyPageActive>();
 
+    const { width } = useWindowSize();
+
     useEffect(() => {
         if (getAccessToken()) {
             getMyPageActive().then((res) => setMyactive(res));
@@ -85,8 +88,20 @@ const mypage = () => {
 
                 <div className="bannerWrap">
                     <MultiCarousel>
-                        <Banner link={'https://www.mzti.kr'} imageSrc={'/images/mzti_promote.png'} imageAlt={'mzti'} />
-                        <Banner link={'https://www.mzti.kr'} imageSrc={'/images/mzti_promote_v2.png'} imageAlt={'mzti'} />
+                        <Banner
+                            isMobile={width < 768}
+                            link={'https://www.mzti.kr'}
+                            imageSrc={'/images/mzti_promote.png'}
+                            bigImageSrc={'/images/mzti_banner_relation1000x200.png'}
+                            imageAlt={'mzti'}
+                        />
+                        <Banner
+                            isMobile={width < 768}
+                            link={'https://www.mzti.kr/write/fact'}
+                            imageSrc={'/images/mzti_banner_relation360x100.png'}
+                            bigImageSrc={'/images/mzti_banner_relation1000x200.png'}
+                            imageAlt={'mzti'}
+                        />
                     </MultiCarousel>
                 </div>
             </div>

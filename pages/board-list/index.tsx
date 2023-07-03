@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { prevScrollState } from '@/recoil/atom/scroll';
 import { Header, BottomMenu } from '@/components/Commons';
 import { BoardMenu, BoardMbtiMenu } from '@/components/Board';
 import { BoardListStyle, BoardListSection, MbtiMenuGroupStyle } from '@/styles/pages/boardListStyled';
 import MenuJson from '@/constants/menu.json';
 
 const BoardList = () => {
+    const setPrevScroll = useSetRecoilState(prevScrollState);
+
+    useEffect(() => {
+        setPrevScroll(0);
+    }, []);
+
     return (
         <main css={BoardListStyle}>
             <Header isPrevBtn={true} title="게시판 목록" isBorderLine={true} />

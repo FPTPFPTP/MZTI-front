@@ -115,12 +115,6 @@ const globalReset = () => css`
         -ms-overflow-style: none;
     }
 
-    @media (min-width: 768px) {
-        html {
-            font-size: 20.477px;
-        }
-    }
-
     body {
         -ms-overflow-style: none;
         ::-webkit-scrollbar {
@@ -155,6 +149,7 @@ const globalReset = () => css`
         flex-direction: column;
         height: 100%;
         background: #f8f8f8;
+        min-height: 100vh;
     }
     /* Drawer 모달 */
     .rbd-y5j5tv9v8tb-db {

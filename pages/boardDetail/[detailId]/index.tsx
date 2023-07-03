@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { ModalStyle } from '@/components/Commons/Modal/styled';
 import classNames from 'classnames';
 import MbtiJson from '@/constants/mbti.json';
-import { Modal } from '@components/Commons';
+import { Modal, Tag } from '@components/Commons';
 import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
 import { useMutation } from '@tanstack/react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -52,8 +52,6 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const usePostLike = useMutation((id: any) => postBookmark(id));
     // 상세 게시글
     const [postData, setPostData] = useState<IPostModel | undefined>(data);
-    // 북마크 체크
-    const [isBookMark, setIsBookMark] = useState<boolean>(false);
     // 투표 데이터
     const [surveyData, setSurveyData] = useState<SurveyType.IDefaultModeSurveyResult[]>([]);
     // 댓글 리스트
@@ -71,10 +69,12 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const router = useRouter();
 
     // 북마크하기
-    const handleBookMark = () => {
-        if (myInfo) {
-            setIsBookMark((isBookMark) => !isBookMark);
-            usePostLike.mutate(postData?.id);
+    const handleBookMark = async () => {
+        if (myInfo && postData) {
+            await usePostLike.mutate(postData?.id);
+            await getPost({ postId: postData.id }).then((result) => {
+                setPostData(result);
+            });
         } else {
             setIsLogoutModal(true);
         }
@@ -256,6 +256,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const handleLogin = () => {
         router.replace('/login');
     };
+
     return (
         <main className="homeLayout" ref={scrollRef}>
             {postData && (
@@ -266,8 +267,8 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                         title={postData.categoryName}
                         rightElement={
                             <div className="right" css={BookMarkIconStyle}>
-                                <button onClick={handleBookMark} className={classNames(isBookMark ? 'fill' : 'notFill')}>
-                                    {postData?.bookmark.check === true ? <FillBookMarkIcon /> : <BookMarkIcon />}
+                                <button onClick={handleBookMark} className={classNames(postData?.bookmark.check ? 'fill' : 'notFill')}>
+                                    {postData?.bookmark.check ? <FillBookMarkIcon /> : <BookMarkIcon />}
                                 </button>
                             </div>
                         }
@@ -321,6 +322,17 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                                         )}
                                     </div>
                                 ))}
+                                <div className="postTags">
+                                    {postData.tags.map((tag) => (
+                                        <Tag
+                                            key={tag.id}
+                                            title={tag.tag}
+                                            onClick={() => {
+                                                console.log({ tag });
+                                            }}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         )}
 
@@ -337,7 +349,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                         <FeedComents
                             isLastPage={commentData.totalPage === pageParam}
                             commentData={comments}
-                            postWriterId={postData.writer.id}
+                            postWriterId={postData?.writer.nickname}
                             handleRefrash={handleRefrash}
                             handleMoreComment={handleMoreComment}
                             openDrawer={openDrawer}

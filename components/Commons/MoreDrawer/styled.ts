@@ -7,7 +7,7 @@ export const PostMore = css`
     }
     .postDrawer {
         z-index: 105;
-        height: 30vh;
+        height: 44vh;
         h3 {
             text-align: center;
             font-weight: 500;

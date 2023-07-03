@@ -15,7 +15,7 @@ export const MenuContainerStyle = css`
     .boardListItemStyle--line {
         display: flex;
         align-items: center;
-        padding: 20px 4px 20px 10px;
+        padding: 20px 10px 20px 16px;
         gap: 20px;
         color: ${color.GRAY_STRONG_6};
         .title {

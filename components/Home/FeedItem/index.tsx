@@ -1,15 +1,16 @@
 import { InfiniteData } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
+import { prevScrollState } from '@/recoil/atom/scroll';
 import ItemContent from './ItemContent';
 import ItemFooter from './ItemFooter';
 import ItemHeader from './ItemHeader';
 import { FeedItemStyle } from '../styled';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
 import { IPaginationResponse } from '@/types/global';
 import { IPostModel, EActionEditType } from '@/types/post';
-import FactItemContent from './FactItemContent';
+import useScrollDown from '@/hooks/useScrollDown';
 
 interface IFeedItemProps {
     data: InfiniteData<IPaginationResponse<IPostModel>>;
@@ -19,6 +20,16 @@ interface IFeedItemProps {
 
 const FeedItem = ({ data, isLoading, openDrawer }: IFeedItemProps) => {
     const myInfo = useRecoilValue(myPageInfo);
+    const setPrevScroll = useSetRecoilState(prevScrollState);
+
+    const router = useRouter();
+
+    const { currentScrollY } = useScrollDown();
+
+    const onClickItem = (id: number) => {
+        setPrevScroll(currentScrollY);
+        router.push(`/boardDetail/${id}`);
+    };
 
     return (
         <div css={FeedItemStyle}>
@@ -43,19 +54,15 @@ const FeedItem = ({ data, isLoading, openDrawer }: IFeedItemProps) => {
                                                 openDrawer(item.id, myInfo?.id === item.writer.userId ? EActionEditType.WRITE : EActionEditType.WRITET_TIPOFF)
                                             }
                                         />
-                                        <Link href={`/boardDetail/${item.id}`}>
-                                            {item.categoryId === 23 ? (
-                                                <FactItemContent title={item.title} id={item.id} mbti={item.writer.mbti} />
-                                            ) : (
-                                                <ItemContent
-                                                    id={item.id}
-                                                    title={item.title}
-                                                    content={item.content}
-                                                    pollList={item.pollList}
-                                                    tags={item.tags && item.tags}
-                                                />
-                                            )}
-                                        </Link>
+                                        <div onClick={() => onClickItem(item.id)}>
+                                            <ItemContent
+                                                id={item.id}
+                                                title={item.title}
+                                                content={item.content}
+                                                pollList={item.pollList}
+                                                tags={item.tags && item.tags}
+                                            />
+                                        </div>
                                         <ItemFooter
                                             likeCheck={item.like.check}
                                             viewCount={item.viewCount}

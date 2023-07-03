@@ -20,6 +20,7 @@ const StyledLayout = css`
     position: relative;
     width: 100%;
     max-width: 1000px;
+    min-height: 100vh;
     height: 100%;
     margin: 0 auto;
     background-color: ${color.WHITE};

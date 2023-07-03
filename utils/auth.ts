@@ -4,11 +4,11 @@ const cookies = new Cookies();
 
 export const setToken = (key: 'accessToken' | 'refreshToken', token: string) => {
     const expires = new Date();
-    expires.setDate(expires.getDate() + 14);
+    expires.setDate(expires.getDate() + 365);
 
     cookies.set(key, token, {
         path: '/',
-        expires: key === 'refreshToken' ? expires : undefined,
+        expires,
     });
 };
 

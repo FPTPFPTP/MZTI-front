@@ -16,7 +16,7 @@ import { ILikeModel, ICommentModel, EActionEditType } from '@/types/post';
 
 interface IReplayCommentItemProps {
     replayCommentItem: ICommentModel;
-    postWriterId?: number;
+    postWriterId?: number | string;
     openDrawer: (id: number, type: EActionEditType) => void;
 }
 
@@ -51,7 +51,7 @@ const ReplayCommentItem = ({ replayCommentItem, postWriterId, openDrawer }: IRep
                         <Avatar
                             src={writer.profileImage ? writer.profileImage : ''}
                             alt={`${writer.nickname}님의 프로필입니다.`}
-                            size={60}
+                            size={50}
                             mbti={writer.mbti}
                         />
 
@@ -66,7 +66,7 @@ const ReplayCommentItem = ({ replayCommentItem, postWriterId, openDrawer }: IRep
                             <p className="nickName">
                                 <span>{writer.nickname}</span>
 
-                                {writer.id === postWriterId && (
+                                {writer.nickname === postWriterId && (
                                     <span>
                                         <WriterMainIcon />
                                     </span>

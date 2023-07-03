@@ -36,6 +36,13 @@ export const PostStyle = () => css`
         color: #545456;
         margin-top: 10px;
     }
+    .postTags {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 20px 0px 0px;
+        gap: 8px;
+    }
 `;
 
 export const MbtiContent = () => css`

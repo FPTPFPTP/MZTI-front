@@ -1,4 +1,5 @@
 import colors from '@/styles/color';
+import regExp, { HTTP_LINK_URL_REG } from '@/utils/regExp';
 /**
  * 게시글 썸네일 가져오기
  * @param content {string}
@@ -44,6 +45,56 @@ export const getStripIframeTags = (content: string) => {
     return content;
 };
 
+export const setConvertToHTML = (contents: string, imgSrcs: string[], youtubeUrl: string[]) => {
+    let html = '';
+
+    html += '<div>';
+
+    const paragraphs = contents.split('\n');
+    for (const paragraph of paragraphs) {
+        if (regExp(HTTP_LINK_URL_REG, paragraph)) {
+            html += `<a href=${paragraph} target="_blank">` + paragraph + '</a>';
+        } else {
+            html += '<p>' + paragraph + '</p>';
+        }
+    }
+
+    for (const src of imgSrcs) {
+        html += '<img src="' + src + '">';
+    }
+
+    for (const url of youtubeUrl) {
+        const videoId = getYouTubeVideoId(url);
+        html += `<div><iframe width="300" height="300" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`;
+    }
+
+    html += '</div>';
+
+    return html;
+};
+
+export const setConvertToPost = (html: string) => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+
+    const paragraphs = tempDiv.querySelectorAll('p');
+    let content = '';
+    for (const paragraph of Array.from(paragraphs)) {
+        content += paragraph.textContent + '\n';
+    }
+
+    const images = tempDiv.querySelectorAll('img');
+    const imgSrcs: string[] = [];
+    for (const image of Array.from(images)) {
+        imgSrcs.push(image.getAttribute('src') || '');
+    }
+
+    return {
+        content: content.trim(),
+        imgSrcs: imgSrcs,
+    };
+};
+
 /**
  * 레벨 옆에 따라다니는 용
  * @param mbti
@@ -79,4 +130,9 @@ export const getMbtiColor = (mbti: string) => {
             return colors.GRAY_STRONG;
         }
     }
+};
+
+const getYouTubeVideoId = (url: string) => {
+    const match = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|u\/\w\/|shorts\/)?([^#\&\?]*).*/i);
+    return match && match[1];
 };

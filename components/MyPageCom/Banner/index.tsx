@@ -3,17 +3,17 @@ import Image from 'next/image';
 import { BannerStyle } from '../styled';
 
 interface IBannerProps {
+    isMobile: boolean;
     link: string;
     imageSrc: string;
+    bigImageSrc: string;
     imageAlt: string;
 }
 
-const Banner = (props: IBannerProps) => {
-    const { link, imageSrc, imageAlt } = props;
-
+const Banner = ({ isMobile, link, imageSrc, bigImageSrc, imageAlt }: IBannerProps) => {
     return (
-        <Link css={BannerStyle} href={link} target="_blank" rel="noopener noreferrer">
-            <Image src={imageSrc} alt={imageAlt} fill={true} priority={true} />
+        <Link css={BannerStyle(isMobile)} href={link} target="_blank" rel="noopener noreferrer">
+            <Image src={isMobile ? imageSrc : bigImageSrc} alt={imageAlt} fill={true} priority={true} />
         </Link>
     );
 };

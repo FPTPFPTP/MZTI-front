@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 export const CommentInputStyle = css`
     display: flex;
     position: sticky;
-    align-items: center;
+    align-items: flex-start;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -25,16 +25,29 @@ export const CommentInputStyle = css`
         height: 20px;
         border-radius: 2px;
     }
-    div {
-        width: 100%;
-        z-index: 50;
-        padding: 15px 20px;
-    }
-    textarea {
-        margin: 13px 8px 0px;
-        width: 100%;
+    .text_wrap {
+        width: 95%;
+        padding: 0px 24px 0px 8px;
+        textarea {
+            width: 100%;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: 0px;
+            text-align: left;
+            color: #545456;
+            &::placeholder {
+                color: #54545680;
+            }
+        }
     }
 
+    .comment_btn {
+        display: inline-block;
+        position: absolute;
+        right: 20px;
+        top: 25px;
+    }
     .edit--input {
         width: 15%;
         display: flex;

@@ -25,14 +25,14 @@ const etc = () => {
             id: 1,
             title: 'MZTI 서비스 약관',
             onClick: () => {
-                setIsModal(true);
+                router.push('/mypage/agreement');
             },
         },
         {
             id: 2,
             title: '개인정보 처리방침',
             onClick: () => {
-                setIsModal(true);
+                router.push('/mypage/privacy');
             },
         },
     ];

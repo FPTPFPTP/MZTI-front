@@ -16,7 +16,9 @@ import {
     IAddReComment,
     IReCommentModal,
     IEditComment,
+    IMbtiNotice,
 } from '@/types/post';
+import { FeedItemProps } from '@/utils/types';
 
 export interface IPostWriteReq extends Pick<IPostModel, 'title' | 'categoryId' | 'content'> {
     tagList?: number[];
@@ -77,6 +79,21 @@ export const getMyPageActive = async () => {
 export const useGetMyPageActive = () => {
     const { data } = useQuery(['myPageActive'], async () => {
         const data = await getMyPageActive();
+
+        return data;
+    });
+
+    return data;
+};
+
+export const getMbtiNotice = async (categoryId: number) => {
+    const res = await Axios.get<IResponseBase<FeedItemProps[]>>('/post/notice', { params: { categoryId } });
+    return res.data.data;
+};
+
+export const useGetMbtiNotice = (categoryId: number) => {
+    const { data } = useQuery(['mbtiNotice'], async () => {
+        const data = await getMbtiNotice(categoryId);
 
         return data;
     });
