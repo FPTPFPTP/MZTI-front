@@ -6,9 +6,10 @@ import { openToast } from '@/utils/toast';
 import { useForm } from 'react-hook-form';
 import { postWrite } from '@apis/post';
 import MbtiJson from '@/constants/mbti.json';
-import CheckSvg from '@assets/icons/circle_check.svg';
+import CheckFillSvg from '@assets/icons/write/circle_fill_check.svg';
+import CheckSvg from '@assets/icons/write/circle_check.svg';
 import { Header, Input } from '@components/Commons';
-import { FactWrapStyle, FactStyle } from '@/components/Write/styled';
+import { FactWrapStyle, FactStyle, TitleWrapStyle } from '@/components/Write/styled';
 import { getMbtiColor } from '@/utils/postItem';
 import { StringKeyObject } from '@/types/global';
 
@@ -83,31 +84,36 @@ const FactWrite = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <>
             <Header
                 onClickBackButton={onBackPage}
-                title={'내가 느낀 MBTI별 팩폭 글쓰기'}
+                title={'16가지 MBTI 유형별 특징 모아적기'}
                 rightElement={
-                    <button type="submit">
-                        <CheckSvg />
-                    </button>
+                    title ? (
+                        <button type="submit" onClick={onSubmit}>
+                            <CheckFillSvg />
+                        </button>
+                    ) : (
+                        <button>
+                            <CheckSvg />
+                        </button>
+                    )
                 }
             />
             {/* 제목 */}
             <div css={FactWrapStyle}>
-                <p className="notice">내가 느낀 16가지 MBTI를 문답형식으로 작성해보세요~</p>
+                <p className="notice">MBTI 유형별 특징 문답형식으로 작성해보세요~</p>
 
-                <div className="title">
+                <form css={TitleWrapStyle}>
                     <Input
-                        inputStyle={'borderLess'}
-                        placeholder={'제목을 입력하세요'}
+                        inputStyle={'base'}
+                        placeholder={'게시글 제목 입력 (최대 30자)'}
                         isResetBtn={!!title}
                         handleReset={() => reset()}
                         maxLength={30}
                         {...register('title')}
                     />
-                    <button type="submit" />
-                </div>
+                </form>
 
                 {mbtis.map((mbti) => {
                     return (
@@ -123,7 +129,7 @@ const FactWrite = () => {
                     );
                 })}
             </div>
-        </form>
+        </>
     );
 };
 

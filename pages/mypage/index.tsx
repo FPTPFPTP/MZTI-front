@@ -28,7 +28,7 @@ const menuList = [
         icon: <Bookmark />,
     },
     {
-        title: '내가 느낀 16가지 MBTI 작성하기',
+        title: 'MBTI 유형별 특징 모아적기',
         subDesc: '',
         url: '/write/fact',
         icon: <Bookmark />,
@@ -97,7 +97,7 @@ const mypage = () => {
                         />
                         <Banner
                             isMobile={width < 768}
-                            link={'https://www.mzti.kr/write/fact'}
+                            link={'/board/fact'}
                             imageSrc={'/images/mzti_banner_relation360x100.png'}
                             bigImageSrc={'/images/mzti_banner_relation1000x200.png'}
                             imageAlt={'mzti'}

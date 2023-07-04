@@ -61,6 +61,7 @@ const FeedItem = ({ data, isLoading, openDrawer }: IFeedItemProps) => {
                                                 content={item.content}
                                                 pollList={item.pollList}
                                                 tags={item.tags && item.tags}
+                                                categoryId={item.categoryId}
                                             />
                                         </div>
                                         <ItemFooter
