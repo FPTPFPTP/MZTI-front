@@ -29,5 +29,10 @@ messaging.onBackgroundMessage((payload) => {
 messaging.addEventListener('notificationclick', function (event) {
     event.notification.close();
 
-    event.waitUntil(clients.openWindow('http://www.mzti.kr'));
+    const notificationData = event.notification.data;
+    console.log({ notificationData });
+    // Object.keys(notificationData).forEach((key) => {
+    //   console.log(`  ${key}: ${notificationData[key]}`);
+    // });
+    event.waitUntil(clients.openWindow('https://www.mzti.kr'));
 });
