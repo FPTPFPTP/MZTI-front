@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { ModalStyle } from '@/components/Commons/Modal/styled';
 import classNames from 'classnames';
+import MbtiJson from '@/constants/mbti.json';
 import { Modal, Tag } from '@components/Commons';
 import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
 import { useMutation } from '@tanstack/react-query';
@@ -14,7 +15,7 @@ import { postEditState } from '@/recoil/atom/post';
 import { Header, MoreDrawer } from '@components/Commons';
 import BookMarkIcon from '@assets/icons/header/HeaderBookMark.svg';
 import FillBookMarkIcon from '@assets/icons/header/HeaderBookMarkFill.svg';
-import { BookMarkIconStyle, PostStyle, PostContentStyle } from '@styles/pages/boardDetailStyled';
+import { BookMarkIconStyle, PostStyle, PostContentStyle, MbtiContent } from '@styles/pages/boardDetailStyled';
 import ItemHeader from '@/components/Home/FeedItem/ItemHeader';
 import ItemFooter from '@/components/Home/FeedItem/ItemFooter';
 import FeedComents from '@/components/Home/FeedComents';
@@ -27,6 +28,8 @@ import { categoryIdToURL } from '@/utils/category';
 import { IResponseBase, IPaginationResponse } from '@/types/global';
 import { ICommentModel, IPostModel, EActionEditType } from '@/types/post';
 import { timeForToday } from '@/utils/time';
+import { IFactMbti } from '@/types/mbtiFact';
+import { getMbtiColor } from '@/utils/postItem';
 
 const ToastViewer = dynamic(() => import('@/components/Commons/ToastViewer'), {
     ssr: false,
@@ -41,7 +44,7 @@ interface IPostDetailProps {
 const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const myInfo = useRecoilValue(myPageInfo);
     const setEditTarget = useSetRecoilState(postEditState);
-
+    const mbtis = MbtiJson;
     // 스크롤
     const scrollRef = useRef<HTMLDivElement | null>(null);
     const [isScrolldown, setIsScrolldown] = useState<boolean>(false);
@@ -59,6 +62,8 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     const [pageParam, setPagePagram] = useState<number>(0);
     // 게시글 & 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
+    // MBTI 팩트폭력
+    const factContent: any = postData && JSON.parse(postData.content);
     const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
 
     const router = useRouter();
@@ -288,7 +293,24 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
                                         }}
                                     />
                                 </div>
-                                <ToastViewer contentHtml={postData.content} />
+
+                                {postData.categoryId === 23 ? (
+                                    <ul css={MbtiContent}>
+                                        {mbtis
+                                            .filter((item) => factContent[item.title] !== '')
+                                            .map((item) => {
+                                                return (
+                                                    <li key={item.title}>
+                                                        <h4 style={{ background: getMbtiColor(item.title) }}>{item.title}</h4>
+                                                        <p>{factContent[item.title]}</p>
+                                                    </li>
+                                                );
+                                            })}
+                                    </ul>
+                                ) : (
+                                    <ToastViewer contentHtml={postData.content} />
+                                )}
+
                                 {surveyData.map((survey) => (
                                     <div key={survey.id}>
                                         {dayjs() > dayjs(survey.endDate) ? (

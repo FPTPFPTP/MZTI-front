@@ -28,6 +28,12 @@ const menuList = [
         icon: <Bookmark />,
     },
     {
+        title: '내가 느낀 16가지 MBTI 작성하기',
+        subDesc: '',
+        url: '/write/fact',
+        icon: <Bookmark />,
+    },
+    {
         title: '공지사항',
         subDesc: '업데이트 소식, 게시판 추가 등',
         url: '/mypage/notice',

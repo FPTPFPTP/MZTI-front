@@ -44,3 +44,24 @@ export const PostStyle = () => css`
         gap: 8px;
     }
 `;
+
+export const MbtiContent = () => css`
+    margin-top: 20px;
+    li {
+        margin-bottom: 20px;
+        h4 {
+            display: inline-block;
+            margin-right: 6px;
+            padding: 4px 8px;
+            border-radius: 41px;
+            color: #1b1e26;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 9px;
+            text-align: center;
+        }
+        p {
+            margin-top: 5px;
+        }
+    }
+`;

@@ -190,6 +190,48 @@ export const BottomBtnWrapStyle = css`
     }
 `;
 
+export const FactWrapStyle = css`
+    padding: 0 20px 100px 20px;
+
+    .notice {
+        overflow: hidden;
+        margin-top: 20px;
+        border-radius: 13px;
+        background-color: #545456;
+        padding: 20px;
+        margin-bottom: 15px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 1.3;
+        font-weight: 400;
+    }
+`;
+
+export const FactStyle = css`
+    margin: 20px 0;
+
+    h3 {
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 15px;
+        margin-bottom: 10px;
+        padding: 4px 8px;
+        display: inline-block;
+        border-radius: 13px;
+    }
+    input {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        &::placeholder {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 22px;
+            color: rgba(60, 60, 67, 0.3);
+        }
+    }
+`;
+
 export const CategoryDrawerWrapStyle = css`
     .postDrawer__backdrop {
         z-index: 101;
