@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useMemo, useCallback, useEffect, useState, useRef } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -63,7 +63,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     // 게시글 & 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
     // MBTI 팩트폭력
-    const factContent: any = postData && JSON.parse(postData.content);
+    const factContent = useMemo(() => postData && postData.categoryId === 23 && JSON.parse(postData.content), [postData]);
     const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
 
     const router = useRouter();
