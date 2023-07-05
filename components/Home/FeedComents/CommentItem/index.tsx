@@ -21,6 +21,7 @@ import ReplayCommentItem from './ReplayCommentItem';
 import { Modal } from '@components/Commons';
 import { ModalStyle } from '@/components/Commons/Modal/styled';
 import { getMbtiColor } from '@utils/postItem';
+import regExp, { HTTP_LINK_URL_REG } from '@/utils/regExp';
 
 export interface ICommentItemProps {
     isTop?: boolean;
@@ -117,9 +118,17 @@ const CommentItem = ({ isTop, commentItem, postWriterId, openDrawer }: ICommentI
                     </div>
 
                     <div className="coment">
-                        {comment.split('\n').map((title, index) => (
-                            <p key={index}>{title}</p>
-                        ))}
+                        {comment.split('\n').map((title, index) => {
+                            if (regExp(HTTP_LINK_URL_REG, title)) {
+                                return (
+                                    <a key={index} href={title} target="_blank" rel="noreferrer" style={{ color: 'blue' }}>
+                                        {title}
+                                    </a>
+                                );
+                            } else {
+                                return <p key={index}>{title}</p>;
+                            }
+                        })}
                     </div>
                     {image && <Image className={'image'} src={image} alt={'댓글이미지'} width={100} height={100} />}
                     <div className="commentItemFooter">

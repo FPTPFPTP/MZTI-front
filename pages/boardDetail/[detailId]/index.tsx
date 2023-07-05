@@ -71,9 +71,12 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     // 북마크하기
     const handleBookMark = async () => {
         if (myInfo && postData) {
-            await usePostLike.mutate(postData?.id);
-            await getPost({ postId: postData.id }).then((result) => {
-                setPostData(result);
+            usePostLike.mutate(postData?.id, {
+                onSuccess: () => {
+                    getPost({ postId: postData.id }).then((result) => {
+                        setPostData(result);
+                    });
+                },
             });
         } else {
             setIsLogoutModal(true);

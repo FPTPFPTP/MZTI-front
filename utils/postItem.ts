@@ -53,7 +53,7 @@ export const setConvertToHTML = (contents: string, imgSrcs: string[], youtubeUrl
     const paragraphs = contents.split('\n');
     for (const paragraph of paragraphs) {
         if (regExp(HTTP_LINK_URL_REG, paragraph)) {
-            html += `<a href=${paragraph} target="_blank">` + paragraph + '</a>';
+            html += `<a href=${paragraph} target="_blank" rel="noreferrer">` + paragraph + '</a>';
         } else {
             html += '<p>' + paragraph + '</p>';
         }
