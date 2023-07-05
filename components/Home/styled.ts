@@ -490,6 +490,27 @@ export const ItemFooterStyle = css`
 
 export const ItemContentStyle = css`
     margin-top: 27px;
+    .mbti {
+        display: inline-block;
+        padding: 8px 8px;
+        border-radius: 41px;
+        color: #1b1e26;
+        font-weight: 700;
+        line-height: 9px;
+        text-align: center;
+        font-style: normal;
+    }
+    .factTitle {
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 15px;
+        margin: 15px 0;
+    }
+    .factCon {
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 15px;
+    }
     .itemContent__title {
         font-size: 17px;
         font-weight: 700;

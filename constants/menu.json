@@ -15,6 +15,13 @@
                 "subTitle": "실시간 인기글 모음",
                 "url": "popular",
                 "icon": "fire"
+            },
+            {
+                "id": 23,
+                "title": "MBTI별 팩폭",
+                "subTitle": "우리가 느낀 MBTI별 문답형식",
+                "url": "fact",
+                "icon": "fist"
             }
         ]
     },
