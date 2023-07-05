@@ -48,9 +48,4 @@ export const CommentInputStyle = css`
         right: 20px;
         top: 25px;
     }
-    .edit--input {
-        width: 15%;
-        display: flex;
-        gap: 8px;
-    }
 `;
