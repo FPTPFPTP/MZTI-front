@@ -1,12 +1,9 @@
 export interface ISimpleMbtiModel {
-    EorI: 'E' | 'I';
-    SorN: 'S' | 'N';
-    ForT: 'F' | 'T';
-    JorP: 'J' | 'P';
+    responses: ISimpleMbtiResponseModel[];
 }
 
 export interface ISimpleMbtiQuestionModel {
-    qustion: string;
+    question: string;
     responseA: ISimpleMbtiResponseModel;
     responseB: ISimpleMbtiResponseModel;
 }
