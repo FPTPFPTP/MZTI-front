@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import colors from '@styles/color';
 
 export const ProgressLineBarContainer = css`
     width: 100%;
@@ -8,6 +7,7 @@ export const ProgressLineBarContainer = css`
     border-radius: 31px;
     display: flex;
     justify-content: space-between;
+    gap: 16px;
 `;
 
 export const ProgressBar = css`
