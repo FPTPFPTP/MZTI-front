@@ -18,19 +18,21 @@ export const MenuContainerStyle = css`
         padding: 20px 10px 20px 16px;
         gap: 20px;
         color: ${color.GRAY_STRONG_6};
+        svg {
+            overflow: visible;
+        }
         .title {
             font-size: 15px;
             font-weight: 700;
             line-height: 15px;
             color: ${color.GRAY_STRONG_6};
-            white-space: nowrap;
         }
         .subTitle {
             font-size: 12px;
             font-weight: 500;
             line-height: 15px;
             color: #54545680;
-            white-space: nowrap;
+            margin-right: 20px;
         }
         button {
             position: absolute;
