@@ -94,7 +94,7 @@ const Test = () => {
 
     useEffect(() => {
         if (isLoading) {
-            setTimeout(() => router.push('/simpleTest/result'), 3000);
+            setTimeout(() => router.push('/simpleMbti/result'), 3000);
         }
     }, [isLoading]);
 
