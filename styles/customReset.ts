@@ -97,6 +97,12 @@ const customReset = css`
 
 const globalReset = () => css`
     ${customReset}
+    @font-face {
+        font-family: 'LOTTERIA CHAB';
+        font-weight: 400;
+        font-style: normal;
+        src: url('/fonts/LotteriaChab.woff') format('woff');
+    }
 
     html {
         /** 
