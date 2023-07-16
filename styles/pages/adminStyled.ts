@@ -8,71 +8,76 @@ export const AdminStyled = () => css`
     width: 100vw;
     height: 100vh;
     display: flex;
-
-    .left {
-        width: 20vw;
-        border-right: 1px solid #ccc;
-        padding: 30px;
-        h1 {
-            font-size: 4rem;
-            padding-top: 10vh;
-        }
-        .menu {
-            margin-top: 6rem;
-        }
-        li {
-            margin-top: 2rem;
-            h4 {
-                font-size: 1.6rem;
-                margin-bottom: 10px;
-            }
-            p {
-                font-size: 1.2rem;
+    justify-content: space-around;
+    section {
+        width: 80%;
+        padding: 40px;
+    }
+    .css-10hburv-MuiTypography-root {
+        display: flex;
+    }
+    .css-10hburv-MuiTypography-root {
+        font-size: 1.2rem;
+    }
+    .css-156df9n-MuiPaper-root {
+        padding-top: 7rem;
+    }
+    .email,
+    .nickname {
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .css-t89xny-MuiDataGrid-columnHeaderTitle {
+        font-size: 1.2rem;
+    }
+    .adminMainWrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h3 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            text-align: center;
+            line-height: 1.2;
+            strong {
+                font-weight: 700;
             }
         }
     }
-    .right {
-        width: 80vw;
-
-        h3 {
-            font-size: 3rem;
-            padding: 60px 67px;
+    .content {
+        h1 {
+            padding: 4rem 0;
+            font-size: 2rem;
         }
-        .list {
-            padding: 0 67px;
-            .listTable {
-                margin-top: 3rem;
-                width: 100%;
-                thead,
-                tbody {
-                    width: 100%;
-                }
-                th,
-                td {
-                    font-size: 1.2rem;
-                    padding: 10px 0;
-                    text-align: center;
-                }
-            }
+    }
+    .ButtonWrap {
+        display: flex;
+        justify-content: flex-end;
+        padding-bottom: 1rem;
+        .firstButton {
+            margin-right: 10px;
         }
-        .searchBar {
-            height: 50px;
-            .search {
-                border: 1px solid #ccc;
-                font-size: 16px;
-                border-radius: 4px;
-                padding: 10px 20px;
-                height: 100%;
-                width: 400px;
-                margin-right: 4px;
-            }
-            .searchButton {
-                background-color: #333;
-                color: #fff;
-                border-radius: 4px;
-                height: 100%;
-                width: 80px;
-            }
+    }
+    .contentHeaderWrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .noticeForm {
+        display: flex;
+        flex-direction: column;
+        input {
+            border: 1px solid #444;
+            margin-bottom: 15px;
+            padding: 15px;
+            font-size: 14px;
+        }
+        textarea {
+            height: 500px;
+            border: 1px solid #444;
+            padding: 15px;
+            font-size: 14px;
         }
     }
 `;

@@ -25,4 +25,5 @@ const StyledLayout = css`
     margin: 0 auto;
     background-color: ${color.WHITE};
     border: 1px solid ${color.GRAY_BRIGHT_5};
+    box-shadow: rgba(130, 130, 130, 0.15) 0px 0px 20px;
 `;

@@ -1,64 +1,49 @@
 import { AdminStyled } from '@/styles/pages/adminStyled';
+import AdminMenu from '@/components/Admin/Menu';
+import { useRecoilValue } from 'recoil';
+import { myPageInfo } from '@/recoil/atom/user';
+import { useEffect, useState } from 'react';
+import { Modal } from '@components/Commons';
+import { useRouter } from 'next/router';
+import { ModalStyle } from '@/components/Commons/Modal/styled';
 
 const admin = () => {
+    const [isModal, setIsModal] = useState<boolean>(false);
+    const myInfo = useRecoilValue(myPageInfo);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (myInfo?.role === 'SUPER_ADMIN_ROLE') {
+            setIsModal(false);
+        } else if (myInfo?.role === 'ADMIN_ROLE') {
+            setIsModal(false);
+        } else {
+            setIsModal(true);
+        }
+    }, [myInfo]);
+
     return (
         <main css={AdminStyled}>
-            <section className="left">
-                <h1>MZTI ADMIN</h1>
+            <AdminMenu />
 
-                <ul className="menu">
-                    <li>
-                        <h4>신고관리</h4>
-                        <p>게시글, 댓글</p>
-                    </li>
-                    <li>
-                        <h4>유저관리</h4>
-                        <p>전체 목록 조회,신고, 활동 중지</p>
-                    </li>
-                    <li>
-                        <h4>서포트센터</h4>
-                        <p>문의 관리</p>
-                    </li>
-                    <li>
-                        <h4>예약 발행</h4>
-                        <p>공식 게시글 업로드 관리</p>
-                    </li>
-                </ul>
+            <section className="adminMainWrap">
+                <h3>
+                    안녕하세요 🙂 <br />
+                    관리자 <strong>{myInfo?.nickname}</strong>님! <br />
+                    오늘도 열심히 관리해주세요.
+                </h3>
             </section>
 
-            <section className="right">
-                <h3>신고관리</h3>
-
-                <div className="list">
-                    <div className="searchBar">
-                        <input type="search" placeholder="검색어를 입력해주세요" className="search" />
-                        <button className="searchButton">검색</button>
+            {isModal && (
+                <Modal title="🚫 접근 금지 🚫" open={isModal} onCancel={() => setIsModal(false)} footer={null} isModalVisible={false} centered={true}>
+                    <div css={ModalStyle}>
+                        <p>관리자 외에는 접근할 수 없습니다.</p>
+                        <button onClick={() => router.push(`/home`)} className="button">
+                            확인
+                        </button>
                     </div>
-
-                    <table className="listTable">
-                        <thead className="head">
-                            <tr>
-                                <th>게시글 제목</th>
-                                <th>신고 사유</th>
-                                <th>신고 상세 내역</th>
-                                <th>신고자 닉네임</th>
-                                <th>처리 결과</th>
-                                <th>처리 담당자</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>대충 혐오를 사는 글 제목</td>
-                                <td>욕설, 비방, 차별, 혐오</td>
-                                <td>말을 너무 심하게 하네요</td>
-                                <td>abcdgdrr</td>
-                                <td>게시글 삭제처리</td>
-                                <td>pointhd</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                </Modal>
+            )}
         </main>
     );
 };

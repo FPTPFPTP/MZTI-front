@@ -14,6 +14,11 @@ export const Layout = css`
     }
 `;
 
+export const noticeText = css`
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+`;
 export const MypageWrap = css`
     padding: 0 20px 20px;
     background: #f5f5f5;
@@ -36,6 +41,19 @@ export const MypageWrap = css`
             font-weight: 700;
             font-size: 24px;
             letter-spacing: -0.408px;
+        }
+        .buttons {
+            display: flex;
+            align-items: center;
+            .admin {
+                padding: 0.4rem;
+                background-color: coral;
+                border-radius: 4px;
+                color: #fff;
+            }
+            .edit {
+                margin-left: 1rem;
+            }
         }
     }
     .notUser {

@@ -33,6 +33,8 @@ export const HotKeywordMenu = () => css`
 export const FeedContentStyle = ({ isCurrentScrollTop }: { isCurrentScrollTop: boolean }) => css`
     padding: 0px 20px;
     overflow-y: auto;
+    min-height: 100vh;
+    height: 100%;
     background: ${colors.WHITE};
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */

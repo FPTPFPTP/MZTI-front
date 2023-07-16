@@ -29,7 +29,7 @@ const keywordBoard = () => {
             <Header isPrevBtn={true} title="🔥실시간 HOT 키워드" />
 
             <div css={HotKeywordMenu}>
-                {isCurrentScrollTop ? <HotKeyword title="지금 사람들이 가장 궁금해하는건?" more={false} /> : null}
+                <HotKeyword title="지금 사람들이 가장 궁금해하는건?" more={false} />
 
                 <section className="titleSection">
                     <h3>{hotKeyword}</h3>
