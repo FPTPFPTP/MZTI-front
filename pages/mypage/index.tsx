@@ -57,16 +57,27 @@ const mypage = () => {
         }
     }, []);
 
+    useEffect(() => {
+        console.log('myInfo', myInfo?.role);
+    }, []);
+
     return (
         <>
             <div css={MypageWrap}>
                 <header className="mypage_header">
                     <h1>마이페이지</h1>
-                    {myInfo && (
-                        <Link href="/mypage/edit" className="edit">
-                            <EditSvg />
-                        </Link>
-                    )}
+                    <div className="buttons">
+                        {myInfo?.role !== 'USER_ROLE' && (
+                            <Link href="/admin" className="admin">
+                                Admin
+                            </Link>
+                        )}
+                        {myInfo && (
+                            <Link href="/mypage/edit" className="edit">
+                                <EditSvg />
+                            </Link>
+                        )}
+                    </div>
                 </header>
                 {myInfo ? (
                     <div className="profileWrap">

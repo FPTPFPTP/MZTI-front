@@ -42,6 +42,19 @@ export const MypageWrap = css`
             font-size: 24px;
             letter-spacing: -0.408px;
         }
+        .buttons {
+            display: flex;
+            align-items: center;
+            .admin {
+                padding: 0.4rem;
+                background-color: coral;
+                border-radius: 4px;
+                color: #fff;
+            }
+            .edit {
+                margin-left: 1rem;
+            }
+        }
     }
     .notUser {
         background-color: #fff;

@@ -9,7 +9,7 @@ import { Button } from 'antd';
 import Link from 'next/link';
 
 const notice = () => {
-    const { data, isLoading } = useGetAdminNotice();
+    const { data } = useGetAdminNotice();
     const myInfo = useRecoilValue(myPageInfo);
 
     const columns: GridColDef[] = [
@@ -17,6 +17,9 @@ const notice = () => {
         { field: 'title', headerName: '제목', width: 500 },
         { field: 'createAt', headerName: '날짜', width: 100 },
     ];
+
+    // 공지사항 삭제하기
+    // const handleDelete = () => {};
 
     return (
         <main css={AdminStyled}>
@@ -28,7 +31,9 @@ const notice = () => {
 
                     {myInfo?.role === 'SUPER_ADMIN_ROLE' && (
                         <div className="ButtonWrap">
-                            <Button className="firstButton">삭제</Button>
+                            <Button className="firstButton" onClick={handleDelete}>
+                                삭제
+                            </Button>
 
                             <Link href="/admin/notice/write">
                                 <Button type="primary">글쓰기</Button>

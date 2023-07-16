@@ -14,7 +14,7 @@ const columns: GridColDef[] = [
 ];
 
 const support = () => {
-    const { isLoading, data } = useGetAdminSupport();
+    const { isLoading, data } = useGetAdminSupport(0);
 
     if (isLoading && data === undefined) {
         return <h1>로딩중</h1>;

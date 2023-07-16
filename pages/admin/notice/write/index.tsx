@@ -10,7 +10,7 @@ const notice_write = () => {
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
     const router = useRouter();
-    const { mutate } = useMutation(() => postAdminNotice({ title, content }));
+    const { mutate } = useMutation(() => postAdminNotice({ title: title, content: content }));
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
@@ -20,12 +20,9 @@ const notice_write = () => {
         setContent(event.target.value);
     };
 
-    const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-        console.log('ddd');
+    const handleSubmit = () => {
+        alert('작성하시겠습니까?');
         mutate();
-        setTitle('');
-        setContent('');
     };
 
     return (
@@ -40,7 +37,7 @@ const notice_write = () => {
                         <Button className="firstButton" onClick={() => router.back()}>
                             취소
                         </Button>
-                        <Button onClick={(e: any) => handleSubmit(e)} type="primary">
+                        <Button onClick={handleSubmit} type="primary">
                             반영하기
                         </Button>
                     </div>

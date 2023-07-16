@@ -80,7 +80,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
         Axios.post('/post/poll', {
             pollId: Number(result.id),
             pollList: result.answer.map((id) => Number(id)),
-        }).then((res) => {
+        }).then(() => {
             openToast({ message: '투표 참여에 성공했어요' });
 
             if (postData) {
@@ -179,11 +179,15 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     };
 
     const openDrawer = (id: number, type: EActionEditType) => {
-        setEditTarget({
-            id,
-            editActionType: type,
-        });
-        setIsDrawerVisible(true);
+        if (!myInfo) {
+            setIsLogoutModal(true);
+        } else {
+            setEditTarget({
+                id,
+                editActionType: type,
+            });
+            setIsDrawerVisible(true);
+        }
     };
 
     const closeDrawer = () => setIsDrawerVisible(false);

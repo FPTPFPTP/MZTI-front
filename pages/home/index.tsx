@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useSetRecoilState } from 'recoil';
-import { Input } from '@components/Commons';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Input, Modal } from '@components/Commons';
 import { postEditState } from '@/recoil/atom/post';
 import { Empty } from '@/components/MyPageCom';
 import FeedItem from '@/components/Home/FeedItem';
@@ -19,15 +19,17 @@ import { EActionEditType } from '@/types/post';
 import EmptyWrite from '@assets/icons/common/empty_write.svg';
 import { SearchWrapStyle } from '@/components/Commons/FeedHeader/styled';
 import FeedSkeleton from '@/components/Skeleton/FeedSkeleton';
+import { myPageInfo } from '@/recoil/atom/user';
+import { ModalStyle } from '@/components/Commons/Modal/styled';
 
 const home = () => {
     const [countIndex, setCountIndex] = useState<number | undefined>(22);
+    const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
     // 게시글 & 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
-
     const isCurrentScrollTop = useScrollDown(65);
-
     const setEditTarget = useSetRecoilState(postEditState);
+    const myInfo = useRecoilValue(myPageInfo);
 
     // 데이터 패칭
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(
@@ -42,11 +44,18 @@ const home = () => {
     const router = useRouter();
 
     const openDrawer = (id: number, type: EActionEditType) => {
-        setEditTarget({
-            id,
-            editActionType: type,
-        });
-        setIsDrawerVisible(true);
+        if (!myInfo) {
+            setIsLogoutModal(true);
+        } else {
+            setEditTarget({
+                id,
+                editActionType: type,
+            });
+            setIsDrawerVisible(true);
+        }
+    };
+    const handleLogin = () => {
+        router.replace('/login');
     };
 
     const closeDrawer = () => setIsDrawerVisible(false);
@@ -106,6 +115,20 @@ const home = () => {
             <BottomMenu />
 
             <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
+
+            <Modal title={'로그인이 필요한 기능입니다'} isModalVisible={isLogoutModal} closable={false} footer={null} centered={true}>
+                <div css={ModalStyle}>
+                    <p>회원가입이나 로그인을 해주세요.</p>
+                    <div className="buttons">
+                        <button onClick={() => setIsLogoutModal(false)} className="button cancel">
+                            취소
+                        </button>
+                        <button onClick={handleLogin} className="button">
+                            확인
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </main>
     );
 };

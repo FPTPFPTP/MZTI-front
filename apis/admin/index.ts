@@ -16,8 +16,13 @@ export const postAdminSupport = async (supportId: number) => {
 };
 
 // 서포트 목록
-export const getAdminSupport = async () => {
-    const res = await Axios.get<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/support`);
+export const getAdminSupport = async (pageNumber: number) => {
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/support`, {
+        params: {
+            page: pageNumber,
+            view: 100,
+        },
+    });
 
     return res.data.data;
 };
@@ -26,9 +31,9 @@ export const getAdminSupport = async () => {
  * [API] 어드민 페이지 USER
  * @returns
  */
-export const useGetAdminSupport = () => {
+export const useGetAdminSupport = (pageNumber: number) => {
     return useQuery(['getAdminSupport'], async () => {
-        const data = await getAdminSupport();
+        const data = await getAdminSupport(pageNumber);
 
         return data;
     });
@@ -89,8 +94,13 @@ export const postAdminNotice = async ({ title, content }: { title: string; conte
     return res.data.data;
 };
 
-export const getAdminUser = async () => {
-    const res = await Axios.get<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/user`);
+export const getAdminUser = async (pageNumber: number) => {
+    const res = await Axios.get<IResponseBase<IPaginationResponse<IAdminList>>>(`/admin/user`, {
+        params: {
+            page: pageNumber,
+            view: 100,
+        },
+    });
 
     return res.data.data;
 };
@@ -99,9 +109,9 @@ export const getAdminUser = async () => {
  * [API] 어드민 페이지 USER
  * @returns
  */
-export const useGetAdminUser = () => {
+export const useGetAdminUser = (pageNumber: number) => {
     return useQuery(['getKeyword'], async () => {
-        const data = await getAdminUser();
+        const data = await getAdminUser(pageNumber);
 
         return data;
     });

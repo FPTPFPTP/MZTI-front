@@ -17,7 +17,7 @@ const columns: GridColDef[] = [
 ];
 
 const userMng = () => {
-    const { isLoading, data } = useGetAdminUser();
+    const { isLoading, data } = useGetAdminUser(0);
 
     if (isLoading && data === undefined) {
         return <h1>로딩중</h1>;
@@ -29,7 +29,7 @@ const userMng = () => {
 
             <section className="content">
                 <h1>유저관리</h1>
-                {data && <AdminContent columns={columns} rows={data?.list} />}
+                {data?.list && <AdminContent columns={columns} rows={data?.list} />}
             </section>
         </main>
     );
