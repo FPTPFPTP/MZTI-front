@@ -51,7 +51,15 @@ const FeedHeader = ({ isCurrentScrollTop, categoryId }: IFeedHeaderProps) => {
             </header>
 
             {isModal && (
-                <Modal title="준비중인 기능입니다" open={isModal} onCancel={() => setIsModal(false)} footer={null} isModalVisible={false} centered={true}>
+                <Modal
+                    title="준비중인 기능입니다"
+                    open={isModal}
+                    onCancel={() => setIsModal(false)}
+                    footer={null}
+                    isModalVisible={false}
+                    centered={true}
+                    closable={false}
+                >
                     <div css={ModalStyle}>
                         <p>
                             새로운 기능을 준비하고 있어요!

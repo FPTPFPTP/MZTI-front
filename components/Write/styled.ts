@@ -52,7 +52,7 @@ export const ContentWrapStyle = css`
     overflow-y: auto;
     position: relative;
     width: 100%;
-    height: calc(100vh - 208px);
+    height: calc(100vh - 243px);
     padding: 0px 20px;
 
     -ms-overflow-style: none; /* IE and Edge */
@@ -190,6 +190,48 @@ export const BottomBtnWrapStyle = css`
     }
 `;
 
+export const FactWrapStyle = css`
+    padding: 0 20px 100px 20px;
+
+    .notice {
+        overflow: hidden;
+        margin-top: 20px;
+        border-radius: 13px;
+        background-color: #545456;
+        padding: 20px;
+        margin-bottom: 15px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 1.3;
+        font-weight: 400;
+    }
+`;
+
+export const FactStyle = css`
+    margin: 20px 0;
+
+    h3 {
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 15px;
+        margin-bottom: 10px;
+        padding: 4px 8px;
+        display: inline-block;
+        border-radius: 13px;
+    }
+    input {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        &::placeholder {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 22px;
+            color: rgba(60, 60, 67, 0.3);
+        }
+    }
+`;
+
 export const CategoryDrawerWrapStyle = css`
     .postDrawer__backdrop {
         z-index: 101;
@@ -255,7 +297,7 @@ export const AddFeatureBoxStyle = css`
     background: #f8f8f8;
     gap: 20px;
     margin-top: 23px;
-    padding: 15px 20px;
+    padding: 15px 20px 50px;
     font-size: 15px;
     font-weight: 500;
     line-height: 15px;
@@ -266,5 +308,38 @@ export const AddFeatureBoxStyle = css`
         display: flex;
         align-items: center;
         gap: 5px;
+    }
+`;
+
+export const YouTubeModalStyle = css`
+    padding: 20px 20px;
+    .state-message {
+        text-align: left;
+        color: ${colors.RED_ORIGIN};
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 12px;
+        margin: 8px 8px 8px;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-evenly;
+        font-weight: 400;
+        font-size: 17px;
+        line-height: 22px;
+        text-align: center;
+        letter-spacing: -0.408px;
+        .cancel {
+            border-right: 0.5px solid rgba(0, 0, 0, 0.3);
+            color: rgba(27, 30, 38, 0.5);
+        }
+        p {
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 18px;
+            text-align: center;
+            letter-spacing: -0.078px;
+            color: #545456;
+        }
     }
 `;

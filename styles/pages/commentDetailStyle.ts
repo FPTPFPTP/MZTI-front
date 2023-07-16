@@ -4,7 +4,7 @@ import colors from '@/styles/color';
 export const ReplayCommentStyled = css`
     overflow-y: auto;
     width: 100%;
-    height: calc(100vh - 292px);
+    height: calc(100vh - 309px);
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {

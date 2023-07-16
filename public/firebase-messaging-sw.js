@@ -17,11 +17,16 @@ firebase.initializeApp(config);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    // console.log('[firebase-messaging-sw.js] Received background message ', payload);
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
         body: payload.notification.body,
     };
+    const notificationPostId = payload.data.postId;
+    // console.log({ notificationPostId });
+    self.addEventListener('notificationclick', () => {
+        self.clients.openWindow(`https://www.mzti.kr/boardDetail/${notificationPostId}`);
+    });
 
     return self.registration.showNotification(notificationTitle, notificationOptions);
 });

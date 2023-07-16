@@ -15,6 +15,13 @@
                 "subTitle": "실시간 인기글 모음",
                 "url": "popular",
                 "icon": "fire"
+            },
+            {
+                "id": 23,
+                "title": "MBTI 유형별 특징 모아보기",
+                "subTitle": "MBTI별 상황극, 내가 느낀 MBTI",
+                "url": "fact",
+                "icon": "fist"
             }
         ]
     },
@@ -59,7 +66,7 @@
             {
                 "id": 9,
                 "title": "INTJ",
-                "url": "INFJ"
+                "url": "INTJ"
             },
             {
                 "id": 8,

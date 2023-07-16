@@ -359,13 +359,18 @@ export const EmptyStyle = css`
     }
 `;
 
-export const BannerStyle = css`
+export const BannerStyle = (isMobile: boolean) => css`
     display: inline-block;
     position: relative;
-    height: 100px;
+    height: ${isMobile ? '100px' : '200px'};
     width: 100%;
     border-radius: 13px;
     overflow: hidden;
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: fill;
+    }
 `;
 
 export const DepthMenuStyle = css`

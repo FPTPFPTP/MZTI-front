@@ -39,7 +39,7 @@ const keywordBoard = () => {
                 </section>
             </div>
 
-            <section css={FeedContentStyle({ isCurrentScrollTop })}>
+            <section css={FeedContentStyle({ isCurrentScrollTop: isCurrentScrollTop.isCurrentScrollTop })}>
                 {/* 피드 게시물 */}
                 {searchList.length ? (
                     <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>

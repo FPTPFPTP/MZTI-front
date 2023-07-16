@@ -1,5 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { prevScrollState } from '@/recoil/atom/scroll';
 import FeedItem from '@/components/Home/FeedItem';
 import { Header, Input, BottomMenu } from '@components/Commons';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -23,6 +25,8 @@ const board = ({ id }: IBoardProps) => {
     const router = useRouter();
     const noticeApi = useGetMbtiNotice(id);
 
+    const prevScroll = useRecoilValue(prevScrollState);
+
     const categoryTitle = useMemo(() => {
         if (id === 1) {
             return '자유';
@@ -43,6 +47,12 @@ const board = ({ id }: IBoardProps) => {
             },
         },
     );
+
+    useEffect(() => {
+        if (prevScroll > 0) {
+            window.scrollTo(0, prevScroll);
+        }
+    }, [router.pathname]);
 
     return (
         <main className="homeLayout">

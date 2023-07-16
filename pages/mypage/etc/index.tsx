@@ -25,14 +25,14 @@ const etc = () => {
             id: 1,
             title: 'MZTI 서비스 약관',
             onClick: () => {
-                setIsModal(true);
+                router.push('/mypage/agreement');
             },
         },
         {
             id: 2,
             title: '개인정보 처리방침',
             onClick: () => {
-                setIsModal(true);
+                router.push('/mypage/privacy');
             },
         },
     ];
@@ -109,9 +109,9 @@ const etc = () => {
                 <Modal
                     title="준비중인 기능입니다"
                     open={isModal}
+                    closable={false}
                     onCancel={() => setIsModal(false)}
                     footer={null}
-                    closable={false}
                     isModalVisible={false}
                     centered={true}
                 >

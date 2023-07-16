@@ -27,6 +27,6 @@ module.exports = withPWA({
         return config;
     },
     images: {
-        domains: ['loremflickr.com', 'fptp-profile.s3.ap-northeast-2.amazonaws.com', 'www.mzti.kr', 'i1.ytimg.com'],
+        domains: ['loremflickr.com', 'fptp-profile.s3.ap-northeast-2.amazonaws.com', 'www.mzti.kr', 'i1.ytimg.com', 'img.youtube.com'],
     },
 });
