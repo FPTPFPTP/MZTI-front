@@ -76,7 +76,7 @@ const mypage = () => {
                 <header className="mypage_header">
                     <h1>마이페이지</h1>
                     <div className="buttons">
-                        {myInfo?.role !== 'USER_ROLE' && (
+                        {myInfo?.role === ('SUPER_ADMIN_ROLE' || 'ADMIN_ROLE') && (
                             <Link href="/admin" className="admin">
                                 Admin
                             </Link>

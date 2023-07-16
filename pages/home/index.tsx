@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Input, Modal } from '@components/Commons';
 import { postEditState } from '@/recoil/atom/post';
 import { homeListTabState } from '@/recoil/atom/homeListTab';
@@ -28,7 +28,6 @@ const home = () => {
     const [isLogoutModal, setIsLogoutModal] = useState<boolean>(false);
     // 게시글 & 댓글 수정, 삭제, 신고 Drawer
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
-    const isCurrentScrollTop = useScrollDown(65);
     const setEditTarget = useSetRecoilState(postEditState);
     const myInfo = useRecoilValue(myPageInfo);
     const { isCurrentScrollTop } = useScrollDown(65);

@@ -19,7 +19,9 @@ const notice = () => {
     ];
 
     // 공지사항 삭제하기
-    // const handleDelete = () => {};
+    const handleDelete = () => {
+        console.log('삭제');
+    };
 
     return (
         <main css={AdminStyled}>
