@@ -1,6 +1,8 @@
+import { useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import josa from 'josa-js';
+import { Client } from '@notionhq/client';
 import { useRecoilValue } from 'recoil';
 import { relationTestState } from '@/recoil/atom/relationTest';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
@@ -13,9 +15,26 @@ import MztiSmallLogo from '@assets/icons/simpleTest/mzti_beta_logo.svg';
 import MztiBigLogo from '@assets/icons/simpleTest/mzti_beta_logo_big.svg';
 import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
 
-const Result = () => {
+interface IMbtiTypeObj {
+    characteristic: string;
+    famous: string;
+    hashTag: string;
+    index: number;
+    mbti: string;
+    submit: string;
+}
+interface IResultProps {
+    mbtiTypeObj: IMbtiTypeObj[];
+}
+const Result = ({ mbtiTypeObj }: IResultProps) => {
     const simpleMbtiStateObj = useRecoilValue(simpleMbtiState);
     const { width } = useWindowSize();
+    const mbtiTypeMap = useMemo(() => {
+        return mbtiTypeObj.reduce((result, current) => {
+            result.set(current.mbti, current);
+            return result;
+        }, new Map<string, IMbtiTypeObj>());
+    }, [mbtiTypeObj]);
 
     const mbtiResult = (simpleMbtiStateObj || [])
         .reduce((result, cur) => {
@@ -35,6 +54,10 @@ const Result = () => {
         }, [] as string[])
         .join('');
 
+    useEffect(() => {
+        console.log({ mbtiTypeMap });
+    }, [mbtiTypeMap]);
+
     return (
         <NonSSRWrapper>
             <div css={SimpleTestResultStyle}>
@@ -50,17 +73,9 @@ const Result = () => {
                     <h3>{mbtiResult}</h3>
                 </div>
                 <div className={'result_submit'}>
-                    <h3>어쩌면 꼰대일수도..?</h3>
-                    <h1>엄격한 관리자 타입</h1>
-                    <div>
-                        #모든MBTI중 연봉순위 1위 <br />
-                        #한국인 중 15% 차지 , 2위 비중
-                    </div>
-                    <p>
-                        ESTJ 특: 사람이든 사물이든 관리하는데 타고남 책임감이 높아서 조직도 잘 이끔 뭐든 딱딱 떨어지고 확실한 것이 좋음 나한테 반박하려면 근거를
-                        갖고와 호불호도 확실한 편 공.능.제(공감능력 제로) 고집이고, 현실적이고, 직설적인 편 싸우는건 싫지만, 싸워서 지는게 더 싫음 가치관 확실함
-                        한 번 시작한 일은 철저하게 끝냄 자기관리에 철저
-                    </p>
+                    <h3>{mbtiTypeMap.get(mbtiResult)?.submit}</h3>
+                    <div>{mbtiTypeMap.get(mbtiResult)?.hashTag}</div>
+                    <p>{mbtiTypeMap.get(mbtiResult)?.characteristic}</p>
                 </div>
 
                 <div className={'result_btn'}>
@@ -77,3 +92,33 @@ const Result = () => {
 };
 
 export default Result;
+
+export async function getStaticProps() {
+    const notion = new Client({
+        auth: process.env.NOTION_API_KEY,
+    });
+
+    const response = await notion.databases.query({
+        database_id: '1e75f7f5203e4fa094c69a2d0b67fea4',
+    });
+
+    const mbtiTypeObj = response.results.reduce((result: IMbtiTypeObj[], current: any) => {
+        return [
+            ...result,
+            {
+                characteristic: current.properties.characteristic.rich_text[0].plain_text,
+                famous: current.properties.famous.rich_text[0].plain_text,
+                hashTag: current.properties.hashTag.rich_text[0].plain_text,
+                index: current.properties.index.number,
+                mbti: current.properties.mbti.title[0].plain_text,
+                submit: current.properties.submit.rich_text[0].plain_text,
+            },
+        ];
+    }, []);
+
+    return {
+        props: {
+            mbtiTypeObj,
+        },
+    };
+}
