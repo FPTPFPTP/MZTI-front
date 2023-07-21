@@ -128,6 +128,7 @@ export const SimpleTestResultStyle = css`
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
         gap: 10px;
         width: 100%;
         margin-bottom: 65px;
@@ -136,6 +137,26 @@ export const SimpleTestResultStyle = css`
         line-height: 16px;
         letter-spacing: 0em;
         text-align: center;
+        h3 {
+            color: #1b1e26;
+            text-align: center;
+            font-family: S-Core Dream;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: normal;
+        }
+        .share {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 56px;
+            border-radius: 15px;
+            opacity: 0.69;
+            background: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
     }
     .result_famous {
         display: flex;

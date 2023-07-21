@@ -21,6 +21,12 @@ import usePWA from '@hooks/usePWA';
 import Image from 'next/image';
 import { openToast } from '@utils/toast';
 
+declare global {
+    interface Window {
+        Kakao: any;
+    }
+}
+
 type PWAPromptProps = Partial<{
     copyAddHomeButtonLabel: string;
     copyBody: string;

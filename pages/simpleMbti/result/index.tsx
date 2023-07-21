@@ -8,6 +8,7 @@ import xss from 'xss';
 import { useRecoilValue } from 'recoil';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { Button, MultiCarousel } from '@/components/Commons';
+import { Share } from '@/components/SimpleMbti';
 import Banner from '@/components/MyPageCom/Banner';
 import useWindowSize from '@/hooks/useWindowSize';
 import { LinkCopy } from '@/utils/copy';
@@ -98,13 +99,13 @@ const Result = ({ mbtiTypeObj }: IResultProps) => {
                 </div>
 
                 <div className={'result_btn'}>
-                    <Button className="pre_button" buttonStyle={'base'} onClick={LinkCopy}>
-                        테스트 결과 공유하기
-                    </Button>
-                    <Button buttonStyle={'base'} onClick={() => router.push('/simpleMbti')} style={{ background: '#86888D' }}>
+                    <h3>테스트 결과 공유하기.. ↓</h3>
+                    <div className="share">
+                        <Share title={`30초만에 판단한 내 MBTI는?? [[${mbtiResult}]]`} />
+                    </div>
+                    <Button buttonStyle={'base'} onClick={() => router.push('/simpleMbti')}>
                         테스트 한 번 더해보기
                     </Button>
-
                     <a
                         href={'https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC'}
                         target="_blank"
