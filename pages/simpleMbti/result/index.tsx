@@ -1,15 +1,17 @@
 import { useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import josa from 'josa-js';
 import { Client } from '@notionhq/client';
+import xss from 'xss';
 import { useRecoilValue } from 'recoil';
-import { relationTestState } from '@/recoil/atom/relationTest';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { Button, MultiCarousel } from '@/components/Commons';
 import Banner from '@/components/MyPageCom/Banner';
 import useWindowSize from '@/hooks/useWindowSize';
 import { LinkCopy } from '@/utils/copy';
+import { setConvertToHTML } from '@/utils/postItem';
 import { SimpleTestResultStyle } from '@styles/pages/simpleTestStyled';
 import MztiSmallLogo from '@assets/icons/simpleTest/mzti_beta_logo.svg';
 import MztiBigLogo from '@assets/icons/simpleTest/mzti_beta_logo_big.svg';
@@ -17,18 +19,18 @@ import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
 
 interface IMbtiTypeObj {
     characteristic: string;
-    famous: string;
+    famous: string[];
     hashTag: string;
     index: number;
     mbti: string;
-    submit: string;
+    submit: string[];
 }
 interface IResultProps {
     mbtiTypeObj: IMbtiTypeObj[];
 }
 const Result = ({ mbtiTypeObj }: IResultProps) => {
     const simpleMbtiStateObj = useRecoilValue(simpleMbtiState);
-    const { width } = useWindowSize();
+
     const mbtiTypeMap = useMemo(() => {
         return mbtiTypeObj.reduce((result, current) => {
             result.set(current.mbti, current);
@@ -54,6 +56,8 @@ const Result = ({ mbtiTypeObj }: IResultProps) => {
         }, [] as string[])
         .join('');
 
+    const router = useRouter();
+
     useEffect(() => {
         console.log({ mbtiTypeMap });
     }, [mbtiTypeMap]);
@@ -62,6 +66,8 @@ const Result = ({ mbtiTypeObj }: IResultProps) => {
         <NonSSRWrapper>
             <div css={SimpleTestResultStyle}>
                 <MztiSmallLogo className={'logo'} />
+                <Image className={'SimpleBgImg1'} src="/images/SimpleBgImg1.png" alt={'SimpleBgImg1'} width={340} height={300} />
+                <Image className={'SimpleBgImg2'} src="/images/SimpleBgImg2.png" alt={'SimpleBgImg2'} width={340} height={300} />
                 <div className={'result_question'}>
                     <h3>
                         30초만에 판단한 <br />
@@ -73,18 +79,81 @@ const Result = ({ mbtiTypeObj }: IResultProps) => {
                     <h3>{mbtiResult}</h3>
                 </div>
                 <div className={'result_submit'}>
-                    <h3>{mbtiTypeMap.get(mbtiResult)?.submit}</h3>
-                    <div>{mbtiTypeMap.get(mbtiResult)?.hashTag}</div>
-                    <p>{mbtiTypeMap.get(mbtiResult)?.characteristic}</p>
+                    <div className={'submit'}>
+                        <h3>{mbtiTypeMap.get(mbtiResult)?.submit[0] || ''}</h3>
+                        <h2>{mbtiTypeMap.get(mbtiResult)?.submit[1] || ''}</h2>
+                    </div>
+                    <div
+                        className={'hashTag'}
+                        dangerouslySetInnerHTML={{
+                            __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.hashTag || '')),
+                        }}
+                    />
+                    <div
+                        className={'characteristic'}
+                        dangerouslySetInnerHTML={{
+                            __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.characteristic || '')),
+                        }}
+                    />
                 </div>
 
                 <div className={'result_btn'}>
                     <Button className="pre_button" buttonStyle={'base'} onClick={LinkCopy}>
                         테스트 결과 공유하기
                     </Button>
+                    <Button buttonStyle={'base'} onClick={() => router.push('/simpleMbti')} style={{ background: '#86888D' }}>
+                        테스트 한 번 더해보기
+                    </Button>
+
+                    <a
+                        href={'https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <Button buttonStyle={'text'}>공식사이트에서 MBTI 검사해보기</Button>
+                    </a>
+                </div>
+
+                <div className={'result_famous'}>
+                    <h3>{`${mbtiResult} 대표 유명인은?`}</h3>
+                    <div className={'famous'}>
+                        <div>
+                            <p>맞아요</p>
+                            <p className="icon">😄</p>
+
+                            <h3>{mbtiTypeMap.get(mbtiResult)?.famous[0] || ''}</h3>
+                        </div>
+                        <div>
+                            <p>의외에요</p>
+                            <p className="icon">😲</p>
+
+                            <h3>{mbtiTypeMap.get(mbtiResult)?.famous[1] || ''}</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 className={'result_question'}>테스트가 재밌었다면.. ↓</h2>
+
+                <div className={'result_mzti'}>
+                    <MztiBigLogo />
+                    <h3>
+                        MZ세대들의 <br />
+                        MBTI 커뮤니티 구경하기
+                    </h3>
+                    <div className={'btn'}>
+                        <Button className="pre_button" buttonStyle={'base'} onClick={LinkCopy}>
+                            MZTI 둘러보기 →
+                        </Button>
+                        <Button className="pre_button" buttonStyle={'base'} onClick={LinkCopy}>
+                            ESTJ 게시판 가기 →
+                        </Button>
+                    </div>
+
                     <Link href={'/relationTest'}>
-                        <Button buttonStyle={'text'}>테스트 한 번 더해보기</Button>
+                        <Button buttonStyle={'text'}>📮 운영진에게 건의하기</Button>
                     </Link>
+
+                    <span>total 48553</span>
                 </div>
             </div>
         </NonSSRWrapper>
@@ -107,11 +176,11 @@ export async function getStaticProps() {
             ...result,
             {
                 characteristic: current.properties.characteristic.rich_text[0].plain_text,
-                famous: current.properties.famous.rich_text[0].plain_text,
+                famous: current.properties.famous.rich_text[0].plain_text.split('/'),
                 hashTag: current.properties.hashTag.rich_text[0].plain_text,
                 index: current.properties.index.number,
                 mbti: current.properties.mbti.title[0].plain_text,
-                submit: current.properties.submit.rich_text[0].plain_text,
+                submit: current.properties.submit.rich_text[0].plain_text.split('\n'),
             },
         ];
     }, []);
