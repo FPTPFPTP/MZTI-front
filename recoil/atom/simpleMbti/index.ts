@@ -9,7 +9,7 @@ const { persistAtom } = recoilPersist({
     storage: sessionStorage,
 });
 
-// 관계테스트
+// 야매 테스트
 export const simpleMbtiState = atom<ISimpleMbtiResponseModel[]>({
     key: `simpleMbit`,
     default: [],

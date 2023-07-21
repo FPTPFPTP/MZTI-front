@@ -1,16 +1,14 @@
 import { useEffect, useMemo } from 'react';
+import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import josa from 'josa-js';
 import { Client } from '@notionhq/client';
 import xss from 'xss';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
-import { Button, MultiCarousel } from '@/components/Commons';
+import { Button } from '@/components/Commons';
 import { Share } from '@/components/SimpleMbti';
-import Banner from '@/components/MyPageCom/Banner';
-import useWindowSize from '@/hooks/useWindowSize';
 import { LinkCopy } from '@/utils/copy';
 import { setConvertToHTML } from '@/utils/postItem';
 import { SimpleTestResultStyle } from '@styles/pages/simpleTestStyled';
@@ -28,9 +26,10 @@ interface IMbtiTypeObj {
 }
 interface IResultProps {
     mbtiTypeObj: IMbtiTypeObj[];
+    mbti: string;
 }
-const Result = ({ mbtiTypeObj }: IResultProps) => {
-    const simpleMbtiStateObj = useRecoilValue(simpleMbtiState);
+const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
+    const [simpleMbtiStateObj, setSimpleMbtiStateObj] = useRecoilState(simpleMbtiState);
 
     const mbtiTypeMap = useMemo(() => {
         return mbtiTypeObj.reduce((result, current) => {
@@ -39,29 +38,37 @@ const Result = ({ mbtiTypeObj }: IResultProps) => {
         }, new Map<string, IMbtiTypeObj>());
     }, [mbtiTypeObj]);
 
-    const mbtiResult = (simpleMbtiStateObj || [])
-        .reduce((result, cur) => {
-            if (cur.value === 'E' || cur.value === 'I') {
-                result = [...result.slice(0, 1), cur.value, ...result.slice(2)];
-            }
-            if (cur.value === 'S' || cur.value === 'N') {
-                result = [...result.slice(0, 2), cur.value, ...result.slice(3)];
-            }
-            if (cur.value === 'F' || cur.value === 'T') {
-                result = [...result.slice(0, 3), cur.value, ...result.slice(4)];
-            }
-            if (cur.value === 'J' || cur.value === 'P') {
-                result = [...result.slice(0, 4), cur.value];
-            }
-            return result;
-        }, [] as string[])
-        .join('');
+    const mbtiResult = useMemo(() => {
+        if (mbti.length) {
+            return mbti;
+        } else {
+            return (simpleMbtiStateObj || [])
+                .reduce((result, cur) => {
+                    if (cur.value === 'E' || cur.value === 'I') {
+                        result = [...result.slice(0, 1), cur.value, ...result.slice(2)];
+                    }
+                    if (cur.value === 'S' || cur.value === 'N') {
+                        result = [...result.slice(0, 2), cur.value, ...result.slice(3)];
+                    }
+                    if (cur.value === 'F' || cur.value === 'T') {
+                        result = [...result.slice(0, 3), cur.value, ...result.slice(4)];
+                    }
+                    if (cur.value === 'J' || cur.value === 'P') {
+                        result = [...result.slice(0, 4), cur.value];
+                    }
+                    return result;
+                }, [] as string[])
+                .join('');
+        }
+    }, [mbti]);
 
     const router = useRouter();
 
     useEffect(() => {
-        console.log({ mbtiTypeMap });
-    }, [mbtiTypeMap]);
+        if (mbti) {
+            setSimpleMbtiStateObj(mbti.split('').map((value) => ({ title: value, value: value })));
+        }
+    }, [mbti]);
 
     return (
         <NonSSRWrapper>
@@ -163,7 +170,7 @@ const Result = ({ mbtiTypeObj }: IResultProps) => {
 
 export default Result;
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async ({ req, params }: any) => {
     const notion = new Client({
         auth: process.env.NOTION_API_KEY,
     });
@@ -186,9 +193,18 @@ export async function getStaticProps() {
         ];
     }, []);
 
+    if (params.mbti.length !== 4) {
+        return {
+            redirect: {
+                destination: '/simpleMbti',
+                permanent: false,
+            },
+        };
+    }
     return {
         props: {
             mbtiTypeObj,
+            mbti: params.mbti || '',
         },
     };
-}
+};

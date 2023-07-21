@@ -94,7 +94,24 @@ const Test = () => {
 
     useEffect(() => {
         if (isLoading) {
-            setTimeout(() => router.push('/simpleMbti/result'), 3000);
+            const mbtiResult = (simpleMbtiStateObj || [])
+                .reduce((result, cur) => {
+                    if (cur.value === 'E' || cur.value === 'I') {
+                        result = [...result.slice(0, 1), cur.value, ...result.slice(2)];
+                    }
+                    if (cur.value === 'S' || cur.value === 'N') {
+                        result = [...result.slice(0, 2), cur.value, ...result.slice(3)];
+                    }
+                    if (cur.value === 'F' || cur.value === 'T') {
+                        result = [...result.slice(0, 3), cur.value, ...result.slice(4)];
+                    }
+                    if (cur.value === 'J' || cur.value === 'P') {
+                        result = [...result.slice(0, 4), cur.value];
+                    }
+                    return result;
+                }, [] as string[])
+                .join('');
+            setTimeout(() => router.push(`/simpleMbti/result/${mbtiResult}`), 3000);
         }
     }, [isLoading]);
 
