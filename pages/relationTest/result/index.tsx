@@ -70,15 +70,15 @@ const Result = () => {
                 <div className="banner_wrap">
                     <MultiCarousel>
                         <Banner
-                            isMobile={width < 768}
+                            isMobile={width < 400}
                             link={'https://www.mzti.kr'}
                             imageSrc={'/images/mzti_promote.png'}
-                            bigImageSrc={'/images/mzti_banner_relation1000x200.png'}
+                            bigImageSrc={'/images/mzti_promote_1000_200.png'}
                             imageAlt={'mzti'}
                         />
                         <Banner
-                            isMobile={width < 768}
-                            link={'https://www.mzti.kr/write/fact'}
+                            isMobile={width < 400}
+                            link={'/board/fact'}
                             imageSrc={'/images/mzti_banner_relation360x100.png'}
                             bigImageSrc={'/images/mzti_banner_relation1000x200.png'}
                             imageAlt={'mzti'}
