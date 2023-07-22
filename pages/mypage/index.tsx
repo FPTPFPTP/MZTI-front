@@ -28,12 +28,6 @@ const menuList = [
         icon: <Bookmark />,
     },
     {
-        title: 'MBTI 유형별 특징 모아적기',
-        subDesc: '',
-        url: '/write/fact',
-        icon: <Bookmark />,
-    },
-    {
         title: '공지사항',
         subDesc: '업데이트 소식, 게시판 추가 등',
         url: '/mypage/notice',
