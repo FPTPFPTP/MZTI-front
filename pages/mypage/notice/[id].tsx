@@ -33,7 +33,6 @@ const noticeDetail = () => {
                     <h3>{contents?.title}</h3>
                     <p>{contents && timeForToday(contents.createAt)}</p>
                 </div>
-
                 <article>{contents?.content}</article>
             </div>
         </>

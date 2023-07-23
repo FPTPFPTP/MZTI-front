@@ -31,3 +31,26 @@ export interface IPaginationResponse<T> {
     totalPage: number;
     totalCount: number;
 }
+
+export interface IAdminList {
+    id: number;
+    email: string;
+    supportType: string;
+    content: string;
+    checkAdmin: boolean;
+    createAt: string;
+}
+
+export interface IAdminUserList {
+    id: number;
+    nickname: string;
+    role: string;
+    mbti: string;
+    intro: string;
+    profileImage: string;
+    platform: string;
+    platformId: string;
+    email: string;
+    level: number;
+    deleted: boolean;
+}

@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading } from '@components/Commons';
-import { Empty, ListBox, ListItem } from '@components/MyPageCom';
-import { Layout } from '@styles/pages/mypageStyled';
+import { ListBox, ListItem } from '@components/MyPageCom';
+import { Layout, noticeText } from '@styles/pages/mypageStyled';
 import { useGetNotice } from '@/apis/notice';
+import PageError from '@assets/icons/common/page_error.svg';
 
 const notice = () => {
     const observerRef = useRef(null);
@@ -49,7 +50,12 @@ const notice = () => {
                     />
                 </form>
                 <ListBox>
-                    {noticeList.length && noticeList.map((item) => <ListItem key={item.id} item={item} url={`/mypage/notice/${item.id}`} />)}
+                    {noticeList.length > 0 ? (
+                        noticeList.map((item) => <ListItem key={item.id} item={item} url={`/mypage/notice/${item.id}`} />)
+                    ) : (
+                        <div css={noticeText}>공지사항이 없습니다.</div>
+                    )}
+
                     <div className="loader" ref={observerRef}>
                         {hasNextPage ? <Loading /> : null}
                     </div>
