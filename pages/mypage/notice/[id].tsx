@@ -1,11 +1,10 @@
+import xss from 'xss';
 import { Header } from '@components/Commons';
 import { timeForToday } from '@/utils/time';
-import { NoticeViewStyle, NoticeShare } from '@styles/pages/mypageStyled';
-import ShareIcon from '@assets/icons/comment/share.svg';
+import { NoticeViewStyle } from '@styles/pages/mypageStyled';
 import { useEffect, useState } from 'react';
 import { getDetailNotice } from '@/apis/notice';
 import { useRouter } from 'next/router';
-import { LinkCopy } from '@/utils/copy';
 
 interface noticeDetailProps {
     id: number;
@@ -33,7 +32,13 @@ const noticeDetail = () => {
                     <h3>{contents?.title}</h3>
                     <p>{contents && timeForToday(contents.createAt)}</p>
                 </div>
-                <article>{contents?.content}</article>
+
+                <div
+                    className="content"
+                    dangerouslySetInnerHTML={{
+                        __html: xss(contents?.content || ''),
+                    }}
+                />
             </div>
         </>
     );

@@ -257,7 +257,7 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     }, [postData]);
 
     const onBackPage = () => {
-        router.push(`/home`);
+        router.back();
     };
 
     const handleLogin = () => {

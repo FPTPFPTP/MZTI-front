@@ -28,12 +28,6 @@ const menuList = [
         icon: <Bookmark />,
     },
     {
-        title: 'MBTI 유형별 특징 모아적기',
-        subDesc: '',
-        url: '/write/fact',
-        icon: <Bookmark />,
-    },
-    {
         title: '공지사항',
         subDesc: '업데이트 소식, 게시판 추가 등',
         url: '/mypage/notice',
@@ -66,27 +60,16 @@ const mypage = () => {
         }
     }, []);
 
-    useEffect(() => {
-        console.log('myInfo', myInfo?.role);
-    }, []);
-
     return (
         <>
             <div css={MypageWrap}>
                 <header className="mypage_header">
                     <h1>마이페이지</h1>
-                    <div className="buttons">
-                        {myInfo?.role === ('SUPER_ADMIN_ROLE' || 'ADMIN_ROLE') && (
-                            <Link href="/admin" className="admin">
-                                Admin
-                            </Link>
-                        )}
-                        {myInfo && (
-                            <Link href="/mypage/edit" className="edit">
-                                <EditSvg />
-                            </Link>
-                        )}
-                    </div>
+                    {myInfo && (
+                        <Link href="/mypage/edit" className="edit">
+                            <EditSvg />
+                        </Link>
+                    )}
                 </header>
                 {myInfo ? (
                     <div className="profileWrap">
@@ -100,14 +83,14 @@ const mypage = () => {
                 <div className="bannerWrap">
                     <MultiCarousel>
                         <Banner
-                            isMobile={width < 768}
+                            isMobile={width < 400}
                             link={'https://www.mzti.kr'}
                             imageSrc={'/images/mzti_promote.png'}
-                            bigImageSrc={'/images/mzti_banner_relation1000x200.png'}
+                            bigImageSrc={'/images/mzti_promote_1000_200.png'}
                             imageAlt={'mzti'}
                         />
                         <Banner
-                            isMobile={width < 768}
+                            isMobile={width < 400}
                             link={'/board/fact'}
                             imageSrc={'/images/mzti_banner_relation360x100.png'}
                             bigImageSrc={'/images/mzti_banner_relation1000x200.png'}

@@ -176,7 +176,7 @@ export const NoticeViewStyle = css`
             margin-top: 10px;
         }
     }
-    article {
+    .content {
         font-size: 15px;
         font-weight: 500;
         line-height: 23px;

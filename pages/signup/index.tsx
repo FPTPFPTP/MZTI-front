@@ -132,7 +132,7 @@ const SignUp = () => {
         <NonSSRWrapper>
             <div css={Layout}>
                 <div css={BodyWrapper}>
-                    <ProgressLineBar percent={stepActive} />
+                    <ProgressLineBar percent={stepActive} totalStep={3} />
                     {stepActive === 1 && <NicknameContent isPossible={isNickNamePossible} handleIsPossible={setIsNickNamePossible} onSubmit={onSubmit} />}
                     {stepActive === 2 && <MbtiContent />}
                     {stepActive === 3 && <ProfileContent />}
