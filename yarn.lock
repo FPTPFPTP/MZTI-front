@@ -2677,6 +2677,14 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@notionhq/client@^2.2.7":
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/@notionhq/client/-/client-2.2.7.tgz#f5ec04ad4ce99620c1b787c82bc1ddf3d3168fdc"
+  integrity sha512-ackhUZiCTxsDacHPfnuwfJmo7fmi6Il6BK+YByCZM5NEXVIohyEBWm/r18OQkuJzJjeC6Q+Jhh+0yhxjvWq/cA==
+  dependencies:
+    "@types/node-fetch" "^2.5.10"
+    node-fetch "^2.6.1"
+
 "@npmcli/fs@^1.0.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@npmcli/fs/-/fs-1.1.1.tgz#72f719fe935e687c56a4faecf3c03d06ba593257"
@@ -4460,6 +4468,14 @@
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-5.1.2.tgz#07508b45797cb81ec3f273011b054cd0755eddca"
   integrity sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==
+
+"@types/node-fetch@^2.5.10":
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.6.4.tgz#1bc3a26de814f6bf466b25aeb1473fa1afe6a660"
+  integrity sha512-1ZX9fcN4Rvkvgv4E6PAY5WXUFWFcRWxZa3EW83UjycOB9ljJCedb2CupIP4RZMEwF/M3eTcCihbBRgwtGbg5Rg==
+  dependencies:
+    "@types/node" "*"
+    form-data "^3.0.0"
 
 "@types/node-fetch@^2.5.7":
   version "2.6.2"

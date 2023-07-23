@@ -83,7 +83,7 @@ const Test = () => {
                 ) : (
                     <>
                         <div css={RelationTestBodyStyle}>
-                            <ProgressLineBar percent={stepActive} />
+                            <ProgressLineBar percent={stepActive} totalStep={3} />
                             {stepActive === 1 && <Relation />}
                             {stepActive === 2 && <RelationMbti step={stepActive} />}
                             {stepActive === 3 && <RelationMbti step={stepActive} />}

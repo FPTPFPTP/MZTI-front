@@ -66,6 +66,7 @@ export default function Document() {
                 <meta property="og:description" content="🅼🆉🆃🅸 | MBTI에 과몰입할 MZ세대들 모여라! | MBTI 뇌절 콘텐츠, MBTI 궁합, MBTI 짤 등" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
+                <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
             </Head>
             <body>
                 <Main />

@@ -1,18 +1,24 @@
+import { useMemo } from 'react';
 import { ProgressLineBarContainer, ProgressBar } from './styled';
 import classNames from 'classnames';
 
 interface IProgressLineBarProps {
     percent: number;
+    totalStep: number;
 }
 
 const ProgressLineBar = (props: IProgressLineBarProps) => {
-    const { percent } = props;
+    const { percent, totalStep } = props;
+
+    const stepNumbers = useMemo(() => {
+        return Array.from({ length: totalStep }, (_, index) => index + 1);
+    }, [totalStep]);
 
     return (
         <div css={ProgressLineBarContainer}>
-            <div css={ProgressBar} className={classNames(percent > 0 && 'active')} />
-            <div css={ProgressBar} className={classNames(percent > 1 && 'active')} />
-            <div css={ProgressBar} className={classNames(percent > 2 && 'active')} />
+            {stepNumbers.map((number) => (
+                <div key={number} css={ProgressBar} className={classNames(percent > number - 1 && 'active')} />
+            ))}
         </div>
     );
 };

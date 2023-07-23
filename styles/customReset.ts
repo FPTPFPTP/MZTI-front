@@ -97,6 +97,24 @@ const customReset = css`
 
 const globalReset = () => css`
     ${customReset}
+    @font-face {
+        font-family: 'LOTTERIA CHAB';
+        font-weight: 400;
+        font-style: normal;
+        src: url('/fonts/LotteriaChab.woff') format('woff');
+    }
+    @font-face {
+        font-family: 'S-Core Dream';
+        font-weight: 500;
+        font-style: normal;
+        src: url('/fonts/S-Core Dream5.woff') format('woff');
+    }
+    @font-face {
+        font-family: 'S-Core Dream';
+        font-weight: 700;
+        font-style: normal;
+        src: url('/fonts/S-Core Dream7.woff') format('woff');
+    }
 
     html {
         /** 
