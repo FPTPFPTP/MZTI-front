@@ -36,7 +36,8 @@ const Share = ({ title, kakaotalk = true, facebook = true, twitter = true, link 
                     objectType: 'feed',
                     content: {
                         title,
-                        imageUrl: 'https://velog.velcdn.com/images/leemember/post/7767e642-e4ec-403e-af16-6ecda22a6f36/image.png',
+                        imageUrl:
+                            'https://lh3.googleusercontent.com/u/0/drive-viewer/AITFw-zgy8Hf2fMDb5iv06G5u8MCAU3xf0R6t5G8P3lmBa2DgcROz5e_QFMu6J6h4V0Ln8jjgG37La0_ELJWUIVfXWsgTjL-qw=w3360-h1702',
                         link: {
                             mobileWebUrl: url,
                             webUrl: url,
