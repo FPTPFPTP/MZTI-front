@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
+
 import MztiLogoIcon from '@assets/icons/simpleTest/mzti_logo_1.svg';
 import RightArrowIcon from '@assets/icons/simpleTest/right_arrow.svg';
 import ShareIcon from '@assets/icons/simpleTest/share.svg';
-
 import { Button } from '@/components/Commons';
 import { LinkCopy } from '@/utils/copy';
 import { SimpleTestStyle } from '@styles/pages/simpleTestStyled';
 
 const simpleMbti = () => {
     const router = useRouter();
+    const setSimpleMbtiStateObj = useSetRecoilState(simpleMbtiState);
+
+    useEffect(() => {
+        setSimpleMbtiStateObj([]);
+    }, []);
 
     return (
         <div css={SimpleTestStyle}>
