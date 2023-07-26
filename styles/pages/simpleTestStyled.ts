@@ -1,3 +1,4 @@
+import { SimpleMbtiTest } from '@/components/SimpleMbti';
 import { css } from '@emotion/react';
 
 export const SimpleTestBaseStyle = css`
@@ -16,7 +17,7 @@ export const SimpleTestStyle = css`
     ${SimpleTestBaseStyle}
     .SimpleBgImg3 {
         position: absolute;
-        top: 249px;
+        top: 223px;
         z-index: 16;
         width: 100%;
     }
@@ -74,9 +75,70 @@ export const SimpleTestStyle = css`
     }
 `;
 
+export const SimpleTestTestStyle = (isColor: boolean) => css`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    min-height: 100vh;
+    background: ${isColor ? '#fffade' : '#fff'};
+    margin: 0 auto;
+    .step {
+        width: 100%;
+        padding: 42px 20px;
+    }
+    .question {
+        margin-top: 45px;
+        p {
+            color: #000;
+            text-align: center;
+            font-family: LOTTERIA CHAB;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+    .footer {
+        width: 100%;
+        padding: 20px;
+    }
+    .loading {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 207px;
+        h2 {
+            color: #1b1e26;
+            text-align: center;
+            font-family: S-Core Dream;
+            font-size: 35px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 35px; /* 100% */
+            letter-spacing: -1.75px;
+        }
+        p {
+            margin-top: 15px;
+            color: #000;
+            text-align: center;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 32.5px; /* 162.5% */
+        }
+        img {
+            margin-top: 37px;
+            margin-bottom: 177px;
+        }
+    }
+`;
+
 export const SimpleTestResultStyle = css`
     ${SimpleTestBaseStyle}
-    padding: 20px;
+    padding: 38px 20px;
     .logo {
         margin-bottom: 11px;
     }
