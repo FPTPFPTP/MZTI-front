@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 export const SimpleTestBaseStyle = css`
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,29 +14,63 @@ export const SimpleTestBaseStyle = css`
 
 export const SimpleTestStyle = css`
     ${SimpleTestBaseStyle}
+    .SimpleBgImg3 {
+        position: absolute;
+        top: 249px;
+        z-index: 16;
+        width: 100%;
+    }
+    .logo {
+        margin-bottom: 20px;
+    }
     .intro {
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 18px;
-        letter-spacing: 0em;
+        color: #545456;
         text-align: center;
-        margin-bottom: 57px;
+        font-family: S-Core Dream;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 19.5px; /* 130% */
+        letter-spacing: -0.45px;
+        margin-bottom: 100px;
     }
     .title {
-        font-size: 30px;
-        font-weight: 400;
-        line-height: 36px;
-        letter-spacing: 0em;
+        position: relative;
+        z-index: 9;
+        margin-bottom: 103px;
+        color: #1b1e26;
         text-align: center;
-        margin-bottom: 170px;
+        font-family: S-Core Dream;
+        font-size: 35px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 35px; /* 100% */
+        letter-spacing: -1.75px;
+        span {
+            padding: 17px 40px;
+            border-radius: 35px;
+            background: #fff;
+        }
+        .text {
+            position: relative;
+            z-index: 10;
+            top: -21px;
+        }
     }
     .action {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 60%;
+        width: 100%;
         gap: 10px;
+        padding: 0 20px;
         margin-bottom: 90px;
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
     }
 `;
 
