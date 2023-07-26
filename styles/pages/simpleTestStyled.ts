@@ -1,4 +1,3 @@
-import { SimpleMbtiTest } from '@/components/SimpleMbti';
 import { css } from '@emotion/react';
 
 export const SimpleTestBaseStyle = css`
@@ -142,16 +141,6 @@ export const SimpleTestResultStyle = css`
     .logo {
         margin-bottom: 11px;
     }
-    .SimpleBgImg1 {
-        position: absolute;
-        top: 73px;
-        z-index: 2;
-    }
-    .SimpleBgImg2 {
-        position: absolute;
-        top: 1100px;
-        z-index: 2;
-    }
     .result_question {
         font-size: 20px;
         font-style: normal;
@@ -217,8 +206,14 @@ export const SimpleTestResultStyle = css`
             text-align: center;
             font-size: 13px;
             font-style: normal;
-            font-weight: 700;
+            font-weight: 400;
             line-height: 16.9px; /* 130% */
+            h3 {
+                font-size: 16px;
+                color: #000;
+                font-weight: 700;
+                margin-bottom: 30px;
+            }
         }
     }
     .result_btn {
@@ -228,7 +223,7 @@ export const SimpleTestResultStyle = css`
         position: relative;
         gap: 10px;
         width: 100%;
-        margin-bottom: 65px;
+        margin-bottom: 30px;
         font-size: 13px;
         font-weight: 400;
         line-height: 16px;
@@ -316,12 +311,21 @@ export const SimpleTestResultStyle = css`
     .result_question {
         color: #1b1e26;
         text-align: center;
+        font-family: Pretendard;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-bottom: 17px;
+    }
+    .result_question1 {
+        color: #000;
+        text-align: center;
         font-family: S-Core Dream;
         font-size: 20px;
         font-style: normal;
-        font-weight: 800;
+        font-weight: 700;
         line-height: normal;
-        margin-bottom: 17px;
     }
     .result_mzti {
         display: flex;
@@ -331,6 +335,13 @@ export const SimpleTestResultStyle = css`
         padding: 44px 20px 34px;
         border-radius: 20px;
         background: #f56326;
+        img {
+            width: 100%;
+            height: 160px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 3px solid #000;
+        }
         h3 {
             color: #000;
             text-align: center;
