@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { Button } from '@/components/Commons';
 import { Share } from '@/components/SimpleMbti';
-import { LinkCopy } from '@/utils/copy';
 import { setConvertToHTML } from '@/utils/postItem';
 import { SimpleTestResultStyle } from '@styles/pages/simpleTestStyled';
 import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
