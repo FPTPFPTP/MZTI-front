@@ -4,11 +4,13 @@ import colors from '@styles/color';
 export const Container = css`
     display: flex;
     flex-direction: column;
+    padding: 0 20px;
     .title {
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 22px;
-        padding: 64px 0 30px 0;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 32.5px; /* 130% */
+        padding: 60px 0 30px 0;
         text-align: center;
         color: ${colors.BLACK};
         margin: 0 !important;
@@ -19,7 +21,8 @@ export const Container = css`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        margin-top: 246px;
+        gap: 20px;
         .input-container {
             position: relative;
             width: 100%;
@@ -42,8 +45,9 @@ export const Container = css`
                 width: 100%;
                 height: 100%;
                 padding: 14px 20px;
-                border: 1px solid ${colors.BLACK};
+                background: #f56326;
                 border-radius: 10px;
+                color: white;
             }
             .radio-tile-label {
                 font-size: 20px;
@@ -55,8 +59,7 @@ export const Container = css`
 
             //active tile styles
             .radio-button:checked + .radio-tile {
-                background-color: ${colors.BUTTON_MBTI_ACTIVE};
-                border: 2px solid ${colors.BLACK};
+                background: ${colors.BUTTON_MBTI_ACTIVE};
                 color: white;
             }
         }

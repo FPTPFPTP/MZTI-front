@@ -5,15 +5,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Client } from '@notionhq/client';
 import xss from 'xss';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
 import { Button } from '@/components/Commons';
 import { Share } from '@/components/SimpleMbti';
-import { LinkCopy } from '@/utils/copy';
 import { setConvertToHTML } from '@/utils/postItem';
 import { SimpleTestResultStyle } from '@styles/pages/simpleTestStyled';
-import MztiSmallLogo from '@assets/icons/simpleTest/mzti_beta_logo.svg';
-import MztiBigLogo from '@assets/icons/simpleTest/mzti_beta_logo_big.svg';
 import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
 
 interface IMbtiTypeObj {
@@ -23,6 +20,7 @@ interface IMbtiTypeObj {
     index: number;
     mbti: string;
     submit: string[];
+    korean: string;
 }
 interface IResultProps {
     mbtiTypeObj: IMbtiTypeObj[];
@@ -73,10 +71,9 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
     return (
         <NonSSRWrapper>
             <div css={SimpleTestResultStyle}>
-                <MztiSmallLogo className={'logo'} />
-                <Image className={'SimpleBgImg1'} src="/images/SimpleBgImg1.png" alt={'SimpleBgImg1'} width={340} height={300} />
-                <Image className={'SimpleBgImg2'} src="/images/SimpleBgImg2.png" alt={'SimpleBgImg2'} width={340} height={300} />
-                <div className={'result_question'}>
+                <Image className={'logo'} src={'/images/mzti_logo_color.png'} alt={'로고'} width={92} height={40} />
+
+                <div className={'result_question1'}>
                     <h3>
                         30초만에 판단한 <br />
                         당신의 MBTI는?
@@ -97,12 +94,14 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
                             __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.hashTag || '')),
                         }}
                     />
-                    <div
-                        className={'characteristic'}
-                        dangerouslySetInnerHTML={{
-                            __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.characteristic || '')),
-                        }}
-                    />
+                    <div className={'characteristic'}>
+                        <h3>{`${mbtiTypeMap.get(mbtiResult)?.korean || ''} 특`}</h3>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.characteristic || '')),
+                            }}
+                        />
+                    </div>
                 </div>
 
                 <div className={'result_btn'}>
@@ -140,24 +139,25 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
                     </div>
                 </div>
 
-                <h2 className={'result_question'}>테스트가 재밌었다면.. ↓</h2>
+                <h2 className={'result_question'}>테스트가 재밌었다면!</h2>
 
                 <div className={'result_mzti'}>
-                    <MztiBigLogo />
-                    <h3>
-                        MZ세대들의 <br />
-                        MBTI 커뮤니티 구경하기
-                    </h3>
+                    <Image src={'/images/mzti_share_800_400.png'} alt={'로고'} width={320} height={160} />
                     <div className={'btn'}>
-                        <Button className="pre_button" buttonStyle={'base'} onClick={LinkCopy}>
+                        <Button className="pre_button" buttonStyle={'base'} onClick={() => router.push('/home')}>
                             MZTI 둘러보기 →
                         </Button>
-                        <Button className="pre_button" buttonStyle={'base'} onClick={LinkCopy}>
-                            ESTJ 게시판 가기 →
+                        <Button
+                            className="pre_button"
+                            buttonStyle={'base'}
+                            onClick={() => router.push(`/board/${mbtiResult}`)}
+                            style={{ background: '#545456' }}
+                        >
+                            {`${mbtiResult} 게시판 가기 →`}
                         </Button>
                     </div>
 
-                    <Link href={'/relationTest'}>
+                    <Link href={'/mypage/feedback'}>
                         <Button buttonStyle={'text'}>📮 운영진에게 건의하기</Button>
                     </Link>
 
@@ -189,6 +189,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }: an
                 index: current.properties.index.number,
                 mbti: current.properties.mbti.title[0].plain_text,
                 submit: current.properties.submit.rich_text[0].plain_text.split('\n'),
+                korean: current.properties.korean.rich_text[0].plain_text,
             },
         ];
     }, []);

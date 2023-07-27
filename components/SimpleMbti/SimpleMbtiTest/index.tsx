@@ -11,9 +11,10 @@ import { ISimpleMbtiQuestionModel, ISimpleMbtiResponseModel } from '@/types/simp
 interface ISimpleMbtiTestProps {
     step: number;
     questions: ISimpleMbtiQuestionModel[];
+    onNext: () => void;
 }
 
-const SimpleMbtiTest = ({ step, questions }: ISimpleMbtiTestProps) => {
+const SimpleMbtiTest = ({ step, questions, onNext }: ISimpleMbtiTestProps) => {
     const [simpleMbtiStateObj, setSimpleMbtiStateObj] = useRecoilState(simpleMbtiState);
 
     const isFindSimpleMbti = () => {
@@ -29,11 +30,8 @@ const SimpleMbtiTest = ({ step, questions }: ISimpleMbtiTestProps) => {
         } else {
             setSimpleMbtiStateObj([...simpleMbtiStateObj, response]);
         }
+        onNext();
     };
-
-    useEffect(() => {
-        console.log({ simpleMbtiStateObj });
-    }, [simpleMbtiStateObj]);
 
     return (
         <div css={Container}>
@@ -56,7 +54,6 @@ const SimpleMbtiTest = ({ step, questions }: ISimpleMbtiTestProps) => {
                         </label>
                     </div>
                 </fieldset>
-                VS
                 <fieldset className="input-container">
                     <input
                         className="radio-button"

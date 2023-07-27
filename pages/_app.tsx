@@ -10,7 +10,7 @@ import { RecoilRoot, MutableSnapshot } from 'recoil';
 import { myPageInfo } from '@/recoil/atom/user';
 import { Global } from '@emotion/react';
 import Layout from '@components/Layout';
-import { Modal, FCM } from '@components/Commons';
+import { Modal } from '@components/Commons';
 import { ModalStyle } from '@/components/Commons/Modal/styled';
 import globalReset from '@/styles/customReset';
 import axios from '@/utils/axios';
@@ -19,7 +19,6 @@ import { getMeUserInfo } from '@apis/user';
 import { IUserModel } from '@/types/user';
 import usePWA from '@hooks/usePWA';
 import Image from 'next/image';
-import { openToast } from '@utils/toast';
 
 declare global {
     interface Window {
