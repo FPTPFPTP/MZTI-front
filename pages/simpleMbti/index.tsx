@@ -1,27 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
-
 import MztiLogoIcon from '@assets/icons/simpleTest/mzti_logo_1.svg';
 import RightArrowIcon from '@assets/icons/simpleTest/right_arrow.svg';
 import ShareIcon from '@assets/icons/simpleTest/share.svg';
 import { Button } from '@/components/Commons';
 import { LinkCopy } from '@/utils/copy';
 import { SimpleTestStyle } from '@styles/pages/simpleTestStyled';
+import { device } from '@/utils/window';
 
 const simpleMbti = () => {
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+
     const router = useRouter();
+
     const setSimpleMbtiStateObj = useSetRecoilState(simpleMbtiState);
 
     useEffect(() => {
+        setIsMobile(!!device());
         setSimpleMbtiStateObj([]);
     }, []);
 
     return (
-        <div css={SimpleTestStyle}>
-            <Image className={'SimpleBgImg3'} src="/images/SimpleBgImg3.png" alt={'SimpleBgImg2'} width={340} height={300} />
+        <div css={SimpleTestStyle(isMobile)}>
+            <Image className={'SimpleBgImg3'} src="/images/SimpleBgImg3.png" alt={'SimpleBgImg3'} width={340} height={300} />
 
             <div className={'logo'}>
                 <MztiLogoIcon />
@@ -31,11 +35,11 @@ const simpleMbti = () => {
                 <br /> 10초만에 간단히 해보자!
             </div>
             <div className={'title'}>
-                <span className={'text'}>10초 끝!</span>
+                <p className={'text'}>10초 끝!</p>
                 <br />
-                <span>
-                    간단 <em style={{ color: '#F56326' }}>MBTI</em> 테스트
-                </span>
+                <p>
+                    간단 <span style={{ color: '#F56326' }}>MBTI</span> 테스트
+                </p>
             </div>
 
             <div className={'action'}>

@@ -12,11 +12,11 @@ export const SimpleTestBaseStyle = css`
     margin: 0 auto;
 `;
 
-export const SimpleTestStyle = css`
+export const SimpleTestStyle = (isMobile: boolean) => css`
     ${SimpleTestBaseStyle}
     .SimpleBgImg3 {
         position: absolute;
-        top: 223px;
+        top: ${isMobile ? '205px' : '253px'};
         z-index: 16;
         width: 100%;
     }
@@ -46,7 +46,8 @@ export const SimpleTestStyle = css`
         font-weight: 700;
         line-height: 35px; /* 100% */
         letter-spacing: -1.75px;
-        span {
+        p {
+            display: inline;
             padding: 17px 40px;
             border-radius: 35px;
             background: #fff;
