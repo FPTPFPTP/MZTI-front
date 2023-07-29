@@ -5,22 +5,27 @@ export const Container = css`
     display: flex;
     flex-direction: column;
     padding: 0 20px;
+    width: 100%;
     .title {
-        font-size: 25px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 32.5px; /* 130% */
         padding: 60px 0 30px 0;
-        text-align: center;
-        color: ${colors.BLACK};
         margin: 0 !important;
-        width: 100%;
+        p {
+            color: #000;
+            text-align: center;
+            font-family: Pretendard;
+            font-size: 25px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 32.5px; /* 130% */
+            width: 100%;
+        }
     }
     .content {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        width: 100%;
         margin-top: 246px;
         gap: 20px;
         .input-container {
@@ -50,11 +55,13 @@ export const Container = css`
                 color: white;
             }
             .radio-tile-label {
-                font-size: 20px;
-                font-weight: 400;
-                line-height: 24px;
-                letter-spacing: 0em;
+                color: var(--label-color-dark-primary, #fff);
                 text-align: center;
+                font-size: 17px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 17px; /* 100% */
+                letter-spacing: -0.408px;
             }
 
             //active tile styles

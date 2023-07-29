@@ -89,6 +89,7 @@ export const SimpleTestTestStyle = (isColor: boolean) => css`
         padding: 42px 20px;
     }
     .question {
+        width: 100%;
         margin-top: 45px;
         p {
             color: #000;

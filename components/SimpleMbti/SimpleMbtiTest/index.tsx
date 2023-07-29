@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import { Typography } from 'antd';
+import React from 'react';
+import xss from 'xss';
 import { useRecoilState } from 'recoil';
 import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
+import { setConvertToHTML } from '@utils/postItem';
 import { Container } from './styled';
 import { ISimpleMbtiQuestionModel, ISimpleMbtiResponseModel } from '@/types/simpleMbti';
 /**
@@ -35,8 +36,12 @@ const SimpleMbtiTest = ({ step, questions, onNext }: ISimpleMbtiTestProps) => {
 
     return (
         <div css={Container}>
-            <Typography.Title className="title">{questions[step - 1].question}</Typography.Title>
-
+            <div
+                className="title"
+                dangerouslySetInnerHTML={{
+                    __html: xss(setConvertToHTML(questions[step - 1].question) || ''),
+                }}
+            />
             <form className="content">
                 <fieldset className="input-container">
                     <input
