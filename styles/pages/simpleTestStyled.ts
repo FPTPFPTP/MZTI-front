@@ -16,8 +16,8 @@ export const SimpleTestStyle = (isMobile: boolean) => css`
     ${SimpleTestBaseStyle}
     .SimpleBgImg3 {
         position: absolute;
-        top: ${isMobile ? '205px' : '253px'};
-        z-index: 16;
+        top: -122px;
+        z-index: 11;
         width: 100%;
     }
     .logo {
@@ -89,6 +89,7 @@ export const SimpleTestTestStyle = (isColor: boolean) => css`
         padding: 42px 20px;
     }
     .question {
+        width: 100%;
         margin-top: 45px;
         p {
             color: #000;
@@ -152,15 +153,12 @@ export const SimpleTestResultStyle = css`
         position: relative;
         width: 100%;
         margin-top: 30px;
-        color: #fff;
-        text-align: center;
-        font-family: LOTTERIA CHAB;
-        font-size: 80px;
-        font-style: normal;
-        font-weight: 400;
-        letter-spacing: 5px;
-        -webkit-text-stroke: 3px #000;
         z-index: 3;
+        img {
+            margin: 0 auto;
+            width: 250px;
+            height: 100%;
+        }
     }
     .result_submit {
         display: flex;
@@ -178,6 +176,7 @@ export const SimpleTestResultStyle = css`
             font-family: S-Core Dream;
             font-style: normal;
             line-height: normal;
+            opacity: 1;
             h2 {
                 font-size: 30px;
                 font-weight: 700;
@@ -215,6 +214,21 @@ export const SimpleTestResultStyle = css`
                 font-weight: 700;
                 margin-bottom: 30px;
             }
+        }
+        .capture {
+            width: 100%;
+            border-radius: 19px;
+            background: #fff;
+            margin: 0 30px;
+            padding: 7px 22px;
+            text-align: center;
+            color: #000;
+            text-align: center;
+            font-family: Pretendard;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
         }
     }
     .result_btn {
@@ -303,7 +317,6 @@ export const SimpleTestResultStyle = css`
                     font-style: normal;
                     font-weight: 400;
                     line-height: 50px;
-
                     letter-spacing: -0.408px;
                 }
             }

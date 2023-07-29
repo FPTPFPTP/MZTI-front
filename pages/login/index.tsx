@@ -7,7 +7,7 @@ import FacebookLogin from '@greatsumini/react-facebook-login';
 import { setToken } from '@/utils/auth';
 import { FCM } from '@components/Commons';
 import CopyText from '@assets/icons/login/copy_text.svg';
-import Logo from '@assets/icons/login/logo.svg';
+import Logo from '@assets/icons/common/logo.svg';
 import Kakao from '@assets/icons/login/kakao.svg';
 import Facebook from '@assets/icons/login/facebook.svg';
 import Link from 'next/link';
@@ -53,7 +53,7 @@ const login = () => {
         <>
             <div css={Login}>
                 <p>
-                    <Logo />
+                    <Logo width={160} height={60} />
                 </p>
                 <h1 className="login_copyText">
                     <CopyText />

@@ -25,8 +25,6 @@ const simpleMbti = () => {
 
     return (
         <div css={SimpleTestStyle(isMobile)}>
-            <Image className={'SimpleBgImg3'} src="/images/SimpleBgImg3.png" alt={'SimpleBgImg3'} width={340} height={300} />
-
             <div className={'logo'}>
                 <MztiLogoIcon />
             </div>
@@ -35,6 +33,8 @@ const simpleMbti = () => {
                 <br /> 10초만에 간단히 해보자!
             </div>
             <div className={'title'}>
+                <Image className={'SimpleBgImg3'} src="/images/SimpleBgImg3.png" alt={'SimpleBgImg3'} width={340} height={300} />
+
                 <p className={'text'}>10초 끝!</p>
                 <br />
                 <p>

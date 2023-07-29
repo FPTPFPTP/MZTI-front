@@ -81,7 +81,8 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
                 </div>
 
                 <div className={'result_title'}>
-                    <h3>{mbtiResult}</h3>
+                    {/* <h3>{mbtiResult}</h3> */}
+                    <Image src={`/simpleMbtiNames/${mbtiResult}.png`} alt={mbtiResult} width={250} height={100} />
                 </div>
                 <div className={'result_submit'}>
                     <div className={'submit'}>
@@ -101,6 +102,9 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
                                 __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.characteristic || '')),
                             }}
                         />
+                    </div>
+                    <div className={'capture'}>
+                        <p>👀 캡쳐해서 SNS에 공유해보세요!</p>
                     </div>
                 </div>
 
@@ -161,7 +165,7 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
                         <Button buttonStyle={'text'}>📮 운영진에게 건의하기</Button>
                     </Link>
 
-                    <span>total 48553</span>
+                    {/* <span>total 48553</span> */}
                 </div>
             </div>
         </NonSSRWrapper>
