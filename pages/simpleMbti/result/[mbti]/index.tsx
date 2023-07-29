@@ -102,6 +102,9 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
                             }}
                         />
                     </div>
+                    <div className={'capture'}>
+                        <p>👀 캡쳐해서 SNS에 공유해보세요!</p>
+                    </div>
                 </div>
 
                 <div className={'result_btn'}>
@@ -161,7 +164,7 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
                         <Button buttonStyle={'text'}>📮 운영진에게 건의하기</Button>
                     </Link>
 
-                    <span>total 48553</span>
+                    {/* <span>total 48553</span> */}
                 </div>
             </div>
         </NonSSRWrapper>

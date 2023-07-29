@@ -179,6 +179,7 @@ export const SimpleTestResultStyle = css`
             font-family: S-Core Dream;
             font-style: normal;
             line-height: normal;
+            opacity: 1;
             h2 {
                 font-size: 30px;
                 font-weight: 700;
@@ -216,6 +217,21 @@ export const SimpleTestResultStyle = css`
                 font-weight: 700;
                 margin-bottom: 30px;
             }
+        }
+        .capture {
+            width: 100%;
+            border-radius: 19px;
+            background: #fff;
+            margin: 0 30px;
+            padding: 7px 22px;
+            text-align: center;
+            color: #000;
+            text-align: center;
+            font-family: Pretendard;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
         }
     }
     .result_btn {
