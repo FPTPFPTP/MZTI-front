@@ -81,7 +81,8 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
                 </div>
 
                 <div className={'result_title'}>
-                    <h3>{mbtiResult}</h3>
+                    {/* <h3>{mbtiResult}</h3> */}
+                    <Image src={`/simpleMbtiNames/${mbtiResult}.png`} alt={mbtiResult} width={250} height={100} />
                 </div>
                 <div className={'result_submit'}>
                     <div className={'submit'}>

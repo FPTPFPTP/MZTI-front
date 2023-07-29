@@ -16,8 +16,8 @@ export const SimpleTestStyle = (isMobile: boolean) => css`
     ${SimpleTestBaseStyle}
     .SimpleBgImg3 {
         position: absolute;
-        top: ${isMobile ? '205px' : '253px'};
-        z-index: 16;
+        top: -122px;
+        z-index: 11;
         width: 100%;
     }
     .logo {
@@ -153,15 +153,12 @@ export const SimpleTestResultStyle = css`
         position: relative;
         width: 100%;
         margin-top: 30px;
-        color: #fff;
-        text-align: center;
-        font-family: LOTTERIA CHAB;
-        font-size: 80px;
-        font-style: normal;
-        font-weight: 400;
-        letter-spacing: 5px;
-        -webkit-text-stroke: 3px #000;
         z-index: 3;
+        img {
+            margin: 0 auto;
+            width: 250px;
+            height: 100%;
+        }
     }
     .result_submit {
         display: flex;
@@ -320,7 +317,6 @@ export const SimpleTestResultStyle = css`
                     font-style: normal;
                     font-weight: 400;
                     line-height: 50px;
-
                     letter-spacing: -0.408px;
                 }
             }
