@@ -75,7 +75,7 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
 
                 <div className={'result_question1'}>
                     <h3>
-                        30초만에 판단한 <br />
+                        10초만에 판단한 <br />
                         당신의 MBTI는?
                     </h3>
                 </div>

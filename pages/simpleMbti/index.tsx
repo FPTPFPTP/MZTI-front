@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
@@ -33,8 +32,6 @@ const simpleMbti = () => {
                 <br /> 10초만에 간단히 해보자!
             </div>
             <div className={'title'}>
-                <Image className={'SimpleBgImg3'} src="/images/SimpleBgImg3.png" alt={'SimpleBgImg3'} width={340} height={300} />
-
                 <p className={'text'}>10초 끝!</p>
                 <br />
                 <p>
