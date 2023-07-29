@@ -22,9 +22,9 @@ const FeedHeader = ({ isCurrentScrollTop, categoryId }: IFeedHeaderProps) => {
                 <div className="header">
                     <div className="header-contents-inner">
                         <div className="header-contents__left">
-                            <h1 className="logo">
-                                <Logo />
-                            </h1>
+                            <div className="logo">
+                                <Logo width={100} height={30} />
+                            </div>
 
                             <div className="right">
                                 {isCurrentScrollTop === false && (
