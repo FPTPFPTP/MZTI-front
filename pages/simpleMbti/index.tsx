@@ -1,30 +1,57 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
+import MztiLogoIcon from '@assets/icons/simpleTest/mzti_logo_1.svg';
+import RightArrowIcon from '@assets/icons/simpleTest/right_arrow.svg';
+import ShareIcon from '@assets/icons/simpleTest/share.svg';
 import { Button } from '@/components/Commons';
 import { LinkCopy } from '@/utils/copy';
 import { SimpleTestStyle } from '@styles/pages/simpleTestStyled';
+import { device } from '@/utils/window';
 
 const simpleMbti = () => {
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+
+    const router = useRouter();
+
+    const setSimpleMbtiStateObj = useSetRecoilState(simpleMbtiState);
+
+    useEffect(() => {
+        setIsMobile(!!device());
+        setSimpleMbtiStateObj([]);
+    }, []);
+
     return (
-        <div css={SimpleTestStyle}>
-            <div className={'intro'}>
-                <p>MBTI 검사 개귀찮다면? 👎❣️</p>
-                <p>내 MBTI는 멀까? ❣️</p>
+        <div css={SimpleTestStyle(isMobile)}>
+            <Image className={'SimpleBgImg3'} src="/images/SimpleBgImg3.png" alt={'SimpleBgImg3'} width={340} height={300} />
+
+            <div className={'logo'}>
+                <MztiLogoIcon />
             </div>
-            <h2 className={'title'}>
-                초(완전)! 간단(30초?)!
+            <div className={'intro'}>
+                10분 걸리는 MBTI 검사,
+                <br /> 10초만에 간단히 해보자!
+            </div>
+            <div className={'title'}>
+                <p className={'text'}>10초 끝!</p>
                 <br />
-                MBTI 확인하기!
-            </h2>
+                <p>
+                    간단 <span style={{ color: '#F56326' }}>MBTI</span> 테스트
+                </p>
+            </div>
+
             <div className={'action'}>
-                <Link href={'/simpleMbti/test'}>
-                    <Button buttonStyle="base">초간단 MBTI 알아보기</Button>
-                </Link>
-                <Button buttonStyle="base" onClick={LinkCopy}>
+                <Button buttonStyle="base" onClick={() => router.push('/simpleMbti/test')}>
+                    바로 테스트하기
+                    <RightArrowIcon />
+                </Button>
+                <Button buttonStyle="base" onClick={LinkCopy} style={{ background: '#86888D' }}>
                     테스트 공유하기
+                    <ShareIcon />
                 </Button>
             </div>
-            {/* <Button buttonStyle="text">내 MBTI를 모른다면?</Button> */}
         </div>
     );
 };

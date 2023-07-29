@@ -10,12 +10,12 @@ export const ProgressLineBarContainer = css`
     gap: 16px;
 `;
 
-export const ProgressBar = css`
+export const ProgressBar = (color?: string) => css`
     width: 32%;
     height: 100%;
     background: #d9d9d9;
     border-radius: 10px;
     &.active {
-        background: #8c939f;
+        background: ${color ? color : '#8c939f'};
     }
 `;

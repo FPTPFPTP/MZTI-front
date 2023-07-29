@@ -1,12 +1,13 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { simpleMbtiState } from '@/recoil/atom/simpleMbti';
-import { Button, ProgressLineBar } from '@/components/Commons';
+import MztiLogoIcon from '@assets/icons/common/mzti_default_logo.svg';
 import { SimpleMbtiTest } from '@/components/SimpleMbti';
+import { Button, ProgressLineBar } from '@/components/Commons';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
-import { RelationTestWrapStyle, RelationTestLodingStyle, RelationTestBodyStyle, RelationTestFooterStyle } from '@styles/pages/relationTestStyled';
+import { SimpleTestTestStyle } from '@styles/pages/simpleTestStyled';
 import { ISimpleMbtiQuestionModel } from '@/types/simpleMbti';
 
 const Test = () => {
@@ -36,44 +37,6 @@ const Test = () => {
         },
     ];
 
-    // 다음단계 버튼 활성화
-    const isError = useMemo(() => {
-        switch (stepActive) {
-            case 1: {
-                if (simpleMbtiStateObj.find((simpleMbti) => simpleMbti.value === 'E' || simpleMbti.value === 'I')) {
-                    return false;
-                }
-                return true;
-            }
-            case 2: {
-                if (simpleMbtiStateObj.find((simpleMbti) => simpleMbti.value === 'N' || simpleMbti.value === 'S')) {
-                    return false;
-                }
-
-                return true;
-            }
-            case 3: {
-                if (simpleMbtiStateObj.find((simpleMbti) => simpleMbti.value === 'T' || simpleMbti.value === 'F')) {
-                    return false;
-                }
-
-                return true;
-            }
-
-            case 4: {
-                if (simpleMbtiStateObj.find((simpleMbti) => simpleMbti.value === 'J' || simpleMbti.value === 'P')) {
-                    return false;
-                }
-
-                return true;
-            }
-
-            default: {
-                return true;
-            }
-        }
-    }, [stepActive, simpleMbtiStateObj]);
-
     const onPrev = () => {
         if (stepActive <= 1) {
             return;
@@ -89,7 +52,7 @@ const Test = () => {
         if (stepActive === 4) {
             setIsLoading(true);
         }
-        setStepActive((prev) => prev + 1);
+        setTimeout(() => setStepActive((prev) => prev + 1), 1000);
     };
 
     useEffect(() => {
@@ -117,28 +80,26 @@ const Test = () => {
 
     return (
         <NonSSRWrapper>
-            <div css={RelationTestWrapStyle}>
+            <div css={SimpleTestTestStyle(isLoading)}>
+                <div className={'step'}>
+                    <ProgressLineBar color={'#F56326'} percent={stepActive} totalStep={4} />
+                </div>
                 {isLoading ? (
-                    <div css={RelationTestLodingStyle}>
-                        <h1>
-                            야매 MBTI
-                            <br />
-                            측정 하는 중
-                        </h1>
-                        <Image className={'logo'} src="/images/mzti_logo.png" alt={'logo'} width={90} height={45} />
+                    <div className={'loading'}>
+                        <h2>간단 MBTI 테스트</h2>
+                        <p>결과 확인 중</p>
+                        <Image src={'/images/loading.gif'} alt={'로딩'} width={60} height={60} />
+                        <MztiLogoIcon />
                     </div>
                 ) : (
                     <>
-                        <div css={RelationTestBodyStyle}>
-                            <ProgressLineBar percent={stepActive} totalStep={4} />
-                            <SimpleMbtiTest step={stepActive} questions={questions} />
+                        <div className={'question'}>
+                            <p>{`Q${stepActive}`}</p>
+                            <SimpleMbtiTest step={stepActive} questions={questions} onNext={onNext} />
                         </div>
-                        <div css={RelationTestFooterStyle}>
+                        <div className={'footer'}>
                             <Button className="pre_button" buttonStyle={'text'} disabled={stepActive === 1 ? true : false} onClick={onPrev}>
                                 이전단계로
-                            </Button>
-                            <Button buttonStyle={'base'} disabled={isError} onClick={onNext}>
-                                {stepActive === 4 ? 'MBTI 확인하기' : '다음 단계로'}
                             </Button>
                         </div>
                     </>

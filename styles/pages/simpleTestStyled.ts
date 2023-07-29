@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 export const SimpleTestBaseStyle = css`
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,49 +12,135 @@ export const SimpleTestBaseStyle = css`
     margin: 0 auto;
 `;
 
-export const SimpleTestStyle = css`
+export const SimpleTestStyle = (isMobile: boolean) => css`
     ${SimpleTestBaseStyle}
+    .SimpleBgImg3 {
+        position: absolute;
+        top: ${isMobile ? '205px' : '253px'};
+        z-index: 16;
+        width: 100%;
+    }
+    .logo {
+        margin-bottom: 20px;
+    }
     .intro {
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 18px;
-        letter-spacing: 0em;
+        color: #545456;
         text-align: center;
-        margin-bottom: 57px;
+        font-family: S-Core Dream;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 19.5px; /* 130% */
+        letter-spacing: -0.45px;
+        margin-bottom: 100px;
     }
     .title {
-        font-size: 30px;
-        font-weight: 400;
-        line-height: 36px;
-        letter-spacing: 0em;
+        position: relative;
+        z-index: 9;
+        margin-bottom: 103px;
+        color: #1b1e26;
         text-align: center;
-        margin-bottom: 170px;
+        font-family: S-Core Dream;
+        font-size: 35px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 35px; /* 100% */
+        letter-spacing: -1.75px;
+        p {
+            display: inline;
+            padding: 17px 40px;
+            border-radius: 35px;
+            background: #fff;
+        }
+        .text {
+            position: relative;
+            z-index: 10;
+            top: -21px;
+        }
     }
     .action {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 60%;
+        width: 100%;
         gap: 10px;
+        padding: 0 20px;
         margin-bottom: 90px;
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+`;
+
+export const SimpleTestTestStyle = (isColor: boolean) => css`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    min-height: 100vh;
+    background: ${isColor ? '#fffade' : '#fff'};
+    margin: 0 auto;
+    .step {
+        width: 100%;
+        padding: 42px 20px;
+    }
+    .question {
+        margin-top: 45px;
+        p {
+            color: #000;
+            text-align: center;
+            font-family: LOTTERIA CHAB;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+    .footer {
+        width: 100%;
+        padding: 20px;
+    }
+    .loading {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 207px;
+        h2 {
+            color: #1b1e26;
+            text-align: center;
+            font-family: S-Core Dream;
+            font-size: 35px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 35px; /* 100% */
+            letter-spacing: -1.75px;
+        }
+        p {
+            margin-top: 15px;
+            color: #000;
+            text-align: center;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 32.5px; /* 162.5% */
+        }
+        img {
+            margin-top: 37px;
+            margin-bottom: 177px;
+        }
     }
 `;
 
 export const SimpleTestResultStyle = css`
     ${SimpleTestBaseStyle}
-    padding: 20px;
+    padding: 38px 20px;
     .logo {
         margin-bottom: 11px;
-    }
-    .SimpleBgImg1 {
-        position: absolute;
-        top: 73px;
-        z-index: 2;
-    }
-    .SimpleBgImg2 {
-        position: absolute;
-        top: 1100px;
-        z-index: 2;
     }
     .result_question {
         font-size: 20px;
@@ -120,8 +207,14 @@ export const SimpleTestResultStyle = css`
             text-align: center;
             font-size: 13px;
             font-style: normal;
-            font-weight: 700;
+            font-weight: 400;
             line-height: 16.9px; /* 130% */
+            h3 {
+                font-size: 16px;
+                color: #000;
+                font-weight: 700;
+                margin-bottom: 30px;
+            }
         }
     }
     .result_btn {
@@ -131,7 +224,7 @@ export const SimpleTestResultStyle = css`
         position: relative;
         gap: 10px;
         width: 100%;
-        margin-bottom: 65px;
+        margin-bottom: 30px;
         font-size: 13px;
         font-weight: 400;
         line-height: 16px;
@@ -219,12 +312,21 @@ export const SimpleTestResultStyle = css`
     .result_question {
         color: #1b1e26;
         text-align: center;
+        font-family: Pretendard;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-bottom: 17px;
+    }
+    .result_question1 {
+        color: #000;
+        text-align: center;
         font-family: S-Core Dream;
         font-size: 20px;
         font-style: normal;
-        font-weight: 800;
+        font-weight: 700;
         line-height: normal;
-        margin-bottom: 17px;
     }
     .result_mzti {
         display: flex;
@@ -234,6 +336,13 @@ export const SimpleTestResultStyle = css`
         padding: 44px 20px 34px;
         border-radius: 20px;
         background: #f56326;
+        img {
+            width: 100%;
+            height: 160px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 3px solid #000;
+        }
         h3 {
             color: #000;
             text-align: center;
