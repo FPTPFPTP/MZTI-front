@@ -65,11 +65,18 @@ const mypage = () => {
             <div css={MypageWrap}>
                 <header className="mypage_header">
                     <h1>마이페이지</h1>
-                    {myInfo && (
-                        <Link href="/mypage/edit" className="edit">
-                            <EditSvg />
-                        </Link>
-                    )}
+                    <div className="buttons">
+                        {['SUPER_ADMIN_ROLE', 'ADMIN_ROLE'].includes(myInfo?.role || '') && (
+                            <Link href="/admin" className="admin">
+                                Admin
+                            </Link>
+                        )}
+                        {myInfo && (
+                            <Link href="/mypage/edit" className="edit">
+                                <EditSvg />
+                            </Link>
+                        )}
+                    </div>
                 </header>
                 {myInfo ? (
                     <div className="profileWrap">
