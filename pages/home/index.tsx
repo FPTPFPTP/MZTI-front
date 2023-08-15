@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { Input, Modal } from '@components/Commons';
+import { Input, Modal, HeadMeta } from '@components/Commons';
 import { postEditState } from '@/recoil/atom/post';
 import { homeListTabState } from '@/recoil/atom/homeListTab';
 import { prevScrollState } from '@/recoil/atom/scroll';
@@ -87,58 +87,61 @@ const home = () => {
     }, [router.pathname]);
 
     return (
-        <main className="homeLayout">
-            {/* 헤더 */}
-            <FeedHeader isCurrentScrollTop={isCurrentScrollTop} />
+        <>
+            <HeadMeta url={router.asPath} />
+            <main className="homeLayout">
+                {/* 헤더 */}
+                <FeedHeader isCurrentScrollTop={isCurrentScrollTop} />
 
-            <div css={FeedContentStyle} id={'feedContent'}>
-                <div css={SearchWrapStyle}>
-                    <Input inputStyle={'search'} placeholder={'관심있는 MBTI, 키워드, 이슈 검색'} onClick={() => router.push(`/search`)} />
-                </div>
-                {/* 인기 게시판 & 전체 게시판 */}
-                <ListTab categoryId={countIndex} handleCategoryId={(id) => setCountIndex(id)} />
-
-                {/* 핫토픽 키워드 */}
-                <HotKeyword title="🔥 실시간 HOT 키워드" more={true} />
-
-                {/* 피드 게시물 */}
-                {isLoading ? (
-                    <>
-                        <FeedSkeleton />
-                        <FeedSkeleton />
-                        <FeedSkeleton />
-                    </>
-                ) : (
-                    <>
-                        {data && data.pages.length && data.pages[0].list.length !== 0 ? (
-                            <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                                <FeedItem data={data} openDrawer={openDrawer} />
-                            </InfiniteScroll>
-                        ) : (
-                            <Empty icon={<EmptyWrite />} title="작성된 글이 없습니다." subTitle={`게시글을 작성해주세요`} />
-                        )}
-                    </>
-                )}
-            </div>
-            {/* 메뉴 */}
-            <BottomMenu />
-
-            <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
-
-            <Modal title={'로그인이 필요한 기능입니다'} isModalVisible={isLogoutModal} closable={false} footer={null} centered={true}>
-                <div css={ModalStyle}>
-                    <p>회원가입이나 로그인을 해주세요.</p>
-                    <div className="buttons">
-                        <button onClick={() => setIsLogoutModal(false)} className="button cancel">
-                            취소
-                        </button>
-                        <button onClick={handleLogin} className="button">
-                            확인
-                        </button>
+                <div css={FeedContentStyle} id={'feedContent'}>
+                    <div css={SearchWrapStyle}>
+                        <Input inputStyle={'search'} placeholder={'관심있는 MBTI, 키워드, 이슈 검색'} onClick={() => router.push(`/search`)} />
                     </div>
+                    {/* 인기 게시판 & 전체 게시판 */}
+                    <ListTab categoryId={countIndex} handleCategoryId={(id) => setCountIndex(id)} />
+
+                    {/* 핫토픽 키워드 */}
+                    <HotKeyword title="🔥 실시간 HOT 키워드" more={true} />
+
+                    {/* 피드 게시물 */}
+                    {isLoading ? (
+                        <>
+                            <FeedSkeleton />
+                            <FeedSkeleton />
+                            <FeedSkeleton />
+                        </>
+                    ) : (
+                        <>
+                            {data && data.pages.length && data.pages[0].list.length !== 0 ? (
+                                <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
+                                    <FeedItem data={data} openDrawer={openDrawer} />
+                                </InfiniteScroll>
+                            ) : (
+                                <Empty icon={<EmptyWrite />} title="작성된 글이 없습니다." subTitle={`게시글을 작성해주세요`} />
+                            )}
+                        </>
+                    )}
                 </div>
-            </Modal>
-        </main>
+                {/* 메뉴 */}
+                <BottomMenu />
+
+                <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
+
+                <Modal title={'로그인이 필요한 기능입니다'} isModalVisible={isLogoutModal} closable={false} footer={null} centered={true}>
+                    <div css={ModalStyle}>
+                        <p>회원가입이나 로그인을 해주세요.</p>
+                        <div className="buttons">
+                            <button onClick={() => setIsLogoutModal(false)} className="button cancel">
+                                취소
+                            </button>
+                            <button onClick={handleLogin} className="button">
+                                확인
+                            </button>
+                        </div>
+                    </div>
+                </Modal>
+            </main>
+        </>
     );
 };
 
