@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { ModalStyle } from '@/components/Commons/Modal/styled';
 import classNames from 'classnames';
 import MbtiJson from '@/constants/mbti.json';
-import { Modal, Tag } from '@components/Commons';
+import { Modal, Tag, HeadMeta } from '@components/Commons';
 import { DefaultModeResult, DefaultModeViewer, SurveyType, ESurveyTypes } from '@khunjeong/basic-survey-template';
 import { useMutation } from '@tanstack/react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -265,124 +265,132 @@ const postDetail = ({ data, commentData }: IPostDetailProps) => {
     };
 
     return (
-        <main className="homeLayout" ref={scrollRef}>
-            {postData && (
-                <>
-                    {/* 헤더 */}
-                    <Header
-                        onClickBackButton={onBackPage}
-                        title={postData.categoryName}
-                        rightElement={
-                            <div className="right" css={BookMarkIconStyle}>
-                                <button onClick={handleBookMark} className={classNames(postData?.bookmark.check ? 'fill' : 'notFill')}>
-                                    {postData?.bookmark.check ? <FillBookMarkIcon /> : <BookMarkIcon />}
-                                </button>
-                            </div>
-                        }
-                        isBgWhite={true}
-                        isBorderLine={true}
-                    />
-                    <div css={PostContentStyle}>
-                        {postData && (
-                            <div css={PostStyle}>
-                                <div className="postHeaderWrap">
-                                    <h3 className="postTitle">{postData.title}</h3>
-                                    <p className="time">{timeForToday(postData.createAt)}</p>
-                                    <ItemHeader
-                                        detailPage={true}
-                                        writer={postData.writer}
-                                        createAt={postData.updateAt}
-                                        openDrawer={() => {
-                                            openDrawer(
-                                                postData.id,
-                                                myInfo?.id === postData.writer.userId ? EActionEditType.WRITE : EActionEditType.WRITET_TIPOFF,
-                                            );
-                                        }}
-                                    />
+        <>
+            <HeadMeta title={postData?.title} url={router.asPath} />
+            <main className="homeLayout" ref={scrollRef}>
+                {postData && (
+                    <>
+                        {/* 헤더 */}
+                        <Header
+                            onClickBackButton={onBackPage}
+                            title={postData.categoryName}
+                            rightElement={
+                                <div className="right" css={BookMarkIconStyle}>
+                                    <button onClick={handleBookMark} className={classNames(postData?.bookmark.check ? 'fill' : 'notFill')}>
+                                        {postData?.bookmark.check ? <FillBookMarkIcon /> : <BookMarkIcon />}
+                                    </button>
                                 </div>
-
-                                {postData.categoryId === 23 ? (
-                                    <ul css={MbtiContent}>
-                                        {mbtis
-                                            .filter((item) => factContent[item.title] !== '')
-                                            .map((item) => {
-                                                return (
-                                                    <li key={item.title}>
-                                                        <h4 style={{ background: getMbtiColor(item.title) }}>{item.title}</h4>
-                                                        <p>{factContent[item.title]}</p>
-                                                    </li>
+                            }
+                            isBgWhite={true}
+                            isBorderLine={true}
+                        />
+                        <div css={PostContentStyle}>
+                            {postData && (
+                                <div css={PostStyle}>
+                                    <div className="postHeaderWrap">
+                                        <h3 className="postTitle">{postData.title}</h3>
+                                        <p className="time">{timeForToday(postData.createAt)}</p>
+                                        <ItemHeader
+                                            detailPage={true}
+                                            writer={postData.writer}
+                                            createAt={postData.updateAt}
+                                            openDrawer={() => {
+                                                openDrawer(
+                                                    postData.id,
+                                                    myInfo?.id === postData.writer.userId ? EActionEditType.WRITE : EActionEditType.WRITET_TIPOFF,
                                                 );
-                                            })}
-                                    </ul>
-                                ) : (
-                                    <ToastViewer contentHtml={postData.content} />
-                                )}
-
-                                {surveyData.map((survey) => (
-                                    <div key={survey.id}>
-                                        {dayjs() > dayjs(survey.endDate) ? (
-                                            <DefaultModeResult survey={survey} onSubmit={onPoll} />
-                                        ) : survey.self ? (
-                                            <DefaultModeResult survey={survey} onSubmit={onPoll} />
-                                        ) : (
-                                            <DefaultModeViewer survey={survey} onSubmit={onPoll} />
-                                        )}
-                                    </div>
-                                ))}
-                                <div className="postTags">
-                                    {postData.tags.map((tag) => (
-                                        <Tag
-                                            key={tag.id}
-                                            title={tag.tag}
-                                            onClick={() => {
-                                                console.log({ tag });
                                             }}
                                         />
+                                    </div>
+
+                                    {postData.categoryId === 23 ? (
+                                        <ul css={MbtiContent}>
+                                            {mbtis
+                                                .filter((item) => factContent[item.title] !== '')
+                                                .map((item) => {
+                                                    return (
+                                                        <li key={item.title}>
+                                                            <h4 style={{ background: getMbtiColor(item.title) }}>{item.title}</h4>
+                                                            <p>{factContent[item.title]}</p>
+                                                        </li>
+                                                    );
+                                                })}
+                                        </ul>
+                                    ) : (
+                                        <ToastViewer contentHtml={postData.content} />
+                                    )}
+
+                                    {surveyData.map((survey) => (
+                                        <div key={survey.id}>
+                                            {dayjs() > dayjs(survey.endDate) ? (
+                                                <DefaultModeResult survey={survey} onSubmit={onPoll} />
+                                            ) : survey.self ? (
+                                                <DefaultModeResult survey={survey} onSubmit={onPoll} />
+                                            ) : (
+                                                <DefaultModeViewer survey={survey} onSubmit={onPoll} />
+                                            )}
+                                        </div>
                                     ))}
+                                    <div className="postTags">
+                                        {postData.tags.map((tag) => (
+                                            <Tag
+                                                key={tag.id}
+                                                title={tag.tag}
+                                                onClick={() => {
+                                                    console.log({ tag });
+                                                }}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            <ItemFooter
+                                postId={postData.id}
+                                className="postFooter"
+                                like={postData.like.count === 0 ? '좋아요' : postData.like?.count}
+                                command={postData.command.count}
+                                isFeed={false}
+                                viewCount={postData.viewCount}
+                                likeCheck={postData.like.check}
+                            />
+
+                            <FeedComents
+                                isLastPage={commentData.totalPage === pageParam}
+                                commentData={comments}
+                                postWriterId={postData?.writer.nickname}
+                                handleRefrash={handleRefrash}
+                                handleMoreComment={handleMoreComment}
+                                openDrawer={openDrawer}
+                            />
+                        </div>
+
+                        <CommentInput
+                            editComment={editComment}
+                            onAddComment={AddComment}
+                            onEditComment={PutComment}
+                            onCancle={() => setEditComment(undefined)}
+                        />
+
+                        <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
+
+                        <Modal title={'로그인이 필요한 기능입니다'} isModalVisible={isLogoutModal} closable={false} footer={null} centered={true}>
+                            <div css={ModalStyle}>
+                                <p>회원가입이나 로그인을 해주세요.</p>
+                                <div className="buttons">
+                                    <button onClick={() => setIsLogoutModal(false)} className="button cancel">
+                                        취소
+                                    </button>
+                                    <button onClick={handleLogin} className="button">
+                                        확인
+                                    </button>
                                 </div>
                             </div>
-                        )}
-
-                        <ItemFooter
-                            postId={postData.id}
-                            className="postFooter"
-                            like={postData.like.count === 0 ? '좋아요' : postData.like?.count}
-                            command={postData.command.count}
-                            isFeed={false}
-                            viewCount={postData.viewCount}
-                            likeCheck={postData.like.check}
-                        />
-
-                        <FeedComents
-                            isLastPage={commentData.totalPage === pageParam}
-                            commentData={comments}
-                            postWriterId={postData?.writer.nickname}
-                            handleRefrash={handleRefrash}
-                            handleMoreComment={handleMoreComment}
-                            openDrawer={openDrawer}
-                        />
-                    </div>
-
-                    <CommentInput editComment={editComment} onAddComment={AddComment} onEditComment={PutComment} onCancle={() => setEditComment(undefined)} />
-
-                    <MoreDrawer isVisible={isDrawerVisible} onClose={closeDrawer} handleTargetEdit={onTargetEdit} handleTargetDelete={onTargetDelete} />
-
-                    <Modal title={'로그인이 필요한 기능입니다'} isModalVisible={isLogoutModal} closable={false} footer={null} centered={true}>
-                        <div css={ModalStyle}>
-                            <p>회원가입이나 로그인을 해주세요.</p>
-                            <div className="buttons">
-                                <button onClick={() => setIsLogoutModal(false)} className="button cancel">
-                                    취소
-                                </button>
-                                <button onClick={handleLogin} className="button">
-                                    확인
-                                </button>
-                            </div>
-                        </div>
-                    </Modal>
-                </>
-            )}
-        </main>
+                        </Modal>
+                    </>
+                )}
+            </main>
+        </>
     );
 };
 
