@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
     return (
-        <Html lang="en">
+        <Html lang="kr">
             <Head>
                 <link rel="manifest" href="/manifest.json" />
                 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
@@ -58,15 +58,13 @@ export default function Document() {
                     media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
                     rel="apple-touch-startup-image"
                 />
-                <meta name="msapplication-TileColor" content="#ffffff" />
+                <meta name="msapplication-TileColor" content="#FFFADE" />
                 <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png" />
-                <meta name="theme-color" content="#ffffff" />
-                <meta name="MZTI | MBTI에 과몰입할 MZ세대들 모여라!" content="MZ세대들의 MBTI 과몰입 커뮤니티" />
-                <meta
-                    property="og:image"
-                    content={`https://lh3.googleusercontent.com/u/0/drive-viewer/AITFw-zgy8Hf2fMDb5iv06G5u8MCAU3xf0R6t5G8P3lmBa2DgcROz5e_QFMu6J6h4V0Ln8jjgG37La0_ELJWUIVfXWsgTjL-qw=w3360-h1702`}
-                />
-                <meta property="og:description" content="🅼🆉🆃🅸 | MBTI에 과몰입할 MZ세대들 모여라! | MBTI 뇌절 콘텐츠, MBTI 궁합, MBTI 짤 등" />
+                <meta name="theme-color" content="#FFFADE" />
+                <meta property="og:type" content="website" />
+                <meta property="og:locale" content="ko_KR" />
+                <meta name="twitter:creator" content="mzti" />
+                <meta name="keywords" content="mzti,mbti,mz" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
