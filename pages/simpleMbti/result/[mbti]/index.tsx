@@ -7,7 +7,7 @@ import { Client } from '@notionhq/client';
 import xss from 'xss';
 import { useRecoilState } from 'recoil';
 import NonSSRWrapper from '@components/Layout/NonSSRWrapper';
-import { Button } from '@/components/Commons';
+import { Button, HeadMeta } from '@/components/Commons';
 import { Share } from '@/components/SimpleMbti';
 import { setConvertToHTML } from '@/utils/postItem';
 import { SimpleTestResultStyle } from '@styles/pages/simpleTestStyled';
@@ -69,106 +69,109 @@ const Result = ({ mbtiTypeObj, mbti }: IResultProps) => {
     }, [mbti]);
 
     return (
-        <NonSSRWrapper>
-            <div css={SimpleTestResultStyle}>
-                <Image className={'logo'} src={'/images/mzti_logo_color.png'} alt={'로고'} width={92} height={40} />
+        <>
+            <HeadMeta title={`10초 테스트 결과 [${mbtiResult}]`} description={mbtiTypeMap.get(mbtiResult)?.submit[1]} url={router.asPath} />
+            <NonSSRWrapper>
+                <div css={SimpleTestResultStyle}>
+                    <Image className={'logo'} src={'/images/mzti_logo_color.png'} alt={'로고'} width={92} height={40} />
 
-                <div className={'result_question1'}>
-                    <h3>
-                        10초만에 판단한 <br />
-                        당신의 MBTI는?
-                    </h3>
-                </div>
-
-                <div className={'result_title'}>
-                    {/* <h3>{mbtiResult}</h3> */}
-                    <Image src={`/simpleMbtiNames/${mbtiResult}.png`} alt={mbtiResult} width={250} height={100} />
-                </div>
-                <div className={'result_submit'}>
-                    <div className={'submit'}>
-                        <h3>{mbtiTypeMap.get(mbtiResult)?.submit[0] || ''}</h3>
-                        <h2>{mbtiTypeMap.get(mbtiResult)?.submit[1] || ''}</h2>
+                    <div className={'result_question1'}>
+                        <h3>
+                            10초만에 판단한 <br />
+                            당신의 MBTI는?
+                        </h3>
                     </div>
-                    <div
-                        className={'hashTag'}
-                        dangerouslySetInnerHTML={{
-                            __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.hashTag || '')),
-                        }}
-                    />
-                    <div className={'characteristic'}>
-                        <h3>{`${mbtiTypeMap.get(mbtiResult)?.korean || ''} 특`}</h3>
+
+                    <div className={'result_title'}>
+                        {/* <h3>{mbtiResult}</h3> */}
+                        <Image src={`/simpleMbtiNames/${mbtiResult}.png`} alt={mbtiResult} width={250} height={100} />
+                    </div>
+                    <div className={'result_submit'}>
+                        <div className={'submit'}>
+                            <h3>{mbtiTypeMap.get(mbtiResult)?.submit[0] || ''}</h3>
+                            <h2>{mbtiTypeMap.get(mbtiResult)?.submit[1] || ''}</h2>
+                        </div>
                         <div
+                            className={'hashTag'}
                             dangerouslySetInnerHTML={{
-                                __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.characteristic || '')),
+                                __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.hashTag || '')),
                             }}
                         />
-                    </div>
-                    <div className={'capture'}>
-                        <p>👀 캡쳐해서 SNS에 공유해보세요!</p>
-                    </div>
-                </div>
-
-                <div className={'result_btn'}>
-                    <h3>테스트 결과 공유하기.. ↓</h3>
-                    <div className="share">
-                        <Share title={`30초만에 판단한 내 MBTI는?? [[${mbtiResult}]]`} />
-                    </div>
-                    <Button buttonStyle={'base'} onClick={() => router.push('/simpleMbti')}>
-                        테스트 한 번 더해보기
-                    </Button>
-                    <a
-                        href={'https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <Button buttonStyle={'text'}>공식사이트에서 MBTI 검사해보기</Button>
-                    </a>
-                </div>
-
-                <div className={'result_famous'}>
-                    <h3>{`${mbtiResult} 대표 유명인은?`}</h3>
-                    <div className={'famous'}>
-                        <div>
-                            <p>맞아요</p>
-                            <p className="icon">😄</p>
-
-                            <h3>{mbtiTypeMap.get(mbtiResult)?.famous[0] || ''}</h3>
+                        <div className={'characteristic'}>
+                            <h3>{`${mbtiTypeMap.get(mbtiResult)?.korean || ''} 특`}</h3>
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: xss(setConvertToHTML(mbtiTypeMap.get(mbtiResult)?.characteristic || '')),
+                                }}
+                            />
                         </div>
-                        <div>
-                            <p>의외에요</p>
-                            <p className="icon">😲</p>
-
-                            <h3>{mbtiTypeMap.get(mbtiResult)?.famous[1] || ''}</h3>
+                        <div className={'capture'}>
+                            <p>👀 캡쳐해서 SNS에 공유해보세요!</p>
                         </div>
                     </div>
-                </div>
 
-                <h2 className={'result_question'}>테스트가 재밌었다면!</h2>
-
-                <div className={'result_mzti'}>
-                    <Image src={'/images/mzti_share_800_400.png'} alt={'로고'} width={320} height={160} />
-                    <div className={'btn'}>
-                        <Button className="pre_button" buttonStyle={'base'} onClick={() => router.push('/home')}>
-                            MZTI 둘러보기 →
+                    <div className={'result_btn'}>
+                        <h3>테스트 결과 공유하기.. ↓</h3>
+                        <div className="share">
+                            <Share title={`10초만에 판단한 내 MBTI는?? [[${mbtiResult}]]`} />
+                        </div>
+                        <Button buttonStyle={'base'} onClick={() => router.push('/simpleMbti')}>
+                            테스트 한 번 더해보기
                         </Button>
-                        <Button
-                            className="pre_button"
-                            buttonStyle={'base'}
-                            onClick={() => router.push(`/board/${mbtiResult}`)}
-                            style={{ background: '#545456' }}
+                        <a
+                            href={'https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC'}
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
-                            {`${mbtiResult} 게시판 가기 →`}
-                        </Button>
+                            <Button buttonStyle={'text'}>공식사이트에서 MBTI 검사해보기</Button>
+                        </a>
                     </div>
 
-                    <Link href={'/mypage/feedback'}>
-                        <Button buttonStyle={'text'}>📮 운영진에게 건의하기</Button>
-                    </Link>
+                    <div className={'result_famous'}>
+                        <h3>{`${mbtiResult} 대표 유명인은?`}</h3>
+                        <div className={'famous'}>
+                            <div>
+                                <p>맞아요</p>
+                                <p className="icon">😄</p>
 
-                    {/* <span>total 48553</span> */}
+                                <h3>{mbtiTypeMap.get(mbtiResult)?.famous[0] || ''}</h3>
+                            </div>
+                            <div>
+                                <p>의외에요</p>
+                                <p className="icon">😲</p>
+
+                                <h3>{mbtiTypeMap.get(mbtiResult)?.famous[1] || ''}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 className={'result_question'}>테스트가 재밌었다면!</h2>
+
+                    <div className={'result_mzti'}>
+                        <Image src={'/images/mzti_share_800_400.png'} alt={'로고'} width={320} height={160} />
+                        <div className={'btn'}>
+                            <Button className="pre_button" buttonStyle={'base'} onClick={() => router.push('/home')}>
+                                MZTI 둘러보기 →
+                            </Button>
+                            <Button
+                                className="pre_button"
+                                buttonStyle={'base'}
+                                onClick={() => router.push(`/board/${mbtiResult}`)}
+                                style={{ background: '#545456' }}
+                            >
+                                {`${mbtiResult} 게시판 가기 →`}
+                            </Button>
+                        </div>
+
+                        <Link href={'/mypage/feedback'}>
+                            <Button buttonStyle={'text'}>📮 운영진에게 건의하기</Button>
+                        </Link>
+
+                        {/* <span>total 48553</span> */}
+                    </div>
                 </div>
-            </div>
-        </NonSSRWrapper>
+            </NonSSRWrapper>
+        </>
     );
 };
 
