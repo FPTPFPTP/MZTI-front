@@ -15,7 +15,7 @@ import { ModalStyle } from '@/components/Commons/Modal/styled';
 import globalReset from '@/styles/customReset';
 import axios from '@/utils/axios';
 import { removeTokenAll, setCookie } from '@utils/auth';
-import { getMeUserInfo } from '@apis/user';
+import { IResponseBase } from '@/types/global';
 import { IUserModel } from '@/types/user';
 import usePWA from '@hooks/usePWA';
 import Image from 'next/image';
@@ -162,15 +162,18 @@ MyCustomApp.getInitialProps = async (appContext: AppContext) => {
     // 서버 사이드 쿠키가 남아있을 경우, 해당 쿠키로 인증 시도
     if (refreshToken && accessToken) {
         try {
-            axios.defaults.baseURL = 'https://api.mzti.kr';
+            axios.defaults.baseURL = 'http://localhost:3000/api';
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
-            const data = await getMeUserInfo();
+            const data = await axios.get<IResponseBase<IUserModel>>('/auth/user', {
+                params: {
+                    token: accessToken,
+                },
+            });
             if (!data) {
-                console.log('유저 정보가 없어요');
                 removeAllCookies();
             } else {
-                userInfo = data;
+                userInfo = data.data.data;
             }
         } catch (e) {
             console.log({ e });
