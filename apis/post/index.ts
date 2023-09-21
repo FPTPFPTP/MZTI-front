@@ -133,11 +133,9 @@ export const getPostsMe = async ({ page, view, search }: IPageObjReqModel) => {
 };
 
 export const useGetPostsMe = (search: string) => {
-    const res = useInfiniteQuery(['postsMe', search], ({ pageParam = 0 }) => getPostsMe({ page: pageParam, view: 15, search }), {
-        getNextPageParam: (lastPage) => {
-            const nextPage = lastPage.page + 1;
-
-            return lastPage.list.length !== 0 ? nextPage : undefined;
+    const res = useInfiniteQuery(['postsMe', search], ({ pageParam = 0 }) => getPostsMe({ page: pageParam, view: 10, search }), {
+        getNextPageParam: (lastPage, allPosts) => {
+            return lastPage.page !== allPosts[0].totalPage ? lastPage.page + 1 : undefined;
         },
     });
     const { data } = res;
@@ -159,7 +157,7 @@ export const getPostCommentsMe = async ({ page, view, search }: IPageObjReqModel
 };
 
 export const useGetPostCommentsMe = (search: string) => {
-    const res = useInfiniteQuery(['postCommentsMe', search], ({ pageParam = 0 }) => getPostCommentsMe({ page: pageParam, view: 15, search }), {
+    const res = useInfiniteQuery(['postCommentsMe', search], ({ pageParam = 0 }) => getPostCommentsMe({ page: pageParam, view: 10, search }), {
         getNextPageParam: (lastPage) => {
             const nextPage = lastPage.page + 1;
             return lastPage.list.length !== 0 ? nextPage : undefined;
