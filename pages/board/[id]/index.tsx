@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { prevScrollState } from '@/recoil/atom/scroll';
-import FeedItem from '@/components/Home/FeedItem';
+import FeedItems from '@/components/Home/FeedItems';
 import { Header, Input, BottomMenu, HeadMeta } from '@components/Commons';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -94,7 +94,7 @@ const board = ({ id }: IBoardProps) => {
                         <>
                             {data && data.pages.length && data.pages[0].list.length !== 0 ? (
                                 <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                                    <FeedItem data={data} />
+                                    <FeedItems data={data} />
                                 </InfiniteScroll>
                             ) : (
                                 <Empty icon={<EmptyWrite />} title="작성된 글이 없습니다." subTitle={`게시글을 작성해주세요`} />

@@ -16,7 +16,7 @@ interface IFeedItemProps {
     openDrawer?: (id: number, type: EActionEditType) => void;
 }
 
-const FeedItem = ({ data, openDrawer }: IFeedItemProps) => {
+const FeedItems = ({ data, openDrawer }: IFeedItemProps) => {
     const myInfo = useRecoilValue(myPageInfo);
     const setPrevScroll = useSetRecoilState(prevScrollState);
 
@@ -70,4 +70,4 @@ const FeedItem = ({ data, openDrawer }: IFeedItemProps) => {
     );
 };
 
-export default FeedItem;
+export default FeedItems;

@@ -8,7 +8,7 @@ import { postEditState } from '@/recoil/atom/post';
 import { homeListTabState } from '@/recoil/atom/homeListTab';
 import { prevScrollState } from '@/recoil/atom/scroll';
 import { Empty } from '@/components/MyPageCom';
-import FeedItem from '@/components/Home/FeedItem';
+import FeedItems from '@/components/Home/FeedItems';
 import HotKeyword from '@/components/Home/HotKeyword';
 import { BottomMenu, MoreDrawer } from '@components/Commons';
 import ListTab from '@/components/Home/ListTab';
@@ -114,7 +114,7 @@ const home = () => {
                         <>
                             {data && data.pages.length && data.pages[0].list.length !== 0 ? (
                                 <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
-                                    <FeedItem data={data} openDrawer={openDrawer} />
+                                    <FeedItems data={data} openDrawer={openDrawer} />
                                 </InfiniteScroll>
                             ) : (
                                 <Empty icon={<EmptyWrite />} title="작성된 글이 없습니다." subTitle={`게시글을 작성해주세요`} />
