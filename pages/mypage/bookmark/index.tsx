@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header, Input, Loading, BottomMenu } from '@components/Commons';
 import { Empty, ListBox, ListBoardItem } from '@components/MyPageCom';
+import { useObserver } from '@/hooks/useObserver';
 import { Layout } from '@styles/pages/mypageStyled';
 import { useGetBookMarkMe } from '@/apis/post';
 import { getThumbnail } from '@/utils/postItem';
@@ -11,30 +12,12 @@ import SearchIcon from '@assets/icons/common/search_blank.svg';
 const BookMarkList = () => {
     const observerRef = useRef(null);
 
-    const { register, watch, handleSubmit, reset } = useForm<{ search: string }>();
+    const { register, watch, reset } = useForm<{ search: string }>();
     const { search } = watch();
-    const { contents: bookMakrList, hasNextPage, fetchNextPage } = useGetBookMarkMe(search);
 
-    const handleObserver = useCallback(
-        (entries: IntersectionObserverEntry[]) => {
-            const [target] = entries;
-            if (target.isIntersecting) {
-                fetchNextPage();
-            }
-        },
-        [fetchNextPage, hasNextPage],
-    );
+    const { status, contents: bookMakrList, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetBookMarkMe(search);
 
-    useEffect(() => {
-        const element = observerRef.current;
-        const option = { threshold: 0 };
-
-        const observer = new IntersectionObserver(handleObserver, option);
-        if (element) {
-            observer.observe(element);
-            return () => observer.unobserve(element);
-        }
-    }, [fetchNextPage, hasNextPage, handleObserver]);
+    useObserver({ target: observerRef, onIntersect: fetchNextPage, enabled: !!hasNextPage });
 
     return (
         <>
@@ -51,6 +34,17 @@ const BookMarkList = () => {
                     />
                 </form>
                 <ListBox>
+                    {status === 'loading' && <Loading />}
+                    {status === 'error' && (
+                        <Empty
+                            title="저장한 글이 없어요"
+                            subTitle="새로운 게시글을 살펴보러 갈까요?"
+                            buttonTitle="메인화면으로 가기"
+                            href="/home"
+                            icon={<EmptyBookmark />}
+                        />
+                    )}
+
                     {bookMakrList.length ? (
                         bookMakrList.map((item) => {
                             const thumbnail = getThumbnail(item.content);
@@ -78,9 +72,8 @@ const BookMarkList = () => {
                             )}
                         </>
                     )}
-                    <div className="loader" ref={observerRef}>
-                        {hasNextPage ? <Loading /> : null}
-                    </div>
+                    {hasNextPage && <div className="loader" ref={observerRef}></div>}
+                    {isFetchingNextPage ? <Loading /> : null}
                 </ListBox>
             </div>
             <BottomMenu />
